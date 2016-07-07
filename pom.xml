@@ -279,7 +279,7 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
-                            <warName>inbas-reporting-tool</warName>
+                            <warName>reporting-tool</warName>
                             <failOnMissingWebXml>false</failOnMissingWebXml>
                             <webResources>
                                 <resource>
