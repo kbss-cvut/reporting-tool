@@ -84,7 +84,7 @@ module.exports = {
         'main.statistics-nav': 'Statistics',
         'main.logout': 'Logout',
 
-        'dashboard.welcome': 'Hello {name}, Welcome to ' + Constants.APP_NAME + '.',
+        'dashboard.welcome': 'Hello {name}, Welcome to the ' + Constants.APP_NAME + '.',
         'dashboard.create-tile': 'Create Report',
         'dashboard.search-tile': 'Search for Report',
         'dashboard.search-placeholder': 'Report headline',
@@ -94,7 +94,6 @@ module.exports = {
         'dashboard.recent-panel-heading': 'Recently Edited/Added Reports',
         'dashboard.recent-table-last-edited': 'Last modified',
         'dashboard.recent.no-reports': 'There are no reports, yet.',
-        'dashboard.import.import-e5': 'Import E5X/E5F report',
 
         'dashboard.unprocessed': 'You have {count} unprocessed report(s).',
 

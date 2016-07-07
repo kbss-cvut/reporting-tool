@@ -41,3 +41,15 @@ Other than the repository url, the config file also specifies URL of the Liferay
 If the portal is not accessible, the application will use its own user management.
 OntoDriver is also specified here. Don't change it unless necessary. The last property - _eventTypeRepository_ - specifies URL of the 
 repository which is queried for supported event types and other properties.
+
+## Live Version
+
+A demo version of the reporting tool is publicly available at the INBAS project server - [https://www.inbas.cz/reporting-tool-public](https://www.inbas.cz/reporting-tool-public).
+This version allows users to freely explore the possibilities of the application.
+
+It is possible to either register as a new unique user, or use the existing example user with username *example@inbas.cz* and password _Example01_
+
+### Data from the Live Version
+
+To see raw data stored in the example version, send a GET request to [https://www.inbas.cz/reporting-tool-public/rest/data](https://www.inbas.cz/reporting-tool-public/rest/data).
+The URL does not require authentication, so anyone should be able to read the application's data.
