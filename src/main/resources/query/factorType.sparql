@@ -1,0 +1,16 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+?term rdfs:label ?label .
+?term rdfs:comment ?comment .
+} WHERE {
+  SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/inbas-model-2015-10-14:23-10-34> {
+    ?term rdfs:subPropertyOf+ <http://onto.fel.cvut.cz/ontologies/aviation-safety/is_factor_of> ;
+        rdfs:label ?label .
+
+    FILTER (?term != <http://onto.fel.cvut.cz/ontologies/aviation-safety/is_factor_of> )
+    OPTIONAL {
+        ?term rdfs:comment ?comment .
+    }
+  }
+}

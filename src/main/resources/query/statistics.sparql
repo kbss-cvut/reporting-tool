@@ -1,0 +1,21 @@
+PREFIX : <http://krizik.felk.cvut.cz/ontologies/inbas-2015#>
+PREFIX rt: <http://onto.fel.cvut.cz/ontologies/reporting-tool/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX aso: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?event_type ?factor (COUNT(*) AS ?count)
+{
+  ?event_e aso:has_factor ?factor_x .
+  ?factor_x aso:has_factor ?event_f .
+  ?event_e rt:has_event_type ?event_e_t .
+  SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+  	?event_e_t rdfs:label ?event_type .
+  }
+  ?event_f rt:has_event_type ?event_f_t .
+  SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+  	?event_f_t rdfs:label ?factor .
+  }
+}
+GROUP BY ?event_type ?factor
+ORDER BY desc(?count)

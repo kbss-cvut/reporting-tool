@@ -1,0 +1,16 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX openflights-model: <http://onto.fel.cvut.cz/ontologies/openflights/airlines/model/>
+
+SELECT DISTINCT ?type ?term ?label ?openflightsId ?icaoCode ?iataCode ?callSign ?country
+WHERE {
+    SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/openflights> {
+        ?term a ?type ;
+            rdfs:label ?label ;
+            openflights-model:has-openflights-id ?openflightsId ;
+            openflights-model:has-icao-code ?icaoCode ;
+            openflights-model:has-iata-code ?iataCode ;
+            openflights-model:has-callsign ?callSign;
+            openflights-model:has-country ?country .
+        FILTER(?type in (openflights-model:airline))
+    }
+}

@@ -1,0 +1,20 @@
+#
+# Query for getting occurrence classes (~ severity of an occurrence)
+#
+BASE <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/>
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX eccairs-model: <http://onto.fel.cvut.cz/ontologies/eccairs/model/>
+
+CONSTRUCT {
+  ?term rdfs:label ?label ;
+  rdfs:comment ?comment ;
+} WHERE {
+  SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+    <a-431> eccairs-model:has-child+  ?term.
+    ?term rdfs:label ?label.
+    ?term eccairs-model:has-explanation ?comment.
+  }
+}

@@ -1,0 +1,28 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ivao-model: <http://onto.fel.cvut.cz/ontologies/ivao/model/>
+
+SELECT DISTINCT ?term ?label ?type
+WHERE {
+    {
+        SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/ivao-2016-04-24:23-14-57> {
+            ?term a ?type ;
+                ivao-model:has-icao-code ?label .
+            FILTER(?type in (ivao-model:airport))
+        }
+    } UNION {
+        SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/ivao-2016-04-24:23-14-57> {
+            ?term a ?type ;
+                ivao-model:has-heading ?heading .
+            ?aerodrome ivao-model:has-runway-strip [ivao-model:has-runway ?term];
+                ivao-model:has-icao-code ?icaoCode .
+            FILTER(?type in (ivao-model:runway))
+        }
+        BIND ( (concat(?icaoCode,concat(" ",?heading))) AS ?label)
+    } UNION {
+        SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/ivao-2016-04-24:23-14-57> {
+            ?term a ?type ;
+                ivao-model:has-id ?label .
+            FILTER(?type in (ivao-model:fix, ivao-model:ndb, ivao-model:vor))
+        }
+    }
+}
