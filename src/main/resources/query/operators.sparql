@@ -3,7 +3,7 @@ PREFIX openflights-model: <http://onto.fel.cvut.cz/ontologies/openflights/airlin
 
 SELECT DISTINCT ?type ?term ?label ?openflightsId ?icaoCode ?iataCode ?callSign ?country
 WHERE {
-    SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/openflights> {
+    SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/openflights> {
         ?term a ?type ;
             rdfs:label ?label ;
             openflights-model:has-openflights-id ?openflightsId ;

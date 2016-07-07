@@ -17,7 +17,7 @@ CONSTRUCT {
   rdfs:comment ?comment ;
 } WHERE {
     {
-      SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
          # all events
          eccairs-current:a-390 eccairs-model:has-child+  ?term.
          ?term rdfs:label ?label.
@@ -25,7 +25,7 @@ CONSTRUCT {
       }
       BIND(eccairs:event-type as ?type)
     } UNION {
-      SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
          # all descriptive factors
          eccairs-current:a-385 eccairs-model:has-child+  ?term.
          ?term rdfs:label ?label.
@@ -33,7 +33,7 @@ CONSTRUCT {
       }
       BIND(eccairs:descriptive-factor as ?type)
     } UNION {
-      SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
          # all explanatory factors
          eccairs-current:a-392 eccairs-model:has-child+  ?term.
          ?term rdfs:label ?label.
