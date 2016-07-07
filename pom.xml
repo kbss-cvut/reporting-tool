@@ -379,6 +379,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- use mvn license:check to check for missing license headers, mvn license:format to add license headers -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.11</version>
+                <configuration>
+                    <header>header.txt</header>
+                    <excludes>
+                        <exclude>**/bootstrap.min.css</exclude>
+                        <exclude>**/bootstrap-datetimepicker.min.css</exclude>
+                        <exclude>**/dhtmlxgantt.css</exclude>
+                        <exclude>**/dhtmlxgantt.js</exclude>
+                        <exclude>**/dhtmlxgantt_tooltip.js</exclude>
+                        <exclude>**/node_modules/**</exclude>
+                        <exclude>**/bundle.js</exclude>
+                        <exclude>**/bundle.min.js</exclude>
+                        <exclude>**/fonts/**</exclude>
+                        <exclude>src/test/resources/**</exclude>
+                        <exclude>src/main/resources/**</exclude>
+                        <exclude>pom.xml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
