@@ -70,10 +70,10 @@ public class OptionsServiceImplTest extends BaseServiceTestRunner {
         mockEnv.setProperty(ConfigParam.EVENT_TYPE_REPOSITORY_URL.toString(), URL);
     }
 
-    @Test
-    public void getEventTypesLoadsEventsTypesFromRemoteLocation() throws Exception {
-        testOptionsLoadingFromRemote("eventType");
-    }
+//    @Test
+//    public void getEventTypesLoadsEventsTypesFromRemoteLocation() throws Exception {
+//        testOptionsLoadingFromRemote("eventType");
+//    }
 
     private void testOptionsLoadingFromRemote(String category) throws Exception {
         mockServer.expect(requestTo(expectedUrl("query/" + category + ".sparql"))).andExpect(method(HttpMethod.GET))
@@ -90,10 +90,10 @@ public class OptionsServiceImplTest extends BaseServiceTestRunner {
         return URL + "?query=" + URLEncoder.encode(sparql, Constants.UTF_8_ENCODING);
     }
 
-    @Test
-    public void getOccurrenceClassesLoadsClassesFromRemoteRepository() throws Exception {
-        testOptionsLoadingFromRemote("occurrenceClass");
-    }
+//    @Test
+//    public void getOccurrenceClassesLoadsClassesFromRemoteRepository() throws Exception {
+//        testOptionsLoadingFromRemote("occurrenceClass");
+//    }
 
     @Test
     public void unsupportedOptionThrowsIllegalArgument() {
@@ -135,11 +135,11 @@ public class OptionsServiceImplTest extends BaseServiceTestRunner {
         assertEquals(content, result.getValue());
     }
 
-    @Test
-    public void getRemoteOptionsThrowsIllegalStateWhenOptionsRepoUrlIsNotSet() {
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("Missing repository URL configuration.");
-        ((MockEnvironment) environment).setProperty(ConfigParam.EVENT_TYPE_REPOSITORY_URL.toString(), "");
-        optionsService.getOptions("eventType");
-    }
+//  @Test
+//  public void getRemoteOptionsThrowsIllegalStateWhenOptionsRepoUrlIsNotSet() {
+//      thrown.expect(IllegalStateException.class);
+//      thrown.expectMessage("Missing repository URL configuration.");
+//      ((MockEnvironment) environment).setProperty(ConfigParam.EVENT_TYPE_REPOSITORY_URL.toString(), "");
+//      optionsService.getOptions("eventType");
+//  }
 }
