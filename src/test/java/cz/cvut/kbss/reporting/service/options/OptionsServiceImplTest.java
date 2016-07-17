@@ -106,9 +106,6 @@ public class OptionsServiceImplTest extends BaseServiceTestRunner {
     @Test
     public void optionsServiceDiscoversQueryFilesOnStartup() throws Exception {
         final Set<String> expected = new HashSet<>();
-        expected.add("eventType");
-        expected.add("occurrenceClass");
-        expected.add("occurrenceCategory");
         final Field optionCategoriesField = OptionsServiceImpl.class.getDeclaredField("remoteOptions");
         optionCategoriesField.setAccessible(true);
         final Map<String, String> optionCategories = (Map<String, String>) optionCategoriesField.get(optionsService);
@@ -118,6 +115,9 @@ public class OptionsServiceImplTest extends BaseServiceTestRunner {
     @Test
     public void optionsServiceDiscoversLocalOptionsFilesOnStartup() throws Exception {
         final Set<String> expected = new HashSet<>();
+        expected.add("eventType");
+        expected.add("occurrenceClass");
+        expected.add("occurrenceCategory");
         expected.add("reportingPhase");
         final Field optionCategoriesField = OptionsServiceImpl.class.getDeclaredField("localOptions");
         optionCategoriesField.setAccessible(true);
