@@ -1,0 +1,41 @@
+[ {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation/accident",
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : ""
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Accident"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation/serious_incident",
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : ""
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Serious incident"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation/incident",
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : ""
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Incident"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation/occurrence",
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : ""
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Occurrence"
+  } ]
+} ]
