@@ -1,0 +1,442 @@
+[ {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Accident",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Accident"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Airborne_collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Airborne collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Aircraft collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_confusion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Aircraft confusion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_ground_collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Aircraft ground collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Airprox",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Airprox"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Apron-ramp_congestion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Apron/ramp congestion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Apron_incursion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Apron incursion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Bird_strike",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Bird strike"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Bomb_threat",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Bomb threat"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Clearance_not_maintained",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Clearance not maintained"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Conflict",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Conflict"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Damage_manifestation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Damage manifestation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Danger_detection",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Danger detection"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Danger_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Danger encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Data_mismatch_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Data mismatch encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Data_problem_manifestation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Data problem manifestation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Emergency",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Emergency"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/FOD_Presence_on_aerodrome_surface_area",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "FOD Presence on aerodrome surface area"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Fire_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Fire encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Ground_collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Ground collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Hearback_error_detection",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Hearback error detection"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Horizontal_conflict",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Horizontal conflict"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Inadequate_separation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Inadequate separation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Incident",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Incident"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Incorrect_presence",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "An event during which an object is located somewhere it should not be."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Incorrect presence"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Information_problem_manifestation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Information problem manifestation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Information_reception_problem",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Information reception problem"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Loss_of_Separation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Loss of separation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Mid-air_collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Mid-air collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Near_Collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Near Collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Near_mid-air_collision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Near mid-air collision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Occurence",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Occurence"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Out-of-date_data_provision",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Out-of-date data provision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Readback_error_detection",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Readback error detection"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Runway_excursion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Runway excursion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Runway_incursion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Runway incursion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Sabotage",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Sabotage"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Security_event",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Security event"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Serious_incident",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Serious incident"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Smoke_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Smoke encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Taxiway_incursion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Taxiway incursion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Turbulence_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Turbulence encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Unauthorized_operation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Unauthorized operation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Unlawful_radio_communication_transmission",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Unlawful radio communication transmission"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Vertical_conflict",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Vertical conflict"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Weather_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Weather encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Wildlife_strike",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Wildlife strike"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/Wind_shear",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Wind shear"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/aerodrome_surface_area_excursion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Aerodrome surface area excursion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/aerodrome_surface_area_incursion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Aerodrome surface area incursion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/call-sign_confusion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Call-sign confusion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/confusion",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Confusion"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/errorneous_data_encounter",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Errorneous data encounter"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/foreign-object-detection",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Foreign object detection"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/interuption_of_winch_launch",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Winch launch interruption"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/jamming",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "cs",
+    "@value" : "Rušení signálu GNSS."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Jamming"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/readback-hearback_error_detection",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Readback. A procedure whereby the receiving station repeats a received message or an appropriate part thereof back to the transmitting station so as to obtain confirmation of correct reception. ICAO Annex 10."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Readback-hearback error detection"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/regulation_violation",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Regulation violation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety_event",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Safety event"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/spoofing",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "cs",
+    "@value" : "Cílené podvržení signálu"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Spoofing"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/aviation-safety/unlawful_action",
+  "@type" : [ "http://onto.fel.cvut.cz/ontologies/aviation-safety/safety-event" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Unlawful action"
+  } ]
+} ]
