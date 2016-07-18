@@ -131,7 +131,7 @@ class StatisticsSimple extends React.Component {
                 sortDir='desc'/>
             <div className='row' style={{margin: '1em 0 0 0'}}>
                 <div className='col-xs-3' style={{padding: '0 0 0 0'}}>
-                    abcd
+                    
                     <Input type='select' title='Chart type' label='Chart type' value={this.state.chartType}
                            onChange={this._onChartTypeSelect}>
                         <option value='pie'>Pie chart</option>

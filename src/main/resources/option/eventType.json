@@ -439,4 +439,922 @@
     "@language" : "en",
     "@value" : "Unlawful action"
   } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-1000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "1000000 - Equipment "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2010400",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2010400 - Flight Crew Operation/ Interpretation of Equipment"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2011000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2011000 - Unstabilised Approach"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2020000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2020000 - Flight Crew Communications Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2020500",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2020500 - Flight Crew ATC Clearance Deviation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2020800",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2020800 - Flight Crew ATM Procedure Deviation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2120000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2120000 - Flight Planning and Preparation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2170000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2170000 - Aircraft Navigation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2220000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2220000 - Weather and Environmental Encounters"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-2260100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "2260100 - ACAS/TCAS TA"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-4010600",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "4010600 - ATM Handing Over Procedure"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-4050500",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "4050500 - ATM HMI and Support Systems"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5020100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5020100 - Aerodrome Lighting"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5020300",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5020300 - Aerodrome Signs"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5020400",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5020400 - Aerodrome Marking "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5030100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5030100 - Aerodrome Services Management"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5030600",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5030600 - Wildlife control"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5040000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5040000 - Aerodrome Design and Operation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-5070000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5070000 - Aerodrome Security "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-7010100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "7010100 - Duty Time Exceeded"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-7020100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "7020100 - Rest Time Less than Required"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-7030000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "7030000 - Personnel Regulatory Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-7030100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "7030100 - Crew or Staff Below Regulatory Requirement"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-7030200",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "7030200 - Crew or Staff not Licensed for Activity"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010048",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010048 - ATM Coordination"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010049",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010049 - Vehicle Traffic Violation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010158",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010158 - Operational"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010162",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010162 - Situational Awareness and Sensory Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010163",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010163 - Personnel Task Performance Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010195",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010195 - ATM Personnel Hearback "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010196",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010196 - ATM Personnel Readback"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010211",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010211 - Complex Traffic Mix"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010348",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010348 - Readback by Incorrect Aircraft"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010384",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010384 - Interference by Military Aircraft/ Systems"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010391",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010391 - ACAS/ TCAS RA"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010460",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010460 - Organisational Management "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010466",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010466 - Duty Time Extension "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010468",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010468 - Aerodrome Operational Management "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010471",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010471 - ATM Leadership and Supervision"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010474",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010474 - ATM Safety Policy and Objectives"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010476",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010476 - ATM Roles and Responsibilities "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010520",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010520 - Company SOPs"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010537",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010537 - Training of Personnel Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010538",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010538 - Qualifications and Experience Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010547",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010547 - Recent Proficiency/ Experience"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010549",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010549 - Initial Instruction or Training"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010550",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010550 - Mentoring "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010551",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010551 - Recent Instruction or Training"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010552",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010552 - Recurrent/ OJT Instruction or Training"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010553",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010553 - Total Instruction or Training"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010554",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010554 - Training on Equipment or Aircraft"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010555",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010555 - Type of Instruction or Training"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010559",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010559 - Fatigue "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010571",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010571 - Personnel Attention and Vigilance Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010581",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010581 - Task Monitoring"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010586",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010586 - Lack of/ Over-Confidence"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010588",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010588 - Personnel Perception Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010589",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010589 - Expectation/ Assumption"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010591",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010591 - Identification/ Recognition"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010592",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010592 - Lack of Individual Risk Perception"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010593",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010593 - Misjudge"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010594",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010594 - Perception of Auditory Information "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010595",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010595 - Perception of Visual Information - Illusion/Disorientation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010596",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010596 - Spatial Disorientation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010597",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010597 - Understanding/ Comprehension"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010598",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010598 - Personnel Actions "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010599",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010599 - Personnel Communication Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010600",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010600 - Personnel Decision Making"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010601",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010601 - Personnel Use of Equipment Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010605",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010605 - Task Management Events"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010606",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010606 - Action Performed Incorrectly"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010607",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010607 - Delayed Action"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010608",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010608 - Incomplete Action"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010609",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010609 - Incorrect Action Selection"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010610",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010610 - Incorrect Action Sequence"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010611",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010611 - Lack of Action"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010612",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010612 - Unnecessary Action"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010613",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010613 - Unintended Action"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010614",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010614 - Accuracy of Communication"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010615",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010615 - Complexity of Communication"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010616",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010616 - Crew/ Duty Changeover"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010617",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010617 - Interpretation/ Understanding"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010618",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010618 - Lack of Communication"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010619",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010619 - Language/ Accent"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010620",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010620 - Non Standard Phraseology"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010621",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010621 - Speech Rate/ Tone"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010622",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010622 - Incorrect Decision/ Plan"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010623",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010623 - Insufficient Decision/ Plan"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010624",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010624 - Late Decision/ Plan"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010625",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010625 - No Decision/ Plan"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010626",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010626 - Use of Automation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010627",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010627 - Use of Available Resources"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010628",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010628 - Use of Charts"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010629",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010629 - Use of Checklists"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010630",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010630 - Use of Manuals"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010631",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010631 - Use of Policy/ Procedures"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010638",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010638 - Forgot to Monitor/ Check"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010642",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010642 - Routine Individual Non-Conformance"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010647",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010647 - Time Pressure"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010648",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010648 - Fluctuating Workload"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010649",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010649 - Post-Peak Workload"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010650",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010650 - Expectation of Skill Level"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010651",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010651 - Task Allocation "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010652",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010652 - Underload"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010653",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010653 - Unfamiliar or Unusual Task"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99010654",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99010654 - Aerodrome Surfaces"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-390/v-99011910",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "99011910 - Air/ Ground Radio Transmission Blocked/ Garbled"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-100000045",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "100000045 - Low visibility procedure"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-11344500",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "11344500 - 3445 TCAS/ACAS"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-12111300",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "12111300 - Radar assisted approach"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-12120100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "12120100 - Aircraft performance"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-12220000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "12220000 - Flight crew decisions"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-12230000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "12230000 - Flight crew operation of equipment"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-12240000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "12240000 - Flight crew aircraft handling"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-12410000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "12410000 - Behaviour of passengers"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-16000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "16000000 - Aircraft servicing and handling"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-21000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "21000000 - ATM components and systems"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-23020400",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "23020400 - Use of clearance procedure"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-25010000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "25010000 - Airspace structure"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-25010400",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "25010400 - Aerodrome layout"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-41200000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "41200000 - Runway surface condition"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52010000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52010000 - General weather"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52010100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52010100 - VMC"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52010200",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52010200 - IMC"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52080000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52080000 - Light conditions"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52080100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52080100 - Dawn light"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52080200",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52080200 - Daylight "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52080300",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52080300 - Dusk light "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52080400",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52080400 - Night/dark "
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-descriptive-factors/v-52080500",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "52080500 - Night/moonlit"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-104000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "104000000 - Personal work management"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-104010000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "104010000 - Task scheduling"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-104020000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "104020000 - Personal timing of actions"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-104020100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "104020100 - Unforeseen task additions"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-104040000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "104040000 - Task allocation"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-105000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "105000000 - Experience & knowledge"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-105010204",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "105010204 - Experience of aerodrome"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-200000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "200000000 - Liveware-environment"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-201040000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "201040000 - Weather/visibility"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-201050000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "201050000 - Workspace environment"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-203010200",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "203010200 - Specific company problems"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-402000000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "402000000 - Human v training"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-explanatory-factors/v-502010100",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "502010100 - Human v coordination"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-3000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "3000 - Ice/ice on"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-35",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "35 - Dry"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-5360",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5360 - Not done"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-5560",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "5560 - Not favourable"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-6280",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "6280 - Not suitable/inappropriate/unsuitable"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-8000",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "8000 - Slush on"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-8120",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "8120 - Snow on"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-8920",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "8920 - Unacceptable"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-9520",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "9520 - Water covered"
+  } ]
+}, {
+  "@id" : "http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-v4-cd-modifiers-groupings/v-9580",
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "9580 - Wet"
+  } ]
 } ]
