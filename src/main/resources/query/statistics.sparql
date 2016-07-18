@@ -1,4 +1,3 @@
-PREFIX : <http://krizik.felk.cvut.cz/ontologies/inbas-2015#>
 PREFIX rt: <http://onto.fel.cvut.cz/ontologies/reporting-tool/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX aso: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
@@ -9,13 +8,26 @@ SELECT ?event_type ?factor (COUNT(*) AS ?count)
   ?event_e aso:has_factor ?factor_x .
   ?factor_x aso:has_factor ?event_f .
   ?event_e rt:has_event_type ?event_e_t .
-  SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/uniset-factors> {
-           # all events
-           ?event_e_t rdfs:label ?event_type.
+  OPTIONAL {
+    SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation> {
+      ?event_e_t rdfs:label ?event_type.
+    }
+  }
+  OPTIONAL {
+    SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/inbas-model-2016-01-21:22-46-17> {
+      ?event_e_t rdfs:label ?event_type.
+    }
   }
   ?event_f rt:has_event_type ?event_f_t .
-  SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation> {
-              ?event_f_t rdfs:label ?factor.
+  OPTIONAL {
+  	SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation> {
+  		?event_f_t rdfs:label ?factor.
+  	}
+  }
+  OPTIONAL {
+  	SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/inbas-model-2016-01-21:22-46-17> {
+  		?event_f_t rdfs:label ?factor.
+  	}
   }
 }
 GROUP BY ?event_type ?factor
