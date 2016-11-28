@@ -1,11 +1,11 @@
 package cz.cvut.kbss.reporting.service.repository;
 
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
-import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.OccurrenceDao;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.OccurrenceReportDao;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.OwlKeySupportingDao;
-import cz.cvut.kbss.inbas.reporting.service.OccurrenceService;
+import cz.cvut.kbss.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.reporting.persistence.dao.OccurrenceDao;
+import cz.cvut.kbss.reporting.persistence.dao.OccurrenceReportDao;
+import cz.cvut.kbss.reporting.persistence.dao.OwlKeySupportingDao;
+import cz.cvut.kbss.reporting.service.OccurrenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

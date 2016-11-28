@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service;
 
-import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
-import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.model.LogicalDocument;
 
 /**
  * Base interface which every report-specific service has to implement.

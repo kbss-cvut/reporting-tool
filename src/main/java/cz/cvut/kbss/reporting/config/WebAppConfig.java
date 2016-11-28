@@ -3,7 +3,7 @@ package cz.cvut.kbss.reporting.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

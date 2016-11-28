@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.rest.handler;
 
-import cz.cvut.kbss.inbas.reporting.exception.*;
-import cz.cvut.kbss.inbas.reporting.persistence.PersistenceException;
+import cz.cvut.kbss.reporting.exception.*;
+import cz.cvut.kbss.reporting.persistence.PersistenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

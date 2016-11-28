@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service.security;
 
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.PersonDao;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.persistence.dao.PersonDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +19,6 @@ public class UserDetailsService implements org.springframework.security.core.use
         if (person == null) {
             throw new UsernameNotFoundException("User with username " + username + " not found.");
         }
-        return new cz.cvut.kbss.inbas.reporting.security.model.UserDetails(person);
+        return new cz.cvut.kbss.reporting.security.model.UserDetails(person);
     }
 }

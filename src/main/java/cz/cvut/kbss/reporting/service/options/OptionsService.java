@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.service.options;
 
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
 
 public interface OptionsService {
 

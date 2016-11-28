@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.service;
 
-import cz.cvut.kbss.inbas.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.Person;
 
 public interface PersonService extends BaseService<Person> {
 

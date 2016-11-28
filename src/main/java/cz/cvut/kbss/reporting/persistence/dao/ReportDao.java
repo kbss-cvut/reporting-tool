@@ -1,8 +1,8 @@
 package cz.cvut.kbss.reporting.persistence.dao;
 
-import cz.cvut.kbss.inbas.reporting.dto.ReportRevisionInfo;
-import cz.cvut.kbss.inbas.reporting.model.Vocabulary;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
+import cz.cvut.kbss.reporting.model.Vocabulary;
+import cz.cvut.kbss.reporting.util.Constants;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

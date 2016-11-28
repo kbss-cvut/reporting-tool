@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.util;
 
-import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.model.LogicalDocument;
 
 import java.util.Objects;
 import java.util.Random;

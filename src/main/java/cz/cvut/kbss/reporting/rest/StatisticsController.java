@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
-import cz.cvut.kbss.inbas.reporting.service.StatisticsService;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.dto;
 
-import cz.cvut.kbss.inbas.reporting.dto.agent.AgentDto;
-import cz.cvut.kbss.inbas.reporting.dto.event.EventDto;
+import cz.cvut.kbss.reporting.dto.agent.AgentDto;
+import cz.cvut.kbss.reporting.dto.event.EventDto;
 
 import java.net.URI;
 import java.util.Set;

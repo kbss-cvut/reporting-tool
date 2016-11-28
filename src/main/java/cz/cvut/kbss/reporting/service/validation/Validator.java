@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service.validation;
 
 
-import cz.cvut.kbss.inbas.reporting.exception.ValidationException;
+import cz.cvut.kbss.reporting.exception.ValidationException;
 
 /**
  * Validator classes are designed as Chain of Responsibility.

@@ -1,9 +1,9 @@
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.rest.util.RestUtils;
-import cz.cvut.kbss.inbas.reporting.service.PersonService;
+import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.rest.util.RestUtils;
+import cz.cvut.kbss.reporting.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,9 +1,9 @@
 package cz.cvut.kbss.reporting.rest.dto.mapper;
 
-import cz.cvut.kbss.inbas.reporting.dto.event.EventDto;
-import cz.cvut.kbss.inbas.reporting.model.Event;
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
-import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphNodeVisitor;
+import cz.cvut.kbss.reporting.dto.event.EventDto;
+import cz.cvut.kbss.reporting.model.Event;
+import cz.cvut.kbss.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphNodeVisitor;
 
 import java.net.URI;
 import java.util.Map;

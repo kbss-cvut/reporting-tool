@@ -1,13 +1,13 @@
 package cz.cvut.kbss.reporting.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.PortalUser;
-import cz.cvut.kbss.inbas.reporting.rest.util.RestUtils;
-import cz.cvut.kbss.inbas.reporting.security.model.LoginStatus;
-import cz.cvut.kbss.inbas.reporting.security.model.UserDetails;
-import cz.cvut.kbss.inbas.reporting.service.ConfigReader;
-import cz.cvut.kbss.inbas.reporting.util.ConfigParam;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.rest.dto.model.PortalUser;
+import cz.cvut.kbss.reporting.rest.util.RestUtils;
+import cz.cvut.kbss.reporting.security.model.LoginStatus;
+import cz.cvut.kbss.reporting.security.model.UserDetails;
+import cz.cvut.kbss.reporting.service.ConfigReader;
+import cz.cvut.kbss.reporting.util.ConfigParam;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

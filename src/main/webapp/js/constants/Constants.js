@@ -65,9 +65,9 @@ module.exports = {
     // Maximum input value length, for which input of type text should be displayed
     INPUT_LENGTH_THRESHOLD: 70,
 
-    OCCURRENCE_JAVA_CLASS: 'cz.cvut.kbss.inbas.reporting.dto.event.OccurrenceDto',
-    EVENT_JAVA_CLASS: 'cz.cvut.kbss.inbas.reporting.dto.event.EventDto',
-    OCCURRENCE_REPORT_JAVA_CLASS: 'cz.cvut.kbss.inbas.reporting.dto.OccurrenceReportDto',
+    OCCURRENCE_JAVA_CLASS: 'cz.cvut.kbss.reporting.dto.event.OccurrenceDto',
+    EVENT_JAVA_CLASS: 'cz.cvut.kbss.reporting.dto.event.EventDto',
+    OCCURRENCE_REPORT_JAVA_CLASS: 'cz.cvut.kbss.reporting.dto.OccurrenceReportDto',
 
     FULL_TEXT_SEARCH_OPTION: {
         id: 'full-text-search',

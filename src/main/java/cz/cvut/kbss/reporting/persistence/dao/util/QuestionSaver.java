@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.persistence.dao.util;
 
-import cz.cvut.kbss.inbas.reporting.model.qam.Question;
+import cz.cvut.kbss.reporting.model.qam.Question;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.jopa.model.descriptors.Descriptor;
 

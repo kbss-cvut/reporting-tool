@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service;
 
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
-import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.model.OccurrenceReport;
 
 public interface OccurrenceService extends BaseService<Occurrence> {
 

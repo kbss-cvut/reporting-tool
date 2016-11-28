@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.model.util.factorgraph;
 
-import cz.cvut.kbss.inbas.reporting.model.Event;
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.model.Event;
+import cz.cvut.kbss.reporting.model.Occurrence;
 
 /**
  * Visits nodes during factor graph traversal.

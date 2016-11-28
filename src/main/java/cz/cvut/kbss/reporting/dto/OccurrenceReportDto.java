@@ -1,14 +1,14 @@
 package cz.cvut.kbss.reporting.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import cz.cvut.kbss.inbas.reporting.dto.event.FactorGraph;
-import cz.cvut.kbss.inbas.reporting.dto.event.OccurrenceDto;
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.model.Resource;
-import cz.cvut.kbss.inbas.reporting.model.Vocabulary;
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.FormGenData;
+import cz.cvut.kbss.reporting.dto.event.FactorGraph;
+import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.Resource;
+import cz.cvut.kbss.reporting.model.Vocabulary;
+import cz.cvut.kbss.reporting.rest.dto.model.FormGenData;
 
 import java.net.URI;
 import java.util.Date;
@@ -190,7 +190,7 @@ public class OccurrenceReportDto implements LogicalDocument, FormGenData {
 
     @Override
     public ReportDto toReportDto() {
-        final cz.cvut.kbss.inbas.reporting.dto.reportlist.OccurrenceReportDto res = new cz.cvut.kbss.inbas.reporting.dto.reportlist.OccurrenceReportDto();
+        final cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto res = new cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto();
         res.setUri(uri);
         res.setKey(key);
         res.setFileNumber(fileNumber);

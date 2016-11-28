@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.rest.dto.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import cz.cvut.kbss.inbas.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.Person;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PortalUser {

@@ -1,19 +1,19 @@
 package cz.cvut.kbss.reporting.service.repository;
 
-import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
-import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
-import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.OccurrenceReportDao;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.OwlKeySupportingDao;
-import cz.cvut.kbss.inbas.reporting.service.OccurrenceReportService;
-import cz.cvut.kbss.inbas.reporting.service.options.ReportingPhaseService;
-import cz.cvut.kbss.inbas.reporting.service.security.SecurityUtils;
-import cz.cvut.kbss.inbas.reporting.service.validation.OccurrenceReportValidator;
-import cz.cvut.kbss.inbas.reporting.service.visitor.EventTypeSynchronizer;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
-import cz.cvut.kbss.inbas.reporting.util.IdentificationUtils;
+import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
+import cz.cvut.kbss.reporting.persistence.dao.OccurrenceReportDao;
+import cz.cvut.kbss.reporting.persistence.dao.OwlKeySupportingDao;
+import cz.cvut.kbss.reporting.service.OccurrenceReportService;
+import cz.cvut.kbss.reporting.service.options.ReportingPhaseService;
+import cz.cvut.kbss.reporting.service.security.SecurityUtils;
+import cz.cvut.kbss.reporting.service.validation.OccurrenceReportValidator;
+import cz.cvut.kbss.reporting.service.visitor.EventTypeSynchronizer;
+import cz.cvut.kbss.reporting.util.Constants;
+import cz.cvut.kbss.reporting.util.IdentificationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

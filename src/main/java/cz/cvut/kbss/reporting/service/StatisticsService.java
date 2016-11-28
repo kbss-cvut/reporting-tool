@@ -1,9 +1,9 @@
 package cz.cvut.kbss.reporting.service;
 
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
-import cz.cvut.kbss.inbas.reporting.service.data.DataLoader;
-import cz.cvut.kbss.inbas.reporting.util.ConfigParam;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.service.data.DataLoader;
+import cz.cvut.kbss.reporting.util.ConfigParam;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;

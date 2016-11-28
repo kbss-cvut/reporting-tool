@@ -1,8 +1,8 @@
 package cz.cvut.kbss.reporting.service.cache;
 
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.inbas.reporting.model.util.DocumentDateAndRevisionComparator;
-import cz.cvut.kbss.inbas.reporting.service.event.InvalidateCacheEvent;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.model.util.DocumentDateAndRevisionComparator;
+import cz.cvut.kbss.reporting.service.event.InvalidateCacheEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;

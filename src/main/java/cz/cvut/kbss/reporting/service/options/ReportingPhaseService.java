@@ -1,8 +1,8 @@
 package cz.cvut.kbss.reporting.service.options;
 
-import cz.cvut.kbss.inbas.reporting.model.Vocabulary;
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
-import cz.cvut.kbss.inbas.reporting.util.JsonLdProcessing;
+import cz.cvut.kbss.reporting.model.Vocabulary;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.util.JsonLdProcessing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

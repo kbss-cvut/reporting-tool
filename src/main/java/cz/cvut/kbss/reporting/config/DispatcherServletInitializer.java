@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.config;
 
-import cz.cvut.kbss.inbas.reporting.security.SecurityConstants;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.security.SecurityConstants;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

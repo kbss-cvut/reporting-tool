@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service.repository;
 
-import cz.cvut.kbss.inbas.reporting.persistence.dao.GenericDao;
-import cz.cvut.kbss.inbas.reporting.service.BaseService;
+import cz.cvut.kbss.reporting.persistence.dao.GenericDao;
+import cz.cvut.kbss.reporting.service.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

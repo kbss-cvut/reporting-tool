@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service.validation;
 
-import cz.cvut.kbss.inbas.reporting.exception.ValidationException;
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.exception.ValidationException;
+import cz.cvut.kbss.reporting.model.Occurrence;
 
 import java.util.Date;
 

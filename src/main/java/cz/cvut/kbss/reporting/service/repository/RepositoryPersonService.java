@@ -1,11 +1,11 @@
 package cz.cvut.kbss.reporting.service.repository;
 
-import cz.cvut.kbss.inbas.reporting.exception.UsernameExistsException;
-import cz.cvut.kbss.inbas.reporting.exception.ValidationException;
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.GenericDao;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.PersonDao;
-import cz.cvut.kbss.inbas.reporting.service.PersonService;
+import cz.cvut.kbss.reporting.exception.UsernameExistsException;
+import cz.cvut.kbss.reporting.exception.ValidationException;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.persistence.dao.GenericDao;
+import cz.cvut.kbss.reporting.persistence.dao.PersonDao;
+import cz.cvut.kbss.reporting.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
-import cz.cvut.kbss.inbas.reporting.rest.exception.BadRequestException;
-import cz.cvut.kbss.inbas.reporting.service.search.SearchService;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.rest.exception.BadRequestException;
+import cz.cvut.kbss.reporting.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;

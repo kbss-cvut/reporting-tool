@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.persistence.dao;
 
-import cz.cvut.kbss.inbas.reporting.model.util.EntityToOwlClassMapper;
-import cz.cvut.kbss.inbas.reporting.persistence.PersistenceException;
+import cz.cvut.kbss.reporting.model.util.EntityToOwlClassMapper;
+import cz.cvut.kbss.reporting.persistence.PersistenceException;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import cz.cvut.kbss.jopa.model.annotations.OWLClass;

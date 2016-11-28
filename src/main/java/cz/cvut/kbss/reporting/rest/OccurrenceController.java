@@ -1,11 +1,11 @@
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.inbas.reporting.dto.OccurrenceReportDto;
-import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
-import cz.cvut.kbss.inbas.reporting.model.Occurrence;
-import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.inbas.reporting.rest.dto.mapper.DtoMapper;
-import cz.cvut.kbss.inbas.reporting.service.OccurrenceService;
+import cz.cvut.kbss.reporting.dto.OccurrenceReportDto;
+import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.model.Occurrence;
+import cz.cvut.kbss.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
+import cz.cvut.kbss.reporting.service.OccurrenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;

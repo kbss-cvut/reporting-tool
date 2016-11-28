@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.OccurrenceReportDto;
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
 import cz.cvut.kbss.jopa.model.annotations.*;
 
 import java.io.Serializable;

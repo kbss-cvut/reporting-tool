@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.security;
 
-import cz.cvut.kbss.inbas.reporting.security.model.AuthenticationToken;
-import cz.cvut.kbss.inbas.reporting.security.model.UserDetails;
+import cz.cvut.kbss.reporting.security.model.AuthenticationToken;
+import cz.cvut.kbss.reporting.security.model.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

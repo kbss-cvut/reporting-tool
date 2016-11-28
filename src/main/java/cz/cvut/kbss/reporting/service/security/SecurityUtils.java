@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service.security;
 
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.security.model.UserDetails;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.security.model.UserDetails;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

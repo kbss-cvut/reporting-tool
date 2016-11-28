@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.inbas.reporting.service.options.OptionsService;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.service.options.OptionsService;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

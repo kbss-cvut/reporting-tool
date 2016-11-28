@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.dto.reportlist;
 
-import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
-import cz.cvut.kbss.inbas.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.model.Person;
 
 import java.net.URI;
 import java.util.Date;

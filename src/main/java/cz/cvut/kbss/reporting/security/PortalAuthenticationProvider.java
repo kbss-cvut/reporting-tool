@@ -1,16 +1,16 @@
 package cz.cvut.kbss.reporting.security;
 
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.PortalUser;
-import cz.cvut.kbss.inbas.reporting.rest.util.RestUtils;
-import cz.cvut.kbss.inbas.reporting.security.model.AuthenticationToken;
-import cz.cvut.kbss.inbas.reporting.security.model.UserDetails;
-import cz.cvut.kbss.inbas.reporting.security.portal.PortalEndpoint;
-import cz.cvut.kbss.inbas.reporting.security.portal.PortalEndpointType;
-import cz.cvut.kbss.inbas.reporting.security.portal.PortalUserDetails;
-import cz.cvut.kbss.inbas.reporting.service.PersonService;
-import cz.cvut.kbss.inbas.reporting.util.ConfigParam;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.rest.dto.model.PortalUser;
+import cz.cvut.kbss.reporting.rest.util.RestUtils;
+import cz.cvut.kbss.reporting.security.model.AuthenticationToken;
+import cz.cvut.kbss.reporting.security.model.UserDetails;
+import cz.cvut.kbss.reporting.security.portal.PortalEndpoint;
+import cz.cvut.kbss.reporting.security.portal.PortalEndpointType;
+import cz.cvut.kbss.reporting.security.portal.PortalUserDetails;
+import cz.cvut.kbss.reporting.service.PersonService;
+import cz.cvut.kbss.reporting.util.ConfigParam;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

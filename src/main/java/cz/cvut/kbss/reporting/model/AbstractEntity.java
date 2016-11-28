@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.inbas.reporting.model.util.HasUri;
+import cz.cvut.kbss.reporting.model.util.HasUri;
 import cz.cvut.kbss.jopa.model.annotations.Id;
 import cz.cvut.kbss.jopa.model.annotations.MappedSuperclass;
 

@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.rest.dto.model;
 
-import cz.cvut.kbss.inbas.reporting.dto.OccurrenceReportDto;
+import cz.cvut.kbss.reporting.dto.OccurrenceReportDto;
 
 import java.util.ArrayList;
 

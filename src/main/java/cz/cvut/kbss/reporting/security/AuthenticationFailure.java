@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.cvut.kbss.inbas.reporting.security.model.LoginStatus;
+import cz.cvut.kbss.reporting.security.model.LoginStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

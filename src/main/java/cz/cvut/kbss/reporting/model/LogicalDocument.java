@@ -1,9 +1,9 @@
 package cz.cvut.kbss.reporting.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.inbas.reporting.model.util.HasOwlKey;
-import cz.cvut.kbss.inbas.reporting.model.util.HasUri;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.model.util.HasOwlKey;
+import cz.cvut.kbss.reporting.model.util.HasUri;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.rest.dto.mapper;
 
-import cz.cvut.kbss.inbas.reporting.exception.DtoMapperException;
+import cz.cvut.kbss.reporting.exception.DtoMapperException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

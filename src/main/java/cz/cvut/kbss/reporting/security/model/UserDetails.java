@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.security.model;
 
-import cz.cvut.kbss.inbas.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.Person;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

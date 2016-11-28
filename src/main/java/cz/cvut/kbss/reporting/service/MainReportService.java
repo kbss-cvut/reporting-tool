@@ -1,14 +1,14 @@
 package cz.cvut.kbss.reporting.service;
 
-import cz.cvut.kbss.inbas.reporting.dto.ReportRevisionInfo;
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
-import cz.cvut.kbss.inbas.reporting.exception.UnsupportedReportTypeException;
-import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
-import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.inbas.reporting.model.util.DocumentDateAndRevisionComparator;
-import cz.cvut.kbss.inbas.reporting.model.util.EntityToOwlClassMapper;
-import cz.cvut.kbss.inbas.reporting.persistence.dao.ReportDao;
+import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.exception.UnsupportedReportTypeException;
+import cz.cvut.kbss.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.reporting.model.util.DocumentDateAndRevisionComparator;
+import cz.cvut.kbss.reporting.model.util.EntityToOwlClassMapper;
+import cz.cvut.kbss.reporting.persistence.dao.ReportDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

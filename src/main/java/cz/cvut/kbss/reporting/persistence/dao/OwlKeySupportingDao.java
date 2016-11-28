@@ -1,9 +1,9 @@
 package cz.cvut.kbss.reporting.persistence.dao;
 
-import cz.cvut.kbss.inbas.reporting.model.Vocabulary;
-import cz.cvut.kbss.inbas.reporting.model.util.HasOwlKey;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
-import cz.cvut.kbss.inbas.reporting.util.IdentificationUtils;
+import cz.cvut.kbss.reporting.model.Vocabulary;
+import cz.cvut.kbss.reporting.model.util.HasOwlKey;
+import cz.cvut.kbss.reporting.util.Constants;
+import cz.cvut.kbss.reporting.util.IdentificationUtils;
 import cz.cvut.kbss.jopa.exceptions.NoResultException;
 import cz.cvut.kbss.jopa.model.EntityManager;
 

@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.service.jmx;
 
-import cz.cvut.kbss.inbas.reporting.service.event.InvalidateCacheEvent;
+import cz.cvut.kbss.reporting.service.event.InvalidateCacheEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.jmx.export.annotation.ManagedOperation;

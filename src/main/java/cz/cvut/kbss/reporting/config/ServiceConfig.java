@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@ComponentScan(basePackages = "cz.cvut.kbss.inbas.reporting.service")
+@ComponentScan(basePackages = "cz.cvut.kbss.reporting.service")
 public class ServiceConfig {
 
     @Bean

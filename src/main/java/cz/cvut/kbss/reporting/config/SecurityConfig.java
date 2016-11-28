@@ -1,6 +1,6 @@
 package cz.cvut.kbss.reporting.config;
 
-import cz.cvut.kbss.inbas.reporting.security.SecurityConstants;
+import cz.cvut.kbss.reporting.security.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = "cz.cvut.kbss.inbas.reporting.security")
+@ComponentScan(basePackages = "cz.cvut.kbss.reporting.security")
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

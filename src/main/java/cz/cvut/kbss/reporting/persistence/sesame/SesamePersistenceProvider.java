@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.persistence.sesame;
 
-import cz.cvut.kbss.inbas.reporting.persistence.PersistenceException;
-import cz.cvut.kbss.inbas.reporting.util.ConfigParam;
+import cz.cvut.kbss.reporting.persistence.PersistenceException;
+import cz.cvut.kbss.reporting.util.ConfigParam;
 import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.config.RepositoryConfigException;

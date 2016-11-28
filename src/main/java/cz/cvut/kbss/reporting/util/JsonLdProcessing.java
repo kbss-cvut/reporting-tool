@@ -2,8 +2,8 @@ package cz.cvut.kbss.reporting.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.cvut.kbss.inbas.reporting.exception.JsonProcessingException;
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.exception.JsonProcessingException;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
 
 import java.io.IOException;
 import java.net.URI;

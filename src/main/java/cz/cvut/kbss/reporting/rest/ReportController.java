@@ -1,13 +1,13 @@
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.inbas.reporting.dto.ReportRevisionInfo;
-import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
-import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
-import cz.cvut.kbss.inbas.reporting.rest.dto.mapper.DtoMapper;
-import cz.cvut.kbss.inbas.reporting.rest.exception.BadRequestException;
-import cz.cvut.kbss.inbas.reporting.rest.util.RestUtils;
-import cz.cvut.kbss.inbas.reporting.service.ReportBusinessService;
+import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
+import cz.cvut.kbss.reporting.rest.exception.BadRequestException;
+import cz.cvut.kbss.reporting.rest.util.RestUtils;
+import cz.cvut.kbss.reporting.service.ReportBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;

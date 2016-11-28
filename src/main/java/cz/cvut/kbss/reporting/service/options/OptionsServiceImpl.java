@@ -1,10 +1,10 @@
 package cz.cvut.kbss.reporting.service.options;
 
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.RawJson;
-import cz.cvut.kbss.inbas.reporting.service.ConfigReader;
-import cz.cvut.kbss.inbas.reporting.service.data.DataLoader;
-import cz.cvut.kbss.inbas.reporting.util.ConfigParam;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.rest.dto.model.RawJson;
+import cz.cvut.kbss.reporting.service.ConfigReader;
+import cz.cvut.kbss.reporting.service.data.DataLoader;
+import cz.cvut.kbss.reporting.util.ConfigParam;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.service.data;
 
-import cz.cvut.kbss.inbas.reporting.exception.WebServiceIntegrationException;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.exception.WebServiceIntegrationException;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

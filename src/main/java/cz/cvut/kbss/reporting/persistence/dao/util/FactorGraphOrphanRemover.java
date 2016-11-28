@@ -1,8 +1,8 @@
 package cz.cvut.kbss.reporting.persistence.dao.util;
 
-import cz.cvut.kbss.inbas.reporting.model.Event;
-import cz.cvut.kbss.inbas.reporting.model.Factor;
-import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphItem;
+import cz.cvut.kbss.reporting.model.Event;
+import cz.cvut.kbss.reporting.model.Factor;
+import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
 import cz.cvut.kbss.jopa.model.EntityManager;
 
 import java.net.URI;

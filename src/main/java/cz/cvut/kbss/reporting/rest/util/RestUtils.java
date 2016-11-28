@@ -1,7 +1,7 @@
 package cz.cvut.kbss.reporting.rest.util;
 
-import cz.cvut.kbss.inbas.reporting.exception.WebServiceIntegrationException;
-import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.reporting.exception.WebServiceIntegrationException;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

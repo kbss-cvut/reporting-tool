@@ -1,8 +1,8 @@
 package cz.cvut.kbss.reporting.security.portal;
 
-import cz.cvut.kbss.inbas.reporting.model.Person;
-import cz.cvut.kbss.inbas.reporting.rest.dto.model.PortalUser;
-import cz.cvut.kbss.inbas.reporting.security.model.UserDetails;
+import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.rest.dto.model.PortalUser;
+import cz.cvut.kbss.reporting.security.model.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class PortalUserDetails extends UserDetails {
