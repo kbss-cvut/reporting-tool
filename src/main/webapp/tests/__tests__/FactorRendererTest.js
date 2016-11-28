@@ -18,7 +18,7 @@ describe('FactorRenderer', function () {
             lastModified: 1447147087897,
             summary: 'Short report summary.',
             author: {
-                uri: 'http://www.inbas.cz/ontologies/reporting-tool/people#Catherine+Halsey',
+                uri: 'http://kbss.felk.cvut.cz/ontologies/reporting-tool/people#Catherine+Halsey',
                 firstName: 'Catherine',
                 lastName: 'Halsey',
                 username: 'halsey@unsc.org'
@@ -32,7 +32,7 @@ describe('FactorRenderer', function () {
 
     function initOccurrence() {
         return {
-            uri: 'http://krizik.felk.cvut.cz/ontologies/inbas-2015#Occurrence_instance319360066',
+            uri: 'http://krizik.felk.cvut.cz/ontologies/reporting-tool-2015#Occurrence_instance319360066',
             key: '25857640490956897',
             name: 'Runway incursion',
             eventTypes: [Generator.randomCategory().id],

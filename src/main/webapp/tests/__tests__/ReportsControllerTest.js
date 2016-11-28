@@ -35,7 +35,7 @@ describe('ReportsController', () => {
         var controller = Environment.render(<ReportsController />),
             reportsComponent = TestUtils.findRenderedComponentWithType(controller, Reports),
             renderedReports, filter, i, len,
-            phase = 'http://onto.fel.cvut.cz/ontologies/inbas-test/first',
+            phase = 'http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first',
             phaseCnt = 0;
         for (i = 0, len = reports.length; i < len; i++) {
             if (Generator.getRandomBoolean()) {
@@ -125,7 +125,7 @@ describe('ReportsController', () => {
 
     it('uses filter passed in in transition payload', () => {
         var filter = {
-            phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
+            phase: 'http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first'
         }, controller;
         spyOn(RouterStore, 'getTransitionPayload').and.returnValue({filter: filter});
         controller = Environment.render(<ReportsController/>);
@@ -134,7 +134,7 @@ describe('ReportsController', () => {
 
     it('clears transition payload after it has read it', () => {
         var filter = {
-            phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
+            phase: 'http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first'
         };
         spyOn(RouterStore, 'getTransitionPayload').and.returnValue({filter: filter});
         spyOn(RouterStore, 'setTransitionPayload');
@@ -144,7 +144,7 @@ describe('ReportsController', () => {
 
     it('loads filter and sort state from ComponentStateStore', () => {
         var filter = {
-            phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
+            phase: 'http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first'
         }, sort = {
             identification: Constants.SORTING.DESC,
             date: Constants.SORTING.ASC
@@ -158,7 +158,7 @@ describe('ReportsController', () => {
 
     it('saves component filtering and sorting when filter changes', () => {
         var filter = {
-                phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
+                phase: 'http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first'
             }, sort,
             controller = Environment.render(<ReportsController/>);
         Environment.bindActionsToStoreMethods('rememberComponentState', ComponentStateStore);

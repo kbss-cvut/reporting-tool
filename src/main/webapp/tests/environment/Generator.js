@@ -106,7 +106,7 @@ var JSON_LD = [
  */
 export default class Generator {
 
-    static _uriBase = 'http://onto.fel.cvut.cz/ontologies/inbas';
+    static _uriBase = 'http://onto.fel.cvut.cz/ontologies/reporting-tool';
 
     static generateFactorGraphNodes() {
         var nodes = [],
@@ -238,7 +238,7 @@ export default class Generator {
             report;
         for (var i = 0; i < count; i++) {
             report = Generator.generateOccurrenceReport();
-            report.uri = 'http://www.inbas.cz/reporting-tool/reports#Instance' + i;
+            report.uri = 'http://kbss.felk.cz/reporting-tool/reports#Instance' + i;
             report.identification = report.occurrence.name + i;
             report.date = report.occurrence.startTime + i * 1000;
             report.occurrenceCategory = report.occurrence.eventType;

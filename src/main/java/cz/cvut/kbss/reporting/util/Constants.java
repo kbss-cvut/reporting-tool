@@ -10,17 +10,17 @@ public final class Constants {
     /**
      * Base URI for Persons in the Reporting tool.
      */
-    public static final String PERSON_BASE_URI = "http://www.inbas.cz/ontologies/reporting-tool/people#";
+    public static final String PERSON_BASE_URI = "http://kbss.felk.cvut.cz/ontologies/reporting-tool/people#";
 
     /**
      * Base URI for Organizations in the Reporting tool.
      */
-    public static final String ORGANIZATION_BASE_URI = "http://www.inbas.cz/ontologies/reporting-tool/organizations#";
+    public static final String ORGANIZATION_BASE_URI = "http://kbss.felk.cvut.cz/ontologies/reporting-tool/organizations#";
 
     /**
      * Base URI for temporary contexts used by the form generation.
      */
-    public static final String FORM_GEN_CONTEXT_BASE = "http://www.inbas.cz/ontologies/reporting-tool/formGen";
+    public static final String FORM_GEN_CONTEXT_BASE = "http://kbss.felk.cvut.cz/ontologies/reporting-tool/formGen";
 
     /**
      * Initial revision number for reports.

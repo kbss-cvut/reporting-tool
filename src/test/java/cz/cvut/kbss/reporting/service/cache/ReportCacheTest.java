@@ -34,12 +34,12 @@ public class ReportCacheTest {
         for (int i = 0; i < Generator.randomInt(10); i++) {
             final Date date = new Date(System.currentTimeMillis() + i * 10000);
             final ReportDto dtoOne = new OccurrenceReportDto();
-            dtoOne.setUri(URI.create("http://krizik.felk.cvut.cz/ontologies/inbas#instance-" + i));
+            dtoOne.setUri(URI.create("http://krizik.felk.cvut.cz/ontologies/reporting-tool#instance-" + i));
             dtoOne.setFileNumber((long) Generator.randomInt());
             dtoOne.setDateCreated(date);
             dtoOne.setRevision(i + 1);
             final ReportDto dtoTwo = new OccurrenceReportDto();
-            dtoTwo.setUri(URI.create("http://krizik.felk.cvut.cz/ontologies/inbas#instance-" + (i + 117)));
+            dtoTwo.setUri(URI.create("http://krizik.felk.cvut.cz/ontologies/reporting-tool#instance-" + (i + 117)));
             dtoTwo.setFileNumber((long) Generator.randomInt());
             dtoTwo.setDateCreated(date);
             dtoTwo.setRevision(dtoOne.getRevision() + 1);

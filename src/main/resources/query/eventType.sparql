@@ -17,10 +17,10 @@ CONSTRUCT {
         rdfs:comment ?comment ;
 } WHERE {
     {
-      SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/uniset-factors> {
+      SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/uniset-factors> {
          # all events
          ?term rdfs:label ?label2.
-         SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation> {
+         SERVICE <http://dev.inbas.cz/openrdf-sesame/repositories/eccairs-aviation> {
             ?term rdfs:label ?label.
          }
          BIND(eccairs:event-type as ?type)

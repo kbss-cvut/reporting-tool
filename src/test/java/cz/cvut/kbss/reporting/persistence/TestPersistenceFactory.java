@@ -49,7 +49,7 @@ public class TestPersistenceFactory {
             properties.put(JOPAPersistenceProperties.DATA_SOURCE_USERNAME, environment.getProperty(USERNAME_PROPERTY));
             properties.put(JOPAPersistenceProperties.DATA_SOURCE_PASSWORD, environment.getProperty(PASSWORD_PROPERTY));
         }
-        this.emf = Persistence.createEntityManagerFactory("inbasTestPU", properties);
+        this.emf = Persistence.createEntityManagerFactory("rtTestPU", properties);
     }
 
     @PreDestroy

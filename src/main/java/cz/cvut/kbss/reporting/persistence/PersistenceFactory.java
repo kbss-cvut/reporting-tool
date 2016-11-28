@@ -54,7 +54,7 @@ public class PersistenceFactory {
             properties.put(DATA_SOURCE_USERNAME, environment.getProperty(USERNAME_PROPERTY));
             properties.put(DATA_SOURCE_PASSWORD, environment.getProperty(PASSWORD_PROPERTY));
         }
-        this.emf = Persistence.createEntityManagerFactory("inbasPU", properties);
+        this.emf = Persistence.createEntityManagerFactory("rtPU", properties);
     }
 
     @PreDestroy

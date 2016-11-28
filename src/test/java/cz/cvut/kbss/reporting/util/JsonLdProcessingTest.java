@@ -23,9 +23,9 @@ public class JsonLdProcessingTest {
     @Test
     public void getOrderedOptionsReadsOptionsFromJsonLdAndReturnsThemOrdered() throws Exception {
         final RawJson json = new RawJson(Environment.loadData("option/reportingPhase.json", String.class));
-        final List<URI> expected = Arrays.asList(URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/first"),
-                URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/second"),
-                URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/third"));
+        final List<URI> expected = Arrays.asList(URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first"),
+                URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/second"),
+                URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/third"));
         assertEquals(expected, JsonLdProcessing.getOrderedOptions(json, Vocabulary.s_p_is_higher_than));
     }
 
@@ -47,7 +47,7 @@ public class JsonLdProcessingTest {
 
     @Test
     public void getItemWithTypeReturnsFirstItemWithTheSpecifiedType() throws Exception {
-        final URI expected = URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/second");
+        final URI expected = URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/second");
 
         final RawJson json = new RawJson(Environment.loadData("option/reportingPhase.json", String.class));
         final URI result = JsonLdProcessing.getItemWithType(json, Vocabulary.s_c_default_phase);
@@ -56,7 +56,7 @@ public class JsonLdProcessingTest {
 
     @Test
     public void getItemWithTypeHandlesItemWithTypeNotAnArray() throws Exception {
-        final URI expected = URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/second");
+        final URI expected = URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/second");
         final String json = "[{\"@id\": \"" + expected.toString() + "\", \"@type\": \"" + Vocabulary.s_c_default_phase + "\"}]";
 
         final URI result = JsonLdProcessing.getItemWithType(new RawJson(json), Vocabulary.s_c_default_phase);
