@@ -1,23 +1,9 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
+var JsonLdUtils = require('jsonld-utils').default;
 var GanttController = require('./GanttController');
 var Vocabulary = require('../../constants/Vocabulary');
-var EventTypeFactory = require('../../model/EventTypeFactory');
-var Utils = require('../../utils/Utils');
+var ObjectTypeResolver = require('../../utils/ObjectTypeResolver');
 
 var FactorRenderer = {
 
@@ -41,22 +27,28 @@ var FactorRenderer = {
 var OccurrenceReportFactorRenderer = {
 
     renderFactors: function (report, eventTypes) {
-        if (!report.occurrence.referenceId) {
-            report.occurrence.referenceId = Date.now();
+        RootAddingFactorRenderer.renderFactors(report, eventTypes, 'occurrence');
+    }
+};
+
+var RootAddingFactorRenderer = {
+    renderFactors: function (report, eventTypes, rootAttribute) {
+        if (!report[rootAttribute].referenceId) {
+            report[rootAttribute].referenceId = Date.now();
         }
         var factorGraph = report.factorGraph;
         if (factorGraph) {
-            var ind = factorGraph.nodes.indexOf(report.occurrence.referenceId);
+            var ind = factorGraph.nodes.indexOf(report[rootAttribute].referenceId);
             if (ind !== -1) {
-                factorGraph.nodes[ind] = report.occurrence;
+                factorGraph.nodes[ind] = report[rootAttribute];
             }
         } else {
             report.factorGraph = {
-                nodes: [report.occurrence]
+                nodes: [report[rootAttribute]]
             };
         }
-        report.occurrence.readOnly = true;
-        GanttController.setOccurrenceEventId(report.occurrence.referenceId);
+        report[rootAttribute].readOnly = true;
+        GanttController.setRootEventId(report[rootAttribute].referenceId);
         FactorRendererImpl.renderFactors(report.factorGraph, eventTypes);
     }
 };
@@ -83,7 +75,7 @@ var FactorRendererImpl = {
         if (edges) {
             for (var i = 0, len = edges.length; i < len; i++) {
                 if (edges[i].linkType === Vocabulary.HAS_PART) {
-                    nodesToParents[edges[i].to] = edges[i].from;
+                    nodesToParents[edges[i].to.referenceId] = edges[i].from.referenceId;
                 } else {
                     links.push(edges[i]);
                 }
@@ -99,17 +91,18 @@ var FactorRendererImpl = {
         var node;
         for (var i = 0, len = nodes.length; i < len; i++) {
             node = nodes[i];
-            var text;
-            if (node.name) {
+            var text = '';
+            if (typeof node.name !== 'undefined' && node.name !== null) {
                 text = node.name;
-            } else {
-                var eventType = EventTypeFactory.resolveEventType(node.eventType, eventTypes);
-                text = eventType ? Utils.getJsonAttValue(eventType, Vocabulary.RDFS_LABEL) : node.eventType;
+            } else if (node.eventType) {
+                var eventType = ObjectTypeResolver.resolveType(node.eventType, eventTypes);
+                text = eventType ? JsonLdUtils.getJsonAttValue(eventType, Vocabulary.RDFS_LABEL) : node.eventType;
             }
             GanttController.addFactor({
                 id: node.referenceId,
                 text: text,
-                start_date: new Date(node.startTime),
+                // Temporary fix for gantt issue with 0 as task start/end time
+                start_date: new Date(node.startTime === 0 ? node.startTime + 1 : node.startTime),
                 end_date: new Date(node.endTime),
                 readonly: node.readOnly,
                 statement: node
@@ -123,8 +116,8 @@ var FactorRendererImpl = {
     _addLinks: function (links) {
         for (var i = 0, len = links.length; i < len; i++) {
             GanttController.addLink({
-                source: links[i].from,
-                target: links[i].to,
+                source: links[i].from.referenceId,
+                target: links[i].to.referenceId,
                 factorType: links[i].linkType
             });
         }

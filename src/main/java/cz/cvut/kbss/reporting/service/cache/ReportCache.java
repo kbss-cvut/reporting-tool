@@ -1,31 +1,14 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.cache;
 
-import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.reporting.model.util.DocumentDateAndRevisionComparator;
-import cz.cvut.kbss.reporting.service.event.InvalidateCacheEvent;
+import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.inbas.reporting.model.util.DocumentDateAndRevisionComparator;
+import cz.cvut.kbss.inbas.reporting.service.event.InvalidateCacheEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -44,6 +27,14 @@ public class ReportCache implements ApplicationListener<InvalidateCacheEvent> {
 
     private final Map<Long, ReportDto> cache = new ConcurrentHashMap<>();
 
+    private volatile boolean initialized = false;
+
+    public void initialize(Collection<ReportDto> dtos) {
+        Objects.requireNonNull(dtos);
+        dtos.forEach(dto -> cache.put(dto.getFileNumber(), dto));
+        this.initialized = true;
+    }
+
     /**
      * Puts the specified report into the cache, possibly replacing its previous version.
      *
@@ -58,6 +49,7 @@ public class ReportCache implements ApplicationListener<InvalidateCacheEvent> {
      */
     public void evict() {
         cache.clear();
+        this.initialized = false;
     }
 
     public void evict(Long fileNumber) {
@@ -89,7 +81,7 @@ public class ReportCache implements ApplicationListener<InvalidateCacheEvent> {
      *
      * @return Emptiness status
      */
-    public boolean isEmpty() {
-        return cache.isEmpty();
+    public boolean isInitialized() {
+        return initialized;
     }
 }

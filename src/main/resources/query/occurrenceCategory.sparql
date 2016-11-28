@@ -1,0 +1,26 @@
+#
+# Generic query to get event types
+#
+BASE <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX eccairs-model: <http://onto.fel.cvut.cz/ontologies/eccairs/model/>
+PREFIX eccairs: <http://onto.fel.cvut.cz/ontologies/eccairs/>
+
+PREFIX eccairs-current: <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/>
+
+CONSTRUCT {
+  ?term rdfs:label ?label ;
+  a ?type ;
+  rdfs:comment ?comment ;
+} WHERE {
+      SERVICE <http://martin.inbas.cz/openrdf-sesame/repositories/eccairs-aviation-3.4.0.2> {
+         # all events
+         eccairs-current:a-430 eccairs-model:has-child+  ?term.
+         ?term rdfs:label ?label.
+         ?term eccairs-model:has-explanation ?comment.
+      }
+      BIND(eccairs:occurrence-category as ?type)
+}

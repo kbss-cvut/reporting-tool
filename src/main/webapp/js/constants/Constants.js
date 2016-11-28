@@ -1,27 +1,32 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var Routes = require('../utils/Routes');
+const Routes = require('../utils/Routes');
 
 module.exports = {
     APP_NAME: 'Reporting Tool',
     ECCAIRS_URL: 'http://www.icao.int/safety/airnavigation/AIG/Documents/ADREP%20Taxonomy/ECCAIRS%20Aviation%201.3.0.12%20(Entities%20and%20Attributes).en.id.pdf',
     HOME_ROUTE: Routes.dashboard,
     OPTIONS: {
-        OCCURRENCE_CLASS: 'occurrenceClass'
+        OCCURRENCE_CLASS: 'occurrenceClass',
+        OCCURRENCE_CATEGORY: 'occurrenceCategory'
+    },
+
+    TIME_SCALES: {
+        SECOND: 'second',
+        MINUTE: 'minute',
+        HOUR: 'hour',
+        RELATIVE: 'relative'
+    },
+    TIME_SCALE_THRESHOLD: 100,
+
+    /**
+     * Types of message published by the MessageStore
+     */
+    MESSAGE_TYPE: {
+        SUCCESS: 'success',
+        INFO: 'info',
+        WARNING: 'warning',
+        ERROR: 'danger'
     },
 
     /**
@@ -29,28 +34,13 @@ module.exports = {
      */
     SORTING: {
         NO: {glyph: 'sort', title: 'sort.no'},
-        ASC: {glyph: 'chevron-up', title: 'sort.asc'},
-        DESC: {glyph: 'chevron-down', title: 'sort.desc'}
+        ASC: {glyph: 'sort-by-$type$', title: 'sort.asc'},
+        DESC: {glyph: 'sort-by-$type$-alt', title: 'sort.desc'}
     },
 
     UNAUTHORIZED_USER: {name: 'unauthorized'},
 
     FILTER_DEFAULT: 'all',
-
-    DASHBOARDS: {
-        MAIN: {
-            id: 'main',
-            title: 'dashboard.welcome'
-        },
-        CREATE_REPORT: {
-            id: 'createReport',
-            title: 'dashboard.create-tile'
-        },
-        IMPORT_REPORT: {
-            id: 'importReport',
-            title: 'dashboard.create-import-tile'
-        }
-    },
 
     /**
      * Navigation between dashboards. Key is the current dashboard, value is the target to navigate to on goBack
@@ -66,43 +56,33 @@ module.exports = {
     // Maximum number of columns supported by Bootstrap
     COLUMN_COUNT: 12,
 
+    // Default page size (used by the PagingMixin)
+    PAGE_SIZE: 20,
+
     // Maximum time difference between occurrence start and end. 24 hours in millis
     MAX_OCCURRENCE_START_END_DIFF: 1000 * 60 * 60 * 24,
 
     // Maximum input value length, for which input of type text should be displayed
     INPUT_LENGTH_THRESHOLD: 70,
 
-    OCCURRENCE_JAVA_CLASS: 'cz.cvut.kbss.reporting.dto.event.OccurrenceDto',
-    EVENT_JAVA_CLASS: 'cz.cvut.kbss.reporting.dto.event.EventDto',
-    OCCURRENCE_REPORT_JAVA_CLASS: 'cz.cvut.kbss.reporting.dto.OccurrenceReportDto',
+    OCCURRENCE_JAVA_CLASS: 'cz.cvut.kbss.inbas.reporting.dto.event.OccurrenceDto',
+    EVENT_JAVA_CLASS: 'cz.cvut.kbss.inbas.reporting.dto.event.EventDto',
+    OCCURRENCE_REPORT_JAVA_CLASS: 'cz.cvut.kbss.inbas.reporting.dto.OccurrenceReportDto',
 
-    // Form Generator
-    FORM: {
-        FORM: 'http://onto.fel.cvut.cz/ontologies/documentation/form',
-        HAS_SUBQUESTION: 'http://onto.fel.cvut.cz/ontologies/documentation/has_related_question',
-        HAS_ANSWER: 'http://onto.fel.cvut.cz/ontologies/documentation/has_answer',
-        HAS_OPTION: 'http://onto.fel.cvut.cz/ontologies/form/has-possible-value',
-        HAS_OPTIONS_QUERY: 'http://onto.fel.cvut.cz/ontologies/form/has-possible-values-query',
-        HAS_VALUE_TYPE: 'http://onto.fel.cvut.cz/ontologies/form/has-value-type',
-        IS_DISABLED: 'http://onto.fel.cvut.cz/ontologies/aviation/form-376/is-disabled',
-        LAYOUT_CLASS: 'http://onto.fel.cvut.cz/ontologies/form-layout/has-layout-class',
-        LAYOUT: {
-            FORM: 'form',
-            QUESTION_TYPEAHEAD: 'type-ahead',
-            QUESTION_SECTION: 'section',
-            WIZARD_STEP: 'wizard-step',
-            DISABLED: 'disabled',
-            HIDDEN: 'hidden',
-            TEXTAREA: 'textarea'
-        },
-        VALUE_TYPE_CODE: 'code',
-        VALUE_TYPE_TEXT: 'text',
-        GENERATED_ROW_SIZE: 1,
+    FULL_TEXT_SEARCH_OPTION: {
+        id: 'full-text-search',
+        identification: 'Full text search'
+    },
 
-        HAS_QUESTION_ORIGIN: 'http://onto.fel.cvut.cz/ontologies/form/has-question-origin',
-        HAS_ANSWER_ORIGIN: 'http://onto.fel.cvut.cz/ontologies/form/has-answer-origin',
-
-        HAS_DATA_VALUE: 'http://onto.fel.cvut.cz/ontologies/documentation/has_data_value',
-        HAS_OBJECT_VALUE: 'http://onto.fel.cvut.cz/ontologies/documentation/has_object_value'
-    }
+    FILTERS: [{
+        path: 'occurrenceCategory',
+        type: 'select',
+        options: 'occurrenceCategory',
+        label: 'report.occurrence.category.label'
+    }, {
+        path: 'phase',
+        type: 'select',
+        options: 'reportingPhase',
+        label: 'reports.phase'
+    }]
 };

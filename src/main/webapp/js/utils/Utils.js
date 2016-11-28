@@ -1,20 +1,6 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var Vocabulary = require('../constants/Vocabulary');
+var Constants = require('../constants/Constants');
 
 /**
  * Common propositions that should not be capitalized
@@ -141,92 +127,6 @@ module.exports = {
     },
 
     /**
-     * Transforms JSON-LD (framed) based options list into a list of options suitable for the Typeahead component.
-     * @param options The options to process
-     */
-    processTypeaheadOptions: function (options) {
-        if (!options) {
-            return [];
-        }
-        return options.map(function (item) {
-            return this.jsonLdToTypeaheadOption(item);
-        }.bind(this));
-    },
-
-    /**
-     * Gets the specified JSON-LD object as a simple, more programmatic-friendly object suitable e.g. for typeahead
-     * components.
-     *
-     * The transformation is as follows:
-     * <ul>
-     *     <li>'@id' -> id</li>
-     *     <li>'@type' -> type</li>
-     *     <li>rdfs:label -> name</li>
-     *     <li>rdfs:comment -> description</li>
-     * </ul>
-     * @param jsonLd
-     */
-    jsonLdToTypeaheadOption: function (jsonLd) {
-        if (!jsonLd) {
-            return null;
-        }
-        var res = {
-            id: jsonLd['@id'],
-            type: jsonLd['@type'],
-            name: this.getJsonAttValue(jsonLd, Vocabulary.RDFS_LABEL)
-        };
-        if (jsonLd[Vocabulary.RDFS_COMMENT]) {
-            res.description = this.getJsonAttValue(jsonLd, Vocabulary.RDFS_COMMENT);
-        }
-        return res;
-    },
-
-    /**
-     * Gets value of the specified attribute.
-     *
-     * If the attribute value is a string, it is returned, otherwise a '@value' attribute is retrieved from the nested
-     * object.
-     * @param obj Object from which the attribute value will be extracted
-     * @param att Attribute name
-     * @param by (optional) JSON attribute to use instead of '@value' in case the att value is an object
-     * @return {*} Attribute value (possibly null)
-     */
-    getJsonAttValue: function (obj, att, by) {
-        return obj[att] != null ? (typeof(obj[att]) !== 'object' ? obj[att] : obj[att][by ? by : '@value']) : null;
-    },
-
-    /**
-     * Transforms the specified JSON-LD input to a list of objects suitable as options for a Select component.
-     *
-     * This means, that the resulting list consists of objects with value, label and title attributes.
-     * @param jsonLd The JSON-LD to process
-     * @return {*} List of options
-     */
-    processSelectOptions: function (jsonLd) {
-        return jsonLd.map(function (item) {
-            return {
-                value: item['@id'],
-                label: this.getJsonAttValue(item, Vocabulary.RDFS_LABEL),
-                title: this.getJsonAttValue(item, Vocabulary.RDFS_COMMENT)
-            }
-        }.bind(this));
-    },
-
-    /**
-     * Checks whether the specified JSON-LD object has the specified property value.
-     *
-     * The property can either have single value, or it can be an array (in which case the value is searched for in the
-     * array).
-     * @param object The object to test
-     * @param property The property to test
-     * @param value The value to look for
-     * @return {*|boolean}
-     */
-    hasValue: function (object, property, value) {
-        return object[property] && (object[property] === value || object[property].indexOf(value) !== -1);
-    },
-
-    /**
      * Maps the specified id to a name based on a matching item.
      *
      * This function assumes that the items have been processed by {@link #jsonLdToTypeaheadOption), so the id should
@@ -287,7 +187,7 @@ module.exports = {
      * @param parameters The parameters to add
      * @return {*} Updated URL
      */
-    addParametersToUrl(url, parameters) {
+    addParametersToUrl: function (url, parameters) {
         if (parameters) {
             url += URL_CONTAINS_QUERY.test(url) ? '&' : '?';
             Object.getOwnPropertyNames(parameters).forEach(function (param) {
@@ -295,5 +195,69 @@ module.exports = {
             });
         }
         return url;
+    },
+
+    /**
+     * Determines suitable time scale for graphical representation of events.
+     *
+     * It is assumed that the root event's time span exceeds time span of all its descendants.
+     *
+     * If the {@code rootEvent} has no {@code startTime} and {@code endTime}, 'relative' scale is returned.
+     * @param rootEvent
+     */
+    determineTimeScale: function (rootEvent) {
+        if (rootEvent.startTime === null || rootEvent.startTime === undefined || rootEvent.endTime === null || rootEvent.endTime === undefined) {
+            return Constants.TIME_SCALES.RELATIVE;
+        }
+        var duration = (rootEvent.endTime - rootEvent.startTime) / 1000;    // to seconds
+        if (duration < Constants.TIME_SCALE_THRESHOLD) {
+            return Constants.TIME_SCALES.SECOND;
+        }
+        duration = duration / 60;
+        if (duration < Constants.TIME_SCALE_THRESHOLD) {
+            return Constants.TIME_SCALES.MINUTE;
+        }
+        return Constants.TIME_SCALES.HOUR;
+    },
+
+    /**
+     * Resolves value of the specified property path.
+     *
+     * I.e. the path can contain dots and this method will traverse the object graph (starting in the object) and try
+     * to get value specified by the path. If any part of the property path is missing in the object graph, null is
+     * returned.
+     * @param object The object to read value from (root of object graph)
+     * @param propertyPath Path to the property, use '.' for object traversal
+     */
+    getPropertyValue: function (object, propertyPath) {
+        var path = propertyPath.split('.'),
+            value = object;
+        for (var i = 0, len = path.length; i < len; i++) {
+            value = value[path[i]];
+            if (!value && i < len) {
+                return null;
+            }
+        }
+        return value;
+    },
+
+    /**
+     * Calculates hash code of the specified string, similarly to the Java implementation.
+     * @param str The string to calculate hash for
+     * @return {number} Hash
+     */
+    stringHashCode: function (str) {
+        let hash = 0,
+            len = str.length,
+            i, c;
+        if (len === 0) {
+            return hash;
+        }
+        for (i = 0; i < len; i++) {
+            c = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + c;
+            hash &= hash;
+        }
+        return hash;
     }
 };

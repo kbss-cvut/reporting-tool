@@ -1,31 +1,18 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.rest.dto.mapper;
 
-import cz.cvut.kbss.reporting.dto.CorrectiveMeasureRequestDto;
-import cz.cvut.kbss.reporting.dto.OccurrenceReportDto;
-import cz.cvut.kbss.reporting.dto.agent.AgentDto;
-import cz.cvut.kbss.reporting.dto.agent.OrganizationDto;
-import cz.cvut.kbss.reporting.dto.agent.PersonDto;
-import cz.cvut.kbss.reporting.dto.event.EventDto;
-import cz.cvut.kbss.reporting.dto.event.FactorGraph;
-import cz.cvut.kbss.reporting.dto.event.FactorGraphEdge;
-import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
-import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
-import cz.cvut.kbss.reporting.model.*;
+import cz.cvut.kbss.inbas.reporting.dto.CorrectiveMeasureRequestDto;
+import cz.cvut.kbss.inbas.reporting.dto.OccurrenceReportDto;
+import cz.cvut.kbss.inbas.reporting.dto.agent.AgentDto;
+import cz.cvut.kbss.inbas.reporting.dto.agent.OrganizationDto;
+import cz.cvut.kbss.inbas.reporting.dto.agent.PersonDto;
+import cz.cvut.kbss.inbas.reporting.dto.event.EventDto;
+import cz.cvut.kbss.inbas.reporting.dto.event.FactorGraph;
+import cz.cvut.kbss.inbas.reporting.dto.event.FactorGraphEdge;
+import cz.cvut.kbss.inbas.reporting.dto.event.OccurrenceDto;
+import cz.cvut.kbss.inbas.reporting.model.*;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphItem;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.DefaultFactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -204,7 +191,7 @@ public abstract class DtoMapper {
             reset();
         }
         final DtoNodeVisitor nodeVisitor = new DtoNodeVisitor(this, random, eventDtoRegistry);
-        final FactorGraphTraverser traverser = new FactorGraphTraverser(nodeVisitor, null);
+        final FactorGraphTraverser traverser = new DefaultFactorGraphTraverser(nodeVisitor, null);
         traverser.traverse(occurrence);
         final DtoEdgeVisitor edgeVisitor = new DtoEdgeVisitor(nodeVisitor.getInstanceMap());
         traverser.setFactorGraphEdgeVisitor(edgeVisitor);

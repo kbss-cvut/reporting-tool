@@ -1,23 +1,10 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var Reflux = require('reflux');
 
 var Actions = require('../actions/Actions');
 var Ajax = require('../utils/Ajax');
+var JsonReferenceResolver = require('../utils/JsonReferenceResolver').default;
 var Utils = require('../utils/Utils');
 
 var BASE_URL = 'rest/reports';
@@ -30,6 +17,11 @@ var ReportStore = Reflux.createStore({
     listenables: [Actions],
 
     _reports: null,
+    _pendingLoad: null,
+
+    _resetPendingLoad: function () {
+        this._pendingLoad = null;
+    },
 
     onLoadAllReports: function () {
         if (reportsLoading) {
@@ -53,12 +45,19 @@ var ReportStore = Reflux.createStore({
     },
 
     onLoadReport: function (key) {
+        if (this._pendingLoad === key) {
+            return;
+        }
+        this._pendingLoad = key;
         Ajax.get(BASE_URL_WITH_SLASH + key).end(function (data) {
+            this._resetPendingLoad();
+            JsonReferenceResolver.resolveReferences(data);
             this.trigger({
                 action: Actions.loadReport,
                 report: data
             });
         }.bind(this), function () {
+            this._resetPendingLoad();
             this.trigger({
                 action: Actions.loadReport,
                 report: null
@@ -76,6 +75,7 @@ var ReportStore = Reflux.createStore({
     },
 
     onCreateReport: function (report, onSuccess, onError) {
+        JsonReferenceResolver.encodeReferences(report);
         Ajax.post(BASE_URL, report).end(function (data, resp) {
             if (onSuccess) {
                 var key = Utils.extractKeyFromLocationHeader(resp);
@@ -86,6 +86,7 @@ var ReportStore = Reflux.createStore({
     },
 
     onUpdateReport: function (report, onSuccess, onError) {
+        JsonReferenceResolver.encodeReferences(report);
         Ajax.put(BASE_URL_WITH_SLASH + report.key).send(report).end(onSuccess, onError);
     },
 

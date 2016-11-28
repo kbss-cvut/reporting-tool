@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 
@@ -19,11 +5,14 @@ describe('Factor detail dialog', function () {
 
     var React = require('react'),
         assign = require('object-assign'),
+        TestUtils = require('react-addons-test-utils'),
+        QuestionAnswerProcessor = require('semforms').QuestionAnswerProcessor,
         Environment = require('../environment/Environment'),
+        Actions = require('../../js/actions/Actions'),
         Constants = require('../../js/constants/Constants'),
-        GanttController = require('../../js/components/factor/GanttController'),
         FactorDetail = require('../../js/components/factor/FactorDetail'),
         ReportFactory = require('../../js/model/ReportFactory'),
+        DateTimePicker = require('kbss-react-bootstrap-datetimepicker').default,
         callbacks,
         gantt = {
             calculateEndDate: function () {
@@ -48,6 +37,7 @@ describe('Factor detail dialog', function () {
             durationUnit: 'minute',
             statement: ReportFactory.createFactor()
         };
+        spyOn(Actions, 'loadOptions');
     });
 
     it('Updates factor with new values upon save', function () {
@@ -56,26 +46,28 @@ describe('Factor detail dialog', function () {
                 name: 'Runway Incursion',
                 id: 'http://incursion'
             },
-            question = {},
-            value = 'SomeImportantValue';
-        question[Constants.FORM.HAS_ANSWER] = [{}];
-        question[Constants.FORM.HAS_ANSWER][0][Constants.FORM.HAS_DATA_VALUE] = {
-            '@value': value
-        };
+            value = 'SomeImportantValue',
+            statement = {
+                question: {
+                    subQuestions: [{
+                        answers: [{
+                            textValue: value
+                        }]
+                    }]
+                }
+            };
         spyOn(gantt, 'calculateEndDate').and.callThrough();
-        detail = Environment.render(<FactorDetail scale='minute' factor={factor} onSave={callbacks.onSave}
-                                                  onClose={callbacks.onClose}
-                                                  onDelete={callbacks.onDelete}
-                                                  getReport={callbacks.getReport}/>);
+        detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
+                                                  onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                  onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>);
         detail.onDurationSet({target: {value: newDuration}});
         detail.onEventTypeChange(eventType);
-        detail.onUpdateFactorDetails({stepData: [question]}, function () {
-        });
+        detail.setState({statement: statement});
         detail.onSave();
         expect(gantt.calculateEndDate).toHaveBeenCalledWith(factor.start_date, newDuration, gantt.config.duration_unit);
         expect(factor.end_date).toBeDefined();
         expect(callbacks.onSave).toHaveBeenCalled();
-        expect(factor.statement.question.subQuestions[0]).toBeDefined();
+        expect(factor.statement).toEqual(statement);
         expect(factor.statement.question.subQuestions[0].answers[0]).toBeDefined();
         expect(factor.statement.question.subQuestions[0].answers[0].textValue).toEqual(value);
     });
@@ -87,30 +79,61 @@ describe('Factor detail dialog', function () {
                 id: 'http://incursion'
             },
             origFactor = assign({}, factor),
-            question = {};
-        question[Constants.FORM.HAS_ANSWER] = [{
-            value: 'someValue'
-        }];
-        detail = Environment.render(<FactorDetail scale='minute' factor={factor} onSave={callbacks.onSave}
-                                                  onClose={callbacks.onClose}
-                                                  onDelete={callbacks.onDelete}
-                                                  getReport={callbacks.getReport}/>);
+            statement = {
+                question: {
+                    subQuestions: [{
+                        answers: [{
+                            textValue: "someValue"
+                        }]
+                    }]
+                }
+            };
+        detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
+                                                  onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                  onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>);
         detail.onDurationSet({target: {value: newDuration}});
         detail.onEventTypeChange(eventType);
-        detail.onUpdateFactorDetails({stepData: [question]}, function () {
-        });
+        detail.setState({statement: statement});
 
         expect(factor).toEqual(origFactor);
     });
 
     it('Calculates event duration based on scale', () => {
-        var origDuration = factor.duration,
-            detail, nextProps;
-
-        detail = Environment.render(<FactorDetail scale='second' factor={factor} onSave={callbacks.onSave}
-                                                  onClose={callbacks.onClose}
-                                                  onDelete={callbacks.onDelete}
-                                                  getReport={callbacks.getReport}/>);
+        var detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.SECOND} factor={factor}
+                                                      onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                      onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>);
         expect(detail.state.duration).toEqual(factor.duration * 60);    // factor duration is in minutes
-    })
+    });
+
+    it('shows start time picker when absolute scale is used', () => {
+        var detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
+                                                      onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                      show={true}
+                                                      onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>),
+            pickers = TestUtils.scryRenderedComponentsWithType(detail._modalContent, DateTimePicker);
+        expect(pickers.length).toEqual(1);
+    });
+
+    it('shows no start time picker when relative scale is used', () => {
+        var detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.RELATIVE} factor={factor}
+                                                      onSave={callbacks.onSave} onClose={callbacks.onClose} show={true}
+                                                      onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>),
+            pickers = TestUtils.scryRenderedComponentsWithType(detail._modalContent, DateTimePicker);
+        expect(pickers.length).toEqual(0);
+    });
+
+    it('updates statement question answer tree upon wizard finish', () => {
+        var detail = Environment.render(<FactorDetail scale='second' factor={factor} onSave={callbacks.onSave}
+                                                      onClose={callbacks.onClose}
+                                                      onDelete={callbacks.onDelete}
+                                                      getReport={callbacks.getReport}/>),
+            question = {uri: 'http://very.important.question'},
+            wizardCallback = jasmine.createSpy('wizardCallback');
+        spyOn(QuestionAnswerProcessor, 'buildQuestionAnswerModel').and.returnValue(question);
+        detail.onUpdateFactorDetails({data: {}, stepData: []}, wizardCallback);
+
+        expect(QuestionAnswerProcessor.buildQuestionAnswerModel).toHaveBeenCalled();
+        expect(detail.state.statement.question).toEqual(question);
+        expect(wizardCallback).toHaveBeenCalled();
+    });
 });

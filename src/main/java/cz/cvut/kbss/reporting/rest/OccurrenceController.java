@@ -1,25 +1,11 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.rest;
 
-import cz.cvut.kbss.reporting.exception.NotFoundException;
-import cz.cvut.kbss.reporting.model.Occurrence;
-import cz.cvut.kbss.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
-import cz.cvut.kbss.reporting.rest.dto.model.OccurrenceReportDtoList;
-import cz.cvut.kbss.reporting.service.OccurrenceService;
+import cz.cvut.kbss.inbas.reporting.dto.OccurrenceReportDto;
+import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
+import cz.cvut.kbss.inbas.reporting.model.Occurrence;
+import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.inbas.reporting.rest.dto.mapper.DtoMapper;
+import cz.cvut.kbss.inbas.reporting.service.OccurrenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,12 +39,11 @@ public class OccurrenceController extends BaseController {
         return o;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{key}/reports", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OccurrenceReportDtoList getOccurrenceReports(@PathVariable("key") String key) {
+    @RequestMapping(method = RequestMethod.GET, value = "/{key}/report", produces = MediaType.APPLICATION_JSON_VALUE)
+    public OccurrenceReportDto getOccurrenceReport(@PathVariable("key") String key) {
         final Occurrence occurrence = findByKey(key);
-        final Collection<OccurrenceReport> reports = occurrenceService.getReports(occurrence);
-        final OccurrenceReportDtoList list = new OccurrenceReportDtoList(reports.size());
-        reports.forEach(r -> list.add(mapper.occurrenceReportToOccurrenceReportDto(r)));
-        return list;
+        final OccurrenceReport report = occurrenceService.findByOccurrence(occurrence);
+        assert report != null;  // Shouldn't happen, there cannot be an occurrence without report documenting it
+        return mapper.occurrenceReportToOccurrenceReportDto(report);
     }
 }

@@ -1,32 +1,15 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * @jsx
- */
-
 'use strict';
 
 var React = require('react');
 var Panel = require('react-bootstrap').Panel;
 var Button = require('react-bootstrap').Button;
 var Alert = require('react-bootstrap').Alert;
+var Form = require('react-bootstrap').Form;
 
 var injectIntl = require('../../utils/injectIntl');
 
 var Mask = require('../Mask').default;
-var Input = require('../Input');
+var Input = require('../HorizontalInput').default;
 var Routing = require('../../utils/Routing');
 var Routes = require('../../utils/Routes');
 var Authentication = require('../../utils/Authentication');
@@ -79,38 +62,34 @@ var Login = React.createClass({
     render: function () {
         var panelCls = this.state.alertVisible ? 'login-panel expanded' : 'login-panel',
             mask = this.state.mask ? (<Mask text={this.i18n('login.progress-mask')}/>) : null;
-        return (
-            <Panel header={<h3>{this.i18n('login.title')}</h3>} bsStyle='info' className={panelCls}>
-                {mask}
-                <form className='form-horizontal'>
-                    {this.renderAlert()}
-                    <Input type='text' name='username' ref='usernameField' label={this.i18n('login.username')}
-                           value={this.state.username}
-                           onChange={this.onChange} labelClassName='col-xs-3' onKeyPress={this.onKeyPress}
-                           wrapperClassName='col-xs-9'/>
-                    <Input type='password' name='password' label={this.i18n('login.password')}
-                           value={this.state.password}
-                           onChange={this.onChange} labelClassName='col-xs-3' onKeyPress={this.onKeyPress}
-                           wrapperClassName='col-xs-9'/>
+        return <Panel header={<h3>{this.i18n('login.title')}</h3>} bsStyle='info' className={panelCls}>
+            {mask}
+            <Form horizontal>
+                {this.renderAlert()}
+                <Input type='text' name='username' ref='usernameField' label={this.i18n('login.username')}
+                       value={this.state.username}
+                       onChange={this.onChange} labelWidth={3} onKeyPress={this.onKeyPress}
+                       inputWidth={9}/>
+                <Input type='password' name='password' label={this.i18n('login.password')}
+                       value={this.state.password}
+                       onChange={this.onChange} labelWidth={3} onKeyPress={this.onKeyPress}
+                       inputWidth={9}/>
 
-                    <div className='col-xs-3'>&nbsp;</div>
-                    <div className='col-xs-9' style={{padding: '0 0 0 7px'}}>
-                        <Button bsStyle='success' bsSize='small' onClick={this.login}
-                                disabled={this.state.mask}>{this.i18n('login.submit')}</Button>
-                        <Button bsStyle='link' bsSize='small' onClick={this.register} style={{padding: '0 0 0 15px'}}
-                                disabled={this.state.mask}>{this.i18n('login.register')}</Button>
-                    </div>
-                </form>
-            </Panel>
-        )
+                <div className='col-xs-3'>&nbsp;</div>
+                <div className='col-xs-9' style={{padding: '0 0 0 7px'}}>
+                    <Button bsStyle='success' bsSize='small' onClick={this.login}
+                            disabled={this.state.mask}>{this.i18n('login.submit')}</Button>
+                    <Button bsStyle='link' bsSize='small' onClick={this.register} style={{padding: '0 0 0 15px'}}
+                            disabled={this.state.mask}>{this.i18n('login.register')}</Button>
+                </div>
+            </Form>
+        </Panel>;
     },
 
     renderAlert: function () {
-        return this.state.alertVisible ? (
-            <Alert bsStyle='danger' bsSize='small'>
-                <div>{this.i18n('login.error')}</div>
-            </Alert>
-        ) : null;
+        return this.state.alertVisible ? <Alert bsStyle='danger' bsSize='small'>
+            <div>{this.i18n('login.error')}</div>
+        </Alert> : null;
     }
 });
 

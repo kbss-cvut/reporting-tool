@@ -1,27 +1,14 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import cz.cvut.kbss.reporting.dto.event.FactorGraph;
-import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
-import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.reporting.model.LogicalDocument;
-import cz.cvut.kbss.reporting.model.Person;
-import cz.cvut.kbss.reporting.model.Vocabulary;
-import cz.cvut.kbss.reporting.rest.dto.model.FormGenData;
+import cz.cvut.kbss.inbas.reporting.dto.event.FactorGraph;
+import cz.cvut.kbss.inbas.reporting.dto.event.OccurrenceDto;
+import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.inbas.reporting.model.LogicalDocument;
+import cz.cvut.kbss.inbas.reporting.model.Person;
+import cz.cvut.kbss.inbas.reporting.model.Resource;
+import cz.cvut.kbss.inbas.reporting.model.Vocabulary;
+import cz.cvut.kbss.inbas.reporting.rest.dto.model.FormGenData;
 
 import java.net.URI;
 import java.util.Date;
@@ -59,6 +46,8 @@ public class OccurrenceReportDto implements LogicalDocument, FormGenData {
     private Set<CorrectiveMeasureRequestDto> correctiveMeasures;
 
     private String summary;
+
+    private Set<Resource> references;
 
     private Set<String> types;
 
@@ -175,6 +164,14 @@ public class OccurrenceReportDto implements LogicalDocument, FormGenData {
         this.correctiveMeasures = correctiveMeasures;
     }
 
+    public Set<Resource> getReferences() {
+        return references;
+    }
+
+    public void setReferences(Set<Resource> references) {
+        this.references = references;
+    }
+
     public String getSummary() {
         return summary;
     }
@@ -193,7 +190,7 @@ public class OccurrenceReportDto implements LogicalDocument, FormGenData {
 
     @Override
     public ReportDto toReportDto() {
-        final cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto res = new cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto();
+        final cz.cvut.kbss.inbas.reporting.dto.reportlist.OccurrenceReportDto res = new cz.cvut.kbss.inbas.reporting.dto.reportlist.OccurrenceReportDto();
         res.setUri(uri);
         res.setKey(key);
         res.setFileNumber(fileNumber);

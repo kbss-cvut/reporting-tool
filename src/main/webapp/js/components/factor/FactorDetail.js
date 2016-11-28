@@ -1,36 +1,27 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * @jsx
- */
 'use strict';
+
+var QuestionAnswerProcessor = require('semforms').QuestionAnswerProcessor;
 
 var React = require('react');
 var assign = require('object-assign');
 var classNames = require('classnames');
 var Modal = require('react-bootstrap').Modal;
 var Button = require('react-bootstrap').Button;
+var ControlLabel = require('react-bootstrap').ControlLabel;
+var Form = require('react-bootstrap').Form;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 var Label = require('react-bootstrap').Label;
+var FormGroup = require('react-bootstrap').FormGroup;
+var InputGroup = require('react-bootstrap').InputGroup;
+var FormControl = require('react-bootstrap').FormControl;
 // require().default is needed for default-exported components using the ES6 syntax
 var DateTimePicker = require('kbss-react-bootstrap-datetimepicker').default;
 var injectIntl = require('../../utils/injectIntl');
 var FormattedMessage = require('react-intl').FormattedMessage;
+var JsonLdUtils = require('jsonld-utils').default;
 
+var Constants = require('../../constants/Constants');
 var EventTypeTypeahead = require('../typeahead/EventTypeTypeahead');
-var Input = require('../Input');
 var Mask = require('../Mask').default;
 var Utils = require('../../utils/Utils');
 var FactorStyleInfo = require('../../utils/FactorStyleInfo');
@@ -40,8 +31,8 @@ var Vocabulary = require('../../constants/Vocabulary');
 var WizardGenerator = require('../wizard/generator/WizardGenerator');
 var WizardWindow = require('../wizard/WizardWindow');
 var I18nMixin = require('../../i18n/I18nMixin');
-var EventTypeFactory = require('../../model/EventTypeFactory');
-var QuestionAnswerProcessor = require('../../model/QuestionAnswerProcessor').default;
+var ObjectTypeResolver = require('../../utils/ObjectTypeResolver');
+var OptionsStore = require('../../stores/OptionsStore');
 
 function convertDurationToCurrentUnit(factor) {
     var targetUnit = gantt.config.duration_unit;
@@ -57,14 +48,21 @@ var FactorDetail = React.createClass({
         onDelete: React.PropTypes.func.isRequired,
         scale: React.PropTypes.string.isRequired,
         factor: React.PropTypes.object.isRequired,
-        getReport: React.PropTypes.func.isRequired
+        getReport: React.PropTypes.func.isRequired,
+        enableDetails: React.PropTypes.bool
+    },
+
+    getDefaultProps: function () {
+        return {
+            enableDetails: true
+        };
     },
 
     getInitialState: function () {
         var factor = this.props.factor;
         return {
             showDeleteDialog: false,
-            eventType: Utils.jsonLdToTypeaheadOption(EventTypeFactory.resolveEventType(factor.statement.eventType)),
+            eventType: JsonLdUtils.jsonLdToTypeaheadOption(ObjectTypeResolver.resolveType(factor.statement.eventType, OptionsStore.getOptions('eventType'))),
             startDate: factor.start_date.getTime(),
             duration: convertDurationToCurrentUnit(factor),
             statement: factor.statement,
@@ -191,81 +189,80 @@ var FactorDetail = React.createClass({
 
     render: function () {
         var eventTypeLabel = this.props.factor.text,
-            durationMinus = <Button bsSize='small' disabled={this.state.duration === 0}
-                                    onClick={this.onDurationMinus}><Glyphicon glyph='minus'/></Button>,
-            durationPlus = <Button bsSize='small' onClick={this.onDurationPlus}><Glyphicon glyph='plus'/></Button>,
             eventTypeBadge = this.renderFactorTypeIcon(),
             eventTypeClassNames = classNames({
-                'col-xs-12': true,
+                'col-xs-12': !this.state.eventType,
                 'col-xs-11': this.state.eventType,
                 'col-xs-10': this.state.eventType && eventTypeBadge
             });
 
-        return (
-            <div>
-                <WizardWindow {...this.state.wizardProperties} show={this.state.isWizardOpen}
-                                                               onHide={this.onCloseDetails} enableForwardSkip={true}/>
-                <Modal show={this.props.show} onHide={this.props.onClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{this.i18n('factors.detail.title')}</Modal.Title>
-                    </Modal.Header>
+        // Modal body is given ref so that it is accessible in tests. See
+        // https://github.com/react-bootstrap/react-bootstrap/issues/966
+        return <div>
+            <WizardWindow {...this.state.wizardProperties} show={this.state.isWizardOpen}
+                          onHide={this.onCloseDetails} enableForwardSkip={true}/>
+            <Modal show={this.props.show} onHide={this.props.onClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{this.i18n('factors.detail.title')}</Modal.Title>
+                </Modal.Header>
 
-                    <Modal.Body>
-                        {this._renderMask()}
-                        {this.renderDeleteDialog()}
-                        <div className='row'>
-                            <div className='col-xs-12'>
-                                <label className='control-label'>{this.i18n('factors.detail.type')}</label>
-                            </div>
+                <Modal.Body ref={comp => this._modalContent = comp}>
+                    {this._renderMask()}
+                    {this.renderDeleteDialog()}
+                    <div className='row'>
+                        {eventTypeBadge}
+                        <div className={eventTypeClassNames}>
+                            <EventTypeTypeahead placeholder={this.i18n('factors.detail.type-placeholder')}
+                                                value={eventTypeLabel}
+                                                label={this.i18n('factors.detail.type')}
+                                                onSelect={this.onEventTypeChange} focus={true}/>
                         </div>
-                        <div className='form-group row'>
-                            {eventTypeBadge}
-                            <div className={eventTypeClassNames}>
-                                <EventTypeTypeahead placeholder={this.i18n('factors.detail.type-placeholder')}
-                                                    value={eventTypeLabel}
-                                                    onSelect={this.onEventTypeChange} focus={true}/>
-                            </div>
-                            {this._renderEventTypeLink()}
-                        </div>
+                        {this._renderEventTypeLink()}
+                    </div>
+                    <div>
                         <div>
-                            <div>
-                                <label className='control-label'>{this.i18n('factors.detail.time-period')}</label>
-                            </div>
-                            <div className='row'>
-                                <div className='col-xs-2 bold'
-                                     style={{padding: '7px 0 7px 15px'}}>{this.i18n('factors.detail.start')}</div>
-                                <div className='col-xs-4 picker-container form-group-sm'
-                                     style={{padding: '0 15px 0 0'}}>
-                                    <DateTimePicker inputFormat='DD-MM-YY HH:mm'
-                                                    dateTime={this.state.startDate.toString()}
-                                                    onChange={this.onDateChange}
-                                                    inputProps={{title: this.i18n('occurrence.start-time-tooltip'), bsSize: 'small'}}/>
-                                </div>
-                                <div className='col-xs-2 bold'
-                                     style={{padding: '7px 0 7px 15px'}}>{this.i18n('factors.detail.duration')}</div>
-                                <div className='col-xs-4' style={{padding: '0 15px 0 0'}}>
-                                    <div className='col-xs-7' style={{padding: '0'}}>
-                                        <Input type='text' buttonBefore={durationMinus} buttonAfter={durationPlus}
-                                               value={this.state.duration} onChange={this.onDurationSet}/>
+                            <label className='control-label'>{this.i18n('factors.detail.time-period')}</label>
+                        </div>
+                        <div className='row'>
+                            <Form inline>
+                                {this._renderStartTimePicker()}
+                                <div className='col-xs-7'>
+                                    <div className='col-xs-9'>
+                                        <FormGroup bsSize='small'>
+                                            <ControlLabel>{this.i18n('factors.detail.duration')}</ControlLabel>
+                                            <InputGroup className='inline-input'>
+                                                <InputGroup.Button>
+                                                    <Button bsSize='small' disabled={this.state.duration === 0}
+                                                            onClick={this.onDurationMinus}><Glyphicon
+                                                        glyph='minus'/></Button>
+                                                </InputGroup.Button>
+                                                <FormControl type='text' value={this.state.duration}
+                                                             onChange={this.onDurationSet} size={3}/>
+                                                <InputGroup.Button>
+                                                    <Button bsSize='small' onClick={this.onDurationPlus}><Glyphicon
+                                                        glyph='plus'/></Button>
+                                                </InputGroup.Button>
+                                            </InputGroup>
+                                        </FormGroup>
                                     </div>
-                                    <div className='col-xs-5' style={{padding: '7px 15px'}}>
+                                    <div className='col-xs-3' style={{padding: '7px 0 7px 0'}}>
                                         {this.renderDuration()}
                                     </div>
                                 </div>
-                            </div>
+                            </Form>
                         </div>
-                    </Modal.Body>
+                    </div>
+                </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button bsSize='small' bsStyle='success' onClick={this.onSave}
-                                disabled={!this.state.eventType}>{this.i18n('save')}</Button>
-                        <Button bsSize='small' onClick={this.props.onClose}>{this.i18n('cancel')}</Button>
-                        {this.renderDeleteButton()}
-                        {this.renderWizardButton()}
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        )
+                <Modal.Footer>
+                    <Button bsSize='small' bsStyle='success' onClick={this.onSave}
+                            disabled={!this.state.eventType}>{this.i18n('save')}</Button>
+                    <Button bsSize='small' onClick={this.props.onClose}>{this.i18n('cancel')}</Button>
+                    {this.renderDeleteButton()}
+                    {this.renderWizardButton()}
+                </Modal.Footer>
+            </Modal>
+        </div>;
     },
 
     _renderMask: function () {
@@ -288,9 +285,26 @@ var FactorDetail = React.createClass({
     _renderEventTypeLink: function () {
         var et = this.state.eventType;
         return et ?
-            <div className='col-xs-1'>
-                <ExternalLink url={et.id} title={et.name + '\n' + et.id} className='external-link-factor-detail'/>
+            <div className='external-link-container'>
+                <ExternalLink url={et.id} title={et.name + '\n' + et.id} className='external-link'/>
             </div> : null;
+    },
+
+    _renderStartTimePicker: function () {
+        if (this.props.scale === Constants.TIME_SCALES.RELATIVE) {
+            return null;
+        }
+        return <div className='col-xs-5'>
+            <DateTimePicker inputFormat='DD-MM-YY HH:mm'
+                            dateTime={this.state.startDate.toString()}
+                            label={this.i18n('factors.detail.start')}
+                            onChange={this.onDateChange} size='small'
+                            inputProps={{
+                                title: this.i18n('occurrence.start-time-tooltip'),
+                                className: 'inline-input',
+                                size: 12
+                            }}/>
+        </div>;
     },
 
     renderDuration: function () {
@@ -308,30 +322,29 @@ var FactorDetail = React.createClass({
     },
 
     renderWizardButton: function () {
-        return (
-            <div style={{float: 'left'}}>
-                <Button bsStyle='primary' bsSize='small' onClick={this.onOpenDetails}
-                        disabled={!this.state.eventType}>{this.i18n('factors.detail.details')}</Button>
-            </div>
-        )
+        if (!this.props.enableDetails) {
+            return null;
+        }
+        return <div style={{float: 'left'}}>
+            <Button bsStyle='primary' bsSize='small' onClick={this.onOpenDetails}
+                    disabled={!this.state.eventType}>{this.i18n('factors.detail.details')}</Button>
+        </div>;
     },
 
     renderDeleteDialog: function () {
-        return (
-            <Modal show={this.state.showDeleteDialog} onHide={this.onCancelDelete}>
-                <Modal.Header>
-                    <Modal.Title>{this.i18n('factors.detail.delete.title')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {this.i18n('factors.detail.delete.text')}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button bsSize='small' bsStyle='warning'
-                            onClick={this.onDeleteFactor}>{this.i18n('delete')}</Button>
-                    <Button bsSize='small' onClick={this.onCancelDelete}>{this.i18n('cancel')}</Button>
-                </Modal.Footer>
-            </Modal>
-        );
+        return <Modal show={this.state.showDeleteDialog} onHide={this.onCancelDelete}>
+            <Modal.Header>
+                <Modal.Title>{this.i18n('factors.detail.delete.title')}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {this.i18n('factors.detail.delete.text')}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button bsSize='small' bsStyle='warning'
+                        onClick={this.onDeleteFactor}>{this.i18n('delete')}</Button>
+                <Button bsSize='small' onClick={this.onCancelDelete}>{this.i18n('cancel')}</Button>
+            </Modal.Footer>
+        </Modal>;
     }
 });
 

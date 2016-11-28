@@ -1,25 +1,11 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var React = require('react');
-var assign = require('object-assign');
-var CollapsibleText = require('../components/CollapsibleText');
-var Constants = require('../constants/Constants');
-var JsonLdUtils = require('../utils/JsonLdUtils').default;
-var Vocabulary = require('../constants/Vocabulary');
+const React = require('react');
+const assign = require('object-assign');
+const JsonLdUtils = require('jsonld-utils').default;
+const CollapsibleText = require('../components/CollapsibleText');
+const Constants = require('../constants/Constants');
+const Vocabulary = require('../constants/Vocabulary');
 
 class OccurrenceReport {
     constructor(data) {
@@ -35,7 +21,7 @@ class OccurrenceReport {
         if (!this.phase) {
             return '';
         }
-        for (var i = 0, len = phaseMapping.length; i < len; i++) {
+        for (let i = 0, len = phaseMapping.length; i < len; i++) {
             if (phaseMapping[i]['@id'] === this.phase) {
                 return JsonLdUtils.getLocalized(phaseMapping[i][Vocabulary.RDFS_LABEL], intl);
             }
@@ -43,8 +29,16 @@ class OccurrenceReport {
         return this.phase;
     }
 
-    getLabel() {
+    getPrimaryLabel() {
         return 'occurrencereport.label';
+    }
+
+    /**
+     * Returns all the labels this report type supports.
+     * @return {[string]}
+     */
+    getLabels() {
+        return ['occurrencereport.label'];
     }
 
     toString() {
@@ -56,7 +50,7 @@ class OccurrenceReport {
     }
 }
 
-var REPORT_TYPES = {};
+const REPORT_TYPES = {};
 
 REPORT_TYPES[Vocabulary.OCCURRENCE_REPORT] = OccurrenceReport;
 REPORT_TYPES[Constants.OCCURRENCE_REPORT_JAVA_CLASS] = OccurrenceReport;
@@ -68,11 +62,11 @@ module.exports = {
     },
 
     getTypeLabel: function (type) {
-        return REPORT_TYPES[type] ? new REPORT_TYPES[type]().getLabel() : null;
+        return REPORT_TYPES[type] ? new REPORT_TYPES[type]().getPrimaryLabel() : null;
     },
 
     getReport: function (data, suppressError) {
-        var cls = this._getReportClass(data);
+        const cls = this._getReportClass(data);
         if (!suppressError && !cls) {
             throw 'Unsupported report type ' + data;
         }
@@ -81,7 +75,7 @@ module.exports = {
 
     _getReportClass: function (data) {
         if (data.types) {
-            for (var i = 0, len = data.types.length; i < len; i++) {
+            for (let i = 0, len = data.types.length; i < len; i++) {
                 if (REPORT_TYPES[data.types[i]]) {
                     return REPORT_TYPES[data.types[i]];
                 }

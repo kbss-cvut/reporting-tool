@@ -1,21 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * @jsx
- */
-
 'use strict';
 
 var React = require('react');
@@ -26,11 +8,13 @@ var Modal = require('react-bootstrap').Modal;
 var Panel = require('react-bootstrap').Panel;
 var injectIntl = require('../../utils/injectIntl');
 var FormattedMessage = require('react-intl').FormattedMessage;
+var JsonLdUtils = require('jsonld-utils').default;
 
-var Input = require('../Input');
+var Input = require('../Input').default;
 var Select = require('../Select');
 
 var Actions = require('../../actions/Actions');
+var Constants = require('../../constants/Constants');
 var FactorDetail = require('./FactorDetail');
 var FactorRenderer = require('./FactorRenderer');
 var GanttController = require('./GanttController');
@@ -39,42 +23,57 @@ var I18nMixin = require('../../i18n/I18nMixin');
 var Utils = require('../../utils/Utils');
 
 var OptionsStore = require('../../stores/OptionsStore');
-var TypeaheadStore = require('../../stores/TypeaheadStore');
 
-// TODO We should get rid of references to report.occurrence, because factors will be used also in Safety issue reports
-// and possibly audit reports
 var Factors = React.createClass({
-    mixins: [I18nMixin, Reflux.listenTo(TypeaheadStore, 'renderFactors'), Reflux.listenTo(OptionsStore, '_factorTypesLoaded')],
+    mixins: [I18nMixin, Reflux.listenTo(OptionsStore, '_onOptionsLoaded')],
 
     propTypes: {
-        report: React.PropTypes.object.isRequired
+        report: React.PropTypes.object.isRequired,
+        rootAttribute: React.PropTypes.string.isRequired,
+        onChange: React.PropTypes.func.isRequired,
+        enableDetails: React.PropTypes.bool
     },
 
     ganttController: null,
     factorReferenceIdCounter: 0,
 
+    getDefaultProps: function () {
+        return {
+            enableDetails: true
+        };
+    },
+
     getInitialState: function () {
         return {
-            scale: 'second',
+            scale: Utils.determineTimeScale(this.props.report[this.props.rootAttribute]),
             showLinkTypeDialog: false,
             currentLink: null,
             currentLinkSource: null,
             currentLinkTarget: null,
             showFactorDialog: false,
             currentFactor: null,
-            factorTypeOptions: Utils.processSelectOptions(OptionsStore.getOptions('factorType')),
+            factorTypeOptions: JsonLdUtils.processSelectOptions(OptionsStore.getOptions('factorType')),
             showDeleteLinkDialog: false
         }
     },
 
     componentDidUpdate: function () {
         if (this.factorsRendered) {
-            this.ganttController.updateOccurrenceEvent(this.props.report);
+            if (this._reportReloaded()) {
+                this.factorsRendered = false;
+                this.ganttController.clearAll();
+                this.renderFactors(OptionsStore.getOptions('eventType'));
+            } else
+                this.ganttController.updateRootEvent(this.props.report[this.props.rootAttribute]);
         }
     },
 
+    _reportReloaded: function () {
+        return this.rootReferenceId !== this.props.report[this.props.rootAttribute].referenceId;
+    },
+
     componentWillMount: function () {
-        Actions.loadEventTypes();
+        Actions.loadOptions('eventType');
     },
 
     componentDidMount: function () {
@@ -83,31 +82,31 @@ var Factors = React.createClass({
             onLinkAdded: this.onLinkAdded,
             onCreateFactor: this.onCreateFactor,
             onEditFactor: this.onEditFactor,
-            updateOccurrence: this.onUpdateOccurrence,
+            updateGraphRoot: this.onGraphRootUpdate,
             onDeleteLink: this.onDeleteLink
         });
         this.ganttController.setScale(this.state.scale);
-        if (TypeaheadStore.getEventTypes().length !== 0) {
-            this.renderFactors();
+        if (OptionsStore.getOptions('eventType').length !== 0) {
+            this.renderFactors(OptionsStore.getOptions('eventType'));
         }
     },
 
-    _factorTypesLoaded: function (type, data) {
-        if (type === 'factorType') {
-            this.setState({factorTypeOptions: Utils.processSelectOptions(data)});
+    _onOptionsLoaded: function (type, data) {
+        if (type === 'eventType') {
+            this.renderFactors(data);
+        } else if (type === 'factorType') {
+            this.setState({factorTypeOptions: JsonLdUtils.processSelectOptions(data)});
         }
     },
 
-    renderFactors: function (data) {
+    renderFactors: function (eventTypes) {
         if (this.factorsRendered) {
             return;
         }
-        if (data && data.action !== Actions.loadEventTypes) {
-            return;
-        }
         this.factorsRendered = true;
-        FactorRenderer.renderFactors(this.props.report, TypeaheadStore.getEventTypes());
-        this.ganttController.expandSubtree(this.ganttController.occurrenceEventId);
+        this.rootReferenceId = this.props.report[this.props.rootAttribute].referenceId;
+        FactorRenderer.renderFactors(this.props.report, eventTypes);
+        this.ganttController.expandSubtree(this.ganttController.rootEventId);
         this.factorReferenceIdCounter = FactorRenderer.greatestReferenceId;
     },
 
@@ -184,11 +183,14 @@ var Factors = React.createClass({
         this.ganttController.setScale(scale);
     },
 
-    onUpdateOccurrence: function (startTime, endTime) {
-        var occurrence = assign({}, this.props.report.occurrence);
-        occurrence.startTime = startTime;
-        occurrence.endTime = endTime;
-        this.props.onChange({'occurrence': occurrence});
+    onGraphRootUpdate: function (startTime, endTime) {
+        var attName = this.props.rootAttribute,
+            root = assign({}, this.props.report[attName]),
+            change = {};
+        root.startTime = startTime;
+        root.endTime = endTime;
+        change[attName] = root;
+        this.props.onChange(change);
     },
 
     getFactorGraph: function () {
@@ -204,46 +206,38 @@ var Factors = React.createClass({
 
 
     render: function () {
-        var scaleTooltip = this.i18n('factors.scale-tooltip');
-        return (
-            <Panel header={<h5>{this.i18n('factors.panel-title')}</h5>} bsStyle='info'>
-                {this.renderFactorDetailDialog()}
-                {this.renderLinkTypeDialog()}
-                {this.renderDeleteLinkDialog()}
-                <div id='factors_gantt' className='factors-gantt'/>
-                <div className='gantt-zoom'>
-                    <div className='col-xs-5'>
-                        <div className='col-xs-2 gantt-zoom-label bold'>{this.i18n('factors.scale')}:</div>
-                        <div className='col-xs-2'>
-                            <Input type='radio' label={this.i18n('factors.scale.second')} value='second'
-                                   title={scaleTooltip + 'seconds'} checked={this.state.scale === 'second'}
-                                   onChange={this.onScaleChange}/>
-                        </div>
-                        <div className='col-xs-2'>
-                            <Input type='radio' label={this.i18n('factors.scale.minute')} value='minute'
-                                   title={scaleTooltip + 'minutes'}
-                                   checked={this.state.scale === 'minute'}
-                                   onChange={this.onScaleChange}/>
-                        </div>
-                        <div className='col-xs-2'>
-                            <Input type='radio' label={this.i18n('factors.scale.hour')} value='hour'
-                                   title={scaleTooltip + 'hours'}
-                                   checked={this.state.scale === 'hour'} onChange={this.onScaleChange}/>
-                        </div>
-                        <div className='col-xs-2'>
-                            <Input type='radio' label={this.i18n('factors.scale.relative')} value='relative'
-                                   title={this.i18n('factors.scale.relative-tooltip')}
-                                   checked={this.state.scale === 'relative'} onChange={this.onScaleChange}/>
-                        </div>
-                    </div>
-
-                    <div className='col-xs-2'>&nbsp;</div>
-
-                    <div className='col-xs-5 gantt-zoom-label'>
-                        {this._renderLineColors()}
-                    </div>
+        return <Panel header={<h5>{this.i18n('factors.panel-title')}</h5>} bsStyle='info'>
+            {this.renderFactorDetailDialog()}
+            {this.renderLinkTypeDialog()}
+            {this.renderDeleteLinkDialog()}
+            <div id='factors_gantt' className='factors-gantt'/>
+            <div className='gantt-zoom'>
+                <div className='col-xs-5'>
+                    <div className='col-xs-2 gantt-zoom-label bold'>{this.i18n('factors.scale')}:</div>
+                    {this._renderScaleOptions()}
                 </div>
-            </Panel>);
+
+                <div className='col-xs-2'>&nbsp;</div>
+
+                <div className='col-xs-5 gantt-zoom-label'>
+                    {this._renderLineColors()}
+                </div>
+            </div>
+        </Panel>;
+    },
+
+    _renderScaleOptions: function () {
+        var items = [];
+        Object.getOwnPropertyNames(Constants.TIME_SCALES).forEach(scaleName => {
+            var scale = Constants.TIME_SCALES[scaleName];
+            items.push(<div className='col-xs-2' key={scale}>
+                <Input type='radio' label={this.i18n('factors.scale.' + scale)} value={scale}
+                       title={this.formatMessage('factors.scale-tooltip', {unit: this.i18n('factors.scale.' + scale)})}
+                       checked={this.state.scale === scale}
+                       onChange={this.onScaleChange}/>
+            </div>);
+        });
+        return items;
     },
 
     renderFactorDetailDialog: function () {
@@ -251,8 +245,9 @@ var Factors = React.createClass({
             return null;
         }
         return <FactorDetail show={this.state.showFactorDialog} getReport={this.getReport}
-                              factor={this.state.currentFactor} onClose={this.onCloseFactorDialog}
-                              onSave={this.onSaveFactor} onDelete={this.onDeleteFactor} scale={this.state.scale}/>;
+                             factor={this.state.currentFactor} onClose={this.onCloseFactorDialog}
+                             onSave={this.onSaveFactor} onDelete={this.onDeleteFactor} scale={this.state.scale}
+                             enableDetails={this.props.enableDetails}/>;
     },
 
     renderLinkTypeDialog: function () {
@@ -279,7 +274,10 @@ var Factors = React.createClass({
                 </Modal.Header>
                 <Modal.Body>
                     <FormattedMessage id='factors.link.delete.text'
-                                      values={{source: <span className='bold'>{source}</span>, target: <span className='bold'>{target}</span>}}/>
+                                      values={{
+                                          source: <span className='bold'>{source}</span>,
+                                          target: <span className='bold'>{target}</span>
+                                      }}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsStyle='warning' bsSize='small' onClick={this.deleteLink}>{this.i18n('delete')}</Button>

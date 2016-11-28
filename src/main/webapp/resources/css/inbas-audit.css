@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 html {
     height: 100%;
     margin: 0;
@@ -69,8 +55,7 @@ body {
 }
 
 .actions {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding: 0.1em 0.5em !important;
 }
 
 .large-modal {
@@ -97,7 +82,7 @@ body {
 }
 
 td.report-row {
-    vertical-align: middle !important;  /* Use important to override bootstrap */
+    vertical-align: middle !important; /* Use important to override bootstrap */
 }
 
 ul.autocomplete-results {
@@ -221,14 +206,6 @@ td.actions button {
     padding: 3em 0.5em;
 }
 
-.dashboard-sector-search {
-    text-align: center;
-    vertical-align: top;
-    margin-top: -2.8em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-}
-
 .dashboard-tile {
     min-height: 7em;
     width: 100%;
@@ -247,11 +224,12 @@ td.actions button {
 
 .dashboard-report-search-results {
     text-align: left;
-    width: 350px;
+    width: 450px;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
+    overflow: hidden;
 }
 
 .factors-gantt {
@@ -273,12 +251,6 @@ td.actions button {
 .gantt-zoom-label {
     margin: 10px 0;
 }
-
-/*.gantt_grid_head_add {*/
-/*background-image: none;*/
-/*cursor: default;*/
-/*pointer-events: none;*/
-/*}*/
 
 .gantt-link-causes {
     background-color: #ff0000;
@@ -373,7 +345,7 @@ td.actions button {
     float: right;
 }
 
-.factor-occurrence-event {
+.factor-root-event {
     font-size: 110%;
     font-weight: bold;
     background-color: #286090;
@@ -403,7 +375,7 @@ ul.event-type {
 
 .event-type-label {
     display: inline-block;
-    margin-top: 0.8em;
+    margin-top: 30px;
 }
 
 .notice-small {
@@ -451,18 +423,19 @@ button.reset-filters {
     margin-bottom: -15px !important;
 }
 
+.external-link-container {
+    position: relative;
+    float: left;
+    padding-left: 1%;
+}
+
 .external-link {
     display: block;
     content: url('../images/icons/external.png');
     width: 16px;
     height: 16px;
     margin-top: 28px;
-    margin-left: -20px;
     vertical-align: bottom;
-}
-
-.external-link-factor-detail {
-    margin-top: 7px;
 }
 
 .external-link-gantt {
@@ -548,4 +521,95 @@ button.reset-filters {
     min-height: 58em;
     border: 1px solid #cecece;
     border-radius: 3px;
+}
+
+@media (min-width: 768px) {
+    .navbar-search-input {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+    .navbar-search-results {
+        text-align: left;
+        width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+        left: -100px;
+        right: 0;
+        overflow: hidden;
+        border: 1px solid #003c68;
+    }
+
+    .navbar-search-results > .item {
+        color: #003c68;
+    }
+
+    span.item-label {
+        margin-bottom: 2px;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .navbar-search {
+        padding: 10px 5px 5px 0;
+        margin-bottom: -15px;
+    }
+}
+
+.navbar-search-results > .fulltext {
+    font-weight: bold;
+    border-bottom: 2px solid #003c68;
+}
+
+.type-filters-label {
+    float: left;
+    position: relative;
+    padding-left: 15px;
+    min-height: 1px;
+}
+
+.type-filters-label label {
+    margin-top: 0.6em;
+    margin-bottom: 0.8em;
+}
+
+.type-filters {
+    padding-bottom: 1em;
+}
+
+.type-filters button {
+    min-width: 80px;
+}
+
+.inline-input {
+    margin-left: 0.5em;
+}
+
+.filters-footer {
+    padding: 5px 15px 0 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+button.in-input-line {
+    margin-top: 22px;
+}
+
+.detail-button-toolbar {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.message-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    padding: 0 15px;
+}
+
+.report-type-label {
+    margin-left: 0.5em;
 }

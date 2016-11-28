@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var React = require('react');
@@ -84,7 +70,7 @@ var ReportsController = React.createClass({
         var payload = RouterStore.getTransitionPayload(Routes.reports.name),
             sort = null, filter, storedState;
         RouterStore.setTransitionPayload(Routes.reports.name);  // Clear payload
-        filter = payload ? payload.filter : null;
+        filter = payload ? payload.filter : undefined;
         if ((storedState = ComponentStateStore.getComponentState(ReportsController.displayName))) {
             sort = storedState.sort;
             if (!filter) {
@@ -126,10 +112,10 @@ var ReportsController = React.createClass({
     onFilterChange: function (filter) {
         var newFilter = assign({}, this.state.filter, filter);
         this.setState({filter: newFilter});
-        this._rememberFilterAndStort(newFilter, this.state.sort);
+        this._rememberFilterAndSort(newFilter, this.state.sort);
     },
 
-    _rememberFilterAndStort: function (filter, sort) {
+    _rememberFilterAndSort: function (filter, sort) {
         Actions.rememberComponentState(ReportsController.displayName, {
             filter: filter,
             sort: sort
@@ -141,7 +127,7 @@ var ReportsController = React.createClass({
         change[column] = sortStateTransition(this.state.sort[column]);
         newSort = assign(this.state.sort, change);
         this.setState({sort: newSort});
-        this._rememberFilterAndStort(this.state.filter, newSort);
+        this._rememberFilterAndSort(this.state.filter, newSort);
     },
 
     _filterReports: function (reports) {

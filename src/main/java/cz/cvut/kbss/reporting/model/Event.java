@@ -1,21 +1,8 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.reporting.model.qam.Question;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
+import cz.cvut.kbss.inbas.reporting.model.qam.Question;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphItem;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphNodeVisitor;
 import cz.cvut.kbss.jopa.model.annotations.*;
 
 import java.io.Serializable;
@@ -26,10 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @OWLClass(iri = Vocabulary.s_c_Event)
-public class Event implements FactorGraphItem, Serializable {
-
-    @Id(generated = true)
-    private URI uri;
+public class Event extends AbstractEntity implements FactorGraphItem, Serializable, Comparable<Event> {
 
     @OWLObjectProperty(iri = Vocabulary.s_p_has_factor, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Factor> factors;
@@ -76,15 +60,6 @@ public class Event implements FactorGraphItem, Serializable {
         if (other.question != null) {
             this.question = new Question(other.question);
         }
-    }
-
-    @Override
-    public URI getUri() {
-        return uri;
-    }
-
-    public void setUri(URI uri) {
-        this.uri = uri;
     }
 
     public Set<Factor> getFactors() {
@@ -210,9 +185,23 @@ public class Event implements FactorGraphItem, Serializable {
     }
 
     @Override
+    public void accept(FactorGraphNodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
     public String toString() {
         return "Event{" + uri +
                 ", types=" + types +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        if (index != null && o.index != null) {
+            return index.compareTo(o.index);
+        }
+        // If either index is missing, do not use it at all. It could break sorted set equals/hashCode contract
+        return hashCode() - o.hashCode();
     }
 }

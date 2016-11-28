@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var React = require('react');
@@ -21,8 +7,7 @@ var Glyphicon = require('react-bootstrap').Glyphicon;
 var injectIntl = require('../../utils/injectIntl');
 
 var Constants = require('../../constants/Constants');
-var ReportFilter = require('./ReportsFilter');
-var ReportRow = require('./ReportRow');
+var ReportRow = require('./ReportRow').default;
 var I18nMixin = require('../../i18n/I18nMixin');
 var PagingMixin = require('../mixin/PagingMixin');
 
@@ -50,8 +35,7 @@ var ReportsTable = React.createClass({
             <Table striped bordered condensed hover>
                 {this.renderHeader()}
                 <tbody>
-                <ReportFilter onFilterChange={this._onFilterChange} filter={this.props.filter}
-                              reports={this.props.allReports}/>
+                {this.props.children}
                 {this.renderReports()}
                 </tbody>
             </Table>
@@ -76,12 +60,12 @@ var ReportsTable = React.createClass({
         <tr>
             <th className='col-xs-2 content-center table-sorter-wrapper'>
                 {this.i18n('headline')}
-                {this._renderSortIcon('identification')}
+                {this._renderSortIcon('identification', 'alphabet')}
             </th>
             <th className='col-xs-1 content-center table-sorter-wrapper'
                 title={this.i18n('reports.table-date.tooltip')}>
                 {this.i18n('reports.table-date')}
-                {this._renderSortIcon('date')}
+                {this._renderSortIcon('date', 'order')}
             </th>
             <th className='col-xs-4 content-center'>{this.i18n('reports.table-moreinfo')}</th>
             <th className='col-xs-1 content-center'>{this.i18n('reports.table-type')}</th>
@@ -91,13 +75,17 @@ var ReportsTable = React.createClass({
         </thead>;
     },
 
-    _renderSortIcon: function (column) {
+    _renderSortIcon: function (column, sortType) {
         if (!this.props.sort) {
             return null;
         }
-        var glyph = this.props.sort[column] ? this.props.sort[column] : Constants.SORTING.NO;
-        return <Glyphicon bsClass={'glyphicon table-sorter-icon column-' + column} glyph={glyph.glyph}
-                          title={this.i18n(glyph.title)} onClick={this.props.actions.onSort.bind(null, column)}/>
+        var glyph = this.props.sort[column] ? this.props.sort[column] : Constants.SORTING.NO,
+            glyphIcon = glyph.glyph;
+        if (glyph !== Constants.SORTING.NO) {
+            glyphIcon = glyphIcon.replace('$type$', sortType);
+        }
+        return <Glyphicon className={'table-sorter-icon column-' + column} glyph={glyphIcon}
+                          title={this.i18n(glyph.title)} onClick={this.props.actions.onSort.bind(null, column)}/>;
     }
 });
 

@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 /**
  * English localization.
  */
@@ -30,6 +16,7 @@ module.exports = {
         'cancel-tooltip': 'Discard changes',
         'save': 'Save',
         'delete': 'Delete',
+        'remove': 'Remove',
         'headline': 'Headline',
         'summary': 'Summary',
         'narrative': 'Narrative',
@@ -83,8 +70,12 @@ module.exports = {
         'main.reports-nav': 'Reports',
         'main.statistics-nav': 'Statistics',
         'main.logout': 'Logout',
+        'main.search-placeholder': 'Search',
+        'main.search.fulltext': 'Search in all narratives',
+        'main.search.fulltext.label': 'Full text',
+        'main.search.fulltext-tooltip': 'Search for the specified string everywhere',
 
-        'dashboard.welcome': 'Hello {name}, Welcome to the ' + Constants.APP_NAME + '.',
+        'dashboard.welcome': 'Hello {name}, Welcome to ' + Constants.APP_NAME + '.',
         'dashboard.create-tile': 'Create Report',
         'dashboard.search-tile': 'Search for Report',
         'dashboard.search-placeholder': 'Report headline',
@@ -94,6 +85,7 @@ module.exports = {
         'dashboard.recent-panel-heading': 'Recently Edited/Added Reports',
         'dashboard.recent-table-last-edited': 'Last modified',
         'dashboard.recent.no-reports': 'There are no reports, yet.',
+        'dashboard.import.import-e5': 'Import E5X/E5F report',
 
         'dashboard.unprocessed': 'You have {count} unprocessed report(s).',
 
@@ -117,18 +109,20 @@ module.exports = {
         'reports.filter.label': 'Filter',
         'reports.filter.type.tooltip': 'Select report type',
         'reports.filter.type.all': 'All',
-        'reports.filter.type.preliminary': 'Preliminary',
+        'reports.filter.type.label': 'Report type filters:',
         'reports.filter.no-matching-found': 'No reports match the selected filters.',
         'reports.filter.reset': 'Reset filters',
         'reports.paging.item-count': 'Showing {showing} of {total} items.',
         'reports.create-report': 'Create report',
+
+        'filters.label': 'Filters',
 
         'delete-dialog.title': 'Delete {type} Report?',
         'delete-dialog.content': 'Are you sure you want to remove this report?',
 
         'occurrence.headline-tooltip': 'Short descriptive summary of the occurrence - this field is required',
         'occurrence.start-time': 'Occurrence start',
-        'occurrence.start-time-tooltip': 'Date and time when the event occurred',
+        'occurrence.start-time-tooltip': 'Date and time when the event occurred. Note: changing start time moves the whole occurrence in time, changing its end time modifies its duration.',
         'occurrence.end-time': 'Occurrence end',
         'occurrence.end-time-tooltip': 'Date and time when the event ended',
         'occurrence.class': 'Occurrence class',
@@ -158,6 +152,13 @@ module.exports = {
         'report.eventtype.add-tooltip': 'Add an event type assessment',
         'report.organization': 'Organization',
         'report.responsible-department': 'Responsible department',
+        'report.attachments.title': 'Attachments',
+        'report.attachments.create.button': 'Attach',
+        'report.attachments.create.reference-label': 'Value',
+        'report.attachments.create.reference-tooltip': 'Reference value, for example a document URL - this field is required',
+        'report.attachments.create.description-label': 'Description',
+        'report.attachments.create.description-tooltip': 'Optional description of the attachment',
+        'report.attachments.table.reference': 'Reference',
 
         'report.occurrence.category.label': 'Occurrence category',
         'occurrencereport.title': 'Occurrence report',
@@ -175,7 +176,7 @@ module.exports = {
 
         'factors.panel-title': 'Factors',
         'factors.scale': 'Scale',
-        'factors.scale-tooltip': 'Click to select scale in ',
+        'factors.scale-tooltip': 'Click to select scale: {unit}',
         'factors.scale.second': 'Seconds',
         'factors.scale.minute': 'Minutes',
         'factors.scale.hour': 'Hours',
@@ -215,6 +216,11 @@ module.exports = {
 
         'sort.no': 'Click to sort records by this column',
         'sort.asc': 'Records are sorted in ascending order',
-        'sort.desc': 'Records are sorted in descending order'
+        'sort.desc': 'Records are sorted in descending order',
+
+        'search.loading': 'Searching...',
+        'search.title': 'Search results',
+        'search.headline': 'Search for {expression} found {count, plural, one {# result} other {# results}}.',
+        'search.results.match': 'Matching snippet'
     }
 };

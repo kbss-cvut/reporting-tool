@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 /**
  * Czech localization.
  */
@@ -30,6 +16,7 @@ module.exports = {
         'cancel-tooltip': 'Zrušit a zahodit změny',
         'save': 'Uložit',
         'delete': 'Smazat',
+        'remove': 'Odstranit',
         'headline': 'Název',
         'summary': 'Shrnutí',
         'narrative': 'Popis',
@@ -60,6 +47,7 @@ module.exports = {
         'detail.phase-transition-failed-message': 'Přechod do další fáze se nezdařil. Zachycena chyba: ',
         'detail.loading': 'Načítám hlášení...',
         'detail.not-found.title': 'Hlášení nenalezeno',
+        'detail.remove-failed-message': 'Hlášení se nepodařilo odstranit. Odpověď serveru: ',
 
 
         'login.title': Constants.APP_NAME + ' - Přihlášení',
@@ -84,6 +72,11 @@ module.exports = {
         'main.reports-nav': 'Hlášení',
         'main.statistics-nav': 'Statistiky',
         'main.logout': 'Odhlásit se',
+        'main.search-placeholder': 'Hledat',
+        'main.search.fulltext': 'Hledat ve všech popisech',
+        'main.search.fulltext.label': 'Hledat všude',
+        'main.search.fulltext-tooltip': 'Hledat daný výraz ve všech hlášeních',
+        'main.tacr-notice': 'Projekt byl podpořen Technologickou agenturou České republiky.',
 
         'dashboard.welcome': 'Dobrý den, {name}, vítejte v ' + Constants.APP_NAME + '.',
         'dashboard.create-tile': 'Vytvořit hlášení',
@@ -99,7 +92,7 @@ module.exports = {
 
         'dashboard.unprocessed': 'Máte {count} nezpracovaných hlášení.',
 
-        'dropzone.title': 'Přetáhněte soubor sem nebo klikněte pro výběr souboru k nahrání.',
+        'dropzone.title': 'Přetáhněte sem soubor nebo klikněte pro výběr souboru k nahrání.',
         'dropzone-tooltip': 'Klikněte zde pro výber souboru k nahrání',
 
         'reports.no-reports': 'Nenalezena žádná hlášení. Nové hlášení můžete vytvořit ',
@@ -119,11 +112,13 @@ module.exports = {
         'reports.filter.label': 'Zobrazit',
         'reports.filter.type.tooltip': 'Vyberte typ hlášení, která chcete zobrazit',
         'reports.filter.type.all': 'Všechna',
-        'reports.filter.type.preliminary': 'Předběžná',
+        'reports.filter.type.label': 'Filtr typu hlášení:',
         'reports.filter.no-matching-found': 'Žádná hlášení neodpovídají zvoleným parametrům.',
         'reports.filter.reset': 'Zrušit filtry',
         'reports.paging.item-count': 'Zobrazuji {showing} z {total} položek.',
         'reports.create-report': 'Nové hlášení',
+
+        'filters.label': 'Filtry',
 
         'delete-dialog.title': 'Smazat hlášení?',
         'delete-dialog.content': 'Skutečně chcete smazat toto hlášení?',
@@ -131,7 +126,7 @@ module.exports = {
 
         'occurrence.headline-tooltip': 'Krátké pojmenování události - pole je povinné',
         'occurrence.start-time': 'Počátek události',
-        'occurrence.start-time-tooltip': 'Datum a čas kdy k události došlo',
+        'occurrence.start-time-tooltip': 'Datum a čas kdy k události došlo. Pozn.: Změna počátku události posouvá celou událost v čase. Změna konce události ovlivňuje její trvání.',
         'occurrence.end-time': 'Konec události',
         'occurrence.end-time-tooltip': 'Datum a čas kdy událost skončila',
         'occurrence.class': 'Třída závažnosti',
@@ -161,6 +156,13 @@ module.exports = {
         'report.eventtype.add-tooltip': 'Přidat popis typu události',
         'report.organization': 'Organizace',
         'report.responsible-department': 'Zodpovědné oddělení',
+        'report.attachments.title': 'Přílohy',
+        'report.attachments.create.button': 'Přiložit',
+        'report.attachments.create.reference-label': 'Příloha',
+        'report.attachments.create.reference-tooltip': 'Příloha, např. adresa dokumentu - pole je povinné',
+        'report.attachments.create.description-label': 'Popis',
+        'report.attachments.create.description-tooltip': 'Volitelný popis přílohy',
+        'report.attachments.table.reference': 'Příloha',
 
         'report.occurrence.category.label': 'Klasifikace události',
         'occurrencereport.title': 'Hlášení o události',
@@ -177,7 +179,7 @@ module.exports = {
 
         'factors.panel-title': 'Faktory',
         'factors.scale': 'Měřítko',
-        'factors.scale-tooltip': 'Kliknutím vyberete měřítko: ',
+        'factors.scale-tooltip': 'Kliknutím vyberete měřítko: {unit}',
         'factors.scale.second': 'Sekundy',
         'factors.scale.minute': 'Minuty',
         'factors.scale.hour': 'Hodiny',
@@ -210,13 +212,18 @@ module.exports = {
         'notrenderable.error': 'Chyba: {message}',
         'notrenderable.error-generic': 'Zkontrolujte, prosím, zda je záznam validní.',
 
-        'revisions.label': 'Revize zprávy',
+        'revisions.label': 'Revize hlášení',
         'revisions.created': 'Vytvořeno',
         'revisions.show-tooltip': 'Zobrazit tuto revizi',
         'revisions.readonly-notice': 'Starší revize jsou pouze ke čtení.',
 
         'sort.no': 'Kliknutím seřadíte záznamy podle tohoto sloupce',
         'sort.asc': 'Záznamy jsou seřazeny vzestupně',
-        'sort.desc': 'Záznamy jsou seřazeny sestupně'
+        'sort.desc': 'Záznamy jsou seřazeny sestupně',
+
+        'search.loading': 'Probíhá hledání...',
+        'search.title': 'Výsledky hledání',
+        'search.headline': 'Nalezeno {count, plural, one {# výskyt} few {# výskyty} other {# výskytů}} výrazu {expression}.',
+        'search.results.match': 'Výsledek hledání'
     }
 };

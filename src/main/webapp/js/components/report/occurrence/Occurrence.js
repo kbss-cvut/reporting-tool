@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * @jsx
- */
 'use strict';
 
 var React = require('react');
@@ -23,7 +6,7 @@ var assign = require('object-assign');
 
 var injectIntl = require('../../../utils/injectIntl');
 
-var Input = require('../../Input');
+var Input = require('../../Input').default;
 var Constants = require('../../../constants/Constants');
 var I18nMixin = require('../../../i18n/I18nMixin');
 
@@ -48,11 +31,14 @@ var Occurrence = React.createClass({
     },
 
     onStartChange: function (value) {
-        var occurrence = assign({}, this.props.report.occurrence);
+        var occurrence = assign({}, this.props.report.occurrence),
+            timeDiff = occurrence.startTime - Number(value);
         occurrence.startTime = Number(value);
         if (this.props.report.isNew && !this.state.startTimeChanged) {
             occurrence.endTime = Number(value) + Constants.MINUTE;
             this.setState({startTimeChanged: true});
+        } else {
+            occurrence.endTime = occurrence.endTime - timeDiff;
         }
         this.props.onChange({'occurrence': occurrence});
     },
@@ -65,32 +51,31 @@ var Occurrence = React.createClass({
 
     render: function () {
         var report = this.props.report;
-        return (
-            <div>
-                <div className='row'>
-                    <div className='col-xs-4'>
-                        <Input type='text' name='name' value={report.occurrence.name} onChange={this.onChange}
-                               label={this.i18n('headline') + '*'}
-                               title={this.i18n('occurrence.headline-tooltip')}/>
-                    </div>
-                </div>
-
-                <div className='row'>
-                    <div className='picker-container form-group form-group-sm col-xs-4'>
-                        <label className='control-label'>{this.i18n('occurrence.start-time')}</label>
-                        <DateTimePicker inputFormat='DD-MM-YY HH:mm:ss' dateTime={report.occurrence.startTime.toString()}
-                                        onChange={this.onStartChange}
-                                        inputProps={{title: this.i18n('occurrence.start-time-tooltip'), bsSize: 'small'}}/>
-                    </div>
-                    <div className='picker-container form-group form-group-sm col-xs-4'>
-                        <label className='control-label'>{this.i18n('occurrence.end-time')}</label>
-                        <DateTimePicker inputFormat='DD-MM-YY HH:mm:ss' dateTime={report.occurrence.endTime.toString()}
-                                        onChange={this.onEndChange}
-                                        inputProps={{title: this.i18n('occurrence.end-time-tooltip'), bsSize: 'small'}}/>
-                    </div>
+        return <div>
+            <div className='row'>
+                <div className='col-xs-4'>
+                    <Input type='text' name='name' value={report.occurrence.name} onChange={this.onChange}
+                           label={this.i18n('headline') + '*'}
+                           title={this.i18n('occurrence.headline-tooltip')}/>
                 </div>
             </div>
-        );
+
+            <div className='row'>
+                <div className='picker-container form-group form-group-sm col-xs-4'>
+                    <label className='control-label'>{this.i18n('occurrence.start-time')}</label>
+                    <DateTimePicker inputFormat='DD-MM-YY HH:mm:ss'
+                                    dateTime={report.occurrence.startTime.toString()}
+                                    onChange={this.onStartChange} size='small'
+                                    inputProps={{title: this.i18n('occurrence.start-time-tooltip')}}/>
+                </div>
+                <div className='picker-container form-group form-group-sm col-xs-4'>
+                    <label className='control-label'>{this.i18n('occurrence.end-time')}</label>
+                    <DateTimePicker inputFormat='DD-MM-YY HH:mm:ss' dateTime={report.occurrence.endTime.toString()}
+                                    onChange={this.onEndChange} size='small'
+                                    inputProps={{title: this.i18n('occurrence.end-time-tooltip')}}/>
+                </div>
+            </div>
+        </div>;
     }
 });
 

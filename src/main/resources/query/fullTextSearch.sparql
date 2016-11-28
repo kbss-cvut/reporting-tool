@@ -1,0 +1,14 @@
+PREFIX search:<http://www.openrdf.org/contrib/lucenesail#>
+PREFIX doc:<http://onto.fel.cvut.cz/ontologies/documentation/>
+
+SELECT DISTINCT ?report ?key ?headline ?snippet ?score WHERE {
+  ?match search:query ?expression;
+     search:score ?score;
+     search:snippet ?snippet;
+     search:property <http://purl.org/dc/terms/description> .
+  ?report search:matches ?match;
+     a doc:report ;
+     doc:has_key ?key ;
+     doc:documents/rdfs:label ?headline .
+}
+ORDER BY desc(?score)

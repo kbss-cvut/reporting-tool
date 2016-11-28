@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('Utility functions tests', function () {
@@ -26,6 +12,12 @@ describe('Utility functions tests', function () {
         expect(Utils.constantToString('NOT_EFFECTIVE', true)).toEqual('Not Effective');
         expect(Utils.constantToString('PLANE_WITHOUT_WINGS', true)).toEqual('Plane without Wings');
         expect(Utils.constantToString('CONSTANT_WITH_UNDERSCORES', true)).toEqual('Constant with Underscores');
+    });
+
+    it('formats epoch time to correct string', () => {
+        var date = new Date(0),
+            result = Utils.formatDate(date);
+        expect(result).toMatch(/01-01-70 0(0|1):00/);
     });
 
     it('Returns the same value when converting to the same unit', function () {
@@ -97,78 +89,6 @@ describe('Utility functions tests', function () {
         expect(Utils.getPathFromLocation()).toEqual('reports/1234567890');
     });
 
-    it('transforms JSON-LD input into Typeahead-friendly format', () => {
-        var jsonLd = Generator.getJsonLdSample(),
-            result = Utils.processTypeaheadOptions(jsonLd);
-        expect(result.length).toEqual(jsonLd.length);
-        for (var i = 0, len = jsonLd.length; i < len; i++) {
-            expect(result[i].id).toEqual(jsonLd[i]['@id']);
-            expect(result[i].type).toEqual(jsonLd[i]['@type']);
-            expect(result[i].name).toEqual(jsonLd[i][Vocabulary.RDFS_LABEL]);
-            if (jsonLd[i][Vocabulary.RDFS_COMMENT]) {
-                expect(result[i].description).toEqual(jsonLd[i][Vocabulary.RDFS_COMMENT]);
-            }
-        }
-    });
-
-    it('handles transformation of an empty array', () => {
-        var result = Utils.processTypeaheadOptions([]);
-        expect(result).toEqual([]);
-    });
-
-    it('handles transformation of null/undefined', () => {
-        var result = Utils.processTypeaheadOptions(null);
-        expect(result).toEqual([]);
-        result = Utils.processTypeaheadOptions();
-        expect(result).toEqual([]);
-    });
-
-    describe('getJsonAttValue', () => {
-        it('extracts value of a JSON literal value', () => {
-            var a = 'a',
-                b = true,
-                c = 12345,
-                d = 'Label',
-                obj = {
-                    'a': a,
-                    'b': b,
-                    'c': c
-                };
-            obj[Vocabulary.RDFS_LABEL] = d;
-            expect(Utils.getJsonAttValue(obj, 'a')).toEqual(a);
-            expect(Utils.getJsonAttValue(obj, 'b')).toEqual(b);
-            expect(Utils.getJsonAttValue(obj, 'c')).toEqual(c);
-            expect(Utils.getJsonAttValue(obj, Vocabulary.RDFS_LABEL)).toEqual(d);
-        });
-
-        it('extracts value from a JSON value object with tag', () => {
-            var label = 'Label',
-                obj = {};
-            obj[Vocabulary.RDFS_LABEL] = {
-                '@language': 'en',
-                '@value': label
-            };
-            expect(Utils.getJsonAttValue(obj, Vocabulary.RDFS_LABEL)).toEqual(label);
-        });
-
-        it('returns null if the attribute is not present', () => {
-            var obj = {};
-            obj[Vocabulary.RDFS_LABEL] = {
-                '@language': 'en',
-                '@value': 'Label'
-            };
-            expect(Utils.getJsonAttValue(obj, Vocabulary.RDFS_COMMENT)).toBeNull();
-        });
-
-        it('extracts value using the passed in \'by\' attribute', () => {
-            var obj = {}, value = Generator.getRandomUri();
-            obj[Constants.FORM.HAS_QUESTION_ORIGIN] = {
-                '@id': value
-            };
-            expect(Utils.getJsonAttValue(obj, Constants.FORM.HAS_QUESTION_ORIGIN, '@id')).toEqual(value);
-        })
-    });
-
     describe('addParametersToUrl', () => {
 
         it('adds parameters to URL', () => {
@@ -193,6 +113,94 @@ describe('Utility functions tests', function () {
                 result = Utils.addParametersToUrl(url, parameters);
             expect(result.indexOf('&pOne=' + parameters.pOne)).not.toEqual(-1);
             expect(result.indexOf('&pTwo=' + parameters.pTwo)).not.toEqual(-1);
+        });
+    });
+
+    describe('determineTimeScale', () => {
+        it('returns seconds for small time scale', () => {
+            var startTime = Date.now();
+            var root = {
+                startTime: startTime,
+                endTime: startTime + 50 * 1000
+            };
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.SECOND);
+            root.endTime = startTime;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.SECOND);
+            root.endTime = startTime + Constants.TIME_SCALE_THRESHOLD * 1000 - 1;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.SECOND);
+        });
+
+        it('returns minutes for medium time scale', () => {
+            var startTime = Date.now();
+            var root = {
+                startTime: startTime,
+                endTime: startTime + 10 * 60 * 1000
+            };
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.MINUTE);
+            root.endTime = startTime + Constants.TIME_SCALE_THRESHOLD * 1000;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.MINUTE);
+            root.endTime = startTime + Constants.TIME_SCALE_THRESHOLD * 60 * 1000 - 1;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.MINUTE);
+        });
+
+        it('returns hours for large time scale', () => {
+            var startTime = Date.now();
+            var root = {
+                startTime: startTime,
+                endTime: startTime + 10 * 60 * 60 * 1000
+            };
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.HOUR);
+            root.endTime = startTime + Constants.TIME_SCALE_THRESHOLD * 1000 * 60;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.HOUR);
+        });
+
+        it('returns relative time scale for missing start or end time', () => {
+            var root = {
+                startTime: Date.now()
+            };
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.RELATIVE);
+            root.endTime = Date.now();
+            delete root.startTime;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.RELATIVE);
+            delete root.endTime;
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.RELATIVE);
+        });
+
+        it('returns seconds when start is Unix epoch and end is a second later', () => {
+            var root = {
+                startTime: 0,
+                endTime: 1000
+            };
+            expect(Utils.determineTimeScale(root)).toEqual(Constants.TIME_SCALES.SECOND);
+        });
+    });
+
+    describe('getPropertyValue', () => {
+
+        it('returns value of property when path has length 1', () => {
+            var object = {},
+                property = 'startTime';
+            object[property] = Date.now();
+            expect(Utils.getPropertyValue(object, property)).toEqual(object[property]);
+        });
+
+        it('returns value of property with graph traversal', () => {
+            var value = 'The fall of Reach',
+                object = {
+                    occurrence: {
+                        name: value
+                    }
+                },
+                property = 'occurrence.name';
+            expect(Utils.getPropertyValue(object, property)).toEqual(value);
+        });
+
+        it('returns null when part of property path is missing', () => {
+            var object = {
+                    startTime: Date.now()
+                },
+                property = 'occurrence.name';
+            expect(Utils.getPropertyValue(object, property)).toBeNull();
         });
     });
 });

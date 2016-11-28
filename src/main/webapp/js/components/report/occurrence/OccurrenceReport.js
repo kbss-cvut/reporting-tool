@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var React = require('react');
@@ -22,6 +8,7 @@ var assign = require('object-assign');
 var injectIntl = require('../../../utils/injectIntl');
 
 var Actions = require('../../../actions/Actions');
+var Attachments = require('../attachment/Attachments').default;
 var BasicOccurrenceInfo = require('./BasicOccurrenceInfo').default;
 var Factors = require('../../factor/Factors');
 var CorrectiveMeasures = require('../../correctivemeasure/CorrectiveMeasures').default;
@@ -49,14 +36,13 @@ var OccurrenceReport = React.createClass({
             submitting: false,
             loadingWizard: false,
             isWizardOpen: false,
-            wizardProperties: null
+            wizardProperties: null,
+            showDeleteDialog: false
         };
     },
 
-    onAttributeChange: function (attribute, value) {
-        var change = {};
-        change[attribute] = value;
-        this.onChanges(change);
+    componentWillUnmount: function () {
+        this.cleanupMessages();
     },
 
     onChanges: function (changes) {
@@ -105,7 +91,7 @@ var OccurrenceReport = React.createClass({
 
         return <div>
             <WizardWindow {...this.state.wizardProperties} show={this.state.isWizardOpen}
-                                                           onHide={this.closeSummaryWizard} enableForwardSkip={true}/>
+                          onHide={this.closeSummaryWizard} enableForwardSkip={true}/>
 
             <Panel header={this.renderHeader()} bsStyle='primary'>
                 <ButtonToolbar className='float-right'>
@@ -118,7 +104,7 @@ var OccurrenceReport = React.createClass({
                                          onChange={this.props.handlers.onChange}/>
 
                     <div>
-                        <Factors ref='factors' report={report} onChange={this.onChanges}/>
+                        <Factors ref='factors' report={report} rootAttribute='occurrence' onChange={this.onChanges}/>
                     </div>
 
                     <div className='form-group'>
@@ -131,6 +117,10 @@ var OccurrenceReport = React.createClass({
                         </div>
                     </div>
 
+                    <div className='form-group'>
+                        <Attachments report={report} onChange={this.props.handlers.onChange}/>
+                    </div>
+
                     <Panel>
                         <ReportProvenance report={report} revisions={this.props.revisions}/>
                     </Panel>
@@ -139,6 +129,7 @@ var OccurrenceReport = React.createClass({
                 </form>
             </Panel>
             {this.renderMessage()}
+            {this.renderDeleteDialog()}
         </div>;
     },
 
@@ -148,13 +139,11 @@ var OccurrenceReport = React.createClass({
             fileNo =
                 <h3 className='panel-title pull-right'>{this.i18n('fileNo') + ' ' + this.props.report.fileNumber}</h3>;
         }
-        return (
-            <div>
-                <h2 className='panel-title pull-left'>{this.i18n('occurrencereport.title')}</h2>
-                {fileNo}
-                <div style={{clear: 'both'}}/>
-            </div>
-        )
+        return <div>
+            <h2 className='panel-title pull-left'>{this.i18n('occurrencereport.title')}</h2>
+            {fileNo}
+            <div style={{clear: 'both'}}/>
+        </div>;
     },
 
     renderButtons: function () {
@@ -165,7 +154,7 @@ var OccurrenceReport = React.createClass({
             saveDisabled = !ReportValidator.isValid(this.props.report) || loading,
             saveLabel = this.i18n(loading ? 'detail.saving' : 'save');
 
-        return <ButtonToolbar className='float-right' style={{margin: '1em 0 0.5em 0'}}>
+        return <ButtonToolbar className='float-right detail-button-toolbar'>
             <Button bsStyle='success' bsSize='small' disabled={saveDisabled} title={this.getSaveButtonTitle()}
                     onClick={this.onSave}>{saveLabel}</Button>
             <Button bsStyle='link' bsSize='small' title={this.i18n('cancel-tooltip')}
@@ -173,6 +162,7 @@ var OccurrenceReport = React.createClass({
             {this.renderSubmitButton()}
             <PhaseTransition report={this.props.report} onLoading={this.onLoading}
                              onSuccess={this.onPhaseTransitionSuccess} onError={this.onPhaseTransitionError}/>
+            {this.renderDeleteButton()}
         </ButtonToolbar>;
     },
 
@@ -187,11 +177,10 @@ var OccurrenceReport = React.createClass({
     },
 
     renderSubmitButton: function () {
-        return (
-            <Button bsStyle='primary' bsSize='small' title={this.i18n('detail.submit-tooltip')}
-                    onClick={this.onSubmit}>
+        return this.props.report.isNew ? null :
+            <Button bsStyle='primary' bsSize='small' title={this.i18n('detail.submit-tooltip')} onClick={this.onSubmit}>
                 {this.i18n('detail.submit')}
-            </Button>);
+            </Button>;
     }
 });
 

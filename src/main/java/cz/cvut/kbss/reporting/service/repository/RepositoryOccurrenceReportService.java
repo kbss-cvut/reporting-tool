@@ -1,33 +1,22 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.repository;
 
-import cz.cvut.kbss.reporting.exception.NotFoundException;
-import cz.cvut.kbss.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.reporting.persistence.dao.OccurrenceReportDao;
-import cz.cvut.kbss.reporting.persistence.dao.OwlKeySupportingDao;
-import cz.cvut.kbss.reporting.service.OccurrenceReportService;
-import cz.cvut.kbss.reporting.service.options.ReportingPhaseService;
-import cz.cvut.kbss.reporting.service.security.SecurityUtils;
-import cz.cvut.kbss.reporting.service.validation.OccurrenceReportValidator;
-import cz.cvut.kbss.reporting.util.Constants;
-import cz.cvut.kbss.reporting.util.IdentificationUtils;
+import cz.cvut.kbss.inbas.reporting.exception.NotFoundException;
+import cz.cvut.kbss.inbas.reporting.model.Occurrence;
+import cz.cvut.kbss.inbas.reporting.model.OccurrenceReport;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.persistence.dao.OccurrenceReportDao;
+import cz.cvut.kbss.inbas.reporting.persistence.dao.OwlKeySupportingDao;
+import cz.cvut.kbss.inbas.reporting.service.OccurrenceReportService;
+import cz.cvut.kbss.inbas.reporting.service.options.ReportingPhaseService;
+import cz.cvut.kbss.inbas.reporting.service.security.SecurityUtils;
+import cz.cvut.kbss.inbas.reporting.service.validation.OccurrenceReportValidator;
+import cz.cvut.kbss.inbas.reporting.service.visitor.EventTypeSynchronizer;
+import cz.cvut.kbss.inbas.reporting.util.Constants;
+import cz.cvut.kbss.inbas.reporting.util.IdentificationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -47,17 +36,18 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
     @Autowired
     private ReportingPhaseService phaseService;
 
+    @Autowired
+    private EventTypeSynchronizer eventTypeSynchronizer;
+
     @Override
     protected OwlKeySupportingDao<OccurrenceReport> getPrimaryDao() {
         return reportDao;
     }
 
     @Override
-    public void persist(OccurrenceReport instance) {
-        Objects.requireNonNull(instance);
+    protected void prePersist(OccurrenceReport instance) {
         initReportData(instance);
-        validator.validateForPersist(instance);
-        super.persist(instance);
+        synchronizeEventTypes(instance.getOccurrence());
     }
 
     private void initReportData(OccurrenceReport instance) {
@@ -71,25 +61,26 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
     }
 
     @Override
-    public void persist(Collection<OccurrenceReport> instances) {
-        Objects.requireNonNull(instances);
-        if (instances.isEmpty()) {
-            return;
-        }
-        instances.forEach(r -> {
-            initReportData(r);
-            validator.validateForPersist(r);
-        });
-        super.persist(instances);
+    protected void preUpdate(OccurrenceReport instance) {
+        instance.setLastModifiedBy(securityUtils.getCurrentUser());
+        instance.setLastModified(new Date());
+        synchronizeEventTypes(instance.getOccurrence());
+        validator.validateForUpdate(instance, find(instance.getUri()));
+    }
+
+    private void synchronizeEventTypes(Occurrence occurrence) {
+        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(eventTypeSynchronizer, null);
+        traverser.traverse(occurrence);
     }
 
     @Override
-    public void update(OccurrenceReport instance) {
-        Objects.requireNonNull(instance);
-        instance.setLastModifiedBy(securityUtils.getCurrentUser());
-        instance.setLastModified(new Date());
-        validator.validateForUpdate(instance, find(instance.getUri()));
-        super.update(instance);
+    protected void postLoad(OccurrenceReport instance) {
+        if (instance != null) {
+            instance.getAuthor().erasePassword();
+            if (instance.getLastModifiedBy() != null) {
+                instance.getLastModifiedBy().erasePassword();
+            }
+        }
     }
 
     @Override
@@ -102,7 +93,7 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
         newRevision.setRevision(latest.getRevision() + 1);
         newRevision.setAuthor(securityUtils.getCurrentUser());
         newRevision.setDateCreated(new Date());
-        super.persist(newRevision);
+        reportDao.persist(newRevision);
         return newRevision;
     }
 

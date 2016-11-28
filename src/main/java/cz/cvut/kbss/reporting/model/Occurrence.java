@@ -1,25 +1,13 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.reporting.model.qam.Question;
-import cz.cvut.kbss.reporting.model.util.HasOwlKey;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
-import cz.cvut.kbss.reporting.model.util.factorgraph.clone.EdgeCloningVisitor;
-import cz.cvut.kbss.reporting.model.util.factorgraph.clone.NodeCloningVisitor;
-import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.model.qam.Question;
+import cz.cvut.kbss.inbas.reporting.model.util.HasOwlKey;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphItem;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.FactorGraphNodeVisitor;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.clone.EdgeCloningVisitor;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.clone.NodeCloningVisitor;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.DefaultFactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
 import cz.cvut.kbss.jopa.model.annotations.*;
 
 import java.io.Serializable;
@@ -27,10 +15,7 @@ import java.net.URI;
 import java.util.*;
 
 @OWLClass(iri = Vocabulary.s_c_Occurrence)
-public class Occurrence implements HasOwlKey, FactorGraphItem, Serializable {
-
-    @Id(generated = true)
-    private URI uri;
+public class Occurrence extends AbstractEntity implements HasOwlKey, FactorGraphItem, Serializable {
 
     @ParticipationConstraints(nonEmpty = true)
     @OWLDataProperty(iri = Vocabulary.s_p_has_key)
@@ -87,18 +72,11 @@ public class Occurrence implements HasOwlKey, FactorGraphItem, Serializable {
     }
 
     @Override
-    public URI getUri() {
-        return uri;
-    }
-
-    public void setUri(URI uri) {
-        this.uri = uri;
-    }
-
     public String getKey() {
         return key;
     }
 
+    @Override
     public void setKey(String key) {
         this.key = key;
     }
@@ -222,10 +200,15 @@ public class Occurrence implements HasOwlKey, FactorGraphItem, Serializable {
         return "Occurrence{" + name + " <" + uri + ">, types=" + types + '}';
     }
 
+    @Override
+    public void accept(FactorGraphNodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
     public static Occurrence copyOf(Occurrence original) {
         final Map<URI, FactorGraphItem> instanceMap = new HashMap<>();
         final NodeCloningVisitor nodeVisitor = new NodeCloningVisitor(instanceMap);
-        final FactorGraphTraverser traverser = new FactorGraphTraverser(nodeVisitor, null);
+        final FactorGraphTraverser traverser = new DefaultFactorGraphTraverser(nodeVisitor, null);
         traverser.traverse(original);
         final EdgeCloningVisitor edgeVisitor = new EdgeCloningVisitor(instanceMap);
         traverser.setFactorGraphEdgeVisitor(edgeVisitor);

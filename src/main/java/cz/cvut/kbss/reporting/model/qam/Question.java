@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,7 +5,8 @@
  */
 package cz.cvut.kbss.reporting.model.qam;
 
-import cz.cvut.kbss.reporting.model.Vocabulary;
+import cz.cvut.kbss.inbas.reporting.model.AbstractEntity;
+import cz.cvut.kbss.inbas.reporting.model.Vocabulary;
 import cz.cvut.kbss.jopa.model.annotations.*;
 
 import java.io.Serializable;
@@ -32,10 +19,7 @@ import java.util.stream.Collectors;
  * @author Bogdan Kostov <bogdan.kostov@fel.cvut.cz>
  */
 @OWLClass(iri = Vocabulary.s_c_question)
-public class Question implements Serializable {
-
-    @Id(generated = true)
-    private URI uri;
+public class Question extends AbstractEntity implements Serializable {
 
     @OWLObjectProperty(iri = Vocabulary.s_p_has_related_question, cascade = {CascadeType.MERGE,
             CascadeType.REMOVE}, fetch = FetchType.EAGER)
@@ -65,14 +49,6 @@ public class Question implements Serializable {
             this.types.addAll(other.types);
         }
         this.origin = other.origin;
-    }
-
-    public URI getUri() {
-        return uri;
-    }
-
-    public void setUri(URI uri) {
-        this.uri = uri;
     }
 
     public Set<Question> getSubQuestions() {

@@ -1,25 +1,13 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var Constants = require('../constants/Constants');
 
+var validators = {};
+
 var ReportValidator = {
 
     /**
-     * Checks whether 376 fields are filled.
+     * Checks whether all the required fields are filled.
      * @param report Report to validate
      * @return {boolean} Validity status
      */
@@ -27,16 +15,45 @@ var ReportValidator = {
         return this.getValidationMessage(report) === null;
     },
 
+    getValidationMessage: function (report) {
+        if (validators[report.javaClass]) {
+            return validators[report.javaClass].getValidationMessage(report);
+        }
+        return null;
+    },
+
     /**
-     * Gets I18N property corresponding to the result of validation of the specified report.
+     * Checks whether the application will be able to render the specified report.
      *
-     * I.e., when the report is missing some property value, a message about missing required fields is returned, if
-     * any
-     * of the report values is invalid, then a message about the invalid property value is returned. Null is returned
-     * for a valid report.
-     * @param report Report to validate
-     * @return {*} Message identifier or null
+     * For instance, reports with too large difference between occurrence start and end time cannot be rendered, because
+     * the gantt component hangs when trying to render such data and it causes the whole browser to freeze.
+     * @param report The report to check
      */
+    canRender: function (report) {
+        return this.getRenderError(report) === null;
+    },
+
+    /**
+     * Gets error because of which the specified report cannot be rendered.
+     * @param report The report to check
+     * @return {*} Error message identifier, or {@code null}, if the report can be rendered
+     */
+    getRenderError: function (report) {
+        if (!report) {
+            return '';
+        }
+        if (validators[report.javaClass]) {
+            return validators[report.javaClass].getRenderError(report);
+        }
+        return null;
+    }
+};
+
+/**
+ * Occurrence report validator.
+ */
+var OccurrenceReportValidator = {
+
     getValidationMessage: function (report) {
         if (!report.occurrence) {
             return 'detail.invalid-tooltip';
@@ -66,26 +83,7 @@ var ReportValidator = {
         return report.occurrence.endTime - report.occurrence.startTime <= Constants.MAX_OCCURRENCE_START_END_DIFF;
     },
 
-    /**
-     * Checks whether the application will be able to render the specified report.
-     *
-     * For instance, reports with too large difference between occurrence start and end time cannot be rendered, because
-     * the gantt component hangs when trying to render such data and it causes the whole browser to freeze.
-     * @param report The report to check
-     */
-    canRender: function (report) {
-        return this.getRenderError(report) === null;
-    },
-
-    /**
-     * Gets error because of which the specified report cannot be rendered.
-     * @param report The report to check
-     * @return {*} Error message identifier, or {@code null}, if the report can be rendered
-     */
     getRenderError: function (report) {
-        if (!report) {
-            return '';
-        }
         if (!this._isOccurrenceStartEndTimeDiffValid(report)) {
             return 'detail.large-time-diff-tooltip';
         }
@@ -93,5 +91,7 @@ var ReportValidator = {
         return null;
     }
 };
+
+validators[Constants.OCCURRENCE_REPORT_JAVA_CLASS] = OccurrenceReportValidator;
 
 module.exports = ReportValidator;

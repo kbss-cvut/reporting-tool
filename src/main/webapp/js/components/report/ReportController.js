@@ -1,28 +1,14 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var React = require('react');
 var Reflux = require('reflux');
 
 var Actions = require('../../actions/Actions');
+var Constants = require('../../constants/Constants');
 var Logger = require('../../utils/Logger');
 var ReportFactory = require('../../model/ReportFactory');
-var Report = require('./Report');
+var Report = require('./Report').default;
 var OptionsStore = require('../../stores/OptionsStore'); // Force store initialization, so that it can listen to actions
-var TypeaheadStore = require('../../stores/TypeaheadStore');
 var ReportStore = require('../../stores/ReportStore');
 var RouterStore = require('../../stores/RouterStore');
 var Routes = require('../../utils/Routes');
@@ -36,7 +22,7 @@ var ReportController = React.createClass({
             report: this._isNew() ? this.initNewReport() : null,
             revisions: null,
             loading: false
-        }
+        };
     },
 
     _isNew: function () {
@@ -60,7 +46,7 @@ var ReportController = React.createClass({
 
     componentDidMount: function () {
         Actions.loadOptions();
-        Actions.loadOccurrenceCategories();
+        Actions.loadOptions(Constants.OPTIONS.OCCURRENCE_CATEGORY);
         Actions.loadOptions('factorType');
     },
 
@@ -94,10 +80,8 @@ var ReportController = React.createClass({
     },
 
 
-    // Rendering
-
     render: function () {
-        return (<Report report={this.state.report} revisions={this.state.revisions} loading={this.state.loading}/>);
+        return <Report report={this.state.report} revisions={this.state.revisions} loading={this.state.loading}/>;
     }
 });
 

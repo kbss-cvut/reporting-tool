@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('Test factor tree hierarchy serialization for JSON', function () {
@@ -55,7 +41,7 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
     it('Serializes part-of hierarchy', () => {
         var nodes = [report.occurrence];
         Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
-        var partOfLinks = Generator.generatePartOfLinksForNodes(report, nodes);
+        var partOfLinks = Generator.generatePartOfLinksForNodes(report.occurrence, nodes);
         initGetFactorStub(nodes);
         initForEachStub(nodes);
         initGetChildrenStub(nodes, partOfLinks);
@@ -78,10 +64,10 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
     function initGetChildrenStub(nodes, partOfLinks) {
         GanttController.getChildren.and.callFake((id) => {
             var childLinks = partOfLinks.filter((lnk) => {
-                return lnk.from === id;
+                return lnk.from.referenceId === id;
             });
             var childIds = childLinks.map((item) => {
-                return item.to;
+                return item.to.referenceId;
             });
             var children = [];
             for (var i = 0, len = nodes.length; i < len; i++) {
@@ -140,13 +126,12 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
             expected;
         Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
         var factorLinks = Generator.generateFactorLinksForNodes(nodes);
-        var partOfLinks = Generator.generatePartOfLinksForNodes(report, nodes);
+        var partOfLinks = Generator.generatePartOfLinksForNodes(report.occurrence, nodes);
         initGetLinksStub(factorLinks);
         initGetFactorStub(nodes);
         initForEachStub(nodes);
         initGetChildrenStub(nodes, partOfLinks);
         expected = nodes.slice();
-        expected[0] = report.occurrence.referenceId; // Occurrence is represented by ids reference id, see the next test
 
         var factorGraph = FactorJsonSerializer.getFactorGraph(report);
         expect(factorGraph.nodes).not.toBeNull();
@@ -154,20 +139,5 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
         expect(factorGraph.edges).not.toBeNull();
         expect(factorGraph.edges.length).toEqual(partOfLinks.length + factorLinks.length);
         verifyLinks(partOfLinks.concat(factorLinks), factorGraph.edges);
-    });
-
-    it('Uses occurrence reference id in factor graph for an occurrence report', () => {
-        var nodes = [report.occurrence];
-        Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
-        var factorLinks = Generator.generateFactorLinksForNodes(nodes);
-        var partOfLinks = Generator.generatePartOfLinksForNodes(report, nodes);
-        initGetLinksStub(factorLinks);
-        initGetFactorStub(nodes);
-        initForEachStub(nodes);
-        initGetChildrenStub(nodes, partOfLinks);
-
-        var factorGraph = FactorJsonSerializer.getFactorGraph(report);
-        var occurrenceRefId = report.occurrence.referenceId;
-        expect(factorGraph.nodes.indexOf(occurrenceRefId)).not.toEqual(-1);
     });
 });

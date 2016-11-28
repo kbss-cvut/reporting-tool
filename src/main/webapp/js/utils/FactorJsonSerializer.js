@@ -1,19 +1,6 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
+var assign = require('object-assign');
 var Vocabulary = require('../constants/Vocabulary');
 
 /**
@@ -28,11 +15,8 @@ var FactorJsonSerializer = {
         FactorSerializer.setGanttController(controller);
     },
 
-    getFactorGraph: function (report) {
+    getFactorGraph: function () {
         this._verifyGanttControllerIsSet();
-        if (report.occurrence) {
-            return OccurrenceFactorSerializer.getFactorGraph(report);
-        }
         return FactorSerializer.getFactorGraph();
     },
 
@@ -68,7 +52,7 @@ var FactorSerializer = {
         var nodes = [],
             me = this;
         this.ganttController.forEach((item) => {
-            var node = item.statement;
+            var node = assign({}, item.statement);
             node.startTime = item.start_date.getTime();
             node.endTime = item.end_date.getTime();
             me.ganttIdsToNodes[item.id] = node;
@@ -93,8 +77,8 @@ var FactorSerializer = {
             }
             for (var i = 0, len = children.length; i < len; i++) {
                 partOfEdges.push({
-                    from: this.ganttIdsToNodes[item.id].referenceId,
-                    to: this.ganttIdsToNodes[children[i].id].referenceId,
+                    from: this.ganttIdsToNodes[item.id],
+                    to: this.ganttIdsToNodes[children[i].id],
                     linkType: Vocabulary.HAS_PART
                 });
             }
@@ -107,32 +91,12 @@ var FactorSerializer = {
             edges = [];
         for (var i = 0, len = links.length; i < len; i++) {
             edges.push({
-                from: this.ganttIdsToNodes[links[i].source].referenceId,
-                to: this.ganttIdsToNodes[links[i].target].referenceId,
+                from: this.ganttIdsToNodes[links[i].source],
+                to: this.ganttIdsToNodes[links[i].target],
                 linkType: links[i].factorType
             });
         }
         return edges;
-    }
-};
-
-/**
- * Wraps the serialization algorithm with additional behaviour.
- *
- * In this case, we are reusing the occurrence reference id, so that when the data are deserialized, there is only one
- * instance of occurrence.
- */
-var OccurrenceFactorSerializer = {
-
-    getFactorGraph: function (report) {
-        var graph = FactorSerializer.getFactorGraph();
-        for (var i = 0, len = graph.nodes.length; i < len; i++) {
-            if (report.occurrence.referenceId === graph.nodes[i].referenceId) {
-                graph.nodes[i] = report.occurrence.referenceId;
-                break;  // Occurrence is there only once
-            }
-        }
-        return graph;
     }
 };
 

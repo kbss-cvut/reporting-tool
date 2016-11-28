@@ -1,24 +1,6 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.util;
 
 public final class Constants {
-
-    private Constants() {
-        throw new AssertionError();
-    }
 
     /**
      * Language used by the persistence unit.
@@ -110,4 +92,23 @@ public final class Constants {
      * File with a query for getting report statistics.
      */
     public static final String STATISTICS_QUERY_FILE = "query/statistics.sparql";
+
+    /**
+     * File with the full text fullTextSearch query.
+     */
+    public static final String FULL_TEXT_SEARCH_QUERY_FILE = "query/fullTextSearch.sparql";
+
+    /**
+     * Name of the URL parameter specifying type of options for loading.
+     */
+    public static final String OPTIONS_TYPE_QUERY_PARAM = "type";
+
+    /**
+     * Name of the URL parameter specifying query sent to remote repository.
+     */
+    public static final String QUERY_QUERY_PARAM = "query";
+
+    private Constants() {
+        throw new AssertionError();
+    }
 }

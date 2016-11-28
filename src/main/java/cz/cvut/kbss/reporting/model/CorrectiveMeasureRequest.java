@@ -1,24 +1,11 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.reporting.model.util.HasUri;
-import cz.cvut.kbss.jopa.model.annotations.*;
+import cz.cvut.kbss.jopa.model.annotations.FetchType;
+import cz.cvut.kbss.jopa.model.annotations.OWLClass;
+import cz.cvut.kbss.jopa.model.annotations.OWLDataProperty;
+import cz.cvut.kbss.jopa.model.annotations.OWLObjectProperty;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -29,10 +16,7 @@ import java.util.Set;
  * inheritance between agent - Person/Organization and Event - Occurrence.
  */
 @OWLClass(iri = Vocabulary.s_c_corrective_measure_request)
-public class CorrectiveMeasureRequest implements HasUri, Serializable {
-
-    @Id(generated = true)
-    private URI uri;
+public class CorrectiveMeasureRequest extends AbstractEntity implements Serializable {
 
     @OWLDataProperty(iri = Vocabulary.s_p_description)
     private String description;
@@ -70,15 +54,6 @@ public class CorrectiveMeasureRequest implements HasUri, Serializable {
         }
         this.basedOnEvent = other.basedOnEvent;
         this.basedOnOccurrence = other.basedOnOccurrence;
-    }
-
-    @Override
-    public URI getUri() {
-        return uri;
-    }
-
-    public void setUri(URI uri) {
-        this.uri = uri;
     }
 
     public String getDescription() {

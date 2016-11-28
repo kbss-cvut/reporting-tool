@@ -1,23 +1,10 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 var React = require('react');
 var Pagination = require('react-bootstrap').Pagination;
 
 var FormattedMessage = require('react-intl').FormattedMessage;
 
 var Actions = require('../../actions/Actions');
+var Constants = require('../../constants/Constants');
 var ComponentStateStore = require('../../stores/ComponentStateStore');
 
 var MAX_BUTTONS = 5;
@@ -40,7 +27,7 @@ var PagingMixin = {
 
     getDefaultProps: function () {
         return {
-            pageSize: 11,
+            pageSize: Constants.PAGE_SIZE,
             maxButtons: MAX_BUTTONS
         }
     },
@@ -56,8 +43,7 @@ var PagingMixin = {
         return {activePage: page};
     },
 
-    _onPageSelect: function (e, selectedEvent) {
-        var page = selectedEvent.eventKey;
+    _onPageSelect: function (page) {
         this.setState({activePage: page});
         if (this.getDisplayName) {
             Actions.rememberComponentState(this.getDisplayName(), {activePage: page});

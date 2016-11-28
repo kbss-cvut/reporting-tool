@@ -1,21 +1,7 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto;
-import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.inbas.reporting.dto.reportlist.OccurrenceReportDto;
+import cz.cvut.kbss.inbas.reporting.dto.reportlist.ReportDto;
 import cz.cvut.kbss.jopa.model.annotations.*;
 
 import java.io.Serializable;
@@ -27,10 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @OWLClass(iri = Vocabulary.s_c_occurrence_report)
-public class OccurrenceReport implements LogicalDocument, Serializable {
-
-    @Id(generated = true)
-    private URI uri;
+public class OccurrenceReport extends AbstractEntity implements LogicalDocument, Serializable {
 
     @ParticipationConstraints(nonEmpty = true)
     @OWLDataProperty(iri = Vocabulary.s_p_has_key)
@@ -73,6 +56,9 @@ public class OccurrenceReport implements LogicalDocument, Serializable {
     @OWLObjectProperty(iri = Vocabulary.s_p_has_corrective_measure, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<CorrectiveMeasureRequest> correctiveMeasures;
 
+    @OWLObjectProperty(iri = Vocabulary.s_p_references, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Resource> references;
+
     @OWLDataProperty(iri = Vocabulary.s_p_description)
     private String summary;
 
@@ -96,15 +82,9 @@ public class OccurrenceReport implements LogicalDocument, Serializable {
             this.correctiveMeasures = other.correctiveMeasures.stream().map(CorrectiveMeasureRequest::new)
                                                               .collect(Collectors.toSet());
         }
-    }
-
-    @Override
-    public URI getUri() {
-        return uri;
-    }
-
-    public void setUri(URI uri) {
-        this.uri = uri;
+        if (other.references != null) {
+            this.references = other.references.stream().map(Resource::new).collect(Collectors.toSet());
+        }
     }
 
     public String getKey() {
@@ -193,6 +173,14 @@ public class OccurrenceReport implements LogicalDocument, Serializable {
 
     public void setCorrectiveMeasures(Set<CorrectiveMeasureRequest> correctiveMeasures) {
         this.correctiveMeasures = correctiveMeasures;
+    }
+
+    public Set<Resource> getReferences() {
+        return references;
+    }
+
+    public void setReferences(Set<Resource> references) {
+        this.references = references;
     }
 
     public String getSummary() {

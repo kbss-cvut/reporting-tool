@@ -1,21 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * @jsx
- */
-
 'use strict';
 
 var React = require('react');
@@ -27,9 +9,7 @@ var Row = require('react-bootstrap').Row;
 var injectIntl = require('../../utils/injectIntl');
 var FormattedMessage = require('react-intl').FormattedMessage;
 
-var Constants = require('../../constants/Constants');
 var Tile = require('./DashboardTile').default;
-var ReportTypeahead = require('../typeahead/ReportTypeahead');
 var RecentlyEdited = require('./RecentlyEditedReports');
 var I18nMixin = require('../../i18n/I18nMixin');
 
@@ -38,51 +18,26 @@ var Dashboard = React.createClass({
 
     propTypes: {
         createEmptyReport: React.PropTypes.func.isRequired,
-        importE5Report: React.PropTypes.func.isRequired,
         showAllReports: React.PropTypes.func.isRequired,
         openReport: React.PropTypes.func.isRequired,
-        userFirstName: React.PropTypes.string,
-        dashboard: React.PropTypes.string,
-        statistics: React.PropTypes.func
-    },
-
-    getInitialState: function () {
-        return {
-            dashboard: this.props.dashboard ? this.props.dashboard : Constants.DASHBOARDS.MAIN.id,
-            search: false
-        }
-    },
-
-    onUserLoaded: function (user) {
-        this.setState({firstName: user.firstName});
-    },
-
-    goBack: function () {
-        this.setState({dashboard: Constants.DASHBOARD_GO_BACK[this.state.dashboard]});
-    },
-
-    toggleSearch: function () {
-        this.setState({search: !this.state.search});
+        userFirstName: React.PropTypes.string
     },
 
 
     render: function () {
-        return (
-            <div style={{margin: '0 -15px 0 -15px'}}>
-                <div className='col-xs-8'>
-                    <Jumbotron>
-                        {this.renderTitle()}
-                        {this.renderDashboardContent()}
-                    </Jumbotron>
-                </div>
-                <div className='col-xs-4'>
-                    <div>
-                        <RecentlyEdited reports={this.props.reports} onOpenReport={this.props.openReport}/>
-                    </div>
+        return <div className='row'>
+            <div className='col-xs-8'>
+                <Jumbotron>
+                    {this.renderTitle()}
+                    {this.renderDashboardContent()}
+                </Jumbotron>
+            </div>
+            <div className='col-xs-4'>
+                <div>
+                    <RecentlyEdited reports={this.props.reports} onOpenReport={this.props.openReport}/>
                 </div>
             </div>
-
-        );
+        </div>;
     },
 
     renderTitle: function () {
@@ -96,30 +51,17 @@ var Dashboard = React.createClass({
     },
 
     _renderMainDashboard: function () {
-        var search = this.state.search ? (
-            <ReportTypeahead name='reportSearch' onChange={this.props.openReport}/>) : null;
-        return (
-            <Grid fluid={true}>
-                <Row>
-                    <Col xs={4} className='dashboard-sector'>
-                        <Tile onClick={this.props.createEmptyReport}>{this.i18n('dashboard.create-tile')}</Tile>
-                    </Col>
-                    <Col xs={4} className='dashboard-sector'>
-                        <Tile onClick={this.toggleSearch}>{this.i18n('dashboard.search-tile')}</Tile>
-                    </Col>
-                    <Col xs={4} className='dashboard-sector'>
-                        <Tile
-                            onClick={this.props.showAllReports}>{this.i18n('dashboard.view-all-tile')}</Tile>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} className='dashboard-sector-search'>
-
-                        {search}
-                    </Col>
-                </Row>
-            </Grid>
-        );
+        return <Grid fluid={true}>
+            <Row>
+                <Col xs={6} className='dashboard-sector'>
+                    <Tile onClick={this.props.createEmptyReport}>{this.i18n('dashboard.create-tile')}</Tile>
+                </Col>
+                <Col xs={6} className='dashboard-sector'>
+                    <Tile
+                        onClick={this.props.showAllReports}>{this.i18n('dashboard.view-all-tile')}</Tile>
+                </Col>
+            </Row>
+        </Grid>;
     }
 });
 

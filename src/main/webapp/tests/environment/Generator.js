@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import Constants from "../../js/constants/Constants";
@@ -137,8 +123,8 @@ export default class Generator {
         return nodes;
     }
 
-    static generatePartOfLinksForNodes(report, nodes) {
-        var parents = [report.occurrence],
+    static generatePartOfLinksForNodes(root, nodes) {
+        var parents = [root],
             links = [], index = 1,
             childCount;
         while (index < nodes.length - 1) {
@@ -150,7 +136,7 @@ export default class Generator {
                 childCount = Generator.getRandomPositiveInt(1, nodes.length - index);
                 var parent = parents[j];
                 for (var i = index; i < index + childCount; i++) {
-                    links.push({from: parent.referenceId, to: nodes[i].referenceId, linkType: Vocabulary.HAS_PART});
+                    links.push({from: parent, to: nodes[i], linkType: Vocabulary.HAS_PART});
                     newParents.push(nodes[i]);
                 }
                 index += childCount;
@@ -171,8 +157,8 @@ export default class Generator {
             var fromInd = Generator.getRandomInt(nodes.length),
                 toInd = Generator.getRandomInt(nodes.length);
             lnk = {
-                from: nodes[fromInd].referenceId,
-                to: nodes[toInd].referenceId,
+                from: nodes[fromInd],
+                to: nodes[toInd],
                 linkType: Generator._getRandomFactorType()
             };
             links.push(lnk);
@@ -189,10 +175,13 @@ export default class Generator {
      */
     static generateOccurrenceReport() {
         return {
+            uri: Generator.getRandomUri(),
             key: Generator.getRandomInt().toString(),
             revision: 1,
             javaClass: Constants.OCCURRENCE_REPORT_JAVA_CLASS,
+            severityAssessment: 'http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-431/v-100',
             occurrence: {
+                uri: Generator.getRandomUri(),
                 key: Generator.getRandomInt().toString(),
                 javaClass: Constants.OCCURRENCE_JAVA_CLASS,
                 name: 'TestOccurrence',
@@ -230,7 +219,7 @@ export default class Generator {
      */
     static getRandomPositiveInt(min, max) {
         var bound = max ? max : Number.MAX_SAFE_INTEGER;
-        if (!min) {
+        if (min === null || min === undefined) {
             min = 1;
         }
         return Math.floor(Math.random() * (bound - min)) + min;
@@ -252,6 +241,7 @@ export default class Generator {
             report.uri = 'http://www.inbas.cz/reporting-tool/reports#Instance' + i;
             report.identification = report.occurrence.name + i;
             report.date = report.occurrence.startTime + i * 1000;
+            report.occurrenceCategory = report.occurrence.eventType;
             delete report.occurrence;
             reports.push(report);
         }
@@ -268,5 +258,36 @@ export default class Generator {
 
     static getJsonLdSample() {
         return JSON_LD;
+    }
+
+    /**
+     * Randomly shuffles the specified array, using the Knuth shuffle algorithm.
+     * @param arr The array to shuffle
+     * @return {*} The shuffled array (it is the same instance as the parameter)
+     */
+    static shuffleArray(arr) {
+        var currentIndex = arr.length,
+            tmp, randomIndex;
+        while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            tmp = arr[currentIndex];
+            arr[currentIndex] = arr[randomIndex];
+            arr[randomIndex] = tmp;
+        }
+        return arr;
+    }
+
+    static generateAttachments() {
+        let attachments = [];
+        for (let i = 0, cnt = Generator.getRandomPositiveInt(5, 10); i < cnt; i++) {
+            attachments.push({
+                uri: Generator.getRandomUri(),
+                reference: 'http://some.document.com/on/the/web' + i,
+                description: 'Textual description of the attachment ' + i
+            });
+        }
+        return attachments;
     }
 }

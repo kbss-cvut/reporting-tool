@@ -1,35 +1,17 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.persistence.dao;
 
-import cz.cvut.kbss.reporting.model.Event;
-import cz.cvut.kbss.reporting.model.Factor;
-import cz.cvut.kbss.reporting.model.Occurrence;
-import cz.cvut.kbss.reporting.persistence.dao.util.QuestionSaver;
-import cz.cvut.kbss.reporting.util.IdentificationUtils;
+import cz.cvut.kbss.inbas.reporting.model.Occurrence;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.model.util.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
+import cz.cvut.kbss.inbas.reporting.persistence.dao.util.FactorGraphOrphanRemover;
+import cz.cvut.kbss.inbas.reporting.persistence.dao.util.FactorGraphSaver;
+import cz.cvut.kbss.inbas.reporting.persistence.dao.util.QuestionSaver;
+import cz.cvut.kbss.inbas.reporting.util.IdentificationUtils;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import org.springframework.stereotype.Repository;
 
-import java.net.URI;
-import java.util.*;
-import java.util.stream.Collectors;
-
 @Repository
 public class OccurrenceDao extends OwlKeySupportingDao<Occurrence> {
-
-    private QuestionSaver questionSaver;
 
     public OccurrenceDao() {
         super(Occurrence.class);
@@ -39,97 +21,19 @@ public class OccurrenceDao extends OwlKeySupportingDao<Occurrence> {
     protected void persist(Occurrence entity, final EntityManager em) {
         assert entity != null;
         entity.setKey(IdentificationUtils.generateKey());
-        persistEventsIfNecessary(entity, em);
+        final FactorGraphSaver saver = new FactorGraphSaver(em, new QuestionSaver());
+        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(saver, null);
+        traverser.traverse(entity);
         em.persist(entity);
-    }
-
-    private void persistEventsIfNecessary(Occurrence entity, EntityManager em) {
-        final Map<Event, Object> visited = new IdentityHashMap<>();
-        this.questionSaver = new QuestionSaver();
-        if (entity.getQuestion() != null) {
-            questionSaver.persistIfNecessary(entity.getQuestion(), em);
-        }
-        if (entity.getChildren() != null) {
-            entity.getChildren().forEach(e -> persistEventIfNecessary(e, em, visited));
-        }
-        if (entity.getFactors() != null) {
-            entity.getFactors().forEach(f -> persistEventIfNecessary(f.getEvent(), em, visited));
-        }
-    }
-
-    private void persistEventIfNecessary(Event event, final EntityManager em, Map<Event, Object> visited) {
-        if (visited.containsKey(event)) {
-            return;
-        }
-        visited.put(event, null);
-        if (event.getChildren() != null) {
-            event.getChildren().forEach(e -> persistEventIfNecessary(e, em, visited));
-        }
-        if (event.getFactors() != null) {
-            event.getFactors().forEach(f -> persistEventIfNecessary(f.getEvent(), em, visited));
-        }
-        if (event.getUri() == null) {
-            em.persist(event);
-            if (event.getQuestion() != null) {
-                questionSaver.persistIfNecessary(event.getQuestion(), em);
-            }
-        }
     }
 
     @Override
     protected void update(Occurrence entity, EntityManager em) {
         final Occurrence original = em.find(Occurrence.class, entity.getUri());
-        removeOrphans(original, entity, em);
-        persistEventsIfNecessary(entity, em);
+        new FactorGraphOrphanRemover(em).removeOrphans(original, entity);
+        final FactorGraphSaver saver = new FactorGraphSaver(em, new QuestionSaver());
+        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(saver, null);
+        traverser.traverse(entity);
         em.merge(entity);
-    }
-
-    private void removeOrphans(Occurrence original, Occurrence update, EntityManager em) {
-        final Set<Event> visited = new HashSet<>();
-        removeOrphans(original.getChildren(), update.getChildren(), em, visited);
-        removeOrphansFromFactors(original.getFactors(), update.getFactors(), em, visited);
-    }
-
-    private void removeOrphans(Set<Event> original, Set<Event> actual, EntityManager em, Set<Event> visited) {
-        if (original == null || original.isEmpty()) {
-            return;
-        }
-        final Map<URI, Event> actualUris = new HashMap<>();
-        if (actual != null) {
-            actual.forEach(e -> actualUris.put(e.getUri(), e));
-        }
-        final Set<Event> toRemove = original.stream().filter(e -> !actualUris.containsKey(e.getUri()))
-                                            .collect(Collectors.toSet());
-        toRemove.forEach(em::remove);
-        original.removeAll(toRemove);
-        for (Event e : original) {
-            removeOrphans(e, actualUris.get(e.getUri()), em, visited);
-        }
-    }
-
-    private void removeOrphans(Event original, Event update, EntityManager em, Set<Event> visited) {
-        if (visited.contains(original)) {
-            return;
-        }
-        visited.add(original);
-        if (original.getChildren() != null) {
-            removeOrphans(original.getChildren(), update.getChildren(), em, visited);
-        }
-        removeOrphansFromFactors(original.getFactors(), update.getFactors(), em, visited);
-    }
-
-    private void removeOrphansFromFactors(Set<Factor> original, Set<Factor> update, EntityManager em,
-                                          Set<Event> visited) {
-        if (original != null) {
-            for (Factor of : original) {
-                final Optional<Factor> af = update == null ? Optional.empty() :
-                                            update.stream()
-                                                  .filter(f -> f.getUri() != null && f.getUri().equals(of.getUri()))
-                                                  .findFirst();
-                if (af.isPresent()) {
-                    removeOrphans(of.getEvent(), af.get().getEvent(), em, visited);
-                }
-            }
-        }
     }
 }

@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('ReportsController', () => {
@@ -34,7 +20,6 @@ describe('ReportsController', () => {
     beforeEach(() => {
         jasmine.addMatchers(Environment.customMatchers);
         spyOn(Actions, 'loadAllReports');
-        spyOn(Actions, 'loadEventTypes');
         spyOn(Actions, 'loadOptions');
         reports = Generator.generateReports();
     });
@@ -145,20 +130,6 @@ describe('ReportsController', () => {
         spyOn(RouterStore, 'getTransitionPayload').and.returnValue({filter: filter});
         controller = Environment.render(<ReportsController/>);
         expect(controller.state.filter).toEqual(filter);
-    });
-
-    it('passes initial filter setting to the filter component', () => {
-        var filter = {
-            phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
-        }, controller;
-        spyOn(RouterStore, 'getTransitionPayload').and.returnValue({filter: filter});
-        controller = Environment.render(<ReportsController/>);
-        controller.onReportsLoaded({action: Actions.loadAllReports, reports: reports});
-        var filters = TestUtils.scryRenderedComponentsWithType(controller, require('../../js/components/Select'));
-        var phaseFilter = filters.find((item) => {
-            return item.props.name === 'phase';
-        });
-        expect(phaseFilter.props.value).toEqual(filter.phase);
     });
 
     it('clears transition payload after it has read it', () => {

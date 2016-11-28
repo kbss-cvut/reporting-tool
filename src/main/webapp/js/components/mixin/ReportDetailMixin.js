@@ -1,21 +1,9 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 var React = require('react');
 var Button = require('react-bootstrap').Button;
+var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
+var DeleteReportDialog = require('../report/DeleteReportDialog').default;
 
 /**
  * Aggregates some of the functionality of the report detail view.
@@ -24,14 +12,16 @@ var ReportDetailMixin = {
 
     onChange: function (e) {
         var attributeName = e.target.name;
-        this.onAttributeChange(attributeName, e.target.value);
+        var change = {};
+        change[attributeName] = e.target.value;
+        this.props.handlers.onChange(change);
     },
 
-    onLoading: function() {
+    onLoading: function () {
         this.setState({submitting: true});
     },
-    
-    onLoadingEnd: function() {
+
+    onLoadingEnd: function () {
         this.setState({submitting: false});
     },
 
@@ -58,31 +48,57 @@ var ReportDetailMixin = {
         this.onLoadingEnd();
         this.showErrorMessage(this.i18n('detail.submit-failed-message') + error.message);
     },
-    
-    onPhaseTransitionSuccess: function() {
+
+    onPhaseTransitionSuccess: function () {
         this.onLoadingEnd();
         this.showSuccessMessage(this.i18n('detail.phase-transition-success-message'));
         this.props.handlers.onSuccess();
     },
-    
-    onPhaseTransitionError: function(error) {
+
+    onPhaseTransitionError: function (error) {
         this.onLoadingEnd();
         this.showErrorMessage(this.i18n('detail.phase-transition-failed-message') + error.message);
     },
 
+    _onDeleteClick: function () {
+        this.setState({showDeleteDialog: true});
+    },
 
-    renderReadOnlyButtons: function () {
-        return (
-            <div>
-                <div className='float-right'>
-                    <Button bsStyle='link' bsSize='small' title={this.i18n('cancel-tooltip')}
-                            onClick={this.props.handlers.onCancel}>{this.i18n('cancel')}</Button>
-                </div>
-                <div style={{clear: 'both'}}/>
-                <div className='notice-small float-right'>
-                    {this.i18n('revisions.readonly-notice')}
-                </div>
-            </div>);
+    onDeleteCancel: function () {
+        this.setState({showDeleteDialog: false});
+    },
+
+    _onDelete: function () {
+        this.props.handlers.onRemove(this.onDeleteError);
+    },
+
+    onDeleteError: function (error) {
+        this.showErrorMessage(this.i18n('detail.remove-failed-message') + error.message);
+    },
+
+
+    renderDeleteButton: function () {
+        return this.props.report.isNew ? null :
+            <Button bsStyle='warning' bsSize='small' title={this.i18n('reports.delete-tooltip')}
+                    onClick={this._onDeleteClick}>{this.i18n('delete')}</Button>;
+    },
+
+    renderDeleteDialog: function () {
+        return <DeleteReportDialog show={this.state.showDeleteDialog} onClose={this.onDeleteCancel}
+                                   onSubmit={this._onDelete}/>;
+    },
+
+    renderReadOnlyButtons: function (notice = 'revisions.readonly-notice') {
+        return <div>
+            <ButtonToolbar className='float-right detail-button-toolbar'>
+                <Button bsStyle='link' bsSize='small' title={this.i18n('cancel-tooltip')}
+                        onClick={this.props.handlers.onCancel}>{this.i18n('cancel')}</Button>
+            </ButtonToolbar>
+            <div style={{clear: 'both'}}/>
+            <div className='notice-small float-right'>
+                {this.i18n(notice)}
+            </div>
+        </div>;
     }
 };
 
