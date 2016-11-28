@@ -398,6 +398,7 @@
                         <exclude>**/fonts/**</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
+                        <exclude>**/generated-sources/**</exclude>
                         <exclude>pom.xml</exclude>
                     </excludes>
                 </configuration>
