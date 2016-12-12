@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2016 Czech Technical University in Prague
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -26,16 +26,18 @@ import cz.cvut.kbss.reporting.model.LogicalDocument;
 import cz.cvut.kbss.reporting.model.Occurrence;
 import cz.cvut.kbss.reporting.model.OccurrenceReport;
 import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.util.HasOwlKey;
 import cz.cvut.kbss.reporting.persistence.dao.OccurrenceReportDao;
 import cz.cvut.kbss.reporting.service.options.ReportingPhaseService;
+import cz.cvut.kbss.reporting.util.IdentificationUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -171,7 +173,7 @@ public class MainReportServiceTest extends BaseServiceTestRunner {
         final List<OccurrenceReport> chain = persistOccurrenceReportChain();
         final Long fileNumber = chain.get(0).getFileNumber();
         // Sort descending by revision number
-        Collections.sort(chain, (a, b) -> b.getRevision().compareTo(a.getRevision()));
+        chain.sort((a, b) -> b.getRevision().compareTo(a.getRevision()));
 
         final List<ReportRevisionInfo> revisions = reportService.getReportChainRevisions(fileNumber);
         assertEquals(chain.size(), revisions.size());
@@ -238,7 +240,7 @@ public class MainReportServiceTest extends BaseServiceTestRunner {
             final List<OccurrenceReport> chain = persistOccurrenceReportChain();
             latestRevisions.add(chain.get(chain.size() - 1));
         }
-        Collections.sort(latestRevisions, (a, b) -> b.getDateCreated().compareTo(a.getDateCreated()));
+        latestRevisions.sort((a, b) -> b.getDateCreated().compareTo(a.getDateCreated()));
         return latestRevisions;
     }
 
@@ -254,5 +256,39 @@ public class MainReportServiceTest extends BaseServiceTestRunner {
 
         final OccurrenceReport result = occurrenceReportDao.find(report.getUri());
         assertEquals(expected, result.getPhase());
+    }
+
+    @Test
+    public void findAllWithKeysReturnsListOfMatchingReports() {
+        final List<LogicalDocument> reports = generateReportsForFindAllFilter();
+        final List<String> keys = reports.stream().map(HasOwlKey::getKey).collect(Collectors.toList());
+
+        final List<ReportDto> result = reportService.findAll(keys);
+        assertNotNull(result);
+        assertTrue(Environment.areEqual(reports, result));
+    }
+
+    private List<LogicalDocument> generateReportsForFindAllFilter() {
+        final List<LogicalDocument> list = new ArrayList<>();
+        for (int i = 0; i < Generator.randomInt(5, 10); i++) {
+            final List<OccurrenceReport> chain = persistOccurrenceReportChain();
+            list.add(chain.get(Generator.randomIndex(chain)));
+        }
+        return list;
+    }
+
+    @Test
+    public void findAllWithKeysSkipsKeysForWhichNoReportExists() {
+        final List<LogicalDocument> reports = generateReportsForFindAllFilter();
+        final List<String> keys = reports.stream().map(HasOwlKey::getKey).collect(Collectors.toList());
+        final int unknownKeyCount = Generator.randomInt(5, 10);
+        for (int i = 0; i < unknownKeyCount; i++) {
+            keys.add(IdentificationUtils.generateKey());
+        }
+
+        final List<ReportDto> result = reportService.findAll(keys);
+        assertNotNull(result);
+        assertEquals(keys.size() - unknownKeyCount, result.size());
+        assertTrue(Environment.areEqual(reports, result));
     }
 }

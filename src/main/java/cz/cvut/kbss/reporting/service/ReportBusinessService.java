@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2016 Czech Technical University in Prague
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -18,7 +18,9 @@ import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
 import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
 import cz.cvut.kbss.reporting.exception.NotFoundException;
 import cz.cvut.kbss.reporting.model.LogicalDocument;
+import cz.cvut.kbss.reporting.model.util.DocumentDateAndRevisionComparator;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,6 +40,18 @@ public interface ReportBusinessService {
      * @return All reports in the system
      */
     List<ReportDto> findAll();
+
+    /**
+     * Gets reports with the specified keys.
+     * <p>
+     * If no matching report is found for any of the keys, it is simply skipped, no exception is thrown.
+     * <p>
+     * The reports are sorted using the {@link DocumentDateAndRevisionComparator}.
+     *
+     * @param keys Array of report identifiers
+     * @return List of matching reports
+     */
+    List<ReportDto> findAll(Collection<String> keys);
 
     /**
      * Creates new report.

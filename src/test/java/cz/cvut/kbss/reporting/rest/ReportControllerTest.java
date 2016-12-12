@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2016 Czech Technical University in Prague
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -15,6 +15,7 @@
 package cz.cvut.kbss.reporting.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import cz.cvut.kbss.jopa.exceptions.RollbackException;
 import cz.cvut.kbss.reporting.dto.OccurrenceReportDto;
 import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
 import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
@@ -34,7 +35,6 @@ import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
 import cz.cvut.kbss.reporting.rest.handler.ErrorInfo;
 import cz.cvut.kbss.reporting.service.ReportBusinessService;
 import cz.cvut.kbss.reporting.util.IdentificationUtils;
-import cz.cvut.kbss.jopa.exceptions.RollbackException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -48,6 +48,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -86,6 +88,28 @@ public class ReportControllerTest extends BaseControllerTestRunner {
                 });
         assertNotNull(res);
         assertTrue(res.isEmpty());
+    }
+
+    @Test
+    public void getAllReportsPassesReportKeysToServiceWhenTheyAreSpecifiedInRequest() throws Exception {
+        final List<String> keys = IntStream.range(0, Generator.randomInt(5, 10))
+                                           .mapToObj(i -> IdentificationUtils.generateKey())
+                                           .collect(Collectors.toList());
+        final List<ReportDto> reports = keys.stream().map(k -> {
+            final OccurrenceReport r = OccurrenceReportGenerator.generateOccurrenceReport(true);
+            r.setUri(Generator.generateUri());
+            r.setKey(k);
+            return r.toReportDto();
+        }).collect(Collectors.toList());
+        when(reportServiceMock.findAll(keys)).thenReturn(reports);
+
+        final MvcResult result = mockMvc.perform(get("/reports").param("key", keys.toArray(new String[keys.size()])))
+                                        .andExpect(status().isOk()).andReturn();
+        final List<ReportDto> res = readValue(result, new TypeReference<List<ReportDto>>() {
+        });
+        assertNotNull(res);
+        assertTrue(Environment.areEqual(reports, res));
+        verify(reportServiceMock).findAll(keys);
     }
 
     @Test
@@ -133,7 +157,7 @@ public class ReportControllerTest extends BaseControllerTestRunner {
     @Test
     public void testGetReportChainRevisions() throws Exception {
         final List<OccurrenceReport> chain = OccurrenceReportGenerator.generateOccurrenceReportChain(author);
-        Collections.sort(chain, new ReportRevisionComparator<>());  // sort by revision descending
+        chain.sort(new ReportRevisionComparator<>());  // sort by revision descending
         final Long fileNumber = chain.get(0).getFileNumber();
         final List<ReportRevisionInfo> revisions = new ArrayList<>(chain.size());
         for (int i = 0; i < chain.size(); i++) {
@@ -226,7 +250,7 @@ public class ReportControllerTest extends BaseControllerTestRunner {
     public void createNewRevisionReturnsLocationOfNewRevision() throws Exception {
         final List<OccurrenceReport> chain = OccurrenceReportGenerator.generateOccurrenceReportChain(author);
         final Long fileNumber = chain.get(0).getFileNumber();
-        Collections.sort(chain, new ReportRevisionComparator<>());  // Sort descending
+        chain.sort(new ReportRevisionComparator<>());  // Sort descending
         final OccurrenceReport newRevision = new OccurrenceReport();
         newRevision.setFileNumber(fileNumber);
         newRevision.setKey(IdentificationUtils.generateKey());

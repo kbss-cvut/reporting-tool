@@ -1,61 +1,99 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var Reflux = require('reflux');
+const Reflux = require('reflux');
 
-var Actions = require('../actions/Actions');
-var Ajax = require('../utils/Ajax');
-var JsonReferenceResolver = require('../utils/JsonReferenceResolver').default;
-var Utils = require('../utils/Utils');
+const Actions = require('../actions/Actions');
+let Ajax = require('../utils/Ajax');
+const JsonReferenceResolver = require('../utils/JsonReferenceResolver').default;
+const Utils = require('../utils/Utils');
 
-var BASE_URL = 'rest/reports';
-var BASE_URL_WITH_SLASH = 'rest/reports/';
+const BASE_URL = 'rest/reports';
+const BASE_URL_WITH_SLASH = 'rest/reports/';
 
 // When reports are being loaded, do not send the request again
-var reportsLoading = false;
+let reportsLoading = false;
+// Was the last report load filtered by report keys
+let lastLoadWithKeys = false;
 
-var ReportStore = Reflux.createStore({
+const ReportStore = Reflux.createStore({
     listenables: [Actions],
 
     _reports: null,
+    _searchReports: null,
     _pendingLoad: null,
 
     _resetPendingLoad: function () {
         this._pendingLoad = null;
     },
 
-    onLoadAllReports: function () {
+    onLoadAllReports: function (keys = []) {
         if (reportsLoading) {
             return;
         }
         reportsLoading = true;
-        Ajax.get(BASE_URL).end(function (data) {
+        lastLoadWithKeys = keys.length !== 0;
+        Ajax.get(this._initLoadUri(keys)).end((data) => {
             reportsLoading = false;
             this._reports = data;
+            if (!lastLoadWithKeys) {
+                this._searchReports = this._reports;
+                this.trigger({
+                    action: Actions.loadReportsForSearch,
+                    reports: this._searchReports
+                });
+            }
             this.trigger({
                 action: Actions.loadAllReports,
                 reports: this._reports
             });
-        }.bind(this), function () {
+        }, () => {
             reportsLoading = false;
             this.trigger({
                 action: Actions.loadAllReports,
                 reports: []
             });
-        }.bind(this));
+        });
+    },
+
+    _initLoadUri: function (keys) {
+        let url = BASE_URL;
+        for (let i = 0, len = keys.length; i < len; i++) {
+            url += (i === 0 ? '?' : '&') + 'key=' + keys[i];
+        }
+        return url;
+    },
+
+    onLoadReportsForSearch: function () {
+        if (reportsLoading) {
+            if (lastLoadWithKeys) {
+                this._actuallyLoadReportsForSearch();
+            }
+        } else {
+            if (this._reports && !lastLoadWithKeys) {
+                this._searchReports = this._reports;
+                this.trigger({
+                    action: Actions.loadReportsForSearch,
+                    reports: this._searchReports
+                });
+            } else {
+                this._actuallyLoadReportsForSearch();
+            }
+        }
+    },
+
+    _actuallyLoadReportsForSearch: function () {
+        Ajax.get(BASE_URL).end((data) => {
+            this._searchReports = data;
+            this.trigger({
+                action: Actions.loadReportsForSearch,
+                reports: this._searchReports
+            });
+        }, () => {
+            this.trigger({
+                action: Actions.loadReportsForSearch,
+                reports: []
+            });
+        });
     },
 
     onLoadReport: function (key) {
@@ -92,7 +130,7 @@ var ReportStore = Reflux.createStore({
         JsonReferenceResolver.encodeReferences(report);
         Ajax.post(BASE_URL, report).end(function (data, resp) {
             if (onSuccess) {
-                var key = Utils.extractKeyFromLocationHeader(resp);
+                const key = Utils.extractKeyFromLocationHeader(resp);
                 onSuccess(key);
             }
             this.onLoadAllReports();
@@ -107,7 +145,7 @@ var ReportStore = Reflux.createStore({
     onSubmitReport: function (report, onSuccess, onError) {
         Ajax.post(BASE_URL_WITH_SLASH + 'chain/' + report.fileNumber + '/revisions').end(function (data, resp) {
             if (onSuccess) {
-                var key = Utils.extractKeyFromLocationHeader(resp);
+                const key = Utils.extractKeyFromLocationHeader(resp);
                 onSuccess(key);
             }
         }, onError);
@@ -128,6 +166,10 @@ var ReportStore = Reflux.createStore({
 
     getReports: function () {
         return this._reports;
+    },
+
+    getReportsForSearch: function () {
+        return this._searchReports;
     }
 });
 

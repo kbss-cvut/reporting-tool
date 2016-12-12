@@ -44,6 +44,10 @@ var RouterStore = Reflux.createStore({
         return this.transitionPayload[routeName];
     },
 
+    clearTransitionPayload(routeName) {
+        delete this.transitionPayload[routeName];
+    },
+
     setViewHandlers: function (routeName, handlers) {
         if (!handlers) {
             delete this.viewHandlers[routeName];

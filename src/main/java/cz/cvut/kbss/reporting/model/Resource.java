@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Resource extends AbstractEntity {
 
     @ParticipationConstraints(nonEmpty = true)
-    @OWLDataProperty(iri = Vocabulary.s_p_has_id)   // TODO What property should we use for this?
+    @OWLDataProperty(iri = Vocabulary.s_p_has_id)
     private String reference;
 
     @OWLDataProperty(iri = Vocabulary.s_p_description)

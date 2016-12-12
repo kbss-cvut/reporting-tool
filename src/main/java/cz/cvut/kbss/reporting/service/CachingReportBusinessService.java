@@ -21,6 +21,7 @@ import cz.cvut.kbss.reporting.service.cache.ReportCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -45,6 +46,11 @@ public class CachingReportBusinessService implements ReportBusinessService {
         final List<ReportDto> reports = reportService.findAll();
         reportCache.initialize(reports);
         return reports;
+    }
+
+    @Override
+    public List<ReportDto> findAll(Collection<String> keys) {
+        return reportService.findAll(keys);
     }
 
     @Override

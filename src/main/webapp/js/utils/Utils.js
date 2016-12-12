@@ -1,45 +1,37 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var Constants = require('../constants/Constants');
+const Constants = require('../constants/Constants');
 
 /**
  * Common propositions that should not be capitalized
  */
-var PREPOSITIONS = [
+const PREPOSITIONS = [
     'a', 'about', 'across', 'after', 'along', 'among', 'an', 'around', 'as', 'aside', 'at', 'before', 'behind', 'below',
     'beneath', 'beside', 'besides', 'between', 'beyond', 'but', 'by', 'for', 'given', 'in', 'inside', 'into', 'like', 'near',
     'of', 'off', 'on', 'onto', 'outside', 'over', 'since', 'than', 'through', 'to', 'until', 'up', 'via', 'with', 'within',
     'without', 'not'
 ];
 
-var URL_CONTAINS_QUERY = /^.+\?.+=.+$/;
+const URL_CONTAINS_QUERY = /^.+\?.+=.+$/;
 
 module.exports = {
     /**
      * Formats the specified date into DD-MM-YY HH:mm
      * @param date The date to format
      */
-    formatDate: function (date) {
-        var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate().toString();
-        var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1).toString();
-        var year = (date.getFullYear() % 100).toString();
-        var h = date.getHours();
-        var hour = h < 10 ? '0' + h : h.toString();
-        var minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes().toString();
+    formatDate: function (date = null) {
+        if (date === null) {
+            return '';
+        }
+        if (!(date instanceof Date)) {
+            date = new Date(date);
+        }
+        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate().toString(),
+            month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1).toString(),
+            year = (date.getFullYear() % 100).toString(),
+            h = date.getHours(),
+            hour = h < 10 ? '0' + h : h.toString(),
+            minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes().toString();
         return (day + '-' + month + '-' + year + ' ' + hour + ':' + minute);
     },
 
@@ -52,9 +44,9 @@ module.exports = {
         if (!capitalize) {
             return constant.replace(/_/g, ' ');
         }
-        var words = constant.split('_');
-        for (var i = 0, len = words.length; i < len; i++) {
-            var word = words[i];
+        const words = constant.split('_');
+        for (let i = 0, len = words.length; i < len; i++) {
+            let word = words[i];
             if (i > 0 && PREPOSITIONS.indexOf(word.toLowerCase()) !== -1) {
                 words[i] = word.toLowerCase();
             } else {
@@ -109,7 +101,7 @@ module.exports = {
      * @return {string} Report key as string
      */
     extractKeyFromLocationHeader: function (response) {
-        var location = response.headers['location'];
+        const location = response.headers['location'];
         if (!location) {
             return '';
         }
@@ -123,9 +115,10 @@ module.exports = {
      * @return {String}
      */
     getPathFromLocation: function () {
-        var hash = window.location.hash;
-        var result = /#[/]?([a-z/0-9]+)\?/.exec(hash);
-        return result ? result[1] : '';
+        const hash = window.location.hash,
+            hashPart = hash.match(/#(?:\/?)/)[0],
+            endIndex = hash.search(/(\?|&)_k=/);
+        return hash.substring(hashPart.length, endIndex !== -1 ? endIndex : hash.length);
     },
 
     /**
@@ -135,7 +128,7 @@ module.exports = {
      * @return {number}
      */
     randomInt: function () {
-        var min = 0,
+        const min = 0,
             max = 1073741824;   // Max Java Integer / 2
         return Math.floor(Math.random() * (max - min)) + min;
     },
@@ -153,7 +146,7 @@ module.exports = {
         if (!items) {
             return id;
         }
-        for (var i = 0, len = items.length; i < len; i++) {
+        for (let i = 0, len = items.length; i < len; i++) {
             if (items[i].id === id) {
                 return items[i].name;
             }
@@ -178,7 +171,7 @@ module.exports = {
      * @return {number}
      */
     getStringHash: function (str) {
-        var hash = 0,
+        let hash = 0,
             strlen = str ? str.length : 0,
             i,
             c;
@@ -223,7 +216,7 @@ module.exports = {
         if (rootEvent.startTime === null || rootEvent.startTime === undefined || rootEvent.endTime === null || rootEvent.endTime === undefined) {
             return Constants.TIME_SCALES.RELATIVE;
         }
-        var duration = (rootEvent.endTime - rootEvent.startTime) / 1000;    // to seconds
+        let duration = (rootEvent.endTime - rootEvent.startTime) / 1000;    // to seconds
         if (duration < Constants.TIME_SCALE_THRESHOLD) {
             return Constants.TIME_SCALES.SECOND;
         }
@@ -244,9 +237,9 @@ module.exports = {
      * @param propertyPath Path to the property, use '.' for object traversal
      */
     getPropertyValue: function (object, propertyPath) {
-        var path = propertyPath.split('.'),
+        let path = propertyPath.split('.'),
             value = object;
-        for (var i = 0, len = path.length; i < len; i++) {
+        for (let i = 0, len = path.length; i < len; i++) {
             value = value[path[i]];
             if (!value && i < len) {
                 return null;

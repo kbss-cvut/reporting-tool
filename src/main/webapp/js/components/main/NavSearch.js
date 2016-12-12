@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -34,14 +20,14 @@ class NavSearch extends React.Component {
         super(props);
         this.i18n = props.i18n;
         this.state = {
-            options: NavSearch._processReports(ReportStore.getReports()),
+            options: NavSearch._processReports(ReportStore.getReportsForSearch()),
             fullTextDisabled: true
         }
     }
 
     componentDidMount() {
         if (this.state.options.length === 0) {
-            Actions.loadAllReports();
+            Actions.loadReportsForSearch();
         }
         this.unsubscribe = ReportStore.listen(this._onReportsLoaded);
     }
@@ -51,7 +37,7 @@ class NavSearch extends React.Component {
     }
 
     _onReportsLoaded = (data) => {
-        if (data.action !== Actions.loadAllReports) {
+        if (data.action !== Actions.loadReportsForSearch) {
             return;
         }
         this.setState({options: NavSearch._processReports(data.reports)});
@@ -61,9 +47,9 @@ class NavSearch extends React.Component {
         if (!reports) {
             return [];
         }
-        var options = [],
-            option;
-        for (var i = 0, len = reports.length; i < len; i++) {
+        const options = [];
+        let option;
+        for (let i = 0, len = reports.length; i < len; i++) {
             option = ReportType.getReport(reports[i]);
             option.description = option.identification;
             options.push(option);
@@ -88,7 +74,7 @@ class NavSearch extends React.Component {
     };
 
     _onFullTextSearch = () => {
-        var expr = this.typeahead.getEntryText();
+        const expr = this.typeahead.getEntryText();
         Routing.transitionTo(Routes.searchResults, {
             query: "?expression=" + encodeURIComponent(expr)
         });
@@ -96,7 +82,7 @@ class NavSearch extends React.Component {
     };
 
     render() {
-        var classes = {
+        const classes = {
                 input: 'navbar-search-input',
                 results: 'navbar-search-results list-unstyled'
             },
@@ -114,7 +100,7 @@ class NavSearch extends React.Component {
 
     _getOptionLabelFunction() {
         return function (option) {
-            var date = option.date ? Utils.formatDate(new Date(option.date)) : '',
+            const date = option.date ? Utils.formatDate(new Date(option.date)) : '',
                 label = option.identification.length > OPTION_IDENTIFICATION_THRESHOLD ?
                 option.identification.substring(0, OPTION_IDENTIFICATION_THRESHOLD) + '...' : option.identification;
 

@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2016 Czech Technical University in Prague
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -16,6 +16,7 @@ package cz.cvut.kbss.reporting.rest;
 
 import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
 import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.dto.reportlist.ReportList;
 import cz.cvut.kbss.reporting.exception.NotFoundException;
 import cz.cvut.kbss.reporting.model.LogicalDocument;
 import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
@@ -28,6 +29,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -37,6 +39,8 @@ import java.util.List;
 @RequestMapping("/reports")
 public class ReportController extends BaseController {
 
+    private static final String REPORT_KEY_PARAM = "key";
+
     @Autowired
     @Qualifier("cachingReportBusinessService")
     private ReportBusinessService reportService;
@@ -45,8 +49,12 @@ public class ReportController extends BaseController {
     private DtoMapper dtoMapper;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<ReportDto> getAllReports() {
-        return reportService.findAll();
+    public ReportList getAllReports(@RequestParam MultiValueMap<String, String> params) {
+        if (params.containsKey(REPORT_KEY_PARAM)) {
+            final Collection<String> keys = params.get(REPORT_KEY_PARAM);
+            return new ReportList(reportService.findAll(keys));
+        }
+        return new ReportList(reportService.findAll());
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
