@@ -49,13 +49,12 @@ class EditableAttachmentRow extends React.Component {
     };
 
     render() {
-        let attachment = this.props.attachment;
         return <tr>
-            <td className='report-row'>
-                <Input name='attachment_edit_reference' value={attachment.reference} onChange={this._onChange}/>
+            <td className='report-row inline'>
+                <Input name='attachment_edit_reference' value={this.state.reference} onChange={this._onChange}/>
             </td>
-            <td className='report-row'>
-                <Input name='attachment_edit_description' value={attachment.description} onChange={this._onChange}/>
+            <td className='report-row inline'>
+                <Input name='attachment_edit_description' value={this.state.description} onChange={this._onChange}/>
             </td>
             <td className='report-row actions'>
                 <Button bsStyle='success' bsSize='small'

@@ -35,6 +35,7 @@ var FormattedMessage = require('react-intl').FormattedMessage;
 var JsonLdUtils = require('jsonld-utils').default;
 
 var Constants = require('../../constants/Constants');
+var DeleteFactorDialog = require('./DeleteFactorDialog').default;
 var EventTypeTypeahead = require('../typeahead/EventTypeTypeahead');
 var Mask = require('../Mask').default;
 var Utils = require('../../utils/Utils');
@@ -76,7 +77,7 @@ var FactorDetail = React.createClass({
         var factor = this.props.factor;
         return {
             showDeleteDialog: false,
-            eventType: JsonLdUtils.jsonLdToTypeaheadOption(ObjectTypeResolver.resolveType(factor.statement.eventType, OptionsStore.getOptions('eventType'))),
+            eventType: JsonLdUtils.jsonLdToTypeaheadOption(ObjectTypeResolver.resolveType(factor.statement.eventType, OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE))),
             startDate: factor.start_date.getTime(),
             duration: convertDurationToCurrentUnit(factor),
             statement: factor.statement,
@@ -222,7 +223,8 @@ var FactorDetail = React.createClass({
 
                 <Modal.Body ref={comp => this._modalContent = comp}>
                     {this._renderMask()}
-                    {this.renderDeleteDialog()}
+                    <DeleteFactorDialog onSubmit={this.onDeleteFactor} onCancel={this.onCancelDelete}
+                                        show={this.state.showDeleteDialog}/>
                     <div className='row'>
                         {eventTypeBadge}
                         <div className={eventTypeClassNames}>
@@ -291,9 +293,9 @@ var FactorDetail = React.createClass({
         }
         styleInfo = FactorStyleInfo.getStyleInfo(type.type);
         return styleInfo.value ? <div className='col-xs-1'>
-            <Label bsStyle={styleInfo.bsStyle} title={styleInfo.title}
-                   className='event-type-label'>{styleInfo.value}</Label>
-        </div> : null;
+                <Label bsStyle={styleInfo.bsStyle} title={styleInfo.title}
+                       className='event-type-label'>{styleInfo.value}</Label>
+            </div> : null;
     },
 
     _renderEventTypeLink: function () {
@@ -332,7 +334,7 @@ var FactorDetail = React.createClass({
 
     renderDeleteButton: function () {
         return this.props.factor.isNew ? null : (
-            <Button bsSize='small' bsStyle='warning' onClick={this.onDeleteClick}>{this.i18n('delete')}</Button>);
+                <Button bsSize='small' bsStyle='warning' onClick={this.onDeleteClick}>{this.i18n('delete')}</Button>);
     },
 
     renderWizardButton: function () {
@@ -343,22 +345,6 @@ var FactorDetail = React.createClass({
             <Button bsStyle='primary' bsSize='small' onClick={this.onOpenDetails}
                     disabled={!this.state.eventType}>{this.i18n('factors.detail.details')}</Button>
         </div>;
-    },
-
-    renderDeleteDialog: function () {
-        return <Modal show={this.state.showDeleteDialog} onHide={this.onCancelDelete}>
-            <Modal.Header>
-                <Modal.Title>{this.i18n('factors.detail.delete.title')}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                {this.i18n('factors.detail.delete.text')}
-            </Modal.Body>
-            <Modal.Footer>
-                <Button bsSize='small' bsStyle='warning'
-                        onClick={this.onDeleteFactor}>{this.i18n('delete')}</Button>
-                <Button bsSize='small' onClick={this.onCancelDelete}>{this.i18n('cancel')}</Button>
-            </Modal.Footer>
-        </Modal>;
     }
 });
 

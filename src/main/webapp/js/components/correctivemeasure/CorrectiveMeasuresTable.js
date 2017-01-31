@@ -66,27 +66,25 @@ class CorrectiveMeasuresTable extends React.Component {
     }
 
     render() {
-        var data = this.props.data,
+        const data = this.props.data,
             handlers = this.props.handlers,
             rows = [];
-        for (var i = 0, len = data.length; i < len; i++) {
+        for (let i = 0, len = data.length; i < len; i++) {
             rows.push(<Row key={'corrective' + i} statementIndex={i} data={data[i].description}
                            onRemove={handlers.onRemove} onEdit={handlers.onEdit}/>);
         }
-        return (
-            <Table striped bordered condensed hover>
-                <thead>
-                <tr>
-                    <th key='header_desc'
-                        className='col-xs-11'>{this.props.i18n('report.corrective.table-description')}</th>
-                    <th key='header_actions' className='col-xs-1'>{this.props.i18n('table-actions')}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {rows}
-                </tbody>
-            </Table>
-        );
+        return <Table striped bordered condensed hover>
+            <thead>
+            <tr>
+                <th key='header_desc'
+                    className='col-xs-11'>{this.props.i18n('report.corrective.table-description')}</th>
+                <th key='header_actions' className='col-xs-1'>{this.props.i18n('table-actions')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {rows}
+            </tbody>
+        </Table>;
     }
 }
 

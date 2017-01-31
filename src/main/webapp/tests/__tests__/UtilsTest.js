@@ -18,6 +18,7 @@ describe('Utility functions tests', function () {
 
     const Utils = require('../../js/utils/Utils'),
         Constants = require('../../js/constants/Constants'),
+        Generator = require('../environment/Generator').default,
         Vocabulary = require('../../js/constants/Vocabulary');
 
     it('Transforms a constant with known preposition/auxiliary word into text with spaces and correctly capitalized words', function () {
@@ -37,7 +38,7 @@ describe('Utility functions tests', function () {
         it('formats date when it is time in millis', () => {
             const date = Date.now(),
                 result = Utils.formatDate(date);
-            expect(result).toMatch(/[0-9]{2}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}/);
+            expect(result).toMatch(/[0-9]{2}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}/);
         });
 
         it('returns empty string for undefined argument', () => {
@@ -139,6 +140,15 @@ describe('Utility functions tests', function () {
                 }
             };
             expect(Utils.getPathFromLocation()).toEqual(pathWithParams);
+        });
+
+        it('extracts path from url without hash', () => {
+            jasmine.getGlobal().window = {
+                location: {
+                    hash: ''
+                }
+            };
+            expect(Utils.getPathFromLocation()).toEqual('');
         });
     });
 
@@ -254,6 +264,24 @@ describe('Utility functions tests', function () {
                 },
                 property = 'occurrence.name';
             expect(Utils.getPropertyValue(object, property)).toBeNull();
+        });
+    });
+
+    describe('generateNewReferenceId', () => {
+
+        it('generates a new reference id unique among the existing reference ids', () => {
+            const existingIds = [];
+            for (let i = 0, len = Generator.getRandomPositiveInt(5, 10); i < len; i++) {
+                existingIds.push(Generator.getRandomInt());
+            }
+            const nodes = existingIds.map(id => {
+                return {referenceId: id};
+            });
+            const result = Utils.generateNewReferenceId(nodes);
+            expect(result).toBeDefined();
+            expect(result).not.toBeNull();
+            expect(typeof result).toBe('number');
+            expect(existingIds.indexOf(result)).toEqual(-1);
         });
     });
 });

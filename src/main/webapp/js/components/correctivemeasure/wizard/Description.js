@@ -14,32 +14,32 @@
  */
 'use strict';
 
-var React = require('react');
-var injectIntl = require('../../../utils/injectIntl');
+import React from "react";
+import I18nWrapper from "../../../i18n/I18nWrapper";
+import injectIntl from "../../../utils/injectIntl";
+import Input from "../../Input";
+import WizardStore from "../../../stores/WizardStore";
 
-var Input = require('../../Input').default;
-var I18nMixin = require('../../../i18n/I18nMixin');
-var WizardStore = require('../../../stores/WizardStore');
+class Description extends React.Component {
 
-var Description = React.createClass({
-    mixins: [I18nMixin],
-
-    getInitialState: function () {
-        var description = WizardStore.getData().statement.description;
-        return {
+    constructor(props) {
+        super(props);
+        this.i18n = props.i18n;
+        const description = WizardStore.getData().statement.description;
+        this.state = {
             description: description ? description : ''
         };
-    },
+    }
 
-    componentDidMount: function () {
+    componentDidMount() {
         if (this.state.description.trim().length !== 0) {
             this.props.enableNext();
         }
-        this.refs.description.focus();
-    },
+        this.descriptionInput.focus();
+    }
 
-    onChange: function (e) {
-        var value = e.target.value,
+    onChange = (e) => {
+        const value = e.target.value,
             statement = WizardStore.getData().statement;
         statement.description = value;
         WizardStore.updateData({statement: statement});
@@ -49,17 +49,22 @@ var Description = React.createClass({
             this.props.enableNext();
         }
         this.setState({description: value});
-    },
-    render: function () {
-        return (
-            <div>
-                <Input type='textarea' rows='8' label={this.i18n('description') + '*'} ref='description'
-                       placeholder={this.i18n('report.corrective.description-placeholder')}
-                       value={this.state.description} onChange={this.onChange}
-                       title={this.i18n('report.corrective.description-tooltip')}/>
-            </div>
-        );
-    }
-});
+    };
 
-module.exports = injectIntl(Description);
+    onKeyUp = (e) => {
+        if (e.keyCode === 13 && e.ctrlKey && this.state.description.trim().length !== 0) {
+            this.props.finish();
+        }
+    };
+
+    render() {
+        return <div>
+            <Input type='textarea' rows='8' label={this.i18n('description') + '*'} ref={c => this.descriptionInput = c}
+                   placeholder={this.i18n('report.corrective.description-placeholder')}
+                   value={this.state.description} onChange={this.onChange} onKeyUp={this.onKeyUp}
+                   title={this.i18n('report.corrective.description-tooltip')}/>
+        </div>;
+    }
+}
+
+export default injectIntl(I18nWrapper(Description));

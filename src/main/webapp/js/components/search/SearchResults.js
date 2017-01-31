@@ -71,17 +71,17 @@ class SearchResults extends React.Component {
     }
 
     _renderResultRows() {
-        var results = this.props.results,
+        const results = this.props.results,
             rows = [];
-        for (var i = 0, len = results.length; i < len; i++) {
+        for (let i = 0, len = results.length; i < len; i++) {
             rows.push(<SearchResultRow key={'search-result-' + i} record={results[i]}/>);
         }
         return rows;
     }
 }
 
-var SearchResultRow = (props) => {
-    var key = props.record['key']['value'],
+let SearchResultRow = (props) => {
+    const key = props.record['key']['value'],
         headline = props.record['headline']['value'],
         snippet = props.record['snippet']['value'];
     return <tr>

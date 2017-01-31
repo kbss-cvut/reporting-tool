@@ -76,7 +76,7 @@ var Factors = React.createClass({
             if (this._reportReloaded()) {
                 this.factorsRendered = false;
                 this.ganttController.clearAll();
-                this.renderFactors(OptionsStore.getOptions('eventType'));
+                this.renderFactors(OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE));
             } else
                 this.ganttController.updateRootEvent(this.props.report[this.props.rootAttribute]);
         }
@@ -87,7 +87,7 @@ var Factors = React.createClass({
     },
 
     componentWillMount: function () {
-        Actions.loadOptions('eventType');
+        Actions.loadOptions(Constants.OPTIONS.EVENT_TYPE);
     },
 
     componentDidMount: function () {
@@ -100,13 +100,13 @@ var Factors = React.createClass({
             onDeleteLink: this.onDeleteLink
         });
         this.ganttController.setScale(this.state.scale);
-        if (OptionsStore.getOptions('eventType').length !== 0) {
-            this.renderFactors(OptionsStore.getOptions('eventType'));
+        if (OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE).length !== 0) {
+            this.renderFactors(OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE));
         }
     },
 
     _onOptionsLoaded: function (type, data) {
-        if (type === 'eventType') {
+        if (type === Constants.OPTIONS.EVENT_TYPE) {
             this.renderFactors(data);
         } else if (type === 'factorType') {
             this.setState({factorTypeOptions: JsonLdUtils.processSelectOptions(data)});

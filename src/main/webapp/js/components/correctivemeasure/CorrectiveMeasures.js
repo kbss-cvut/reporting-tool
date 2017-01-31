@@ -59,15 +59,15 @@ class CorrectiveMeasures extends React.Component {
     };
 
     addCorrectiveMeasure = (wizardData, closeCallback) => {
-        var measure = wizardData.data.statement;
-        var measures = this.props.report.correctiveMeasures != null ? this.props.report.correctiveMeasures : [];
+        const measure = wizardData.data.statement,
+            measures = this.props.report.correctiveMeasures != null ? this.props.report.correctiveMeasures : [];
         measures.push(measure);
         this.props.onChange({correctiveMeasures: measures});
         closeCallback();
     };
 
     updateCorrectiveMeasure = (wizardData, closeCallback) => {
-        var measure = wizardData.data.statement,
+        const measure = wizardData.data.statement,
             measures = this.props.report.correctiveMeasures;
         measures.splice(measure.index, 1, measure);
 
@@ -77,51 +77,47 @@ class CorrectiveMeasures extends React.Component {
     };
 
     onRemove = (index) => {
-        var measures = this.props.report.correctiveMeasures;
+        const measures = this.props.report.correctiveMeasures;
         measures.splice(index, 1);
         this.props.onChange({correctiveMeasures: measures});
     };
 
     onEdit = (index) => {
-        var measure = assign({}, this.props.report.correctiveMeasures[index]);
+        const measure = assign({}, this.props.report.correctiveMeasures[index]);
         measure.index = index;
         this.openWizard(measure, this.updateCorrectiveMeasure);
     };
 
     render() {
-        return (
-            <div>
-                {this.renderMeasures()}
-                <WizardWindow {...this.state.wizardProperties} show={this.state.isWizardOpen}
-                                                               onHide={this.closeWizard} enableForwardSkip={true}/>
-            </div>
-        );
+        return <div>
+            {this.renderMeasures()}
+            <WizardWindow {...this.state.wizardProperties} show={this.state.isWizardOpen}
+                          onHide={this.closeWizard} enableForwardSkip={true}/>
+        </div>;
     }
 
     renderMeasures() {
-        var data = this.props.report.correctiveMeasures,
-            component = null;
+        const data = this.props.report.correctiveMeasures;
+        let component = null;
         if (data && data.length !== 0) {
-            var handlers = {
+            const handlers = {
                 onRemove: this.onRemove,
                 onEdit: this.onEdit
             };
             component = <CorrectiveMeasuresTable data={data} handlers={handlers}/>;
         }
-        var buttonCls = component ? 'float-right' : '';
-        return (
-            <Panel header={<h5>{this.props.i18n('report.corrective.panel-title')}</h5>} bsStyle='info'
-                   key='correctiveMeasures'>
-                {component}
-                <div className={buttonCls}>
-                    <Button bsStyle='primary' bsSize='small' onClick={this.onAdd}
-                            title={this.props.i18n('report.corrective.add-tooltip')}>
-                        <Glyphicon glyph='plus' style={{margin: '0 5px 0 0'}}/>
-                        {this.props.i18n('add')}
-                    </Button>
-                </div>
-            </Panel>
-        );
+        const buttonCls = component ? 'float-right' : '';
+        return <Panel header={<h5>{this.props.i18n('report.corrective.panel-title')}</h5>} bsStyle='info'
+                      key='correctiveMeasures'>
+            {component}
+            <div className={buttonCls}>
+                <Button bsStyle='primary' bsSize='small' onClick={this.onAdd}
+                        title={this.props.i18n('report.corrective.add-tooltip')}>
+                    <Glyphicon glyph='plus' className='add-glyph'/>
+                    {this.props.i18n('add')}
+                </Button>
+            </div>
+        </Panel>;
     }
 }
 

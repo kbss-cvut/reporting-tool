@@ -16,7 +16,7 @@
  * Czech localization.
  */
 
-var Constants = require('../constants/Constants');
+const Constants = require('../constants/Constants');
 
 module.exports = {
     'locale': 'cs',
@@ -217,6 +217,9 @@ module.exports = {
         'factors.detail.delete.title': 'Smazat faktor?',
         'factors.detail.delete.text': 'Určitě chcete smazat tento faktor?',
         'factors.detail.wizard-loading': 'Připravuji formulář...',
+        'factors.smallscreen.start': 'Počátek',
+        'factors.smallscreen.end': 'Konec',
+        'factors.smallscreen.add-tooltip': 'Přidat událost',
 
         'notfound.title': 'Nenalezeno',
         'notfound.msg-with-id': 'Záznam \'{resource}\' s identifikátorem {identifier} nenalezen.',
@@ -237,7 +240,9 @@ module.exports = {
 
         'search.loading': 'Probíhá hledání...',
         'search.title': 'Výsledky hledání',
-        'search.headline': 'Nalezeno {count, plural, one {# výskyt} few {# výskyty} other {# výskytů}} výrazu {expression}.',
-        'search.results.match': 'Výsledek hledání'
+        'search.headline': '{count, plural, one {Nalezen # výskyt} few {Nalezeny # výskyty} other {Nalezeno # výskytů}} výrazu {expression}.',
+        'search.results.match': 'Výsledek hledání',
+
+        'validation.error.start-after-end': 'Chyba: konec nemůže nastat před počátkem.'
     }
 };

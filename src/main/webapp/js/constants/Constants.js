@@ -22,7 +22,8 @@ module.exports = {
     HOME_ROUTE: Routes.dashboard,
     OPTIONS: {
         OCCURRENCE_CLASS: 'occurrenceClass',
-        OCCURRENCE_CATEGORY: 'occurrenceCategory'
+        OCCURRENCE_CATEGORY: 'occurrenceCategory',
+        EVENT_TYPE: 'eventType'
     },
 
     TIME_SCALES: {
@@ -42,6 +43,10 @@ module.exports = {
         WARNING: 'warning',
         ERROR: 'danger'
     },
+    /**
+     * Duration for which a message is by default displayed by the messaging UI.
+     */
+    MESSAGE_DURATION: 5000,
 
     /**
      * Sorting glyph icons

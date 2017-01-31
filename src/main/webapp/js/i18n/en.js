@@ -16,7 +16,7 @@
  * English localization.
  */
 
-var Constants = require('../constants/Constants');
+const Constants = require('../constants/Constants');
 
 module.exports = {
     'locale': 'en',
@@ -214,6 +214,9 @@ module.exports = {
         'factors.detail.delete.title': 'Delete factor?',
         'factors.detail.delete.text': 'Are you sure you want to remove this factor?',
         'factors.detail.wizard-loading': 'Generating form...',
+        'factors.smallscreen.start': 'Start',
+        'factors.smallscreen.end': 'End',
+        'factors.smallscreen.add-tooltip': 'Add event',
 
         'notfound.title': 'Not found',
         'notfound.msg-with-id': '{resource} with id {identifier} not found.',
@@ -235,6 +238,8 @@ module.exports = {
         'search.loading': 'Searching...',
         'search.title': 'Search results',
         'search.headline': 'Search for {expression} found {count, plural, one {# result} other {# results}}.',
-        'search.results.match': 'Matching snippet'
+        'search.results.match': 'Matching snippet',
+
+        'validation.error.start-after-end': 'Error: end time cannot occur before start time'
     }
 };

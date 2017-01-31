@@ -78,15 +78,15 @@ class ReportRow extends React.Component {
     render() {
         const report = ReportType.getReport(this.props.report),
             stateClasses = ['report-row', 'content-center'], stateTooltip = null;
-        let formattedDate = '';
-        if (report.date !== null && report.date !== undefined) {
-            formattedDate = Utils.formatDate(new Date(report.date));
-        }
         return <tr onDoubleClick={this.onDoubleClick}>
-            <td className='report-row'><a href={'#/' + Routes.reports.path + '/' + report.key}
-                                          title={this.i18n('reports.open-tooltip')}>{report.identification}</a>
+
+            <td className='report-row'>
+                <a href={'#/' + Routes.reports.path + '/' + report.key} title={this.i18n('reports.open-tooltip')}
+                   className='breakable'>
+                    {report.identification}
+                </a>
             </td>
-            <td className='report-row content-center'>{formattedDate}</td>
+            <td className='report-row content-center'>{Utils.formatDate(report.date)}</td>
             <td className='report-row'>{report.renderMoreInfo()}</td>
             <td className='report-row content-center'>
                 {this._renderReportTypes(report)}

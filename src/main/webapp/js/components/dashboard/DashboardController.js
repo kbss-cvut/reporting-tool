@@ -23,7 +23,7 @@ var Actions = require('../../actions/Actions');
 var Routing = require('../../utils/Routing');
 var Routes = require('../../utils/Routes');
 var UserStore = require('../../stores/UserStore');
-var Dashboard = require('./Dashboard');
+var Dashboard = require('./Dashboard').default;
 var I18nMixin = require('../../i18n/I18nMixin');
 
 var DashboardController = React.createClass({

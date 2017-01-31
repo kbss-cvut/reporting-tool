@@ -16,7 +16,7 @@
 
 const React = require('react');
 const Alert = require('react-bootstrap').Alert;
-
+const Constants = require('../../constants/Constants');
 
 const MessageMixin = {
     getInitialState: function () {
@@ -25,7 +25,7 @@ const MessageMixin = {
         };
     },
 
-    dismissInterval: 5000,
+    dismissInterval: Constants.MESSAGE_DURATION,
 
     dismissMessage: function () {
         this.setState({message: null});
@@ -34,7 +34,7 @@ const MessageMixin = {
 
     showInfoMessage: function (text) {
         this.dismissInterval = 10000;
-        this._showMessage('info', text);
+        this._showMessage(Constants.MESSAGE_TYPE.INFO, text);
     },
 
     _showMessage: function (type, text) {
@@ -49,25 +49,25 @@ const MessageMixin = {
 
     showSuccessMessage: function (text) {
         this.dismissInterval = 10000;
-        this._showMessage('success', text);
+        this._showMessage(Constants.MESSAGE_TYPE.SUCCESS, text);
     },
 
     showErrorMessage: function (text) {
         this.dismissInterval = 10000;
-        this._showMessage('danger', text);
+        this._showMessage(Constants.MESSAGE_TYPE.ERROR, text);
     },
 
     showWarnMessage: function (text) {
         this.dismissInterval = 10000;
-        this._showMessage('warning', text);
+        this._showMessage(Constants.MESSAGE_TYPE.WARNING, text);
     },
 
     renderMessage: function () {
         return this.state.message ? <div className='message-container'>
-            <Alert bsStyle={this.state.message.type} onDismiss={this.dismissMessage}>
-                <p>{this.state.message.text}</p>
-            </Alert>
-        </div> : null;
+                <Alert bsStyle={this.state.message.type} onDismiss={this.dismissMessage}>
+                    <p>{this.state.message.text}</p>
+                </Alert>
+            </div> : null;
     },
 
     cleanupMessages: function () {

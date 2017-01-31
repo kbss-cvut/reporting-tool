@@ -14,7 +14,7 @@
  */
 'use strict';
 
-var injectIntl = require('react-intl').injectIntl;
+const injectIntl = require('react-intl').injectIntl;
 
 /**
  * Our version of react-intl's injectIntl.
@@ -29,7 +29,7 @@ module.exports = function (component, props) {
     // Store this only for development purposes
     if (process.env.NODE_ENV !== 'production') {
         props.withRef = true;
-        var comp = injectIntl(component, props);
+        const comp = injectIntl(component, props);
         comp.wrappedComponent = comp;
         return comp;
     } else {

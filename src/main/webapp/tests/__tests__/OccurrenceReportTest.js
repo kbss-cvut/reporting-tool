@@ -16,15 +16,16 @@
 
 describe('OccurrenceReport', function () {
 
-    var React = require('react'),
+    const React = require('react'),
+        TestUtils = require('react-addons-test-utils'),
         rewire = require('rewire'),
         Environment = require('../environment/Environment'),
         Generator = require('../environment/Generator').default,
         Actions = require('../../js/actions/Actions'),
         ReportFactory = require('../../js/model/ReportFactory'),
         OccurrenceReport = rewire('../../js/components/report/occurrence/OccurrenceReport'),
-        messages = require('../../js/i18n/en'),
-        handlers,
+        messages = require('../../js/i18n/en');
+    let handlers,
         report;
 
     beforeEach(function () {
@@ -36,7 +37,7 @@ describe('OccurrenceReport', function () {
     });
 
     it('Gets factor graph on submit', () => {
-        var component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
             saveEvent = {
                 preventDefault: function () {
                 }
@@ -49,7 +50,7 @@ describe('OccurrenceReport', function () {
     it('calls createReport when new report is saved', () => {
         report.isNew = true;
         spyOn(Actions, 'createReport');
-        var component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
             saveEvent = {
                 preventDefault: function () {
                 }
@@ -61,7 +62,7 @@ describe('OccurrenceReport', function () {
     });
 
     it('calls updateReport when an existing report is saved', () => {
-        var component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
             saveEvent = {
                 preventDefault: function () {
                 }
@@ -74,7 +75,30 @@ describe('OccurrenceReport', function () {
 
     it('does not display report file number when it is not defined (e.g. for new reports.)', () => {
         report = ReportFactory.createOccurrenceReport();
-        var component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>);
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>);
         expect(Environment.getComponentByTagAndContainedText(component, 'h3', messages['fileNo'])).toBeNull();
-    })
+    });
+
+    it('renders factors with graph when standard desktop system is used to display the app', () => {
+        report = ReportFactory.createOccurrenceReport();
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
+            factors = TestUtils.findRenderedDOMComponentWithClass(component, 'factors-gantt');
+        expect(factors).toBeDefined();
+        expect(factors).not.toBeNull();
+    });
+
+    it('renders factors in table when touch-based system is used to display the app', () => {
+        report = ReportFactory.createOccurrenceReport();
+        const deviceMock = function() {
+            return {
+                tablet: () => true,
+                phone: () => true
+            }
+        };
+        OccurrenceReport.__set__('device', deviceMock);
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
+            factors = TestUtils.findRenderedComponentWithType(component, require('../../js/components/factor/smallscreen/SmallScreenFactors').default.wrappedComponent);
+        expect(factors).toBeDefined();
+        expect(factors).not.toBeNull();
+    });
 });

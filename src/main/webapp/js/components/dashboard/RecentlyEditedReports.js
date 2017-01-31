@@ -14,25 +14,25 @@
  */
 'use strict';
 
-var React = require('react');
-var Label = require('react-bootstrap').Label;
-var Panel = require('react-bootstrap').Panel;
-var Table = require('react-bootstrap').Table;
-var Reflux = require('reflux');
+const React = require('react');
+const Label = require('react-bootstrap').Label;
+const Panel = require('react-bootstrap').Panel;
+const Table = require('react-bootstrap').Table;
+const Reflux = require('reflux');
 
-var injectIntl = require('../../utils/injectIntl');
+const injectIntl = require('../../utils/injectIntl');
 
-var Actions = require('../../actions/Actions');
-var Utils = require('../../utils/Utils');
-var CollapsibleText = require('../CollapsibleText');
-var Mask = require('../Mask').default;
-var ReportType = require('../../model/ReportType');
-var ReportStore = require('../../stores/ReportStore');
-var I18nMixin = require('../../i18n/I18nMixin');
+const Actions = require('../../actions/Actions');
+const Utils = require('../../utils/Utils');
+const CollapsibleText = require('../CollapsibleText');
+const Mask = require('../Mask').default;
+const ReportType = require('../../model/ReportType');
+const ReportStore = require('../../stores/ReportStore');
+const I18nMixin = require('../../i18n/I18nMixin');
 
-var RECENTLY_EDITED_COUNT = 10;
+const RECENTLY_EDITED_COUNT = 10;
 
-var RecentlyEditedReports = React.createClass({
+const RecentlyEditedReports = React.createClass({
     mixins: [I18nMixin,
         Reflux.listenTo(ReportStore, '_onReportsLoaded')],
 
@@ -49,9 +49,9 @@ var RecentlyEditedReports = React.createClass({
     },
 
     filterRecentReports: function () {
-        var reports = this.state.reports.slice();
+        const reports = this.state.reports.slice();
         reports.sort(function (a, b) {
-            var aEdited = a.lastModified ? a.lastModified : a.dateCreated,
+            const aEdited = a.lastModified ? a.lastModified : a.dateCreated,
                 bEdited = b.lastModified ? b.lastModified : b.dateCreated;
             return bEdited - aEdited;
         });
@@ -59,19 +59,17 @@ var RecentlyEditedReports = React.createClass({
     },
 
     render: function () {
-        var title = (<h5>{this.i18n('dashboard.recent-panel-heading')}</h5>);
-        return (
-            <Panel header={title} bsStyle='info' style={{height: '100%'}}>
-                {this._renderPanelContent()}
-            </Panel>
-        );
+        const title = (<h5>{this.i18n('dashboard.recent-panel-heading')}</h5>);
+        return <Panel header={title} bsStyle='info' style={{height: '100%'}}>
+            {this._renderPanelContent()}
+        </Panel>;
     },
 
     _renderPanelContent: function () {
         if (!this.state.reports) {
             return <Mask text={this.i18n('reports.loading-mask')} classes='mask-container'/>;
         }
-        var recentReports = this.renderRecentReports(this.filterRecentReports());
+        const recentReports = this.renderRecentReports(this.filterRecentReports());
         if (recentReports.length > 0) {
             return <Table striped bordered condensed hover>
                 <thead>
@@ -94,15 +92,15 @@ var RecentlyEditedReports = React.createClass({
     },
 
     renderRecentReports: function (reports) {
-        var toRender = [];
-        for (var i = 0, len = reports.length; i < len; i++) {
+        const toRender = [];
+        for (let i = 0, len = reports.length; i < len; i++) {
             toRender.push(<ReportRow key={reports[i].key} report={reports[i]} onOpenReport={this.props.onOpenReport}/>);
         }
         return toRender;
     }
 });
 
-var ReportRow = injectIntl(React.createClass({
+const ReportRow = injectIntl(React.createClass({
     mixins: [I18nMixin],
 
     onOpenClick: function (e) {
@@ -112,23 +110,26 @@ var ReportRow = injectIntl(React.createClass({
 
     render: function () {
         const report = ReportType.getReport(this.props.report),
-            vAlign = {verticalAlign: 'middle'},
             dateEdited = report.lastModified ? report.lastModified : report.dateCreated;
         return <tr>
-            <td style={vAlign}>
+            <td className='report-row'>
                 <a href='javascript:void(0);' onClick={this.onOpenClick}
                    title={this.i18n('reports.open-tooltip')}><CollapsibleText
                     text={report.identification}
                     maxLength={20}/></a>
             </td>
-            <td style={vAlign}
-                className='content-center'>{report.date ? Utils.formatDate(new Date(report.date)) : ''}</td>
-            <td style={vAlign} className='content-center'>{Utils.formatDate(new Date(dateEdited))}</td>
-            <td style={vAlign} className='content-center'>
+            <td className='report-row content-center'>{Utils.formatDate(report.date)}</td>
+            <td className='report-row content-center'>{Utils.formatDate(new Date(dateEdited))}</td>
+            <td className='report-row content-center'>
                 <Label title={this.i18n(report.toString())}>{this.i18n(report.getPrimaryLabel())}</Label>
             </td>
         </tr>;
     }
 }));
+
+ReportRow.propTypes = {
+    report: React.PropTypes.object.isRequired,
+    onOpenReport: React.PropTypes.func.isRequired
+};
 
 module.exports = injectIntl(RecentlyEditedReports);

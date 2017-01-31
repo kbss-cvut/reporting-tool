@@ -41,7 +41,7 @@ class AttachmentTable extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.attachments.length > this.props.attachments.length) {
+        if (nextProps.attachments && nextProps.attachments.length > this.props.attachments.length) {
             this._onEditCancel();
         }
     }
@@ -98,7 +98,7 @@ class AttachmentTable extends React.Component {
  */
 const URL_REGEXP = /^(https?:\/\/|ftps?:\/\/)/i;
 
-var AttachmentRow = (props) => {
+let AttachmentRow = (props) => {
     let attachment = props.attachment,
         reference = URL_REGEXP.test(attachment.reference) ?
             <a href={attachment.reference} target='_blank'>{attachment.reference}</a> : attachment.reference;

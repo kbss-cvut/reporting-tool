@@ -14,8 +14,8 @@
  */
 'use strict';
 
-var Constants = require('../constants/Constants');
-var Utils = require('../utils/Utils');
+const Constants = require('../constants/Constants');
+const Utils = require('../utils/Utils');
 
 module.exports = {
     createOccurrenceReport: function () {
@@ -33,9 +33,14 @@ module.exports = {
         };
     },
 
-    createFactor: function () {
-        return {
+    createFactor: function (parent = null) {
+        const factor = {
             javaClass: Constants.EVENT_JAVA_CLASS
+        };
+        if (parent) {
+            factor.startTime = parent.startTime;
+            factor.endTime = parent.endTime;
         }
+        return factor;
     }
 };

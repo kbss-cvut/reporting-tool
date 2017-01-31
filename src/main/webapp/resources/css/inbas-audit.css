@@ -79,11 +79,12 @@ body {
 }
 
 .wizard-step {
-    min-height: 650px;
+    min-height: 70vh;
 }
 
+/* Height of the wizard-step minus the button toolbar height */
 .wizard-step-content {
-    min-height: 600px;
+    min-height: calc(70vh - 30px);
 }
 
 .centered {
@@ -244,6 +245,44 @@ td.actions button {
     left: 0;
     right: 0;
     overflow: hidden;
+}
+
+@media (min-width: 1265px) {
+    .dashboard-left {
+        width: 66.66666667%;
+    }
+
+    .dashboard-right {
+        width: 33.33333333%;
+    }
+
+    .dashboard-left,
+    .dashboard-right {
+        float: left;
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (max-width: 1264px) {
+    .dashboard-left {
+        width: 50%;
+    }
+
+    .dashboard-right {
+        width: 50%;
+    }
+
+    .dashboard-left,
+    .dashboard-right {
+        float: left;
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
 .factors-gantt {
@@ -570,6 +609,39 @@ button.reset-filters {
     }
 }
 
+@media (max-width: 767px) {
+    .navbar-search-input {
+        width: 175px;
+        margin: 0 auto;
+    }
+
+    .navbar-search-results {
+        text-align: left;
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        left: -63px;
+        right: 0;
+        overflow: hidden;
+        border: 1px solid #003c68;
+    }
+
+    .navbar-search-results > .item {
+        color: #003c68;
+    }
+
+    span.item-label {
+        margin-bottom: 2px;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .navbar-search {
+        padding: 10px 5px 5px 0;
+        margin-bottom: -15px;
+    }
+}
+
 .navbar-search-results > .fulltext {
     font-weight: bold;
     border-bottom: 2px solid #003c68;
@@ -626,4 +698,20 @@ button.in-input-line {
 
 .report-type-label {
     margin-left: 0.5em;
+}
+
+.inline .form-group {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.breakable {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
+}
+
+.add-glyph {
+    margin: 0 5px 0 0;
 }
