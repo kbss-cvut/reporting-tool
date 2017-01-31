@@ -296,7 +296,7 @@
                             <packagingExcludes>
                                 **/js/actions/,**/js/components/,**/js/constants/,**/js/stores/,**/js/utils/,**/js/model/,
                                 **/js/validation/, **/js/i18n/,
-                                **/js/app.js,**/js/bundle.js,**/js/.bundle.js,**/css/inbas-audit.css,tests/,node_modules/,
+                                **/js/app.js,**/js/Main.js,**/js/bundle.js,**/js/.bundle.js,**/css/inbas-audit.css,tests/,node_modules/,
                                 package.json,.babelrc,.eslintrc,**/mapping
                             </packagingExcludes>
                         </configuration>
