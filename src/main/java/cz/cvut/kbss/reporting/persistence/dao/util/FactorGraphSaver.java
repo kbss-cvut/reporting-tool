@@ -14,11 +14,11 @@
  */
 package cz.cvut.kbss.reporting.persistence.dao.util;
 
+import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.reporting.model.Event;
 import cz.cvut.kbss.reporting.model.Occurrence;
 import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphNodeVisitor;
-import cz.cvut.kbss.jopa.model.EntityManager;
 
 import java.net.URI;
 

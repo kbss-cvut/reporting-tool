@@ -19,12 +19,12 @@
  */
 package cz.cvut.kbss.reporting.model.qam;
 
-import cz.cvut.kbss.reporting.model.AbstractEntity;
-import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.jopa.model.annotations.OWLClass;
 import cz.cvut.kbss.jopa.model.annotations.OWLDataProperty;
 import cz.cvut.kbss.jopa.model.annotations.OWLObjectProperty;
 import cz.cvut.kbss.jopa.model.annotations.Types;
+import cz.cvut.kbss.reporting.model.AbstractEntity;
+import cz.cvut.kbss.reporting.model.Vocabulary;
 
 import java.io.Serializable;
 import java.net.URI;

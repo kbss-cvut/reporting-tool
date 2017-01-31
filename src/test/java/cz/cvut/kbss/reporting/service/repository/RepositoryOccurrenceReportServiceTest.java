@@ -25,6 +25,7 @@ import cz.cvut.kbss.reporting.model.Person;
 import cz.cvut.kbss.reporting.service.BaseServiceTestRunner;
 import cz.cvut.kbss.reporting.service.options.ReportingPhaseService;
 import cz.cvut.kbss.reporting.util.Constants;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class RepositoryOccurrenceReportServiceTest extends BaseServiceTestRunner
         assertTrue(author.nameEquals(report.getAuthor()));
         assertNotNull(report.getDateCreated());
         assertNotNull(report.getFileNumber());
-        assertEquals(Constants.INITIAL_REVISION, report.getRevision());
+        Assert.assertEquals(Constants.INITIAL_REVISION, report.getRevision());
     }
 
     @Test

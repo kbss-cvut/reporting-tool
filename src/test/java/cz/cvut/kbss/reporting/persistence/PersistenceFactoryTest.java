@@ -14,10 +14,10 @@
  */
 package cz.cvut.kbss.reporting.persistence;
 
-import cz.cvut.kbss.reporting.util.ConfigParam;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import cz.cvut.kbss.jopa.model.JOPAPersistenceProperties;
+import cz.cvut.kbss.reporting.util.ConfigParam;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

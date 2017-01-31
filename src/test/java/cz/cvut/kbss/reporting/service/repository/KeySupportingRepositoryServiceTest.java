@@ -18,12 +18,12 @@ import cz.cvut.kbss.reporting.environment.generator.OccurrenceReportGenerator;
 import cz.cvut.kbss.reporting.model.Occurrence;
 import cz.cvut.kbss.reporting.service.BaseServiceTestRunner;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 public class KeySupportingRepositoryServiceTest extends BaseServiceTestRunner {
@@ -44,7 +44,7 @@ public class KeySupportingRepositoryServiceTest extends BaseServiceTestRunner {
     @Test
     public void findByKeyCallsPostLoad() {
         final Occurrence occurrence = OccurrenceReportGenerator.generateOccurrence();
-        final RepositoryOccurrenceService serviceSpy = spy(occurrenceService);
+        final RepositoryOccurrenceService serviceSpy = Mockito.spy(occurrenceService);
         serviceSpy.persist(occurrence);
 
         final Occurrence result = serviceSpy.findByKey(occurrence.getKey());

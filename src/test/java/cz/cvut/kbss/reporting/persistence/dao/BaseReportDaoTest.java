@@ -14,13 +14,13 @@
  */
 package cz.cvut.kbss.reporting.persistence.dao;
 
+import cz.cvut.kbss.jopa.exceptions.NoUniqueResultException;
 import cz.cvut.kbss.reporting.environment.generator.Generator;
 import cz.cvut.kbss.reporting.environment.generator.OccurrenceReportGenerator;
 import cz.cvut.kbss.reporting.model.OccurrenceReport;
 import cz.cvut.kbss.reporting.model.Person;
 import cz.cvut.kbss.reporting.persistence.BaseDaoTestRunner;
 import cz.cvut.kbss.reporting.persistence.PersistenceException;
-import cz.cvut.kbss.jopa.exceptions.NoUniqueResultException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

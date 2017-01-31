@@ -36,6 +36,8 @@ public interface ReportBusinessService {
 
     /**
      * Gets all reports.
+     * <p>
+     * The reports are sorted using the {@link DocumentDateAndRevisionComparator}.
      *
      * @return All reports in the system
      */

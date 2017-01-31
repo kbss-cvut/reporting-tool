@@ -32,6 +32,8 @@ import java.util.Set;
 @OWLClass(iri = Vocabulary.s_c_corrective_measure_request)
 public class CorrectiveMeasureRequest extends AbstractEntity implements Serializable {
 
+    static final int TO_STRING_MAX = 50;
+
     @OWLDataProperty(iri = Vocabulary.s_p_description)
     private String description;
 
@@ -116,7 +118,8 @@ public class CorrectiveMeasureRequest extends AbstractEntity implements Serializ
         // First 50 characters of the description
         if (description != null) {
             return "CorrectiveMeasureRequest{" +
-                    (description.length() > 50 ? description.substring(0, 50) + "..." : description) + '}';
+                    (description.length() > TO_STRING_MAX ? description.substring(0, TO_STRING_MAX) + "..." :
+                     description) + '}';
         }
         return "CorrectiveMeasureRequest{" + uri + "}";
     }

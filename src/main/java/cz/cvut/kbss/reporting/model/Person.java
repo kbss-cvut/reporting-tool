@@ -14,9 +14,9 @@
  */
 package cz.cvut.kbss.reporting.model;
 
+import cz.cvut.kbss.jopa.model.annotations.*;
 import cz.cvut.kbss.reporting.model.util.HasDerivableUri;
 import cz.cvut.kbss.reporting.util.Constants;
-import cz.cvut.kbss.jopa.model.annotations.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;

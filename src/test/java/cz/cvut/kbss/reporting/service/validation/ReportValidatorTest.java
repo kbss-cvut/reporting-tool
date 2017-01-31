@@ -89,7 +89,7 @@ public class ReportValidatorTest {
         final Person newAuthor = new Person();
         newAuthor.setFirstName("Serin");
         newAuthor.setLastName("Osman");
-        newAuthor.setUri(URI.create("http://www.cz/ontologies/reporting-tool/people#Serin+Osman"));
+        newAuthor.setUri(URI.create("http://www.inbas.cz/ontologies/reporting-tool/people#Serin+Osman"));
         newAuthor.setUsername("osman@unsc.org");
         copy.setAuthor(newAuthor);
         validator.validateForUpdate(copy, original);

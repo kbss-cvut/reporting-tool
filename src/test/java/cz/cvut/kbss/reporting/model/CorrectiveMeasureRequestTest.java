@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CorrectiveMeasureRequestTest {
 
@@ -69,5 +70,27 @@ public class CorrectiveMeasureRequestTest {
         final CorrectiveMeasureRequest copy = new CorrectiveMeasureRequest(original);
         assertEquals(original.getDescription(), copy.getDescription());
         assertEquals(original.getBasedOnOccurrence(), copy.getBasedOnOccurrence());
+    }
+
+    @Test
+    public void toStringRenders50CharactersOfDescriptionAtMaximum() {
+        final CorrectiveMeasureRequest request = new CorrectiveMeasureRequest();
+        request.setDescription(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                        " ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi" +
+                        " ut aliquip ex ea commodo consequat.");
+        final String result = request.toString();
+        assertTrue(result.length() <=
+                CorrectiveMeasureRequest.TO_STRING_MAX + CorrectiveMeasureRequest.class.getSimpleName().length() + 5);
+        assertTrue(result.contains(request.getDescription().substring(0, CorrectiveMeasureRequest.TO_STRING_MAX)));
+    }
+
+    @Test
+    public void toStringRendersUriWhenDescriptionIsNotAvailable() {
+        final CorrectiveMeasureRequest request = new CorrectiveMeasureRequest();
+        request.setUri(Generator.generateUri());
+        request.setDescription(null);
+        final String result = request.toString();
+        assertTrue(result.contains(request.getUri().toString()));
     }
 }

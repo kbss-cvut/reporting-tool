@@ -15,7 +15,6 @@
 package cz.cvut.kbss.reporting.rest;
 
 import cz.cvut.kbss.reporting.dto.ReportRevisionInfo;
-import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
 import cz.cvut.kbss.reporting.dto.reportlist.ReportList;
 import cz.cvut.kbss.reporting.exception.NotFoundException;
 import cz.cvut.kbss.reporting.model.LogicalDocument;

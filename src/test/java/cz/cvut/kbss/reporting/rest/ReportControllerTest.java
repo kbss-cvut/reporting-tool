@@ -238,8 +238,8 @@ public class ReportControllerTest extends BaseControllerTestRunner {
     @Test
     public void createReportReturnsValidationExceptionThrownByServiceAsResponse() throws Exception {
         final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(false);
-        doThrow(new ValidationException("Invalid report.")).when(reportServiceMock)
-                                                           .persist(any(OccurrenceReport.class));
+        Mockito.doThrow(new ValidationException("Invalid report.")).when(reportServiceMock)
+               .persist(any(OccurrenceReport.class));
         mockMvc.perform(post("/reports").content(toJson(mapper.occurrenceReportToOccurrenceReportDto(report)))
                                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                .andExpect(status().isConflict());
@@ -351,8 +351,8 @@ public class ReportControllerTest extends BaseControllerTestRunner {
     public void persistenceExceptionIsWrappedInJsonObjectWithReadableMessage() throws Exception {
         final OccurrenceReport report = prepareReport();
         final String message = "Expected some value in attribute blabla, but found none.";
-        doThrow(new PersistenceException(new RollbackException(message))).when(reportServiceMock)
-                                                                         .persist(any(OccurrenceReport.class));
+        Mockito.doThrow(new PersistenceException(new RollbackException(message))).when(reportServiceMock)
+               .persist(any(OccurrenceReport.class));
         final MvcResult result = mockMvc.perform(
                 post(REPORTS_PATH).content(toJson(mapper.occurrenceReportToOccurrenceReportDto(report)))
                                   .contentType(MediaType.APPLICATION_JSON_VALUE))

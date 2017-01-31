@@ -14,8 +14,8 @@
  */
 package cz.cvut.kbss.reporting.persistence.dao;
 
-import cz.cvut.kbss.reporting.model.util.HasDerivableUri;
 import cz.cvut.kbss.jopa.model.EntityManager;
+import cz.cvut.kbss.reporting.model.util.HasDerivableUri;
 
 /**
  * Data access object for classes with derivable URI.

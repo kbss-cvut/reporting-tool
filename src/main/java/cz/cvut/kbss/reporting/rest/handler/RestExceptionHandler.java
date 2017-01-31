@@ -14,8 +14,11 @@
  */
 package cz.cvut.kbss.reporting.rest.handler;
 
+import cz.cvut.kbss.jopa.exceptions.OWLPersistenceException;
 import cz.cvut.kbss.reporting.exception.*;
 import cz.cvut.kbss.reporting.persistence.PersistenceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -29,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class RestExceptionHandler {
+
+    private static final Logger LOG = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorInfo> resourceNotFound(HttpServletRequest request, NotFoundException e) {
@@ -74,6 +79,12 @@ public class RestExceptionHandler {
     @ExceptionHandler(PersistenceException.class)
     public ResponseEntity<ErrorInfo> persistenceException(HttpServletRequest request, PersistenceException e) {
         return new ResponseEntity<>(errorInfo(request, e.getCause()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(OWLPersistenceException.class)
+    public ResponseEntity<ErrorInfo> jopaException(HttpServletRequest request, PersistenceException e) {
+        LOG.error("Persistence exception caught.", e);
+        return new ResponseEntity<>(errorInfo(request, e), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ReportImportingException.class)

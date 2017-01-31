@@ -14,11 +14,11 @@
  */
 package cz.cvut.kbss.reporting.persistence;
 
-import cz.cvut.kbss.reporting.util.Constants;
 import cz.cvut.kbss.jopa.Persistence;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import cz.cvut.kbss.jopa.model.JOPAPersistenceProvider;
 import cz.cvut.kbss.ontodriver.config.OntoDriverProperties;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,13 +28,12 @@ import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static cz.cvut.kbss.jopa.model.JOPAPersistenceProperties.*;
 import static cz.cvut.kbss.reporting.util.ConfigParam.DRIVER;
 import static cz.cvut.kbss.reporting.util.ConfigParam.REPOSITORY_URL;
-import static cz.cvut.kbss.jopa.model.JOPAPersistenceProperties.*;
 
 /**
  * Sets up persistence and provides {@link EntityManagerFactory} as Spring bean.
@@ -73,7 +72,9 @@ public class PersistenceFactory {
 
     @PreDestroy
     private void close() {
-        emf.close();
+        if (emf.isOpen()) {
+            emf.close();
+        }
     }
 
     private static Map<String, String> initParams() {
@@ -82,9 +83,5 @@ public class PersistenceFactory {
         map.put(SCAN_PACKAGE, "cz.cvut.kbss.reporting.model");
         map.put(JPA_PERSISTENCE_PROVIDER, JOPAPersistenceProvider.class.getName());
         return map;
-    }
-
-    static Map<String, String> getDefaultParams() {
-        return Collections.unmodifiableMap(DEFAULT_PARAMS);
     }
 }

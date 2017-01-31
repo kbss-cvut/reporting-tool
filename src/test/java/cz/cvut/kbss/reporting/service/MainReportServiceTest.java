@@ -30,6 +30,7 @@ import cz.cvut.kbss.reporting.model.util.HasOwlKey;
 import cz.cvut.kbss.reporting.persistence.dao.OccurrenceReportDao;
 import cz.cvut.kbss.reporting.service.options.ReportingPhaseService;
 import cz.cvut.kbss.reporting.util.IdentificationUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +137,7 @@ public class MainReportServiceTest extends BaseServiceTestRunner {
 
         final LogicalDocument result = reportService.findLatestRevision(fileNumber);
         assertNotNull(result);
-        assertEquals(latest.getUri(), result.getUri());
+        Assert.assertEquals(latest.getUri(), result.getUri());
         assertEquals(latest.getKey(), result.getKey());
     }
 

@@ -34,9 +34,9 @@ import static org.mockito.Mockito.when;
 public class ReportingPhaseServiceTest extends BaseServiceTestRunner {
 
     private static final List<URI> PHASES = Arrays
-            .asList(URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/first"),
-                    URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/second"),
-                    URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/third"));
+            .asList(URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/first"),
+                    URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/second"),
+                    URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/third"));
 
     @Autowired
     private ReportingPhaseService service;
@@ -89,7 +89,7 @@ public class ReportingPhaseServiceTest extends BaseServiceTestRunner {
 
     @Test
     public void getDefaultPhaseReturnsDefaultReportPhase() {
-        final URI expected = URI.create("http://onto.fel.cvut.cz/ontologies/reporting-tool-test/second");
+        final URI expected = URI.create("http://onto.fel.cvut.cz/ontologies/inbas-test/second");
         assertEquals(expected, service.getDefaultPhase());
     }
 

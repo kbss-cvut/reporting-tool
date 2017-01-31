@@ -103,7 +103,7 @@ public class DtoMapperTest {
             final Person p = new Person();
             p.setFirstName("FirstName" + i);
             p.setLastName("LastName" + i);
-            p.setUsername("firstname-" + i + "@reporting-tool.cz");
+            p.setUsername("firstname-" + i + "@inbas.cz");
             p.setPassword("bflmpsvz");
             p.generateUri();
             persons.add(p);
@@ -205,7 +205,7 @@ public class DtoMapperTest {
             final PersonDto p = new PersonDto();
             p.setFirstName("FirstName" + i);
             p.setLastName("LastName" + i);
-            p.setUsername("firstname-" + i + "@reporting-tool.cz");
+            p.setUsername("firstname-" + i + "@inbas.cz");
             p.setUri(URI.create(Constants.PERSON_BASE_URI + p.getFirstName() + "+" + p.getLastName()));
             agents.add(p);
         }

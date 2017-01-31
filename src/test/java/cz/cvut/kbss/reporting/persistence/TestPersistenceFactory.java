@@ -14,14 +14,14 @@
  */
 package cz.cvut.kbss.reporting.persistence;
 
-import cz.cvut.kbss.reporting.util.ConfigParam;
-import cz.cvut.kbss.reporting.util.Constants;
 import cz.cvut.kbss.jopa.Persistence;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import cz.cvut.kbss.jopa.model.JOPAPersistenceProperties;
 import cz.cvut.kbss.jopa.model.JOPAPersistenceProvider;
 import cz.cvut.kbss.ontodriver.config.OntoDriverProperties;
 import cz.cvut.kbss.ontodriver.sesame.config.SesameOntoDriverProperties;
+import cz.cvut.kbss.reporting.util.ConfigParam;
+import cz.cvut.kbss.reporting.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,15 +63,17 @@ public class TestPersistenceFactory {
             properties.put(JOPAPersistenceProperties.DATA_SOURCE_USERNAME, environment.getProperty(USERNAME_PROPERTY));
             properties.put(JOPAPersistenceProperties.DATA_SOURCE_PASSWORD, environment.getProperty(PASSWORD_PROPERTY));
         }
-        this.emf = Persistence.createEntityManagerFactory("rtTestPU", properties);
+        this.emf = Persistence.createEntityManagerFactory("inbasTestPU", properties);
     }
 
     @PreDestroy
     private void close() {
-        emf.close();
+        if (emf.isOpen()) {
+            emf.close();
+        }
     }
 
-    static Map<String, String> getDefaultProperties() {
+    private static Map<String, String> getDefaultProperties() {
         final Map<String, String> properties = new HashMap<>();
         properties.put(OntoDriverProperties.ONTOLOGY_LANGUAGE, Constants.PU_LANGUAGE);
         properties.put(JOPAPersistenceProperties.SCAN_PACKAGE, "cz.cvut.kbss.reporting.model");

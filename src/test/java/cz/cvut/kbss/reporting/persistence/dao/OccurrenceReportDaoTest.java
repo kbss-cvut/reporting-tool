@@ -14,12 +14,12 @@
  */
 package cz.cvut.kbss.reporting.persistence.dao;
 
+import cz.cvut.kbss.jopa.model.EntityManager;
+import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import cz.cvut.kbss.reporting.environment.generator.Generator;
 import cz.cvut.kbss.reporting.environment.generator.OccurrenceReportGenerator;
 import cz.cvut.kbss.reporting.model.*;
 import cz.cvut.kbss.reporting.persistence.BaseDaoTestRunner;
-import cz.cvut.kbss.jopa.model.EntityManager;
-import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,9 +94,9 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
 
     private void verifyChildren(Set<Event> expected, Set<Event> actual, Set<URI> visited) {
         final List<Event> lExpected = new ArrayList<>(expected);
-        Collections.sort(lExpected, (a, b) -> a.getUri().compareTo(b.getUri()));
+        lExpected.sort(Comparator.comparing(AbstractEntity::getUri));
         final List<Event> lActual = new ArrayList<>(actual);
-        Collections.sort(lActual, (a, b) -> a.getUri().compareTo(b.getUri()));
+        lActual.sort(Comparator.comparing(AbstractEntity::getUri));
         final Iterator<Event> itExp = lExpected.iterator();
         final Iterator<Event> itAct = lActual.iterator();
         while (itExp.hasNext() && itAct.hasNext()) {
@@ -106,9 +106,9 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
 
     private void verifyFactors(Set<Factor> expected, Set<Factor> actual, Set<URI> visited) {
         final List<Factor> lExpected = new ArrayList<>(expected);
-        Collections.sort(lExpected, (a, b) -> a.getUri().compareTo(b.getUri()));
+        lExpected.sort(Comparator.comparing(AbstractEntity::getUri));
         final List<Factor> lActual = new ArrayList<>(actual);
-        Collections.sort(lActual, (a, b) -> a.getUri().compareTo(b.getUri()));
+        lActual.sort(Comparator.comparing(AbstractEntity::getUri));
         final Iterator<Factor> itExp = lExpected.iterator();
         final Iterator<Factor> itAct = lActual.iterator();
         while (itExp.hasNext() && itAct.hasNext()) {
@@ -150,6 +150,14 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
         final OccurrenceReport result = occurrenceReportDao.findByOccurrence(occurrence);
         assertNotNull(result);
         assertEquals(report.getUri(), result.getUri());
+    }
+
+    @Test
+    public void findByOccurrenceReturnsNullWhenNoMatchingReportIsFound() {
+        final Occurrence occurrence = OccurrenceReportGenerator.generateOccurrence();
+        occurrenceDao.persist(occurrence);
+
+        assertNull(occurrenceReportDao.findByOccurrence(occurrence));
     }
 
     @Test

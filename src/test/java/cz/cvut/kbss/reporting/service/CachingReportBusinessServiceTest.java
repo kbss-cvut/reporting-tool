@@ -31,8 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
@@ -153,7 +153,7 @@ public class CachingReportBusinessServiceTest extends BaseServiceTestRunner {
             final List<OccurrenceReport> chain = persistOccurrenceReportChain();
             latestRevisions.add(chain.get(chain.size() - 1));
         }
-        Collections.sort(latestRevisions, (a, b) -> b.getDateCreated().compareTo(a.getDateCreated()));
+        latestRevisions.sort((a, b) -> b.getDateCreated().compareTo(a.getDateCreated()));
         return latestRevisions;
     }
 
@@ -216,5 +216,15 @@ public class CachingReportBusinessServiceTest extends BaseServiceTestRunner {
         final List<OccurrenceReport> chain = persistOccurrenceReportChain();
         final List<ReportRevisionInfo> revisions = reportService.getReportChainRevisions(chain.get(0).getFileNumber());
         assertEquals(chain.size(), revisions.size());
+    }
+
+    @Test
+    public void findAllUsingKeysReadsReportsDirectlyFromDao() {
+        final List<LogicalDocument> latestRevisions = initReportChains();
+        final List<String> keys = latestRevisions.stream().map(LogicalDocument::getKey).collect(Collectors.toList());
+
+        final List<ReportDto> result = reportService.findAll(keys);
+        assertFalse(reportCache.isInitialized());
+        assertEquals(keys.size(), result.size());
     }
 }

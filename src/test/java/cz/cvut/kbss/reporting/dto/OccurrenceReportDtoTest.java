@@ -19,6 +19,7 @@ import cz.cvut.kbss.reporting.environment.generator.OccurrenceReportGenerator;
 import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
 import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapperImpl;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -44,11 +45,11 @@ public class OccurrenceReportDtoTest {
         assertEquals(dto.getLastModified(), result.getLastModified());
         assertEquals(dto.getLastModifiedBy(), result.getLastModifiedBy());
         assertEquals(dto.getRevision(), result.getRevision());
-        assertEquals(dto.getOccurrence().getName(), result.getIdentification());
-        assertEquals(dto.getOccurrence().getStartTime(), result.getDate());
+        Assert.assertEquals(dto.getOccurrence().getName(), result.getIdentification());
+        Assert.assertEquals(dto.getOccurrence().getStartTime(), result.getDate());
         assertTrue(result.getTypes().containsAll(dto.getTypes()));
         assertEquals(dto.getSeverityAssessment(), result.getSeverityAssessment());
-        assertEquals(dto.getOccurrence().getEventType(), result.getOccurrenceCategory());
+        Assert.assertEquals(dto.getOccurrence().getEventType(), result.getOccurrenceCategory());
         assertEquals(dto.getSummary(), result.getSummary());
     }
 

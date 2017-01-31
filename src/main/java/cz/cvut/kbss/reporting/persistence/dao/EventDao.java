@@ -14,9 +14,9 @@
  */
 package cz.cvut.kbss.reporting.persistence.dao;
 
-import cz.cvut.kbss.reporting.model.Event;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
+import cz.cvut.kbss.reporting.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

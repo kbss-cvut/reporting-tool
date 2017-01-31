@@ -14,9 +14,9 @@
  */
 package cz.cvut.kbss.reporting.model;
 
-import cz.cvut.kbss.reporting.model.util.HasUri;
 import cz.cvut.kbss.jopa.model.annotations.Id;
 import cz.cvut.kbss.jopa.model.annotations.OWLClass;
+import cz.cvut.kbss.reporting.model.util.HasUri;
 
 import java.io.Serializable;
 import java.net.URI;
