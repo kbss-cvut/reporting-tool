@@ -61,7 +61,7 @@ const OccurrenceReportValidator = {
         if (!report.occurrence.name || report.occurrence.name.length === 0) {
             return 'detail.invalid-tooltip';
         }
-        if (!report.occurrence.startTime) {
+        if (report.occurrence.startTime === undefined || report.occurrence.startTime === null) {
             return 'detail.invalid-tooltip';   // Don't expect this to happen, but just to be sure
         }
         if (!report.severityAssessment) {

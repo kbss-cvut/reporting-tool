@@ -80,7 +80,7 @@
   "author": "Martin Ledvinka",
   "repository": {
     "type": "git",
-    "url": "https://dev.inbas.cz/git/inbas-system"
+    "url": "https://github.com/kbss-cvut/reporting-tool.git"
   },
   "private": true
 }
