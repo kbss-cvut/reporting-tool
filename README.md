@@ -1,15 +1,15 @@
 # Reporting Tool
 
-Reporting tool is a generic aviation safety occurrence reporting software. It is a lightweight version of a tool developed in the [INBAS](https://www.inbas.cz) project.
+Reporting tool is a generic aviation safety occurrence reporting software. It was developed as part of the [INBAS](https://www.inbas.cz) project.
 
 ## Development Environment Setup
 
 The following software needs to be installed on the system for development:
 
 - JDK 8
-- NodeJS v4 or later (can be installed using apt, in which case you need to install npm as well). To upgrade from older versions, see e.g. [https://davidwalsh.name/upgrade-nodejs](https://davidwalsh.name/upgrade-nodejs)
-- Maven
-- Apache Tomcat (or any other application server)
+- NodeJS v6 or later (can be installed using apt, in which case you need to install npm as well).
+- Maven 3.x
+- Apache Tomcat 8.x (or any other application server)
 
 To start developing, first go to `app/root/src/main/webapp` and run `npm install`. This will download the necessary Node dependencies
 (they are used by the UI written in ReactJS). You can check that everything is working by running `npm test`.
@@ -26,21 +26,20 @@ is automatically picked up by Tomcat.
 Running the application is simple, just build it with maven and deploy the artifact into you application server.
 
 The "dev" maven profile is intended for development use, it contains non-minified version of the UI. The "production" profile contains
-minified and uglyfied version of the UI and is more suitable for deployments where performance matters (the dev bundle has around 7MB, the production around 300kB).
+minified and uglyfied version of the UI and is more suitable for deployments where performance matters.
 
 ## Storage Setup
 
-The application by default uses a Sesame native storage as its database. The storage requires a folder somewhere on the file system. Path to that
-folder is set up in `config.properties` in the application's resource. The relevant property is called _repositoryUrl_. Path to the
-repository has to have the following pattern: `/some/path/repositories/repository-id`, where _repository-id_ is id of the repository.
-Using a remote repository is of course also possible.
-
-Of course, another repository can be specified, e.g. running on a Sesame server.
+The application uses a RDF4J (formerly known as Sesame) server as its database. The storage requires a RDF4J server deployed 
+in some Java web application server. URL to that repository is set up in `config.properties` in the application's resource. 
+The relevant property is called _repositoryUrl_. Path to the repository has to have the following 
+pattern: `http://domain:port/rdf4j-server/repositories/repository-id`, where _repository-id_ is id of the repository.
+Using a native/in-memory repository is of course also possible.
 
 Other than the repository url, the config file also specifies URL of the Liferay portal (if present), which is used for user authentication.
-If the portal is not accessible, the application will use its own user management.
+If the portal is not accessible, the application will use its own use management.
 OntoDriver is also specified here. Don't change it unless necessary. The last property - _eventTypeRepository_ - specifies URL of the 
-repository which is queried for supported event types and other properties.
+repository which is queried for supported event types. For development purposes, it is suggested to leave this property value as it is.
 
 ## Live Version
 
@@ -48,8 +47,3 @@ A demo version of the reporting tool is publicly available at the INBAS project 
 This version allows users to freely explore the possibilities of the application.
 
 It is possible to either register as a new unique user, or use the existing example user with username *example@inbas.cz* and password _Example01_
-
-### Data from the Live Version
-
-To see raw data stored in the example version, send a GET request to [https://www.inbas.cz/reporting-tool-public/rest/data](https://www.inbas.cz/reporting-tool-public/rest/data).
-The URL does not require authentication, so anyone should be able to read the application's data.
