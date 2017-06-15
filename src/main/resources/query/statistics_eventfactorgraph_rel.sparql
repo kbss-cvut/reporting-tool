@@ -3,7 +3,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX aso: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-PREFIX er: <http://dev.inbas.cz/rdf4j-server/repositories/>
+PREFIX er: <http://localhost:18080/rdf4j-server/repositories/>
 
 SELECT ?event_type ?relation_type ?factor_type (COUNT(*) AS ?count)
 {
@@ -19,7 +19,7 @@ SELECT ?event_type ?relation_type ?factor_type (COUNT(*) AS ?count)
     }
   }
   OPTIONAL {
-    SERVICE er:inbas-model-2016-01-21:22-46-17 {
+    SERVICE er:model {
       ?event_e_t rdfs:label ?event_type.
     }
   }
@@ -39,7 +39,7 @@ SELECT ?event_type ?relation_type ?factor_type (COUNT(*) AS ?count)
         }
     }
     OPTIONAL {
-        SERVICE er:inbas-model-2016-01-21:22-46-17 {
+        SERVICE er:model {
        	  ?event_f_t rdfs:label ?factor_type.
           ?rt rdfs:label ?relation_type .
      	}

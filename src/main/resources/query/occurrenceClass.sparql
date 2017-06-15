@@ -12,7 +12,7 @@ CONSTRUCT {
   ?term rdfs:label ?label ;
   rdfs:comment ?comment ;
 } WHERE {
-  SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+  SERVICE <http://localhost:18080/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
     <a-431> eccairs-model:has-child+  ?term.
     ?term rdfs:label ?label.
     ?term eccairs-model:has-explanation ?comment.

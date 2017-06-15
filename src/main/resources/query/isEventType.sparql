@@ -10,7 +10,7 @@ PREFIX eccairs-current: <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4
 
 ASK WHERE {
     {
-      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/uniset-factors> {
+      SERVICE <http://localhost:18080/rdf4j-server/repositories/uniset-factors> {
          # all events
          ?term rdfs:label ?label .
       }

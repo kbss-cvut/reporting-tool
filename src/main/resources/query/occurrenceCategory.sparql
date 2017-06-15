@@ -16,7 +16,7 @@ CONSTRUCT {
   a ?type ;
   rdfs:comment ?comment ;
 } WHERE {
-      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://localhost:18080/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
          # all events
          eccairs-current:a-430 eccairs-model:has-child+  ?term.
          ?term rdfs:label ?label.
