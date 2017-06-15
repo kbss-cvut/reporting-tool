@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('ReportsController', () => {
@@ -28,7 +14,7 @@ describe('ReportsController', () => {
         Routing = require('../../js/utils/Routing'),
         Routes = require('../../js/utils/Routes'),
         ReportsController = require('../../js/components/report/ReportsController').default,
-        Reports = require('../../js/components/report/Reports');
+        Reports = require('../../js/components/report/Reports').default;
     let reports, location;
 
     beforeEach(() => {
@@ -40,6 +26,8 @@ describe('ReportsController', () => {
             pathname: '',
             query: {}
         };
+        spyOn(RouterStore, 'getTransitionPayload').and.returnValue(null);
+        spyOn(ComponentStateStore, 'getComponentState').and.returnValue(null);
     });
 
     it('initializes report sort with default values', () => {
@@ -142,7 +130,7 @@ describe('ReportsController', () => {
         const filter = {
             phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
         };
-        spyOn(RouterStore, 'getTransitionPayload').and.returnValue({filter: filter});
+        RouterStore.getTransitionPayload.and.returnValue({filter: filter});
         const controller = Environment.render(<ReportsController location={location}/>);
         expect(controller.state.filter).toEqual(filter);
     });
@@ -151,7 +139,7 @@ describe('ReportsController', () => {
         const filter = {
             phase: 'http://onto.fel.cvut.cz/ontologies/inbas-test/first'
         };
-        spyOn(RouterStore, 'getTransitionPayload').and.returnValue({filter: filter});
+        RouterStore.getTransitionPayload.and.returnValue({filter: filter});
         spyOn(RouterStore, 'clearTransitionPayload');
         Environment.render(<ReportsController location={location}/>);
         expect(RouterStore.clearTransitionPayload).toHaveBeenCalledWith(Routes.reports.name);
@@ -164,9 +152,10 @@ describe('ReportsController', () => {
             identification: Constants.SORTING.DESC,
             date: Constants.SORTING.ASC
         };
-        spyOn(ComponentStateStore, 'getComponentState').and.returnValue({filter: filter, sort: sort});
+        ComponentStateStore.getComponentState.and.returnValue({filter: filter, sort: sort});
         const controller = Environment.render(<ReportsController location={location}/>);
-        expect(ComponentStateStore.getComponentState).toHaveBeenCalledWith(ReportsController.displayName);
+        expect(ComponentStateStore.getComponentState).toHaveBeenCalledWith(
+            ReportsController.WrappedComponent.WrappedComponent.displayName);
         expect(controller.state.filter).toEqual(filter);
         expect(controller.state.sort).toEqual(sort);
     });
@@ -181,10 +170,11 @@ describe('ReportsController', () => {
         const sort = controller.state.sort;
 
         controller.onFilterChange(filter);
-        expect(ComponentStateStore.onRememberComponentState).toHaveBeenCalledWith(ReportsController.displayName, {
-            filter: filter,
-            sort: sort
-        });
+        expect(ComponentStateStore.onRememberComponentState).toHaveBeenCalledWith(
+            ReportsController.WrappedComponent.WrappedComponent.displayName, {
+                filter: filter,
+                sort: sort
+            });
     });
 
     it('saves component filtering and sorting when sort is called', () => {
@@ -197,10 +187,11 @@ describe('ReportsController', () => {
         sort = controller.state.sort;
         filter = controller.state.filter;
 
-        expect(ComponentStateStore.onRememberComponentState).toHaveBeenCalledWith(ReportsController.displayName, {
-            filter: filter,
-            sort: sort
-        });
+        expect(ComponentStateStore.onRememberComponentState).toHaveBeenCalledWith(
+            ReportsController.WrappedComponent.WrappedComponent.displayName, {
+                filter: filter,
+                sort: sort
+            });
     });
 
     it('loads all reports when no report keys are specified', () => {
@@ -217,6 +208,28 @@ describe('ReportsController', () => {
 
         Environment.render(<ReportsController location={location}/>);
         expect(Actions.loadAllReports).toHaveBeenCalledWith(keys);
+    });
+
+    it('loads single report when report keys specified in location contain only one key', () => {
+        const key = Generator.getRandomInt().toString();
+        location.query['reportKey'] = key;
+
+        Environment.render(<ReportsController location={location}/>);
+        expect(Actions.loadAllReports).toHaveBeenCalledWith([key]);
+    });
+
+    it('sorts reports descending by date correctly when some do not have date and some have date 0', () => {
+        const reportsToSort = reports.slice(0, 3);
+        reportsToSort[0].date = 0;
+        delete reportsToSort[1].date;
+        const controller = Environment.render(<ReportsController location={location}/>);
+        controller._onReportsLoaded({action: Actions.loadAllReports, reports: reportsToSort});
+        controller.onSort('date');
+        const reportsComponent = TestUtils.findRenderedComponentWithType(controller, Reports),
+            reportsToRender = reportsComponent.props.reports;
+        expect(reportsToRender[0]).toEqual(reportsToSort[2]);
+        expect(reportsToRender[1]).toEqual(reportsToSort[0]);
+        expect(reportsToRender[2]).toEqual(reportsToSort[1]);
     });
 
     function setEqualIdentifications() {

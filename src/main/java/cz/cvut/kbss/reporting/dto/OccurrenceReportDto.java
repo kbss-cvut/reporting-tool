@@ -1,27 +1,10 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import cz.cvut.kbss.reporting.dto.event.FactorGraph;
 import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
 import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
-import cz.cvut.kbss.reporting.model.LogicalDocument;
-import cz.cvut.kbss.reporting.model.Person;
-import cz.cvut.kbss.reporting.model.Resource;
-import cz.cvut.kbss.reporting.model.Vocabulary;
+import cz.cvut.kbss.reporting.model.*;
 import cz.cvut.kbss.reporting.rest.dto.model.FormGenData;
 
 import java.net.URI;
@@ -42,6 +25,8 @@ public class OccurrenceReportDto implements LogicalDocument, FormGenData {
     private URI phase;
 
     private OccurrenceDto occurrence;
+
+    private InitialReport initialReport;
 
     private FactorGraph factorGraph;
 
@@ -107,6 +92,14 @@ public class OccurrenceReportDto implements LogicalDocument, FormGenData {
 
     public void setOccurrence(OccurrenceDto occurrence) {
         this.occurrence = occurrence;
+    }
+
+    public InitialReport getInitialReport() {
+        return initialReport;
+    }
+
+    public void setInitialReport(InitialReport initialReport) {
+        this.initialReport = initialReport;
     }
 
     public FactorGraph getFactorGraph() {

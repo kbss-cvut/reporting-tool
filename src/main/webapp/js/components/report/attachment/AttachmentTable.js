@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -79,14 +65,13 @@ class AttachmentTable extends React.Component {
         let rows = [],
             attachments = this.props.attachments;
         for (let i = 0, len = attachments.length; i < len; i++) {
+            const key = Utils.stringHashCode(attachments[i].reference + attachments[i].description);
             if (i === this.state.editedRow) {
-                rows.push(<EditableAttachmentRow key={Utils.stringHashCode(attachments[i].reference)}
-                                                 attachment={attachments[i]} onSave={this._onEditFinish}
-                                                 onCancel={this._onEditCancel}/>);
+                rows.push(<EditableAttachmentRow key={key + '_edited'} attachment={attachments[i]}
+                                                 onSave={this._onEditFinish} onCancel={this._onEditCancel}/>);
             } else {
-                rows.push(<AttachmentRow key={Utils.stringHashCode(attachments[i].reference)}
-                                         attachment={attachments[i]}
-                                         onEdit={this._onEdit} onRemove={this.props.onRemove}/>);
+                rows.push(<AttachmentRow key={key} attachment={attachments[i]} onEdit={this._onEdit}
+                                         onRemove={this.props.onRemove}/>);
             }
         }
         return rows;

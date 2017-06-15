@@ -1,24 +1,13 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.repository;
 
 import cz.cvut.kbss.reporting.exception.NotFoundException;
+import cz.cvut.kbss.reporting.factorgraph.EventChildIndexer;
+import cz.cvut.kbss.reporting.factorgraph.traversal.DefaultFactorGraphTraverser;
+import cz.cvut.kbss.reporting.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.reporting.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
 import cz.cvut.kbss.reporting.model.Occurrence;
 import cz.cvut.kbss.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
-import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
+import cz.cvut.kbss.reporting.persistence.dao.InitialReportDao;
 import cz.cvut.kbss.reporting.persistence.dao.OccurrenceReportDao;
 import cz.cvut.kbss.reporting.persistence.dao.OwlKeySupportingDao;
 import cz.cvut.kbss.reporting.service.OccurrenceReportService;
@@ -42,6 +31,9 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
     private OccurrenceReportDao reportDao;
 
     @Autowired
+    private InitialReportDao initialReportDao;
+
+    @Autowired
     private SecurityUtils securityUtils;
 
     @Autowired
@@ -53,6 +45,8 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
     @Autowired
     private EventTypeSynchronizer eventTypeSynchronizer;
 
+    private final EventChildIndexer childIndexer = new EventChildIndexer();
+
     @Override
     protected OwlKeySupportingDao<OccurrenceReport> getPrimaryDao() {
         return reportDao;
@@ -62,6 +56,9 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
     protected void prePersist(OccurrenceReport instance) {
         initReportData(instance);
         synchronizeEventTypes(instance.getOccurrence());
+        if (instance.getInitialReport() != null) {
+            initialReportDao.persist(instance.getInitialReport());
+        }
     }
 
     private void initReportData(OccurrenceReport instance) {
@@ -83,7 +80,8 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
     }
 
     private void synchronizeEventTypes(Occurrence occurrence) {
-        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(eventTypeSynchronizer, null);
+        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(childIndexer, null);
+        traverser.registerNodeVisitor(eventTypeSynchronizer);
         traverser.traverse(occurrence);
     }
 
@@ -94,6 +92,7 @@ public class RepositoryOccurrenceReportService extends KeySupportingRepositorySe
             if (instance.getLastModifiedBy() != null) {
                 instance.getLastModifiedBy().erasePassword();
             }
+            new DefaultFactorGraphTraverser(childIndexer, null).traverse(instance.getOccurrence());
         }
     }
 

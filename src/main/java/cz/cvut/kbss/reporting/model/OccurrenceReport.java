@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
 import cz.cvut.kbss.jopa.model.annotations.*;
@@ -46,6 +32,9 @@ public class OccurrenceReport extends AbstractEntity implements LogicalDocument,
     @ParticipationConstraints(nonEmpty = true)
     @OWLObjectProperty(iri = Vocabulary.s_p_documents, fetch = FetchType.EAGER)
     private Occurrence occurrence;
+
+    @OWLObjectProperty(iri = Vocabulary.s_p_based_on, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, readOnly = true)
+    private InitialReport initialReport;
 
     @ParticipationConstraints(nonEmpty = true)
     @OWLObjectProperty(iri = Vocabulary.s_p_has_author, fetch = FetchType.EAGER)
@@ -90,6 +79,7 @@ public class OccurrenceReport extends AbstractEntity implements LogicalDocument,
         this.fileNumber = other.fileNumber;
         this.phase = other.phase;
         this.occurrence = Occurrence.copyOf(other.occurrence);
+        this.initialReport = other.initialReport;
         this.severityAssessment = other.severityAssessment;
         this.summary = other.summary;
         if (other.correctiveMeasures != null) {
@@ -131,6 +121,14 @@ public class OccurrenceReport extends AbstractEntity implements LogicalDocument,
 
     public void setOccurrence(Occurrence occurrence) {
         this.occurrence = occurrence;
+    }
+
+    public InitialReport getInitialReport() {
+        return initialReport;
+    }
+
+    public void setInitialReport(InitialReport initialReport) {
+        this.initialReport = initialReport;
     }
 
     public Person getAuthor() {

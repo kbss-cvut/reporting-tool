@@ -1,138 +1,111 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var QuestionAnswerProcessor = require('semforms').QuestionAnswerProcessor;
+import React from "react";
+import assign from "object-assign";
+import {QuestionAnswerProcessor} from "semforms";
+import classNames from "classnames";
+import {Button, ControlLabel, Form, FormControl, FormGroup, Glyphicon, InputGroup, Label, Modal} from "react-bootstrap";
+import DateTimePicker from "react-bootstrap-datetimepicker";
+import {FormattedMessage} from "react-intl";
+import JsonLdUtils from "jsonld-utils";
+import Constants from "../../constants/Constants";
+import DeleteFactorDialog from "./DeleteFactorDialog";
+import EventTypeTypeahead from "../typeahead/EventTypeTypeahead";
+import ExternalLink from "../misc/ExternalLink";
+import FactorStyleInfo from "../../utils/FactorStyleInfo";
+import I18nWrapper from "../../i18n/I18nWrapper";
+import injectIntl from "../../utils/injectIntl";
+import Mask from "../Mask";
+import ObjectTypeResolver from "../../utils/ObjectTypeResolver";
+import OptionsStore from "../../stores/OptionsStore";
+import ReportValidator from "../../validation/ReportValidator";
+import Utils from "../../utils/Utils";
+import Vocabulary from "../../constants/Vocabulary";
+import WizardGenerator from "../wizard/generator/WizardGenerator";
+import WizardWindow from "../wizard/WizardWindow";
 
-var React = require('react');
-var assign = require('object-assign');
-var classNames = require('classnames');
-var Modal = require('react-bootstrap').Modal;
-var Button = require('react-bootstrap').Button;
-var ControlLabel = require('react-bootstrap').ControlLabel;
-var Form = require('react-bootstrap').Form;
-var Glyphicon = require('react-bootstrap').Glyphicon;
-var Label = require('react-bootstrap').Label;
-var FormGroup = require('react-bootstrap').FormGroup;
-var InputGroup = require('react-bootstrap').InputGroup;
-var FormControl = require('react-bootstrap').FormControl;
-// require().default is needed for default-exported components using the ES6 syntax
-var DateTimePicker = require('kbss-react-bootstrap-datetimepicker').default;
-var injectIntl = require('../../utils/injectIntl');
-var FormattedMessage = require('react-intl').FormattedMessage;
-var JsonLdUtils = require('jsonld-utils').default;
-
-var Constants = require('../../constants/Constants');
-var DeleteFactorDialog = require('./DeleteFactorDialog').default;
-var EventTypeTypeahead = require('../typeahead/EventTypeTypeahead');
-var Mask = require('../Mask').default;
-var Utils = require('../../utils/Utils');
-var FactorStyleInfo = require('../../utils/FactorStyleInfo');
-var ExternalLink = require('../misc/ExternalLink').default;
-var Vocabulary = require('../../constants/Vocabulary');
-
-var WizardGenerator = require('../wizard/generator/WizardGenerator');
-var WizardWindow = require('../wizard/WizardWindow');
-var I18nMixin = require('../../i18n/I18nMixin');
-var ObjectTypeResolver = require('../../utils/ObjectTypeResolver');
-var OptionsStore = require('../../stores/OptionsStore');
 
 function convertDurationToCurrentUnit(factor) {
-    var targetUnit = gantt.config.duration_unit;
+    const targetUnit = gantt.config.duration_unit;
     return Utils.convertTime(factor.durationUnit, targetUnit, factor.duration);
 }
 
-var FactorDetail = React.createClass({
-    mixins: [I18nMixin],
-
-    propTypes: {
+class FactorDetail extends React.Component {
+    static propTypes = {
         onSave: React.PropTypes.func.isRequired,
         onClose: React.PropTypes.func.isRequired,
         onDelete: React.PropTypes.func.isRequired,
         scale: React.PropTypes.string.isRequired,
         factor: React.PropTypes.object.isRequired,
-        getReport: React.PropTypes.func.isRequired,
+        report: React.PropTypes.object.isRequired,
         enableDetails: React.PropTypes.bool
-    },
+    };
 
-    getDefaultProps: function () {
-        return {
-            enableDetails: true
-        };
-    },
+    static defaultProps = {
+        enableDetails: true
+    };
 
-    getInitialState: function () {
-        var factor = this.props.factor;
-        return {
+    constructor(props) {
+        super(props);
+        this.i18n = props.i18n;
+        const factor = props.factor;
+        this.state = {
             showDeleteDialog: false,
             eventType: JsonLdUtils.jsonLdToTypeaheadOption(ObjectTypeResolver.resolveType(factor.statement.eventType, OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE))),
             startDate: factor.start_date.getTime(),
             duration: convertDurationToCurrentUnit(factor),
             statement: factor.statement,
-
             isWizardOpen: false,
             wizardProperties: null,
             showMask: false
         };
-    },
+    }
 
-    onDeleteClick: function () {
+    onDeleteClick = () => {
         this.setState({showDeleteDialog: true});
-    },
+    };
 
-    onDeleteFactor: function () {
+    onDeleteFactor = () => {
         this.setState({showDeleteDialog: false});
         this.props.onDelete();
-    },
+    };
 
-    onCancelDelete: function () {
+    onCancelDelete = () => {
         this.setState({showDeleteDialog: false});
-    },
+    };
 
-    onDurationMinus: function () {
+    onDurationMinus = () => {
         this.setState({duration: this.state.duration - 1});
-    },
+    };
 
-    onDurationPlus: function () {
+    onDurationPlus = () => {
         this.setState({duration: this.state.duration + 1});
-    },
+    };
 
-    onDurationSet: function (e) {
-        var duration = Number(e.target.value);
+    onDurationSet = (e) => {
+        const duration = Number(e.target.value);
         if (isNaN(duration) || duration < 0) {
             return;
         }
         this.setState({duration: duration});
-    },
+    };
 
-    onEventTypeChange: function (option) {
+    onEventTypeChange = (option) => {
         this.setState({eventType: option});
-    },
+    };
 
-    onDateChange: function (date) {
+    onDateChange = (date) => {
         this.setState({startDate: Number(date)});
-    },
+    };
 
-    onOpenDetails: function () {
+    onOpenDetails = () => {
         this.setState({showMask: true});
-        var report = this.props.getReport(),
+        const report = this.props.report,
             event = assign({}, this.state.statement);
         this._updateReportForFormGen(report);
         this._mergeStatementState(event);
         WizardGenerator.generateWizard(report, event, this.props.factor.text, this.openDetailsWizard);
-    },
+    };
 
     /**
      * If the edited event is an existing one, merges the current state into it, so that the form generator works with
@@ -141,10 +114,10 @@ var FactorDetail = React.createClass({
      * If the event is a new one, adds it to the factor graph with an edge to its parent.
      * @private
      */
-    _updateReportForFormGen: function (report) {
-        var nodes = report.factorGraph.nodes,
-            item;
-        for (var i = 0, len = nodes.length; i < len; i++) {
+    _updateReportForFormGen(report) {
+        const nodes = report.factorGraph.nodes;
+        let item;
+        for (let i = 0, len = nodes.length; i < len; i++) {
             if (nodes[i] === this.state.statement.referenceId || (nodes[i].referenceId && nodes[i].referenceId === this.state.statement.referenceId)) {
                 item = nodes[i];
                 break;
@@ -160,50 +133,57 @@ var FactorDetail = React.createClass({
             });
         }
         this._mergeStatementState(item);
+    }
 
-    },
-
-    openDetailsWizard: function (wizardProperties) {
+    openDetailsWizard = (wizardProperties) => {
         wizardProperties.onFinish = this.onUpdateFactorDetails;
         this.setState({
             showMask: false,
             isWizardOpen: true,
             wizardProperties: wizardProperties
         });
-    },
+    };
 
-    onCloseDetails: function () {
+    onCloseDetails = () => {
         this.setState({isWizardOpen: false});
-    },
+    };
 
-    onUpdateFactorDetails: function (data, closeCallback) {
-        var statement = assign({}, this.state.statement);
+    onUpdateFactorDetails = (data, closeCallback) => {
+        const statement = assign({}, this.state.statement);
 
         statement.question = QuestionAnswerProcessor.buildQuestionAnswerModel(data.data, data.stepData);
         this.setState({statement: statement});
         closeCallback();
-    },
+    };
 
-    onSave: function () {
-        var factor = this.props.factor;
+    onSave = () => {
+        const factor = this.props.factor;
         factor.statement = this.state.statement ? this.state.statement : {};
         factor.text = this.state.eventType.name;
         this._mergeStatementState(factor.statement);
+        this._removeSuggestedType(factor.statement);
         factor.start_date = new Date(factor.statement.startTime);
         factor.end_date = new Date(factor.statement.endTime);
         this.props.onSave();
-    },
+    };
 
     _mergeStatementState(statement) {
         statement.eventType = this.state.eventType.id;
         statement.startTime = this.state.startDate;
         statement.endTime = gantt.calculateEndDate(new Date(statement.startTime), this.state.duration, gantt.config.duration_unit).getTime();
         statement.question = this.state.statement.question;
-    },
+    };
+
+    _removeSuggestedType(statement) {
+        const index = statement.types ? statement.types.indexOf(Vocabulary.SUGGESTED) : -1;
+        if (index !== -1) {
+            statement.types.splice(index, 1);
+        }
+    };
 
 
-    render: function () {
-        var eventTypeLabel = this.props.factor.text,
+    render() {
+        const eventTypeLabel = this.props.factor.text,
             eventTypeBadge = this.renderFactorTypeIcon(),
             eventTypeClassNames = classNames({
                 'col-xs-12': !this.state.eventType,
@@ -220,11 +200,11 @@ var FactorDetail = React.createClass({
                 <Modal.Header closeButton>
                     <Modal.Title>{this.i18n('factors.detail.title')}</Modal.Title>
                 </Modal.Header>
-
+                <DeleteFactorDialog onSubmit={this.onDeleteFactor} onCancel={this.onCancelDelete}
+                                    show={this.state.showDeleteDialog}/>
                 <Modal.Body ref={comp => this._modalContent = comp}>
                     {this._renderMask()}
-                    <DeleteFactorDialog onSubmit={this.onDeleteFactor} onCancel={this.onCancelDelete}
-                                        show={this.state.showDeleteDialog}/>
+
                     <div className='row'>
                         {eventTypeBadge}
                         <div className={eventTypeClassNames}>
@@ -270,7 +250,7 @@ var FactorDetail = React.createClass({
                     </div>
                 </Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer ref={comp => this._modalFooter = comp}>
                     <Button bsSize='small' bsStyle='success' onClick={this.onSave}
                             disabled={!this.state.eventType}>{this.i18n('save')}</Button>
                     <Button bsSize='small' onClick={this.props.onClose}>{this.i18n('cancel')}</Button>
@@ -278,74 +258,76 @@ var FactorDetail = React.createClass({
                     {this.renderWizardButton()}
                 </Modal.Footer>
             </Modal>
-        </div>;
-    },
+        </
+            div >;
+    }
 
-    _renderMask: function () {
+    _renderMask() {
         return this.state.showMask ? <Mask text={this.i18n('factors.detail.wizard-loading')}/> : null;
-    },
+    }
 
-    renderFactorTypeIcon: function () {
-        var type = this.state.eventType,
-            styleInfo;
+    renderFactorTypeIcon() {
+        const type = this.state.eventType;
         if (!type) {
             return null;
         }
-        styleInfo = FactorStyleInfo.getStyleInfo(type.type);
+        let styleInfo = FactorStyleInfo.getStyleInfo(type.type);
         return styleInfo.value ? <div className='col-xs-1'>
                 <Label bsStyle={styleInfo.bsStyle} title={styleInfo.title}
                        className='event-type-label'>{styleInfo.value}</Label>
             </div> : null;
-    },
+    }
 
-    _renderEventTypeLink: function () {
-        var et = this.state.eventType;
+    _renderEventTypeLink() {
+        const et = this.state.eventType;
         return et ?
             <div className='external-link-container'>
                 <ExternalLink url={et.id} title={et.name + '\n' + et.id} className='external-link'/>
             </div> : null;
-    },
+    }
 
-    _renderStartTimePicker: function () {
+    _renderStartTimePicker() {
         if (this.props.scale === Constants.TIME_SCALES.RELATIVE) {
             return null;
         }
         return <div className='col-xs-5'>
-            <DateTimePicker inputFormat='DD-MM-YY HH:mm'
-                            dateTime={this.state.startDate.toString()}
-                            label={this.i18n('factors.detail.start')}
-                            onChange={this.onDateChange} size='small'
+            <DateTimePicker inputFormat='DD-MM-YY HH:mm' dateTime={this.state.startDate.toString()}
+                            label={this.i18n('factors.detail.start')} onChange={this.onDateChange} size='small'
                             inputProps={{
                                 title: this.i18n('occurrence.start-time-tooltip'),
                                 className: 'inline-input',
                                 size: 12
                             }}/>
         </div>;
-    },
+    }
 
-    renderDuration: function () {
-        var durations = {
+    renderDuration() {
+        const durations = {
             'second': <FormattedMessage id='factors.duration.second' values={{duration: this.state.duration}}/>,
             'minute': <FormattedMessage id='factors.duration.minute' values={{duration: this.state.duration}}/>,
             'hour': <FormattedMessage id='factors.duration.hour' values={{duration: this.state.duration}}/>
         };
         return durations[this.props.scale];
-    },
+    }
 
-    renderDeleteButton: function () {
+    renderDeleteButton() {
         return this.props.factor.isNew ? null : (
                 <Button bsSize='small' bsStyle='warning' onClick={this.onDeleteClick}>{this.i18n('delete')}</Button>);
-    },
+    }
 
-    renderWizardButton: function () {
+    renderWizardButton() {
         if (!this.props.enableDetails) {
             return null;
         }
+        const disabled = !this.state.eventType || !ReportValidator.isValid(this.props.report);
         return <div style={{float: 'left'}}>
             <Button bsStyle='primary' bsSize='small' onClick={this.onOpenDetails}
-                    disabled={!this.state.eventType}>{this.i18n('factors.detail.details')}</Button>
+                    disabled={disabled}
+                    title={this.i18n(disabled ? 'factors.detail.wizard.button-invalid.tooltip' : 'factors.detail.wizard.button.tooltip')}>
+                {this.i18n('factors.detail.details')}
+            </Button>
         </div>;
     }
-});
+}
 
-module.exports = injectIntl(FactorDetail);
+export default injectIntl(I18nWrapper(FactorDetail));

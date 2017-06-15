@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 const Constants = require('../constants/Constants');
@@ -196,27 +182,6 @@ module.exports = {
     },
 
     /**
-     * Calculates a simple hash of the specified string, much like usual Java implementations.
-     * @param str The string to compute has for
-     * @return {number}
-     */
-    getStringHash: function (str) {
-        let hash = 0,
-            strlen = str ? str.length : 0,
-            i,
-            c;
-        if (strlen === 0) {
-            return hash;
-        }
-        for (i = 0; i < strlen; i++) {
-            c = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + c;
-            hash = hash & hash; // Convert to 32bit integer
-        }
-        return hash;
-    },
-
-    /**
      * Appends parameters in the specified argument as query parameters to the specified url.
      *
      * The url can already contain a query string
@@ -296,5 +261,14 @@ module.exports = {
             hash &= hash;
         }
         return hash;
+    },
+
+    /**
+     * Removes HTML tags from the specified string, leaving only the text content.
+     * @param str The string to strip
+     * @return {string} Text content of the specified code/text
+     */
+    stripHtmlTags: function (str = '') {
+        return str.replace(/<(?:.|\n)*?>/gm, '');
     }
 };

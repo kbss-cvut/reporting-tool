@@ -1,22 +1,8 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.visitor;
 
+import cz.cvut.kbss.reporting.factorgraph.FactorGraphNodeVisitor;
 import cz.cvut.kbss.reporting.model.Event;
 import cz.cvut.kbss.reporting.model.Occurrence;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphNodeVisitor;
 import cz.cvut.kbss.reporting.persistence.dao.EventDao;
 import cz.cvut.kbss.reporting.persistence.dao.OccurrenceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +17,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventTypeSynchronizer implements FactorGraphNodeVisitor {
 
-    @Autowired
-    private OccurrenceDao occurrenceDao;
+    private final OccurrenceDao occurrenceDao;
+
+    private final EventDao eventDao;
 
     @Autowired
-    private EventDao eventDao;
+    public EventTypeSynchronizer(OccurrenceDao occurrenceDao, EventDao eventDao) {
+        this.occurrenceDao = occurrenceDao;
+        this.eventDao = eventDao;
+    }
 
     @Override
     public void visit(Occurrence occurrence) {
-        occurrence.setEventType(occurrence.getEventType());
+        occurrence.syncEventTypeWithTypes();
         if (occurrence.getUri() != null) {
             final Occurrence original = occurrenceDao.find(occurrence.getUri());
             assert original != null;
@@ -51,7 +41,7 @@ public class EventTypeSynchronizer implements FactorGraphNodeVisitor {
 
     @Override
     public void visit(Event event) {
-        event.setEventType(event.getEventType());
+        event.syncEventTypeWithTypes();
         if (event.getUri() != null) {
             final Event original = eventDao.find(event.getUri());
             assert original != null;

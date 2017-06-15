@@ -1,44 +1,30 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var React = require('react');
-var Reflux = require('reflux');
-var assign = require('object-assign');
-var Button = require('react-bootstrap').Button;
-var Modal = require('react-bootstrap').Modal;
-var Panel = require('react-bootstrap').Panel;
-var injectIntl = require('../../utils/injectIntl');
-var FormattedMessage = require('react-intl').FormattedMessage;
-var JsonLdUtils = require('jsonld-utils').default;
+const React = require('react');
+const Reflux = require('reflux');
+const assign = require('object-assign');
+const Button = require('react-bootstrap').Button;
+const Modal = require('react-bootstrap').Modal;
+const Panel = require('react-bootstrap').Panel;
+const injectIntl = require('../../utils/injectIntl');
+const FormattedMessage = require('react-intl').FormattedMessage;
+const JsonLdUtils = require('jsonld-utils').default;
 
-var Input = require('../Input').default;
-var Select = require('../Select');
+const Input = require('../Input').default;
+const Select = require('../Select');
 
-var Actions = require('../../actions/Actions');
-var Constants = require('../../constants/Constants');
-var FactorDetail = require('./FactorDetail');
-var FactorRenderer = require('./FactorRenderer');
-var GanttController = require('./GanttController');
-var FactorJsonSerializer = require('../../utils/FactorJsonSerializer');
-var I18nMixin = require('../../i18n/I18nMixin');
-var Utils = require('../../utils/Utils');
+const Actions = require('../../actions/Actions');
+const Constants = require('../../constants/Constants');
+const FactorDetail = require('./FactorDetail').default;
+const FactorRenderer = require('./FactorRenderer');
+const GanttController = require('./GanttController');
+const FactorJsonSerializer = require('../../utils/FactorJsonSerializer');
+const I18nMixin = require('../../i18n/I18nMixin');
+const Utils = require('../../utils/Utils');
 
-var OptionsStore = require('../../stores/OptionsStore');
+const OptionsStore = require('../../stores/OptionsStore');
 
-var Factors = React.createClass({
+const Factors = React.createClass({
     mixins: [I18nMixin, Reflux.listenTo(OptionsStore, '_onOptionsLoaded')],
 
     propTypes: {
@@ -129,7 +115,7 @@ var Factors = React.createClass({
     },
 
     onLinkTypeSelect: function (e) {
-        var link = this.state.currentLink;
+        const link = this.state.currentLink;
         link.factorType = e.target.value;
         this.ganttController.addLink(link);
         this.onCloseLinkTypeDialog();
@@ -149,7 +135,7 @@ var Factors = React.createClass({
     },
 
     onSaveFactor: function () {
-        var factor = this.state.currentFactor;
+        const factor = this.state.currentFactor;
         if (factor.isNew) {
             delete factor.isNew;
             if (factor.parent) {
@@ -164,7 +150,7 @@ var Factors = React.createClass({
     },
 
     onDeleteFactor: function () {
-        var factor = this.state.currentFactor;
+        const factor = this.state.currentFactor;
         this.ganttController.deleteFactor(factor.id);
         this.onCloseFactorDialog();
     },
@@ -192,13 +178,13 @@ var Factors = React.createClass({
     },
 
     onScaleChange: function (e) {
-        var scale = e.target.value;
+        const scale = e.target.value;
         this.setState({scale: scale});
         this.ganttController.setScale(scale);
     },
 
     onGraphRootUpdate: function (startTime, endTime) {
-        var attName = this.props.rootAttribute,
+        const attName = this.props.rootAttribute,
             root = assign({}, this.props.report[attName]),
             change = {};
         root.startTime = startTime;
@@ -210,12 +196,6 @@ var Factors = React.createClass({
     getFactorGraph: function () {
         FactorJsonSerializer.setGanttController(this.ganttController);
         return FactorJsonSerializer.getFactorGraph(this.props.report);
-    },
-
-    getReport: function () {
-        var report = assign({}, this.props.report);
-        report.factorGraph = this.getFactorGraph();
-        return report;
     },
 
 
@@ -241,9 +221,9 @@ var Factors = React.createClass({
     },
 
     _renderScaleOptions: function () {
-        var items = [];
+        const items = [];
         Object.getOwnPropertyNames(Constants.TIME_SCALES).forEach(scaleName => {
-            var scale = Constants.TIME_SCALES[scaleName];
+            const scale = Constants.TIME_SCALES[scaleName];
             items.push(<div className='col-xs-2' key={scale}>
                 <Input type='radio' label={this.i18n('factors.scale.' + scale)} value={scale}
                        title={this.formatMessage('factors.scale-tooltip', {unit: this.i18n('factors.scale.' + scale)})}
@@ -258,10 +238,17 @@ var Factors = React.createClass({
         if (!this.state.showFactorDialog) {
             return null;
         }
-        return <FactorDetail show={this.state.showFactorDialog} getReport={this.getReport}
+        const report = this._getReportForDetail();
+        return <FactorDetail show={this.state.showFactorDialog} report={report}
                              factor={this.state.currentFactor} onClose={this.onCloseFactorDialog}
                              onSave={this.onSaveFactor} onDelete={this.onDeleteFactor} scale={this.state.scale}
                              enableDetails={this.props.enableDetails}/>;
+    },
+
+    _getReportForDetail: function () {
+        const report = assign({}, this.props.report);
+        report.factorGraph = this.getFactorGraph();
+        return report;
     },
 
     renderLinkTypeDialog: function () {
@@ -279,32 +266,30 @@ var Factors = React.createClass({
     },
 
     renderDeleteLinkDialog: function () {
-        var source = this.state.currentLinkSource ? this.state.currentLinkSource.text : '',
+        const source = this.state.currentLinkSource ? this.state.currentLinkSource.text : '',
             target = this.state.currentLinkTarget ? this.state.currentLinkTarget.text : '';
-        return (
-            <Modal show={this.state.showDeleteLinkDialog} bsSize='small' onHide={this.onCloseDeleteLinkDialog}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{this.i18n('factors.link.delete.title')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <FormattedMessage id='factors.link.delete.text'
-                                      values={{
-                                          source: <span className='bold'>{source}</span>,
-                                          target: <span className='bold'>{target}</span>
-                                      }}/>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button bsStyle='warning' bsSize='small' onClick={this.deleteLink}>{this.i18n('delete')}</Button>
-                    <Button bsSize='small' onClick={this.onCloseDeleteLinkDialog}>{this.i18n('cancel')}</Button>
-                </Modal.Footer>
-            </Modal>
-        );
+        return <Modal show={this.state.showDeleteLinkDialog} bsSize='small' onHide={this.onCloseDeleteLinkDialog}>
+            <Modal.Header closeButton>
+                <Modal.Title>{this.i18n('factors.link.delete.title')}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <FormattedMessage id='factors.link.delete.text'
+                                  values={{
+                                      source: <span className='bold'>{source}</span>,
+                                      target: <span className='bold'>{target}</span>
+                                  }}/>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button bsStyle='warning' bsSize='small' onClick={this.deleteLink}>{this.i18n('delete')}</Button>
+                <Button bsSize='small' onClick={this.onCloseDeleteLinkDialog}>{this.i18n('cancel')}</Button>
+            </Modal.Footer>
+        </Modal>;
     },
 
     _renderLineColors: function () {
-        var size = 12 / this.state.factorTypeOptions.length;
+        const size = 12 / this.state.factorTypeOptions.length;
         return this.state.factorTypeOptions.map((item) => {
-            var simpleName = Utils.getLastPathFragment(item.value);
+            const simpleName = Utils.getLastPathFragment(item.value);
             return <div className={'col-xs-' + size} key={item.value}>
                 <div className={'gantt-link-' + simpleName}
                      style={{height: '4px', width: '2em', float: 'left', margin: '8px'}}/>

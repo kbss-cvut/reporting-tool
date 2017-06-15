@@ -1,0 +1,66 @@
+PREFIX rt: <http://onto.fel.cvut.cz/ontologies/reporting-tool/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX aso: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+PREFIX doc: <http://onto.fel.cvut.cz/ontologies/documentation/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>
+
+PREFIX er: <http://dev.inbas.cz/rdf4j-server/repositories/>
+
+SELECT ?event_type ?relation_type ?factor_type (COUNT(DISTINCT ?et) AS ?count)
+{
+  {
+    SELECT ?fileNumber (max(?revision) AS ?maxRevision) {
+  	?report doc:has_revision ?revision ;
+  	        doc:has_file_number ?fileNumber .
+    } GROUP BY ?fileNumber
+  }
+
+  ?report  doc:documents ?occurrence ;
+           doc:has_revision ?maxRevision ;
+           doc:has_file_number ?fileNumber .
+
+  ?occurrence ufo:has_part+ ?et .
+
+  ?et rt:has_event_type ?event_e_t .
+  OPTIONAL {
+    SERVICE er:eccairs-aviation-3.4.0.2 {
+      ?event_e_t rdfs:label ?event_type.
+    }
+  }
+  OPTIONAL {
+    SERVICE er:eccairs-aviation-1.3.0.8 {
+      ?event_e_t rdfs:label ?event_type.
+    }
+  }
+  OPTIONAL {
+    SERVICE er:inbas-model-2016-01-21:22-46-17 {
+      ?event_e_t rdfs:label ?event_type.
+    }
+  }
+  OPTIONAL {
+    ?et aso:has_factor ?rel .
+    ?rel a ?rt .
+    ?rel aso:has_factor [rt:has_event_type ?event_f_t] .
+    OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17        { ?rt rdfs:label ?relation_type. } }
+
+    FILTER (?rt != <http://onto.fel.cvut.cz/ontologies/aviation-safety/factor>)
+    OPTIONAL {
+       	SERVICE er:eccairs-aviation-3.4.0.2 {
+      	  ?event_f_t rdfs:label ?factor_type.
+      	}
+    }
+    OPTIONAL {
+        SERVICE er:eccairs-aviation-1.3.0.8 {
+          ?event_f_t rdfs:label ?factor_type.
+        }
+    }
+    OPTIONAL {
+        SERVICE er:inbas-model-2016-01-21:22-46-17 {
+       	  ?event_f_t rdfs:label ?factor_type.
+     	}
+    }
+  }
+}
+GROUP BY ?event_type ?relation_type ?factor_type
+ORDER BY desc(?count) asc(?event_type)

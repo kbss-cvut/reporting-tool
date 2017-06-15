@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 /**
  * English localization.
  */
@@ -30,6 +16,7 @@ module.exports = {
         'cancel-tooltip': 'Discard changes',
         'save': 'Save',
         'delete': 'Delete',
+        'exportToE5X': 'export to E5X',
         'remove': 'Remove',
         'headline': 'Headline',
         'summary': 'Summary',
@@ -48,11 +35,13 @@ module.exports = {
         'unknown': 'Unknown',
         'uploading-mask': 'Uploading',
         'please-wait': 'Please wait...',
+        'issue-fix': 'Fix the issue',
 
         'detail.save-tooltip': 'Save changes',
         'detail.saving': 'Saving...',
         'detail.invalid-tooltip': 'Some of the required values are missing',
-        'detail.large-time-diff-tooltip': 'Occurrence start and end time difference is too large',
+        'detail.large-time-diff-tooltip': 'Occurrence start and end time difference is too large.',
+        'detail.large-time-diff-event-tooltip': 'Time difference between occurrence and its sub-events is too large.',
         'detail.submit': 'Create new revision',
         'detail.submit-tooltip': 'Create new revision of this report',
         'detail.submit-success-message': 'Report successfully submitted.',
@@ -61,6 +50,12 @@ module.exports = {
         'detail.phase-transition-failed-message': 'Report phase transition failed with error: ',
         'detail.loading': 'Loading report...',
         'detail.not-found.title': 'Report not found',
+        'detail.fix.title': 'Fix report',
+        'detail.fix.start-time': 'Start time',
+        'detail.fix.end-time': 'End time',
+        'detail.fix.done': 'Done',
+        'detail.fix.done.tooltip': 'Report is fixed and ready to be displayed now',
+        'detail.fix.time-diff-hint': 'Maximum difference between occurrence/event start and end time can be {value, plural, one {# hour} other {# hours}}.',
 
         'login.title': Constants.APP_NAME + ' - Login',
         'login.username': 'Username',
@@ -100,6 +95,7 @@ module.exports = {
         'dashboard.recent-table-last-edited': 'Last modified',
         'dashboard.recent.no-reports': 'There are no reports, yet.',
         'dashboard.import.import-e5': 'Import E5X/E5F report',
+        'dashboard.import-initial-tile': 'Import Initial Report',
 
         'dashboard.unprocessed': 'You have {count} unprocessed report(s).',
 
@@ -128,6 +124,7 @@ module.exports = {
         'reports.filter.reset': 'Reset filters',
         'reports.paging.item-count': 'Showing {showing} of {total} items.',
         'reports.create-report': 'Create report',
+        'reports.unable-to-load': 'Unable to load reports. Check the browser console for more details.',
 
         'filters.label': 'Filters',
 
@@ -142,12 +139,14 @@ module.exports = {
         'occurrence.class': 'Occurrence class',
         'occurrence.class-tooltip': 'Occurrence class - this field is required',
 
-        'initial.panel-title': 'Initial reports',
-        'initial.table-report': 'Report',
-        'initial.wizard.add-title': 'Add initial report',
-        'initial.wizard.edit-title': 'Edit initial report',
-        'initial.label': 'Initial report',
-        'initial.tooltip': 'Initial report text - this field is required',
+        'report.initial.import.title': 'Initial report import',
+        'report.initial.import.run': 'Import',
+        'report.initial.import.text.tooltip': 'Enter the initial report text here',
+        'report.initial.import.importing-msg': 'Analyzing the initial report',
+        'report.initial.text.label': 'Text',
+        'report.initial.label': 'Initial report',
+        'report.initial.view.tooltip': 'View initial report',
+        'report.initial.analysis-results.label': 'Report analysis results',
 
         'report.summary': 'Report summary',
         'report.created-by-msg': 'Created {date} by {name}.',
@@ -217,6 +216,7 @@ module.exports = {
         'factors.smallscreen.start': 'Start',
         'factors.smallscreen.end': 'End',
         'factors.smallscreen.add-tooltip': 'Add event',
+        'factors.event-suggested': 'Event suggested by initial report text analysis.',
 
         'notfound.title': 'Not found',
         'notfound.msg-with-id': '{resource} with id {identifier} not found.',
@@ -240,6 +240,20 @@ module.exports = {
         'search.headline': 'Search for {expression} found {count, plural, one {# result} other {# results}}.',
         'search.results.match': 'Matching snippet',
 
-        'validation.error.start-after-end': 'Error: end time cannot occur before start time'
+        'validation.error.start-after-end': 'Error: end time cannot occur before start time',
+
+        'editor.rich.h1': 'Heading 1',
+        'editor.rich.h2': 'Heading 2',
+        'editor.rich.h3': 'Heading 3',
+        'editor.rich.h4': 'Heading 4',
+        'editor.rich.h5': 'Heading 5',
+        'editor.rich.h6': 'Heading 6',
+        'editor.rich.body': 'Body',
+        'editor.rich.ul': 'Bullets',
+        'editor.rich.ol': 'Numbering',
+        'editor.rich.blockquote': 'Blockquote',
+        'editor.rich.bold': 'Bold',
+        'editor.rich.italic': 'Italic',
+        'editor.rich.underline': 'Underline'
     }
 };

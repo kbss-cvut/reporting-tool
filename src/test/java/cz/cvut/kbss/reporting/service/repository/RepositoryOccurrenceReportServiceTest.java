@@ -1,27 +1,16 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.repository;
 
+import cz.cvut.kbss.jopa.model.EntityManager;
+import cz.cvut.kbss.jopa.model.EntityManagerFactory;
 import cz.cvut.kbss.reporting.environment.generator.Generator;
 import cz.cvut.kbss.reporting.environment.generator.OccurrenceReportGenerator;
 import cz.cvut.kbss.reporting.environment.util.Environment;
 import cz.cvut.kbss.reporting.exception.NotFoundException;
-import cz.cvut.kbss.reporting.model.CorrectiveMeasureRequest;
-import cz.cvut.kbss.reporting.model.Occurrence;
-import cz.cvut.kbss.reporting.model.OccurrenceReport;
-import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.factorgraph.FactorGraphNodeVisitor;
+import cz.cvut.kbss.reporting.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.reporting.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
+import cz.cvut.kbss.reporting.model.*;
+import cz.cvut.kbss.reporting.model.textanalysis.ExtractedItem;
 import cz.cvut.kbss.reporting.service.BaseServiceTestRunner;
 import cz.cvut.kbss.reporting.service.options.ReportingPhaseService;
 import cz.cvut.kbss.reporting.util.Constants;
@@ -33,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
@@ -43,6 +33,9 @@ public class RepositoryOccurrenceReportServiceTest extends BaseServiceTestRunner
 
     @Autowired
     private RepositoryOccurrenceReportService occurrenceReportService;
+
+    @Autowired
+    private EntityManagerFactory emf;
 
     private Person author;
 
@@ -107,9 +100,9 @@ public class RepositoryOccurrenceReportServiceTest extends BaseServiceTestRunner
     }
 
     @Test
-    public void createNewRevisionPersistsNewReportWithIncreasedRevisionNumberSameFileNumberCurrentUserAsAuthorCurrentTimeAsCreationDate() {
+    public void createNewRevisionPersistsNewReportWithIncreasedRevisionNumberSameFileNumberCurrentUserAsAuthorCurrentTimeAsCreationDate() throws Exception {
         final OccurrenceReport firstRevision = persistFirstRevision(false);
-
+        Thread.sleep(100);
         final OccurrenceReport newRevision = occurrenceReportService.createNewRevision(firstRevision.getFileNumber());
         assertNotNull(newRevision);
         assertNotNull(newRevision.getUri());
@@ -285,5 +278,197 @@ public class RepositoryOccurrenceReportServiceTest extends BaseServiceTestRunner
         final OccurrenceReport result = occurrenceReportService.find(report.getUri());
         assertNull(result.getAuthor().getPassword());
         assertNull(result.getLastModifiedBy().getPassword());
+    }
+
+    @Test
+    public void findSetsNodeIndexesUsingLexicographicOrderingWhenTheyAreMissing() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(true);
+        report.setAuthor(author);
+        report.setOccurrence(OccurrenceReportGenerator.generateOccurrenceWithDescendantEvents(false));
+        report.getOccurrence().setUri(null);
+        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(null, null);
+        traverser.registerNodeVisitor(new FactorGraphNodeVisitor() {
+            @Override
+            public void visit(Occurrence occurrence) {
+            }
+
+            @Override
+            public void visit(Event event) {
+                if (Generator.randomBoolean()) {
+                    event.setIndex(null);
+                }
+            }
+        });
+        traverser.traverse(report.getOccurrence());
+        occurrenceReportService.persist(report);
+
+        final OccurrenceReport result = occurrenceReportService.find(report.getUri());
+        final FactorGraphTraverser resultTraverser = new IdentityBasedFactorGraphTraverser(
+                new FactorGraphNodeVisitor() {
+                    @Override
+                    public void visit(Occurrence occurrence) {
+                    }
+
+                    @Override
+                    public void visit(Event event) {
+                        assertNotNull(event.getIndex());
+                    }
+                }, null);
+        resultTraverser.traverse(result.getOccurrence());
+    }
+
+    @Test
+    public void persistPersistsAlsoInitialReport() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(false);
+        report.setInitialReport(OccurrenceReportGenerator.generateInitialReport());
+
+        occurrenceReportService.persist(report);
+        assertNotNull(report.getInitialReport().getUri());
+        final EntityManager em = emf.createEntityManager();
+        try {
+            assertNotNull(em.find(InitialReport.class, report.getInitialReport().getUri()));
+        } finally {
+            em.close();
+        }
+        assertNotNull(occurrenceReportService.find(report.getUri()).getInitialReport());
+    }
+
+    @Test
+    public void createNewRevisionReferencesOriginalInitialReport() {
+        final OccurrenceReport firstRevision = OccurrenceReportGenerator.generateOccurrenceReport(false);
+        firstRevision.setInitialReport(OccurrenceReportGenerator.generateInitialReport());
+        occurrenceReportService.persist(firstRevision);
+        for (int i = 0; i < Generator.randomInt(2, 5); i++) {
+            final OccurrenceReport revision = occurrenceReportService.createNewRevision(firstRevision.getFileNumber());
+            assertNotNull(revision.getInitialReport());
+            assertEquals(firstRevision.getInitialReport().getUri(), revision.getInitialReport().getUri());
+        }
+    }
+
+    @Test
+    public void removeReportChainDeletesCorrectlyInitialReport() {
+        final OccurrenceReport firstRevision = OccurrenceReportGenerator.generateOccurrenceReport(false);
+        firstRevision.setInitialReport(OccurrenceReportGenerator.generateInitialReport());
+        occurrenceReportService.persist(firstRevision);
+        final URI initialReportUri = firstRevision.getInitialReport().getUri();
+        final List<OccurrenceReport> chain = new ArrayList<>();
+        chain.add(firstRevision);
+        for (int i = 0; i < Generator.randomInt(2, 5); i++) {
+            final OccurrenceReport revision = occurrenceReportService.createNewRevision(firstRevision.getFileNumber());
+            assertEquals(firstRevision.getInitialReport().getUri(), revision.getInitialReport().getUri());
+            chain.add(revision);
+        }
+        occurrenceReportService.removeReportChain(firstRevision.getFileNumber());
+        chain.forEach(r -> assertFalse(occurrenceReportService.exists(r.getUri())));
+        final EntityManager em = emf.createEntityManager();
+        try {
+            assertNull(em.find(InitialReport.class, initialReportUri));
+        } finally {
+            em.close();
+        }
+    }
+
+    @Test
+    public void updateTraverserCorrectlyToFactors() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(false);
+        report.getOccurrence().addChild(OccurrenceReportGenerator.generateEvent());
+        final Event eventWithFactor = OccurrenceReportGenerator.generateEvent();
+        report.getOccurrence().addChild(eventWithFactor);
+        final Event mitigation = OccurrenceReportGenerator.generateEvent();
+        report.getOccurrence().addChild(mitigation);
+        final Factor f = new Factor();
+        f.setEvent(mitigation);
+        f.addType(Generator.randomFactorType());
+        eventWithFactor.addFactor(f);
+        occurrenceReportService.persist(report);
+
+        final URI newEventType = Generator.generateEventType();
+        mitigation.setEventType(newEventType);
+        occurrenceReportService.update(report);
+
+        final OccurrenceReport result = occurrenceReportService.find(report.getUri());
+        assertEquals(3, result.getOccurrence().getChildren().size());
+        final Optional<Event> evtWithFactorResult = result.getOccurrence().getChildren().stream()
+                                                          .filter(e -> e.getUri().equals(eventWithFactor.getUri()))
+                                                          .findFirst();
+        assertTrue(evtWithFactorResult.isPresent());
+        final Set<Factor> factors = evtWithFactorResult.get().getFactors();
+        assertEquals(1, factors.size());
+        final Factor rFactor = factors.iterator().next();
+        assertNotNull(rFactor.getEvent());
+        assertEquals(mitigation.getUri(), rFactor.getEvent().getUri());
+        assertEquals(newEventType, rFactor.getEvent().getEventType());
+    }
+
+    /**
+     * Testing Bug #411.
+     */
+    @Test
+    public void eventTypeSynchronizationOnUpdateDoesNotLooseEvents() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(false);
+        final List<Event> children = IntStream.range(0, 3).mapToObj(i -> {
+            final Event evt = OccurrenceReportGenerator.generateEvent();
+            evt.setReferenceId(Generator.randomInt());
+            evt.setIndex(i);
+            return evt;
+        }).collect(Collectors.toList());
+        final Factor f1 = new Factor();
+        f1.setEvent(children.get(1));
+        f1.addType(Generator.randomFactorType());
+        children.get(0).addFactor(f1);
+        report.getOccurrence().setChildren(new HashSet<>(children));
+        occurrenceReportService.persist(report);
+
+        report.getOccurrence().getChildren().forEach(e -> assertNotNull(e.getUri()));
+        final Event newEvent = OccurrenceReportGenerator.generateEvent();
+        newEvent.setReferenceId(Generator.randomInt());
+        report.getOccurrence().addChild(newEvent);
+        newEvent.setIndex(0);
+        final int expectedSize = report.getOccurrence().getChildren().size();
+        occurrenceReportService.update(report);
+
+        assertNotNull(newEvent.getUri());
+        final OccurrenceReport result = occurrenceReportService.find(report.getUri());
+        assertEquals(expectedSize, result.getOccurrence().getChildren().size());
+        final EntityManager em = emf.createEntityManager();
+        try {
+            final Event eResult = em.find(Event.class, newEvent.getUri());
+            assertNotNull(eResult);
+            assertEquals(newEvent.getEventType(), eResult.getEventType());
+            assertEquals(newEvent.getTypes(), eResult.getTypes());
+            assertEquals(newEvent.getStartTime(), eResult.getStartTime());
+            assertEquals(newEvent.getEndTime(), eResult.getEndTime());
+        } finally {
+            em.close();
+        }
+    }
+
+    @Test
+    public void persistPersistsAlsoInitialReportWithItemsExtractedByTextAnalysis() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(false);
+        final InitialReport initialReport = OccurrenceReportGenerator.generateInitialReport();
+        report.setInitialReport(initialReport);
+        initialReport.setExtractedItems(IntStream.range(5, 10).mapToObj(
+                i -> new ExtractedItem(0.5, "EventType" + i, Generator.generateEventType())).collect(
+                Collectors.toSet()));
+        occurrenceReportService.persist(report);
+
+        final OccurrenceReport result = occurrenceReportService.find(report.getUri());
+        assertNotNull(initialReport);
+        assertEquals(initialReport.getExtractedItems().size(), result.getInitialReport().getExtractedItems().size());
+
+        final EntityManager em = emf.createEntityManager();
+        try {
+            initialReport.getExtractedItems().forEach(item -> {
+                assertNotNull(item.getUri());
+                final ExtractedItem itemResult = em.find(ExtractedItem.class, item.getUri());
+                assertNotNull(itemResult);
+                assertEquals(item.getConfidence(), itemResult.getConfidence(), 0.001);
+                assertEquals(item.getLabel(), itemResult.getLabel());
+                assertEquals(item.getResource(), itemResult.getResource());
+            });
+        } finally {
+            em.close();
+        }
     }
 }

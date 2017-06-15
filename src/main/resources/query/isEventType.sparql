@@ -1,0 +1,18 @@
+BASE <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX eccairs-model: <http://onto.fel.cvut.cz/ontologies/eccairs/model/>
+PREFIX eccairs: <http://onto.fel.cvut.cz/ontologies/eccairs/>
+
+PREFIX eccairs-current: <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/>
+
+ASK WHERE {
+    {
+      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/uniset-factors> {
+         # all events
+         ?term rdfs:label ?label .
+      }
+  }
+}

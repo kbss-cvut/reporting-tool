@@ -1,0 +1,52 @@
+PREFIX rt: <http://onto.fel.cvut.cz/ontologies/reporting-tool/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX aso: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX doc: <http://onto.fel.cvut.cz/ontologies/documentation/>
+
+PREFIX er: <http://dev.inbas.cz/rdf4j-server/repositories/>
+PREFIX e-a-3_4_0_2-a-431: <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/vl-a-431/>
+
+SELECT ?year ?month (count(DISTINCT ?occurrence1xx) AS ?c1xx) (count(DISTINCT ?occurrence2xx) AS ?c2xx) (count(DISTINCT ?occurrence3xx) AS ?c3xx) (count(DISTINCT ?occurrence4xx) AS ?c4xx) (count(DISTINCT ?occurrence5xx) AS ?c5xx)
+{
+  ?occurrence a aso:Occurrence .
+  OPTIONAL {
+    ?occurrence aso:has_start_time ?start_time .
+  }
+  OPTIONAL {
+    ?occurrence aso:has_end_time ?end_time .
+  }
+  OPTIONAL {
+    ?rO doc:documents ?occurrence.
+  	OPTIONAL {
+      ?rO  doc:has_severity_assessment ?severityAssessment
+      FILTER(?severityAssessment IN (e-a-3_4_0_2-a-431:v-100))
+      BIND(?occurrence AS ?occurrence1xx)
+    }
+  	OPTIONAL {
+      ?rO  doc:has_severity_assessment ?severityAssessment
+      FILTER(?severityAssessment IN (e-a-3_4_0_2-a-431:v-200))
+      BIND(?occurrence AS ?occurrence2xx)
+    }
+  	OPTIONAL {
+      ?rO  doc:has_severity_assessment ?severityAssessment
+      FILTER(?severityAssessment IN (e-a-3_4_0_2-a-431:v-300,e-a-3_4_0_2-a-431:v-301,e-a-3_4_0_2-a-431:v-302))
+      BIND(?occurrence AS ?occurrence3xx)
+    }
+  	OPTIONAL {
+      ?rO  doc:has_severity_assessment ?severityAssessment
+      FILTER(?severityAssessment IN (e-a-3_4_0_2-a-431:v-400))
+      BIND(?occurrence AS ?occurrence4xx)
+    }
+  	OPTIONAL {
+      ?rO  doc:has_severity_assessment ?severityAssessment
+      FILTER(?severityAssessment IN (e-a-3_4_0_2-a-431:v-500,e-a-3_4_0_2-a-431:v-501,e-a-3_4_0_2-a-431:v-501))
+      BIND(?occurrence AS ?occurrence5xx)
+    }
+  }
+  BIND ( month(?start_time) AS ?month )
+  BIND ( year(?start_time) AS ?year )
+#  BIND ( concat(str(?year),concat("/",str(?month))) AS ?year_month)
+}
+GROUP BY ?year ?month
+ORDER BY ASC(?year) ASC(?month)

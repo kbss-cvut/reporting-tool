@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
 import cz.cvut.kbss.reporting.environment.generator.Generator;
@@ -34,7 +20,7 @@ public class OccurrenceTest {
 
     @Test
     public void copyOfCopiesOccurrenceWithChildren() {
-        final Occurrence original = OccurrenceReportGenerator.generateOccurrenceWithDescendantEvents();
+        final Occurrence original = OccurrenceReportGenerator.generateOccurrenceWithDescendantEvents(true);
         final Occurrence result = Occurrence.copyOf(original);
         assertNotNull(result);
         verifyFactorGraph(original, result);
@@ -110,7 +96,7 @@ public class OccurrenceTest {
     }
 
     private Occurrence generateFactorGraph() {
-        final Occurrence o = OccurrenceReportGenerator.generateOccurrenceWithDescendantEvents();
+        final Occurrence o = OccurrenceReportGenerator.generateOccurrenceWithDescendantEvents(true);
         final Event e1 = event();
         final Factor f1 = new Factor();
         f1.setEvent(e1);

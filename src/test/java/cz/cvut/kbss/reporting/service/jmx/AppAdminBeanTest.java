@@ -1,21 +1,10 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.jmx;
 
+import cz.cvut.kbss.jopa.model.EntityManagerFactory;
+import cz.cvut.kbss.jopa.sessions.Cache;
 import cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto;
 import cz.cvut.kbss.reporting.dto.reportlist.ReportDto;
+import cz.cvut.kbss.reporting.model.Person;
 import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.reporting.service.BaseServiceTestRunner;
 import cz.cvut.kbss.reporting.service.cache.ReportCache;
@@ -44,6 +33,9 @@ public class AppAdminBeanTest extends BaseServiceTestRunner {
     @Autowired
     private AdminListener listener;
 
+    @Autowired
+    private EntityManagerFactory emf;
+
     @Test
     public void invalidateCachePublishesEventThatInvalidatesCaches() throws Exception {
         final ReportDto dto = new OccurrenceReportDto();
@@ -58,6 +50,15 @@ public class AppAdminBeanTest extends BaseServiceTestRunner {
         assertTrue(reportCache.getAll().isEmpty());
     }
 
+    @Test
+    public void invalidateCacheEvictsPersistenceProviderCache() {
+        final Person p = persistPerson();
+        final Cache cache = emf.getCache();
+        assertTrue(cache.contains(Person.class, p.getUri()));
+        adminBean.invalidateCaches();
+        assertFalse(cache.contains(Person.class, p.getUri()));
+    }
+
     @Component
     public static class AdminListener implements ApplicationListener<InvalidateCacheEvent> {
 
@@ -69,7 +70,9 @@ public class AppAdminBeanTest extends BaseServiceTestRunner {
 
         @Override
         public void onApplicationEvent(InvalidateCacheEvent invalidateCacheEvent) {
-            countDownLatch.countDown();
+            if (countDownLatch != null) {
+                countDownLatch.countDown();
+            }
         }
     }
 }

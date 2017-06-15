@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -21,7 +7,7 @@ import Constants from "../../constants/Constants";
 import I18nStore from "../../stores/I18nStore";
 
 const ResultListItem = (props) => {
-    var option = props.option,
+    const option = props.option,
         label = typeof props.displayOption === 'function' ? props.displayOption(option) : option[props.displayOption];
 
     return <li className='btn-link item' title={option.description} onClick={props.onClick}>
@@ -54,16 +40,16 @@ class ReportSearchResultList extends React.Component {
     }
 
     render() {
-        var options = this.props.options,
+        const options = this.props.options,
             listCls = classNames({
                 'autocomplete-results': options.length < 21,
                 'autocomplete-results extended': options.length >= 21
             }, this.props.customClasses.results);
-        var items = [];
+        const items = [];
         items.push(this._renderFullTextSearchOption());
-        for (var i = 0, len = options.length; i < len; i++) {
-            const option = options[i];
-            var onClick = this._onClick.bind(this, option);
+        for (let i = 0, len = options.length; i < len; i++) {
+            const option = options[i],
+                onClick = this._onClick.bind(this, option);
             items.push(<ResultListItem option={option} displayOption={this.props.displayOption} onClick={onClick}
                                        key={'option-' + i}/>);
         }
@@ -73,7 +59,7 @@ class ReportSearchResultList extends React.Component {
     }
 
     _renderFullTextSearchOption() {
-        return <li key='full-text-search' className='btn-link item fulltext'
+        return <li key='option-fulltext' className='btn-link item fulltext'
                    title={I18nStore.i18n('main.search.fulltext-tooltip')}
                    onClick={(e) => this._onClick(Constants.FULL_TEXT_SEARCH_OPTION, e)}>
             <Label className='item-label'>{I18nStore.i18n('main.search.fulltext.label')}</Label>

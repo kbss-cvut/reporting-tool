@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('Report store', function () {
@@ -22,7 +8,8 @@ describe('Report store', function () {
         Ajax = rewire('../../js/utils/Ajax'),
         Generator = require('../environment/Generator').default,
         ReportStore = rewire('../../js/stores/ReportStore'),
-        reqMockMethods = ['get', 'put', 'post', 'del', 'send', 'accept', 'set', 'end'];
+        Vocabulary = require('../../js/constants/Vocabulary'),
+        reqMockMethods = ['get', 'put', 'post', 'del', 'send', 'accept', 'set', 'type', 'end'];
     let reqMock, reports;
 
     beforeEach(function () {
@@ -145,6 +132,46 @@ describe('Report store', function () {
         expect(ReportStore._reports).toEqual(reports);
         expect(ReportStore._searchReports).toEqual(ReportStore._reports);
         expect(ReportStore.trigger).toHaveBeenCalledWith({action: Actions.loadReportsForSearch, reports: reports});
+    });
+
+    it('sets isNew attribute for reports created by initial report import', () => {
+        const report = {
+            initialReport: {
+                description: 'Blabla'
+            }
+        }, onSuccess = jasmine.createSpy('onSuccess');
+        mockResponse(null, report);
+        ReportStore.onImportInitialReport(report, onSuccess);
+        expect(onSuccess).toHaveBeenCalled();
+        const newReport = onSuccess.calls.argsFor(0)[0];
+        expect(newReport.isNew).toBeTruthy();
+    });
+
+    it('resolves JSON references of imported initial report', () => {
+        const report = {
+            initialReport: {
+                description: 'Blabla'
+            },
+            occurrence: {
+                referenceId: 1
+            },
+            factorGraph: {
+                nodes: [1, {
+                    referenceId: 2
+                }],
+                edges: [{
+                    from: 1,
+                    to: 2,
+                    linkType: Vocabulary.HAS_PART
+                }]
+            }
+        }, onSuccess = jasmine.createSpy('onSuccess');
+        mockResponse(null, report);
+        ReportStore.onImportInitialReport(report, onSuccess);
+        expect(onSuccess).toHaveBeenCalled();
+        const newReport = onSuccess.calls.argsFor(0)[0];
+        expect(newReport.factorGraph.edges[0].from).toEqual(newReport.occurrence);
+        expect(newReport.factorGraph.edges[0].to).toEqual(newReport.factorGraph.nodes[1]);
     });
 
     describe('load reports for search', () => {

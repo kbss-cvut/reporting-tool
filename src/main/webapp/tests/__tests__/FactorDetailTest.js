@@ -1,33 +1,22 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 
 describe('Factor detail dialog', function () {
 
-    var React = require('react'),
+    const React = require('react'),
         assign = require('object-assign'),
         TestUtils = require('react-addons-test-utils'),
         QuestionAnswerProcessor = require('semforms').QuestionAnswerProcessor,
         Environment = require('../environment/Environment'),
+        Generator = require('../environment/Generator').default,
         Actions = require('../../js/actions/Actions'),
         Constants = require('../../js/constants/Constants'),
-        FactorDetail = require('../../js/components/factor/FactorDetail'),
+        Vocabulary = require('../../js/constants/Vocabulary'),
+        FactorDetail = require('../../js/components/factor/FactorDetail').default,
+        OptionsStore = require('../../js/stores/OptionsStore'),
         ReportFactory = require('../../js/model/ReportFactory'),
-        DateTimePicker = require('kbss-react-bootstrap-datetimepicker').default,
-        callbacks,
+        DateTimePicker = require('react-bootstrap-datetimepicker').default;
+    let callbacks,
         gantt = {
             calculateEndDate: function () {
                 return new Date();
@@ -38,11 +27,12 @@ describe('Factor detail dialog', function () {
             render: function () {
             }
         },
-        factor;
+        report, factor;
 
     beforeEach(function () {
-        callbacks = jasmine.createSpyObj('callbacks', ['onSave', 'onClose', 'onDelete', 'getReport']);
+        callbacks = jasmine.createSpyObj('callbacks', ['onSave', 'onClose', 'onDelete']);
         jasmine.getGlobal().gantt = gantt;
+        report = Generator.generateOccurrenceReport();
         factor = {
             id: 1,
             text: 'Test',
@@ -55,7 +45,7 @@ describe('Factor detail dialog', function () {
     });
 
     it('Updates factor with new values upon save', function () {
-        var detail, newDuration = 10,
+        const newDuration = 10,
             eventType = {
                 name: 'Runway Incursion',
                 id: 'http://incursion'
@@ -71,9 +61,9 @@ describe('Factor detail dialog', function () {
                 }
             };
         spyOn(gantt, 'calculateEndDate').and.callThrough();
-        detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
-                                                  onSave={callbacks.onSave} onClose={callbacks.onClose}
-                                                  onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>);
+        let detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
+                                                      onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                      onDelete={callbacks.onDelete} report={report}/>);
         detail.onDurationSet({target: {value: newDuration}});
         detail.onEventTypeChange(eventType);
         detail.setState({statement: statement});
@@ -87,7 +77,7 @@ describe('Factor detail dialog', function () {
     });
 
     it('Preserves factor state until save is called', function () {
-        var detail, newDuration = 10,
+        const newDuration = 10,
             eventType = {
                 name: 'Runway Incursion',
                 id: 'http://incursion'
@@ -102,9 +92,9 @@ describe('Factor detail dialog', function () {
                     }]
                 }
             };
-        detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
-                                                  onSave={callbacks.onSave} onClose={callbacks.onClose}
-                                                  onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>);
+        let detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
+                                                      onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                      onDelete={callbacks.onDelete} report={report}/>);
         detail.onDurationSet({target: {value: newDuration}});
         detail.onEventTypeChange(eventType);
         detail.setState({statement: statement});
@@ -113,34 +103,34 @@ describe('Factor detail dialog', function () {
     });
 
     it('Calculates event duration based on scale', () => {
-        var detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.SECOND} factor={factor}
-                                                      onSave={callbacks.onSave} onClose={callbacks.onClose}
-                                                      onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>);
+        const detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.SECOND} factor={factor}
+                                                        onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                        onDelete={callbacks.onDelete} report={report}/>);
         expect(detail.state.duration).toEqual(factor.duration * 60);    // factor duration is in minutes
     });
 
     it('shows start time picker when absolute scale is used', () => {
-        var detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
-                                                      onSave={callbacks.onSave} onClose={callbacks.onClose}
-                                                      show={true}
-                                                      onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>),
+        const detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.MINUTE} factor={factor}
+                                                        onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                        show={true} onDelete={callbacks.onDelete}
+                                                        report={report}/>),
             pickers = TestUtils.scryRenderedComponentsWithType(detail._modalContent, DateTimePicker);
         expect(pickers.length).toEqual(1);
     });
 
     it('shows no start time picker when relative scale is used', () => {
-        var detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.RELATIVE} factor={factor}
-                                                      onSave={callbacks.onSave} onClose={callbacks.onClose} show={true}
-                                                      onDelete={callbacks.onDelete} getReport={callbacks.getReport}/>),
+        const detail = Environment.render(<FactorDetail scale={Constants.TIME_SCALES.RELATIVE} factor={factor}
+                                                        onSave={callbacks.onSave} onClose={callbacks.onClose}
+                                                        show={true} onDelete={callbacks.onDelete}
+                                                        report={report}/>),
             pickers = TestUtils.scryRenderedComponentsWithType(detail._modalContent, DateTimePicker);
         expect(pickers.length).toEqual(0);
     });
 
     it('updates statement question answer tree upon wizard finish', () => {
-        var detail = Environment.render(<FactorDetail scale='second' factor={factor} onSave={callbacks.onSave}
-                                                      onClose={callbacks.onClose}
-                                                      onDelete={callbacks.onDelete}
-                                                      getReport={callbacks.getReport}/>),
+        const detail = Environment.render(<FactorDetail scale='second' factor={factor} onSave={callbacks.onSave}
+                                                        onClose={callbacks.onClose} onDelete={callbacks.onDelete}
+                                                        report={report}/>),
             question = {uri: 'http://very.important.question'},
             wizardCallback = jasmine.createSpy('wizardCallback');
         spyOn(QuestionAnswerProcessor, 'buildQuestionAnswerModel').and.returnValue(question);
@@ -149,5 +139,31 @@ describe('Factor detail dialog', function () {
         expect(QuestionAnswerProcessor.buildQuestionAnswerModel).toHaveBeenCalled();
         expect(detail.state.statement.question).toEqual(question);
         expect(wizardCallback).toHaveBeenCalled();
+    });
+
+    it('does not display the details button when owning report is invalid', () => {
+        const report = ReportFactory.createOccurrenceReport(),
+            eventType = Generator.getJsonLdSample()[0];
+        factor.statement.eventType = [eventType['@id']];
+        spyOn(OptionsStore, 'getOptions').and.returnValue(Generator.getJsonLdSample());
+        const detail = Environment.render(<FactorDetail scale='second' factor={factor} onSave={callbacks.onSave}
+                                                        onClose={callbacks.onClose} onDelete={callbacks.onDelete}
+                                                        show={true} report={report}/>),
+            detailsButton = Environment.getComponentByTagAndText(detail._modalFooter, 'button',
+                require('../../js/i18n/en').messages['factors.detail.details']);
+        expect(detailsButton.disabled).toBeTruthy();
+    });
+
+    it('removes the \'suggested\' type on save', () => {
+        spyOn(OptionsStore, 'getOptions').and.returnValue(Generator.getJsonLdSample());
+        const et = Generator.getJsonLdSample()[0]['@id'];
+        factor.statement.types = [Vocabulary.SUGGESTED, et];
+        factor.statement.eventType = et;
+        const detail = Environment.render(<FactorDetail scale='second' factor={factor} onSave={callbacks.onSave}
+                                                        onClose={callbacks.onClose} onDelete={callbacks.onDelete}
+                                                        show={true} report={report}/>);
+        detail.onSave();
+        const statement = factor.statement;
+        expect(statement.types.indexOf(Vocabulary.SUGGESTED)).toEqual(-1);
     });
 });

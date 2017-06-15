@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
 import cz.cvut.kbss.reporting.environment.generator.Generator;
@@ -20,6 +6,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static cz.cvut.kbss.reporting.util.Constants.DESCRIPTION_TO_STRING_THRESHOLD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -81,8 +68,8 @@ public class CorrectiveMeasureRequestTest {
                         " ut aliquip ex ea commodo consequat.");
         final String result = request.toString();
         assertTrue(result.length() <=
-                CorrectiveMeasureRequest.TO_STRING_MAX + CorrectiveMeasureRequest.class.getSimpleName().length() + 5);
-        assertTrue(result.contains(request.getDescription().substring(0, CorrectiveMeasureRequest.TO_STRING_MAX)));
+                DESCRIPTION_TO_STRING_THRESHOLD + CorrectiveMeasureRequest.class.getSimpleName().length() + 5);
+        assertTrue(result.contains(request.getDescription().substring(0, DESCRIPTION_TO_STRING_THRESHOLD)));
     }
 
     @Test

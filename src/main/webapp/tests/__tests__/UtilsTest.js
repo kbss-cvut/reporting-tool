@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('Utility functions tests', function () {
@@ -284,4 +270,20 @@ describe('Utility functions tests', function () {
             expect(existingIds.indexOf(result)).toEqual(-1);
         });
     });
+
+    describe('stripHtmlTags', () => {
+
+        it('removes HTML tags from text', () => {
+            const text = 'Test value using HTML tags.',
+                htmlBased = '<p>Test <b>value</b> using <em>HTML</em> tags.</p>',
+                result = Utils.stripHtmlTags(htmlBased);
+            expect(result).toEqual(text);
+        });
+
+        it('leaves regular text unchanged', () => {
+            const text = 'Test value not using HTML tags.',
+                result = Utils.stripHtmlTags(text);
+            expect(result).toEqual(text);
+        });
+    })
 });

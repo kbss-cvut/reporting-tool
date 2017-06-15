@@ -1,24 +1,10 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('Test factor tree hierarchy serialization for JSON', function () {
 
-    var GanttController,
+    const Generator = require('../environment/Generator').default;
+    let GanttController,
         FactorJsonSerializer,
-        Generator = require('../environment/Generator').default,
         report;
 
     beforeEach(function () {
@@ -31,17 +17,17 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
     });
 
     it('Serializes nodes from the Gantt component', () => {
-        var nodes = Generator.generateFactorGraphNodes();
+        const nodes = Generator.generateFactorGraphNodes();
         initForEachStub(nodes);
         GanttController.getChildren.and.returnValue([]);
-        var factorGraph = FactorJsonSerializer.getFactorGraph(report);
+        const factorGraph = FactorJsonSerializer.getFactorGraph(report);
         expect(factorGraph.nodes).not.toBeNull();
         expect(factorGraph.nodes).toEqual(nodes);
     });
 
     function initForEachStub(nodes) {
         GanttController.forEach.and.callFake((func) => {
-            for (var i = 0, len = nodes.length; i < len; i++) {
+            for (let i = 0, len = nodes.length; i < len; i++) {
                 func({
                     id: nodes[i].referenceId,   // Just for the sake of test simplicity
                     start_date: new Date(nodes[i].startTime),
@@ -53,14 +39,14 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
     }
 
     it('Serializes part-of hierarchy', () => {
-        var nodes = [report.occurrence];
+        const nodes = [report.occurrence];
         Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
-        var partOfLinks = Generator.generatePartOfLinksForNodes(report.occurrence, nodes);
+        const partOfLinks = Generator.generatePartOfLinksForNodes(report.occurrence, nodes);
         initGetFactorStub(nodes);
         initForEachStub(nodes);
         initGetChildrenStub(nodes, partOfLinks);
 
-        var factorGraph = FactorJsonSerializer.getFactorGraph(report);
+        const factorGraph = FactorJsonSerializer.getFactorGraph(report);
         expect(factorGraph.nodes).not.toBeNull();
         expect(factorGraph.edges).not.toBeNull();
         expect(factorGraph.edges.length).toEqual(partOfLinks.length);
@@ -77,14 +63,14 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
 
     function initGetChildrenStub(nodes, partOfLinks) {
         GanttController.getChildren.and.callFake((id) => {
-            var childLinks = partOfLinks.filter((lnk) => {
+            const childLinks = partOfLinks.filter((lnk) => {
                 return lnk.from.referenceId === id;
             });
-            var childIds = childLinks.map((item) => {
+            const childIds = childLinks.map((item) => {
                 return item.to.referenceId;
             });
-            var children = [];
-            for (var i = 0, len = nodes.length; i < len; i++) {
+            const children = [];
+            for (let i = 0, len = nodes.length; i < len; i++) {
                 if (childIds.indexOf(nodes[i].referenceId) !== -1) {
                     children.push({
                         id: nodes[i].referenceId,   // Just for the sake of test simplicity
@@ -100,23 +86,25 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
     }
 
     function verifyLinks(expected, actual) {
-        for (var i = 0, len = expected.length; i < len; i++) {
-            const index = i;
-            expect(actual.find((item) => {
-                return item.from === expected[index].from && item.to === expected[index].to && item.linkType === expected[index].linkType;
-            })).not.toBeNull();
+        for (let i = 0, len = expected.length; i < len; i++) {
+            const index = i,
+                edge = actual.find((item) => {
+                    return item.from.uri === expected[index].from.uri && item.to.uri === expected[index].to.uri && item.linkType === expected[index].linkType;
+                });
+            expect(edge).toBeDefined();
+            expect(edge).not.toBeNull();
         }
     }
 
     it('Serializes causality/mitigation relations', () => {
-        var nodes = [report.occurrence];
+        const nodes = [report.occurrence];
         Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
-        var factorLinks = Generator.generateFactorLinksForNodes(nodes);
+        const factorLinks = Generator.generateFactorLinksForNodes(nodes);
         initGetLinksStub(factorLinks);
         initGetFactorStub(nodes);
         initForEachStub(nodes);
         initGetChildrenStub(nodes, []);
-        var factorGraph = FactorJsonSerializer.getFactorGraph(report);
+        const factorGraph = FactorJsonSerializer.getFactorGraph(report);
         expect(factorGraph.nodes).not.toBeNull();
         expect(factorGraph.edges).not.toBeNull();
         expect(factorGraph.edges.length).toEqual(factorLinks.length);
@@ -127,31 +115,50 @@ describe('Test factor tree hierarchy serialization for JSON', function () {
         GanttController.getLinks.and.callFake(() => {
             return factorLinks.map((item) => {
                 return {
-                    source: item.from,
-                    target: item.to,
-                    factorType: item.linkType
+                    source: item.from.referenceId,
+                    target: item.to.referenceId,
+                    factorType: item.linkType,
+                    uri: item.uri
                 };
             });
         });
     }
 
     it('Serializes factor graph', () => {
-        var nodes = [report.occurrence],
-            expected;
+        const nodes = [report.occurrence];
+        let expected;
         Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
-        var factorLinks = Generator.generateFactorLinksForNodes(nodes);
-        var partOfLinks = Generator.generatePartOfLinksForNodes(report.occurrence, nodes);
+        const factorLinks = Generator.generateFactorLinksForNodes(nodes),
+            partOfLinks = Generator.generatePartOfLinksForNodes(report.occurrence, nodes);
         initGetLinksStub(factorLinks);
         initGetFactorStub(nodes);
         initForEachStub(nodes);
         initGetChildrenStub(nodes, partOfLinks);
         expected = nodes.slice();
 
-        var factorGraph = FactorJsonSerializer.getFactorGraph(report);
+        const factorGraph = FactorJsonSerializer.getFactorGraph(report);
         expect(factorGraph.nodes).not.toBeNull();
         expect(factorGraph.nodes).toEqual(expected);
         expect(factorGraph.edges).not.toBeNull();
         expect(factorGraph.edges.length).toEqual(partOfLinks.length + factorLinks.length);
         verifyLinks(partOfLinks.concat(factorLinks), factorGraph.edges);
+    });
+
+    it('sets edge URI based on URI attached to link in graph', () => {
+        const nodes = [report.occurrence];
+        Array.prototype.push.apply(nodes, Generator.generateFactorGraphNodes());
+        const factorLinks = Generator.generateFactorLinksForNodes(nodes);
+        factorLinks.forEach(fl => fl.uri = Generator.getRandomUri());
+        initForEachStub(nodes);
+        initGetLinksStub(factorLinks);
+        initGetFactorStub(nodes);
+        initGetChildrenStub(nodes, []);
+        const factorGraph = FactorJsonSerializer.getFactorGraph(report);
+        expect(factorGraph.edges.length).toEqual(factorLinks.length);
+        for (let i = 0, len = factorLinks.length; i < len; i++) {
+            const edge = factorGraph.edges[i];
+            expect(edge.uri).toBeDefined();
+            expect(edge.uri).toEqual(factorLinks[i].uri);
+        }
     });
 });

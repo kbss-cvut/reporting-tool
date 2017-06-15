@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.persistence.dao;
 
 import cz.cvut.kbss.jopa.model.EntityManager;
@@ -27,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.net.URI;
 import java.util.*;
 
+import static cz.cvut.kbss.reporting.environment.util.TestUtils.verifyAllInstancesRemoved;
 import static org.junit.Assert.*;
 
 public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
@@ -62,16 +49,22 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
     }
 
     private OccurrenceReport persistReport() {
-        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(true);
-        report.setAuthor(author);
+        final OccurrenceReport report = report(false);
         occurrenceReportDao.persist(report);
+        return report;
+    }
+
+    private OccurrenceReport report(boolean withFactorGraph) {
+        final OccurrenceReport report =
+                withFactorGraph ? OccurrenceReportGenerator.generateOccurrenceReportWithFactorGraph() :
+                OccurrenceReportGenerator.generateOccurrenceReport(true);
+        report.setAuthor(author);
         return report;
     }
 
     @Test
     public void persistReportWithFactorGraphCascadesPersistToAppropriateEventInstances() {
-        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReportWithFactorGraph();
-        report.setAuthor(author);
+        final OccurrenceReport report = report(true);
         occurrenceReportDao.persist(report);
 
         final OccurrenceReport res = occurrenceReportDao.find(report.getUri());
@@ -142,8 +135,7 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
 
     @Test
     public void findByOccurrenceGetsReportsWithMatchingOccurrence() {
-        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(true);
-        report.setAuthor(author);
+        final OccurrenceReport report = report(false);
         occurrenceReportDao.persist(report);
         final Occurrence occurrence = report.getOccurrence();
 
@@ -187,8 +179,7 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
     }
 
     private OccurrenceReport prepareReportWithMeasureRequests() {
-        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(true);
-        report.setAuthor(author);
+        final OccurrenceReport report = report(false);
         final Organization org = new Organization(ORGANIZATION_NAME);
         report.setCorrectiveMeasures(new HashSet<>());
         organizationDao.persist(org);   // The organization must exist
@@ -264,8 +255,7 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
 
     @Test
     public void updateReportByAddingItemsIntoFactorGraph() {
-        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReportWithFactorGraph();
-        report.setAuthor(author);
+        final OccurrenceReport report = report(true);
         occurrenceReportDao.persist(report);
 
         final Event addedOne = new Event();
@@ -290,8 +280,7 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
 
     @Test
     public void updateReportByRemovingItemsFromFactorGraph() {
-        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReportWithFactorGraph();
-        report.setAuthor(author);
+        final OccurrenceReport report = report(true);
         occurrenceReportDao.persist(report);
 
         final Iterator<Event> evtRemove = report.getOccurrence().getChildren().iterator().next().getChildren()
@@ -317,17 +306,30 @@ public class OccurrenceReportDaoTest extends BaseDaoTestRunner {
 
         occurrenceReportDao.remove(report);
         assertFalse(occurrenceReportDao.exists(report.getUri()));
-        final EntityManager em = emf.createEntityManager();
-        try {
-            for (CorrectiveMeasureRequest cmr : report.getCorrectiveMeasures()) {
-                final Boolean res = em.createNativeQuery("ASK WHERE { ?x a ?type . }", Boolean.class)
-                                      .setParameter("x", cmr.getUri())
-                                      .setParameter("type", URI.create(Vocabulary.s_c_corrective_measure_request))
-                                      .getSingleResult();
-                assertFalse(res);
-            }
-        } finally {
-            em.close();
-        }
+        verifyAllInstancesRemoved(emf, Vocabulary.s_c_corrective_measure_request);
+    }
+
+    @Test
+    public void removeDeletesCompleteFactorGraph() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReportWithFactorGraph();
+        report.setAuthor(author);
+        occurrenceReportDao.persist(report);
+
+        occurrenceReportDao.remove(report);
+        verifyAllInstancesRemoved(emf, Vocabulary.s_c_Occurrence);
+        verifyAllInstancesRemoved(emf, Vocabulary.s_c_Event);
+    }
+
+    @Test
+    public void removeDeletesCompleteQuestionAnswerTree() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReportWithFactorGraph();
+        report.setAuthor(author);
+        report.getOccurrence().setQuestion(Generator.generateQuestions(2));
+        report.getOccurrence().getChildren().iterator().next().setQuestion(Generator.generateQuestions(3));
+        occurrenceReportDao.persist(report);
+
+        occurrenceReportDao.remove(report);
+        verifyAllInstancesRemoved(emf, Vocabulary.s_c_question);
+        verifyAllInstancesRemoved(emf, Vocabulary.s_c_answer);
     }
 }

@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
 import cz.cvut.kbss.reporting.dto.reportlist.OccurrenceReportDto;
@@ -122,5 +108,35 @@ public class OccurrenceReportTest {
         final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(true);
         final ReportDto dto = report.toReportDto();
         assertTrue(dto.getTypes().contains(Vocabulary.s_c_occurrence_report));
+    }
+
+    @Test
+    public void occurrenceCanContainMultipleResourcesWithTheSameReference() {
+        final OccurrenceReport report = new OccurrenceReport();
+        report.setReferences(new HashSet<>());
+        final String reference = Generator.generateUri().toString();
+        final Resource r1 = new Resource();
+        r1.setReference(reference);
+        report.getReferences().add(r1);
+        final Resource r2 = new Resource();
+        r2.setReference(reference);
+        r2.setDescription("a");
+        report.getReferences().add(r2);
+        final Resource r3 = new Resource();
+        r3.setReference(reference);
+        r3.setDescription("b");
+        report.getReferences().add(r3);
+        assertEquals(3, report.getReferences().size());
+        assertTrue(report.getReferences().contains(r1));
+        assertTrue(report.getReferences().contains(r2));
+        assertTrue(report.getReferences().contains(r3));
+    }
+
+    @Test
+    public void copyConstructorCopiesInitialReportReference() {
+        final OccurrenceReport report = OccurrenceReportGenerator.generateOccurrenceReport(true);
+        report.setInitialReport(OccurrenceReportGenerator.generateInitialReport());
+        final OccurrenceReport copy = new OccurrenceReport(report);
+        assertSame(report.getInitialReport(), copy.getInitialReport());
     }
 }

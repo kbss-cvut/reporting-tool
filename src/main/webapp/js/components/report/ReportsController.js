@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -20,6 +6,10 @@ import Actions from "../../actions/Actions";
 import ComponentStateStore from "../../stores/ComponentStateStore";
 import Constants from "../../constants/Constants";
 import DataFilter from "../../utils/DataFilter";
+import I18nWrapper from "../../i18n/I18nWrapper";
+import injectIntl from "../../utils/injectIntl";
+import MessageStore from "../../stores/MessageStore";
+import MessageWrapper from "../misc/hoc/MessageWrapper";
 import Reports from "./Reports";
 import ReportStore from "../../stores/ReportStore";
 import RouterStore from "../../stores/RouterStore";
@@ -62,7 +52,17 @@ function sortFactory(sortSpec) {
             if (typeof(a[prop]) === 'string') {
                 res = a[prop].localeCompare(b[prop]);
             } else {
-                res = a[prop] > b[prop] ? 1 : (a[prop] === b[prop] ? 0 : -1);
+                if (a[prop] === undefined) {
+                    if (b[prop] === undefined) {
+                        res = 0;
+                    } else {
+                        res = -1;
+                    }
+                } else if (b[prop] === undefined) {
+                    res = 1;
+                } else {
+                    res = a[prop] > b[prop] ? 1 : (a[prop] === b[prop] ? 0 : -1);
+                }
             }
             if (sortSpec[i].desc) {
                 res *= -1;
@@ -75,10 +75,11 @@ function sortFactory(sortSpec) {
     }
 }
 
-export default class ReportsController extends React.Component {
+class ReportsController extends React.Component {
 
     constructor(props) {
         super(props);
+        this.i18n = props.i18n;
         const storedState = ComponentStateStore.getComponentState(ReportsController.displayName);
         let sort = null;
         if (storedState) {
@@ -88,9 +89,9 @@ export default class ReportsController extends React.Component {
             reports: null,
             filter: this._resolveFilter(storedState),
             sort: sort ? sort : {
-                identification: Constants.SORTING.NO,
-                date: Constants.SORTING.NO
-            }
+                    identification: Constants.SORTING.NO,
+                    date: Constants.SORTING.NO
+                }
         };
     }
 
@@ -106,13 +107,14 @@ export default class ReportsController extends React.Component {
 
     componentDidMount() {
         this.unsubscribe = ReportStore.listen(this._onReportsLoaded);
+        this.unsubscribeMsg = MessageStore.listen(this._onMessage);
         const reportKeys = this.props.location.query['reportKey'];
         if (!reportKeys) {
             Actions.loadAllReports();
         } else {
-            Actions.loadAllReports(reportKeys);
+            Actions.loadAllReports(Array.isArray(reportKeys) ? reportKeys : [reportKeys]);
         }
-        Actions.loadOptions('reportingPhase');
+        Actions.loadOptions(Constants.OPTIONS.REPORTING_PHASE);
     }
 
     _onReportsLoaded = (data) => {
@@ -121,8 +123,15 @@ export default class ReportsController extends React.Component {
         }
     };
 
+    _onMessage = (msg) => {
+        if (msg.source === Actions.loadAllReports) {
+            this.props.showMessage(this.i18n(msg.message), msg.type);
+        }
+    };
+
     componentWillUnmount() {
         this.unsubscribe();
+        this.unsubscribeMsg();
     }
 
     onEdit = (report) => {
@@ -181,10 +190,12 @@ export default class ReportsController extends React.Component {
         };
         let reports = this.state.reports;
         if (reports) {
-            reports = reports.slice(0); // Shallow copy, so that sorting does not influence the original list
+            reports = reports.slice(); // Shallow copy, so that sorting does not influence the original list
             reports = this._sortReports(this._filterReports(reports));
         }
         return <Reports allReports={this.state.reports} reports={reports} filter={this.state.filter}
                         sort={this.state.sort} actions={actions}/>;
     }
-};
+}
+
+export default injectIntl(I18nWrapper(MessageWrapper(ReportsController)));

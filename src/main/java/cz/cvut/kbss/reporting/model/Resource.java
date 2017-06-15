@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
 import cz.cvut.kbss.jopa.model.annotations.OWLClass;
@@ -58,17 +44,19 @@ public class Resource extends AbstractEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Resource)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Resource resource = (Resource) o;
 
-        return reference != null ? reference.equals(resource.reference) : resource.reference == null;
-
+        return reference.equals(resource.reference) && (description != null ? description.equals(resource.description) :
+                resource.description == null);
     }
 
     @Override
     public int hashCode() {
-        return reference != null ? reference.hashCode() : 0;
+        int result = reference.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 
     @Override

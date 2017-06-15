@@ -1,58 +1,43 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var React = require('react');
-var Button = require('react-bootstrap').Button;
-var Panel = require('react-bootstrap').Panel;
+import React from "react";
+import {Button, Panel} from "react-bootstrap";
+import FilterableReportsTable from "./FilterableReportsTable";
+import I18nWrapper from "../../i18n/I18nWrapper";
+import injectIntl from "../../utils/injectIntl";
+import Mask from "../Mask";
+import Routes from "../../utils/Routes";
+import Routing from "../../utils/Routing";
 
-var injectIntl = require('../../utils/injectIntl');
-
-var FilterableReportsTable = require('./FilterableReportsTable');
-var Mask = require('./../Mask').default;
-var Routes = require('../../utils/Routes');
-var Routing = require('../../utils/Routing');
-var I18nMixin = require('../../i18n/I18nMixin');
-
-var Reports = React.createClass({
-    mixins: [I18nMixin],
-
-    propTypes: {
+class Reports extends React.Component {
+    static propTypes = {
         allReports: React.PropTypes.array,
         reports: React.PropTypes.array,
         actions: React.PropTypes.object,
         filter: React.PropTypes.object
-    },
+    };
 
-    createReport: function () {
+    constructor(props) {
+        super(props);
+        this.i18n = props.i18n;
+    }
+
+    createReport = () => {
         Routing.transitionTo(Routes.createReport);
-    },
+    };
 
 
-    render: function () {
-        var reports = this.props.reports;
-        if (reports === null) {
+    render() {
+        if (this.props.reports === null) {
             return <Mask text={this.i18n('reports.loading-mask')}/>;
         }
         return <Panel header={<h3>{this.i18n('reports.panel-title')}</h3>} bsStyle='primary'>
-                <FilterableReportsTable {...this.props}/>
-                {this.renderNoReports()}
-            </Panel>;
-    },
+            <FilterableReportsTable {...this.props}/>
+            {this.renderNoReports()}
+        </Panel>;
+    }
 
-    renderNoReports: function () {
+    renderNoReports() {
         if (this.props.reports.length !== 0) {
             return <div>
                 <Button bsStyle='primary' onClick={this.createReport}>{this.i18n('reports.create-report')}</Button>
@@ -62,17 +47,17 @@ var Reports = React.createClass({
             return <div className='no-reports-notice italics'>{this.i18n('reports.filter.no-matching-found')}</div>;
         } else {
             return <div className='no-reports-notice italics'>
-                    {this.i18n('reports.no-reports')}
-                    <a href='#' onClick={this.createReport} title={this.i18n('reports.no-reports.link-tooltip')}>
-                        {this.i18n('reports.no-reports.link')}
-                    </a>
-                </div>;
+                {this.i18n('reports.no-reports')}
+                <a href='#' onClick={this.createReport} title={this.i18n('reports.no-reports.link-tooltip')}>
+                    {this.i18n('reports.no-reports.link')}
+                </a>
+            </div>;
         }
-    },
+    }
 
-    _areReportsFiltered: function () {
+    _areReportsFiltered() {
         return this.props.reports.length !== this.props.allReports.length;
     }
-});
+}
 
-module.exports = injectIntl(Reports);
+export default injectIntl(I18nWrapper(Reports));

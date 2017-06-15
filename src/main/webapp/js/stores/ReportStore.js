@@ -1,23 +1,10 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 const Reflux = require('reflux');
 
 const Actions = require('../actions/Actions');
 let Ajax = require('../utils/Ajax');
+const Constants = require('../constants/Constants');
 const JsonReferenceResolver = require('../utils/JsonReferenceResolver').default;
 const Utils = require('../utils/Utils');
 
@@ -66,6 +53,7 @@ const ReportStore = Reflux.createStore({
                 action: Actions.loadAllReports,
                 reports: []
             });
+            Actions.publishMessage('reports.unable-to-load', Constants.MESSAGE_TYPE.ERROR, Actions.loadAllReports);
         });
     },
 
@@ -184,6 +172,16 @@ const ReportStore = Reflux.createStore({
 
     getReportsForSearch: function () {
         return this._searchReports;
+    },
+
+    onImportInitialReport: function (initialReport, onSuccess, onError) {
+        Ajax.post(BASE_URL_WITH_SLASH + 'initial', initialReport).end((data) => {
+            data.isNew = true;
+            JsonReferenceResolver.resolveReferences(data);
+            if (onSuccess) {
+                onSuccess(data);
+            }
+        }, onError);
     }
 });
 

@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.rest.dto.mapper;
 
 import cz.cvut.kbss.reporting.config.RestConfig;
@@ -21,15 +7,16 @@ import cz.cvut.kbss.reporting.dto.agent.AgentDto;
 import cz.cvut.kbss.reporting.dto.agent.OrganizationDto;
 import cz.cvut.kbss.reporting.dto.agent.PersonDto;
 import cz.cvut.kbss.reporting.dto.event.EventDto;
+import cz.cvut.kbss.reporting.dto.event.FactorGraph;
 import cz.cvut.kbss.reporting.dto.event.FactorGraphEdge;
 import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
 import cz.cvut.kbss.reporting.environment.config.MockServiceConfig;
 import cz.cvut.kbss.reporting.environment.config.MockSesamePersistence;
 import cz.cvut.kbss.reporting.environment.generator.Generator;
 import cz.cvut.kbss.reporting.environment.generator.OccurrenceReportGenerator;
+import cz.cvut.kbss.reporting.factorgraph.FactorGraphItem;
 import cz.cvut.kbss.reporting.model.*;
 import cz.cvut.kbss.reporting.model.util.HasUri;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
 import cz.cvut.kbss.reporting.util.Constants;
 import cz.cvut.kbss.reporting.util.IdentificationUtils;
 import org.junit.Test;
@@ -337,5 +324,29 @@ public class DtoMapperTest {
         assertFalse(mapper.canMap(String.class));
         assertFalse(mapper.canMap(FactorGraphEdge.class));
         assertFalse(mapper.canMap(FactorGraphItem.class));
+    }
+
+    @Test
+    public void occurrenceToFactorGraphResetsEventRegistry() {
+        final Occurrence occurrence = OccurrenceReportGenerator.generateOccurrenceWithDescendantEvents(true);
+        mapper.occurrenceToOccurrenceDto(occurrence);
+        mapper.occurrenceToFactorGraph(occurrence);
+        final Occurrence another = OccurrenceReportGenerator.generateOccurrence();
+        mapper.occurrenceToOccurrenceDto(another);
+        final FactorGraph result = mapper.occurrenceToFactorGraph(another);
+        assertEquals(1, result.getNodes().size());
+    }
+
+    // This happens when events are added to occurrence based on text analysis (when initial report is imported)
+    @Test
+    public void occurrenceToFactorGraphCorrectlySerializesOccurrenceWithChildrenWithoutUris() {
+        final Occurrence occurrence = OccurrenceReportGenerator.generateOccurrence();
+        for (int i = 0; i < Generator.randomInt(5, 10); i++) {
+            occurrence.addChild(OccurrenceReportGenerator.generateEvent());
+        }
+        mapper.occurrenceToOccurrenceDto(occurrence);
+        final FactorGraph result = mapper.occurrenceToFactorGraph(occurrence);
+        assertEquals(occurrence.getChildren().size() + 1, result.getNodes().size());
+        assertEquals(occurrence.getChildren().size(), result.getEdges().size());
     }
 }

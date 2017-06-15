@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -27,7 +13,12 @@ class PhaseTransition extends React.Component {
         report: React.PropTypes.object.isRequired,
         onLoading: React.PropTypes.func.isRequired,
         onSuccess: React.PropTypes.func.isRequired,
-        onError: React.PropTypes.func.isRequired
+        onError: React.PropTypes.func.isRequired,
+        disabled: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        disabled: false
     };
 
     constructor(props) {
@@ -62,17 +53,19 @@ class PhaseTransition extends React.Component {
     };
 
     _determinePhase() {
-        var reportPhase = this.props.report.phase;
+        const reportPhase = this.props.report.phase;
         return this.state.phases.find((item) => {
             return item['@id'] === reportPhase;
         });
     }
 
     render() {
-        var phase = this._determinePhase();
+        const phase = this._determinePhase();
         if (phase && phase[Vocabulary.TRANSITION_LABEL]) {
-            return <Button bsStyle='primary' bsSize='small'
-                           onClick={this._onPhaseTransition}>{JsonLdUtils.getLocalized(phase[Vocabulary.TRANSITION_LABEL], this.props.intl)}</Button>
+            return <Button bsStyle='primary' bsSize='small' disabled={this.props.disabled}
+                           onClick={this._onPhaseTransition}>
+                {JsonLdUtils.getLocalized(phase[Vocabulary.TRANSITION_LABEL], this.props.intl)}
+            </Button>
         } else {
             return null;
         }

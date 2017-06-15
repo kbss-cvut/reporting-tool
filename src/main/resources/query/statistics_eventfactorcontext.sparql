@@ -1,0 +1,78 @@
+PREFIX rt: <http://onto.fel.cvut.cz/ontologies/reporting-tool/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX aso: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+PREFIX doc: <http://onto.fel.cvut.cz/ontologies/documentation/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>
+
+PREFIX er: <http://dev.inbas.cz/rdf4j-server/repositories/>
+
+SELECT ?event_type ?relation_type ?factor_type (COUNT(distinct *) AS ?count) {
+  {
+    SELECT ?fileNumber (max(?revision) AS ?maxRevision) {
+  	?report doc:has_revision ?revision ;
+  	        doc:has_file_number ?fileNumber .
+    } GROUP BY ?fileNumber
+  }
+
+  ?report  doc:documents ?occurrence ;
+           doc:has_revision ?maxRevision ;
+           doc:has_file_number ?fileNumber .
+
+  ?occurrence ufo:has_part+ ?ct .
+
+
+    ?ct rt:has_event_type ?central_type .
+    {
+      {
+        ?ft rt:has_event_type ?event_f_t;
+            aso:has_factor+ ?ct.
+      } UNION {
+        BIND(?ct AS ?ft)
+        BIND(?central_type AS ?event_f_t)
+      }
+
+      OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17 { ?event_f_t rdfs:label ?factor_type_label. } }
+      OPTIONAL { SERVICE er:eccairs-aviation-3.4.0.2        { ?event_f_t rdfs:label ?factor_type_label. } }
+
+      OPTIONAL {
+        [rt:has_event_type ?event_e_t] aso:has_factor [
+          a ?rt ;
+          aso:has_factor ?ft
+        ]
+        FILTER (?rt != aso:factor)
+
+        OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17 { ?event_e_t rdfs:label ?event_type_label. } }
+        OPTIONAL { SERVICE er:eccairs-aviation-3.4.0.2        { ?event_e_t rdfs:label ?event_type_label. } }
+        OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17        { ?rt rdfs:label ?relation_type_label. } }
+      }
+    } UNION {
+      {
+        ?ct aso:has_factor+ ?et .
+        ?et rt:has_event_type ?event_e_t .
+      } UNION {
+        BIND(?ct AS ?et)
+        BIND(?central_type AS ?event_e_t)
+      }
+
+      OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17 { ?event_e_t rdfs:label ?event_type_label. } }
+      OPTIONAL { SERVICE er:eccairs-aviation-3.4.0.2        { ?event_e_t rdfs:label ?event_type_label. } }
+
+      OPTIONAL {
+        ?et aso:has_factor [
+          a ?rt ;
+          aso:has_factor [rt:has_event_type ?event_f_t]
+        ]
+        FILTER (?rt != aso:factor)
+        OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17 { ?event_f_t rdfs:label ?factor_type_label. } }
+        OPTIONAL { SERVICE er:eccairs-aviation-3.4.0.2        { ?event_f_t rdfs:label ?factor_type_label. } }
+        OPTIONAL { SERVICE er:inbas-model-2016-01-21:22-46-17        { ?rt rdfs:label ?relation_type_label. } }
+      }
+    }
+
+    BIND(COALESCE(?event_type_label,?event_e_t) AS ?event_type)
+    BIND(COALESCE(?factor_type_label,?event_f_t) AS ?factor_type)
+    BIND(COALESCE(?relation_type_label,?rt) AS ?relation_type)
+}
+GROUP BY ?event_type ?relation_type ?factor_type
+ORDER BY desc(?count) asc(?event_type)

@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 const React = require('react');
@@ -27,6 +13,7 @@ const Attachments = require('../attachment/Attachments').default;
 const BasicOccurrenceInfo = require('./BasicOccurrenceInfo').default;
 const Factors = require('../../factor/Factors');
 const CorrectiveMeasures = require('../../correctivemeasure/CorrectiveMeasures').default;
+const InitialReport = require('../initial/InitialReport').default;
 const PhaseTransition = require('../../misc/PhaseTransition').default;
 const ReportProvenance = require('../ReportProvenance').default;
 const ReportSummary = require('../ReportSummary').default;
@@ -37,6 +24,8 @@ const ReportDetailMixin = require('../../mixin/ReportDetailMixin');
 const SmallScreenFactors = require('../../factor/smallscreen/SmallScreenFactors').default;
 const WizardGenerator = require('../../wizard/generator/WizardGenerator');
 const WizardWindow = require('../../wizard/WizardWindow');
+
+const BASE_URL_WITH_SLASH = 'rest/reports/';
 
 const OccurrenceReport = React.createClass({
     mixins: [MessageMixin, I18nMixin, ReportDetailMixin],
@@ -53,7 +42,8 @@ const OccurrenceReport = React.createClass({
             loadingWizard: false,
             isWizardOpen: false,
             wizardProperties: null,
-            showDeleteDialog: false
+            showDeleteDialog: false,
+            showInitialReport: false
         };
     },
 
@@ -81,11 +71,16 @@ const OccurrenceReport = React.createClass({
         Actions.submitReport(this.props.report, this.onSubmitSuccess, this.onSubmitError);
     },
 
+    onExportToE5X: function(){
+        let localFileAddress = BASE_URL_WITH_SLASH + this.props.report.key + "/export/e5x";
+        window.open(localFileAddress);
+    },
+
     _reportSummary: function () {
         this.setState({loadingWizard: true});
-        const report = assign({}, this.props.report);
+        let report = assign({}, this.props.report);
         report.factorGraph = this.factors.getFactorGraph();
-        WizardGenerator.generateWizard(report, {}, this.i18n('report.summary'), this.openSummaryWizard);
+        WizardGenerator.generateSummaryWizard(report, this.i18n('report.summary'), this.openSummaryWizard);
     },
 
     openSummaryWizard: function (wizardProperties) {
@@ -101,18 +96,26 @@ const OccurrenceReport = React.createClass({
         this.setState({isWizardOpen: false});
     },
 
+    _displayInitialReport: function () {
+        this.setState({showInitialReport: true});
+    },
+
+    _hideInitialReport: function () {
+        this.setState({showInitialReport: false});
+    },
+
     render: function () {
         const report = this.props.report;
 
         return <div>
             <WizardWindow {...this.state.wizardProperties} show={this.state.isWizardOpen}
                           onHide={this.closeSummaryWizard} enableForwardSkip={true}/>
+            {this.state.showInitialReport &&
+            <InitialReport initialReport={report.initialReport} onClose={this._hideInitialReport}/>}
 
             <Panel header={this.renderHeader()} bsStyle='primary'>
                 <ButtonToolbar className='float-right'>
-                    <Button bsStyle='primary' onClick={this._reportSummary} disabled={this.state.loadingWizard}>
-                        {this.i18n(this.state.loadingWizard ? 'please-wait' : 'summary')}
-                    </Button>
+                    {this._renderSummaryButton()}
                 </ButtonToolbar>
                 <form>
                     <BasicOccurrenceInfo report={report} revisions={this.props.revisions}
@@ -128,7 +131,7 @@ const OccurrenceReport = React.createClass({
 
                     <div className='row'>
                         <div className='col-xs-12'>
-                            <ReportSummary report={report} onChange={this.onChange}/>
+                            <ReportSummary report={report} onChange={this.props.handlers.onChange}/>
                         </div>
                     </div>
 
@@ -137,7 +140,14 @@ const OccurrenceReport = React.createClass({
                     </div>
 
                     <Panel>
-                        <ReportProvenance report={report} revisions={this.props.revisions}/>
+                        <ReportProvenance report={report}>
+                            <div className='row'>
+                                <div className='col-xs-4'>
+                                    {this.props.revisions}
+                                </div>
+                            </div>
+                            {this._renderInitialReportTrigger()}
+                        </ReportProvenance>
                     </Panel>
 
                     {this.renderButtons()}
@@ -161,6 +171,17 @@ const OccurrenceReport = React.createClass({
         </div>;
     },
 
+    _renderSummaryButton: function () {
+        const report = this.props.report,
+            valid = ReportValidator.isValid(report);
+        return report.isNew ? null :
+            <Button bsStyle='primary' bsSize='small' className='detail-top-button' onClick={this._reportSummary}
+                    title={this.i18n(valid ? 'report.summary.button.title' : 'report.summary.button.title-invalid')}
+                    disabled={this.state.loadingWizard || !valid}>
+                {this.i18n(this.state.loadingWizard ? 'please-wait' : 'summary')}
+            </Button>;
+    },
+
     _renderFactors: function () {
         const dev = device();
         return dev.tablet() || dev.mobile() ?
@@ -171,24 +192,43 @@ const OccurrenceReport = React.createClass({
                      onChange={this.onChanges}/>;
     },
 
+    _renderInitialReportTrigger: function () {
+        if (!this.props.report.initialReport) {
+            return null;
+        }
+        return <div className='row'>
+            <div className='col-xs-2 form-group'>
+                <Button bsStyle='primary' bsSize='small' onClick={this._displayInitialReport}
+                        title={this.i18n('report.initial.view.tooltip')}>
+                    {this.i18n('report.initial.label')}
+                </Button>
+            </div>
+        </div>;
+    },
+
     renderButtons: function () {
         if (this.props.readOnly) {
             return this.renderReadOnlyButtons();
         }
-        const loading = this.state.submitting,
-            saveDisabled = !ReportValidator.isValid(this.props.report) || loading,
-            saveLabel = this.i18n(loading ? 'detail.saving' : 'save');
+        let loading = this.state.submitting !== false,
+            saveDisabled = !ReportValidator.isValid(this.props.report) || loading;
 
         return <ButtonToolbar className='float-right detail-button-toolbar'>
             <Button bsStyle='success' bsSize='small' disabled={saveDisabled} title={this.getSaveButtonTitle()}
-                    onClick={this.onSave}>{saveLabel}</Button>
-            <Button bsStyle='link' bsSize='small' title={this.i18n('cancel-tooltip')}
+                    onClick={this.onSave}>{this._getSaveButtonLabel()}</Button>
+            <Button bsStyle='link' bsSize='small' title={this.i18n('cancel-tooltip')} disabled={loading}
                     onClick={this.props.handlers.onCancel}>{this.i18n('cancel')}</Button>
             {this.renderSubmitButton()}
-            <PhaseTransition report={this.props.report} onLoading={this.onLoading}
+            <PhaseTransition report={this.props.report} onLoading={this.onLoading} disabled={saveDisabled}
                              onSuccess={this.onPhaseTransitionSuccess} onError={this.onPhaseTransitionError}/>
+            {this.renderExportToE5XButton()}
             {this.renderDeleteButton()}
         </ButtonToolbar>;
+    },
+
+    _getSaveButtonLabel: function () {
+        return this.i18n(this.state.submitting === Actions.newRevisionFromLatestEccairs ? 'please-wait' :
+            this.state.submitting ? 'detail.saving' : 'save');
     },
 
     getSaveButtonTitle: function () {
@@ -203,9 +243,16 @@ const OccurrenceReport = React.createClass({
 
     renderSubmitButton: function () {
         return this.props.report.isNew ? null :
-            <Button bsStyle='primary' bsSize='small' title={this.i18n('detail.submit-tooltip')} onClick={this.onSubmit}>
+            <Button bsStyle='primary' bsSize='small' title={this.i18n('detail.submit-tooltip')} onClick={this.onSubmit}
+                    disabled={this.state.submitting !== false}>
                 {this.i18n('detail.submit')}
             </Button>;
+    },
+
+    renderExportToE5XButton: function(){
+        return <Button bsStyle='primary' bsSize='small' title={this.i18n('exportToE5X')} onClick={this.onExportToE5X} disabled={this.state.submitting !== false}>
+            {this.i18n('exportToE5X')}
+        </Button>;
     }
 });
 

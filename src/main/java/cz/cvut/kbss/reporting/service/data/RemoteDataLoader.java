@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.service.data;
 
 import cz.cvut.kbss.reporting.exception.WebServiceIntegrationException;
@@ -24,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -69,6 +56,10 @@ public class RemoteDataLoader implements DataLoader {
             final ResponseEntity<String> result = restTemplate.exchange(urlWithQuery, HttpMethod.GET, entity,
                     String.class);
             return result.getBody();
+        } catch (HttpServerErrorException e) {
+            LOG.error("Error when requesting remote data, url: {}. Response Status: {}\n, Body:",
+                    urlWithQuery.toString(), e.getStatusCode(), e.getResponseBodyAsString());
+            throw new WebServiceIntegrationException("Unable to fetch remote data.", e);
         } catch (Exception e) {
             LOG.error("Error when requesting remote data, url: {}.", urlWithQuery.toString(), e);
             throw new WebServiceIntegrationException("Unable to fetch remote data.", e);

@@ -1,28 +1,20 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-var rewire = require('rewire');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+const rewire = require('rewire');
 
-var Actions = require('../../js/actions/Actions');
-var TestApp = require('./TestApp');
+const Actions = require('../../js/actions/Actions');
+const TestApp = require('./TestApp');
 
 module.exports = {
+
+    _currentRenderingResult: null,
+
+    getCurrentRenderingResult: function () {
+        return this._currentRenderingResult;
+    },
 
     /**
      * Renders the specified component, wrapping it in a TestApp instance, which is used to initialize some required
@@ -34,6 +26,7 @@ module.exports = {
         let type = component.type,
             result = TestUtils.renderIntoDocument(<TestApp>{component}</TestApp>),
             renderedComponent = TestUtils.findRenderedComponentWithType(result, type);
+        this._currentRenderingResult = result;
         if (renderedComponent.getWrappedInstance) {
             let wrapped = renderedComponent.getWrappedInstance();
             return wrapped.getWrappedComponent && wrapped.getWrappedComponent() ? wrapped.getWrappedComponent() : wrapped;
@@ -51,14 +44,14 @@ module.exports = {
      * @return {*|!ReactComponent} The rendered component
      */
     renderIntoTable: function (component) {
-        var type = component.type,
+        const type = component.type,
             result = TestUtils.renderIntoDocument(<TestApp>
                 <table>
                     <tbody>{component}</tbody>
                 </table>
             </TestApp>),
             renderedComponent = TestUtils.findRenderedComponentWithType(result, type);
-        //console.log(renderedComponent);
+        this._currentRenderingResult = result;
         if (renderedComponent.getWrappedInstance) {
             return renderedComponent.getWrappedInstance();
         } else {
@@ -73,13 +66,13 @@ module.exports = {
      * @param text Component text
      */
     getComponentByText: function (root, component, text) {
-        var components = TestUtils.scryRenderedComponentsWithType(root, component);
+        const components = TestUtils.scryRenderedComponentsWithType(root, component);
         return this._getNodeByText(components, text, true);
     },
 
     _getNodeByText: function (components, text, strict) {
-        for (var i = 0, len = components.length; i < len; i++) {
-            var node = ReactDOM.findDOMNode(components[i]);
+        for (let i = 0, len = components.length; i < len; i++) {
+            const node = ReactDOM.findDOMNode(components[i]);
             if (strict && node.textContent === text) {
                 return node;
             } else if (!strict && node.textContent.indexOf(text) !== -1) {
@@ -98,7 +91,7 @@ module.exports = {
      * @param text Component text
      */
     getComponentByTagAndText: function (root, tag, text) {
-        var components = TestUtils.scryRenderedDOMComponentsWithTag(root, tag);
+        const components = TestUtils.scryRenderedDOMComponentsWithTag(root, tag);
         return this._getNodeByText(components, text, true);
     },
 
@@ -111,12 +104,12 @@ module.exports = {
      * @param text Text contained in the component's text content
      */
     getComponentByTagAndContainedText: function (root, tag, text) {
-        var components = TestUtils.scryRenderedDOMComponentsWithTag(root, tag);
+        const components = TestUtils.scryRenderedDOMComponentsWithTag(root, tag);
         return this._getNodeByText(components, text, false);
     },
 
     mockFactors: function (investigation) {
-        var Factors = rewire('../../js/components/factor/Factors'),
+        const Factors = rewire('../../js/components/factor/Factors'),
             GanttController = jasmine.createSpyObj('GanttController', ['init', 'setScale', 'expandSubtree', 'updateOccurrenceEvent']),
             FactorRenderer = jasmine.createSpyObj('FactorRenderer', ['renderFactors']),
             FactorJsonSerializer = jasmine.createSpyObj('FactorJsonSerializer', ['getFactorGraph', 'setGanttController']);
@@ -133,8 +126,8 @@ module.exports = {
      * @param reqMockMethods array of methods to mock
      */
     mockRequestMethods: function (reqMockMethods) {
-        var reqMock = jasmine.createSpyObj('request', reqMockMethods);
-        for (var i = 0; i < reqMockMethods.length; i++) {
+        const reqMock = jasmine.createSpyObj('request', reqMockMethods);
+        for (let i = 0; i < reqMockMethods.length; i++) {
             // All mock methods just return the instance to adhere to the builder pattern implemented by request
             reqMock[reqMockMethods[i]].and.callFake(function () {
                 return reqMock;
@@ -156,7 +149,7 @@ module.exports = {
      * Returns the mock for possible further use.
      */
     mockGantt: function () {
-        var gantt = jasmine.createSpyObj('gantt', ['init', 'open', 'addTask', 'addLink', 'getChildren', 'attachEvent', 'clearAll', 'render', 'calculateDuration']);
+        const gantt = jasmine.createSpyObj('gantt', ['init', 'open', 'addTask', 'addLink', 'getChildren', 'attachEvent', 'clearAll', 'render', 'calculateDuration']);
         gantt.config = {
             links: {}
         };
@@ -174,10 +167,10 @@ module.exports = {
      */
     arraysEqual: function (a, b) {
         if (a === b) return true;
-        if (a == null || b == null) return false;
-        if (a.length != b.length) return false;
+        if (!a || !b) return false;
+        if (a.length !== b.length) return false;
 
-        for (var i = 0; i < a.length; ++i) {
+        for (let i = 0; i < a.length; ++i) {
             if (a[i] !== b[i]) {
                 return false;
             }
@@ -191,7 +184,7 @@ module.exports = {
      * @param store Store, the corresponding store method is found according to the usual onActionName scheme.
      */
     bindActionsToStoreMethods: function (actionName, store) {
-        var fn = 'on' + actionName.charAt(0).toUpperCase() + actionName.substring(1);
+        const fn = 'on' + actionName.charAt(0).toUpperCase() + actionName.substring(1);
         // For some reason, it didn't suffice (in some cases) to pass the store[fn] as argument to callFake, so that's
         // why the wrapping function is here
         spyOn(Actions, actionName).and.callFake(function () {
@@ -210,7 +203,7 @@ module.exports = {
                     if (expected === undefined) {
                         expected = '';
                     }
-                    var result = {};
+                    const result = {};
                     result.pass = actual.toUpperCase().localeCompare(expected.toUpperCase()) >= 0;
                     if (result.pass) {
                         result.message = 'Expected ' + actual + ' not to be lexicographically greater or equal to ' + expected;
@@ -227,7 +220,7 @@ module.exports = {
                     if (expected === undefined) {
                         expected = '';
                     }
-                    var result = {};
+                    const result = {};
                     result.pass = actual.toUpperCase().localeCompare(expected.toUpperCase()) > 0;
                     if (result.pass) {
                         result.message = 'Expected ' + actual + ' not to be lexicographically greater than ' + expected;

@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 /**
  * Czech localization.
  */
@@ -30,6 +16,7 @@ module.exports = {
         'cancel-tooltip': 'Zrušit a zahodit změny',
         'save': 'Uložit',
         'delete': 'Smazat',
+        'exportToE5X': 'exportovat do E5X',
         'remove': 'Odstranit',
         'headline': 'Název',
         'summary': 'Shrnutí',
@@ -48,11 +35,13 @@ module.exports = {
         'unknown': 'Neznámé',
         'uploading-mask': 'Nahrávám',
         'please-wait': 'Prosím čekejte...',
+        'issue-fix': 'Opravit problém',
 
         'detail.save-tooltip': 'Uložit změny',
         'detail.saving': 'Ukládám...',
         'detail.invalid-tooltip': 'Některá povinná pole nejsou vyplněna',
-        'detail.large-time-diff-tooltip': 'Časový rozdíl počátku a konce události je příliš velký',
+        'detail.large-time-diff-tooltip': 'Časový rozdíl počátku a konce události je příliš velký.',
+        'detail.large-time-diff-event-tooltip': 'Časový rozdíl mezi událostí a jejími podudálostmi je příliš velký.',
         'detail.submit': 'Nová revize',
         'detail.submit-tooltip': 'Vytvořit novou revizi tohoto hlášení',
         'detail.submit-success-message': 'Zpráva úspěšně odeslána.',
@@ -62,6 +51,12 @@ module.exports = {
         'detail.loading': 'Načítám hlášení...',
         'detail.not-found.title': 'Hlášení nenalezeno',
         'detail.remove-failed-message': 'Hlášení se nepodařilo odstranit. Odpověď serveru: ',
+        'detail.fix.title': 'Oprava hlášení',
+        'detail.fix.start-time': 'Počátek',
+        'detail.fix.end-time': 'Konec',
+        'detail.fix.done': 'Hotovo',
+        'detail.fix.done.tooltip': 'Hlášení je opraveno a připraveno k zobrazení',
+        'detail.fix.time-diff-hint': 'Největší rozdíl v čase počátku a konce události může být {value, plural, =0 {# hodin} one {# hodina} few {# hodiny} other {# hodin}}.',
 
 
         'login.title': Constants.APP_NAME + ' - Přihlášení',
@@ -97,12 +92,10 @@ module.exports = {
         'dashboard.search-tile': 'Hledat hlášení',
         'dashboard.search-placeholder': 'Název hlášení',
         'dashboard.view-all-tile': 'Prohlížet všechna hlášení',
-        'dashboard.create-empty-tile': 'Začít s prázdným hlášením',
-        'dashboard.create-import-tile': 'Importovat hlášení',
         'dashboard.recent-panel-heading': 'Nedávno přidaná/upravená hlášení',
         'dashboard.recent-table-last-edited': 'Naposledy upraveno',
         'dashboard.recent.no-reports': 'Zatím nebylo vytvořeno žádné hlášení.',
-        'dashboard.import.import-e5': 'Importovat hlášení ve formátu E5X/E5F',
+        'dashboard.import-initial-tile': 'Importovat hlášení',
 
         'dashboard.unprocessed': 'Máte {count} nezpracovaných hlášení.',
 
@@ -131,6 +124,7 @@ module.exports = {
         'reports.filter.reset': 'Zrušit filtry',
         'reports.paging.item-count': 'Zobrazuji {showing} z {total} položek.',
         'reports.create-report': 'Nové hlášení',
+        'reports.unable-to-load': 'Hlášení se nepodařilo načíst. Chybová konzole prohlížeče obsahuje podrobnější informace.',
 
         'filters.label': 'Filtry',
 
@@ -146,12 +140,14 @@ module.exports = {
         'occurrence.class': 'Třída závažnosti',
         'occurrence.class-tooltip': 'Třída závažnosti - pole je povinné',
 
-        'initial.panel-title': 'Prvotní hlášení',
-        'initial.table-report': 'Hlášení',
-        'initial.wizard.add-title': 'Přidat prvotní hlášení',
-        'initial.wizard.edit-title': 'Editovat prvotní hlášení',
-        'initial.label': 'Prvotní hlášení',
-        'initial.tooltip': 'Text prvotního hlášení - pole je povinné',
+        'report.initial.import.title': 'Import prvotního hlášení',
+        'report.initial.import.run': 'Importovat',
+        'report.initial.import.text.tooltip': 'Vložte text prvotního hlášení',
+        'report.initial.import.importing-msg': 'Probíhá analýza hlášení',
+        'report.initial.text.label': 'Text',
+        'report.initial.label': 'Prvotní hlášení',
+        'report.initial.view.tooltip': 'Zobrazit prvotní hlášení',
+        'report.initial.analysis-results.label': 'Výsledky analýzy hlášení',
 
         'report.summary': 'Shrnutí hlášení',
         'report.created-by-msg': 'Vytvořil(a) {name} {date}.',
@@ -220,6 +216,7 @@ module.exports = {
         'factors.smallscreen.start': 'Počátek',
         'factors.smallscreen.end': 'Konec',
         'factors.smallscreen.add-tooltip': 'Přidat událost',
+        'factors.event-suggested': 'Faktor navržen na základě analýzy prvotního hlášení.',
 
         'notfound.title': 'Nenalezeno',
         'notfound.msg-with-id': 'Záznam \'{resource}\' s identifikátorem {identifier} nenalezen.',
@@ -243,6 +240,20 @@ module.exports = {
         'search.headline': '{count, plural, one {Nalezen # výskyt} few {Nalezeny # výskyty} other {Nalezeno # výskytů}} výrazu {expression}.',
         'search.results.match': 'Výsledek hledání',
 
-        'validation.error.start-after-end': 'Chyba: konec nemůže nastat před počátkem.'
+        'validation.error.start-after-end': 'Chyba: konec nemůže nastat před počátkem.',
+
+        'editor.rich.h1': 'Nadpis 1',
+        'editor.rich.h2': 'Nadpis 2',
+        'editor.rich.h3': 'Nadpis 3',
+        'editor.rich.h4': 'Nadpis 4',
+        'editor.rich.h5': 'Nadpis 5',
+        'editor.rich.h6': 'Nadpis 6',
+        'editor.rich.body': 'Text',
+        'editor.rich.ul': 'Odrážky',
+        'editor.rich.ol': 'Číslovaný seznam',
+        'editor.rich.blockquote': 'Citace',
+        'editor.rich.bold': 'Tučné',
+        'editor.rich.italic': 'Kurzíva',
+        'editor.rich.underline': 'Podtržené'
     }
 };

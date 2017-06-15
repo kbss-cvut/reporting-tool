@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -23,7 +9,7 @@ import Generator from "../environment/Generator";
 
 describe('Attachment table', () => {
 
-    var attachments,
+    let attachments,
         onChange,
         onRemove;
 
@@ -38,11 +24,11 @@ describe('Attachment table', () => {
                                                             attachments={attachments}/>),
             edited = attachments[Generator.getRandomInt(attachments.length)],
 
-            editedRows = TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.wrappedComponent);
+            editedRows = TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.WrappedComponent);
         expect(editedRows.length).toEqual(0);
         component._onEdit(edited);
 
-        editedRows = TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.wrappedComponent);
+        editedRows = TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.WrappedComponent);
         expect(editedRows.length).toEqual(1);
     });
 
@@ -52,11 +38,11 @@ describe('Attachment table', () => {
             edited = attachments[Generator.getRandomInt(attachments.length)];
         component._onEdit(edited);
 
-        let editedRow = TestUtils.findRenderedComponentWithType(component, EditableAttachmentRow.wrappedComponent),
+        let editedRow = TestUtils.findRenderedComponentWithType(component, EditableAttachmentRow.WrappedComponent),
             cancelEditButton = TestUtils.scryRenderedDOMComponentsWithTag(editedRow, 'button')[1];
         TestUtils.Simulate.click(cancelEditButton);
 
-        expect(TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.wrappedComponent).length).toEqual(0);
+        expect(TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.WrappedComponent).length).toEqual(0);
     });
 
     it('removes editable row and passes update to change handler when edit is finished', () => {
@@ -65,12 +51,12 @@ describe('Attachment table', () => {
             edited = attachments[Generator.getRandomInt(attachments.length)];
         component._onEdit(edited);
 
-        let editedRow = TestUtils.findRenderedComponentWithType(component, EditableAttachmentRow.wrappedComponent),
+        let editedRow = TestUtils.findRenderedComponentWithType(component, EditableAttachmentRow.WrappedComponent),
             saveEditButton = TestUtils.scryRenderedDOMComponentsWithTag(editedRow, 'button')[0];
         TestUtils.Simulate.click(saveEditButton);
 
         expect(onChange).toHaveBeenCalled();
-        expect(TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.wrappedComponent).length).toEqual(0);
+        expect(TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.WrappedComponent).length).toEqual(0);
     });
 
     it('removes editable row when row was added in properties', () => {
@@ -83,11 +69,11 @@ describe('Attachment table', () => {
             }
         });
         let parent = Environment.render(<TestParent/>),
-            component = TestUtils.findRenderedComponentWithType(parent, AttachmentTable.wrappedComponent),
+            component = TestUtils.findRenderedComponentWithType(parent, AttachmentTable.WrappedComponent),
             edited = attachments[Generator.getRandomInt(attachments.length)];
-        component.getWrappedInstance().getWrappedComponent()._onEdit(edited);
+        component.getWrappedComponent()._onEdit(edited);
         parent.setState({attachments: attachments.concat([{reference: 'http://test'}])});
-        expect(TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.wrappedComponent).length).toEqual(0);
+        expect(TestUtils.scryRenderedComponentsWithType(component, EditableAttachmentRow.WrappedComponent).length).toEqual(0);
     });
 
     it('renders attachments with URL as link', () => {

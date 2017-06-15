@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.util;
 
 public final class Constants {
@@ -50,6 +36,11 @@ public final class Constants {
      * JSON-LD MIME type.
      */
     public static final String APPLICATION_JSON_LD_TYPE = "application/ld+json";
+
+    /**
+     * text/boolean MIME type. Useful for ASK queries.
+     */
+    public static final String TEXT_BOOLEAN_TYPE = "text/boolean";
 
     /**
      * Prefix for basic authentication for the Authorization HTTP header.
@@ -97,15 +88,10 @@ public final class Constants {
 
     /**
      * Folder containing options files for the application.
-     *
+     * <p>
      * Some options can be stored directly in the application.
      */
     public static final String OPTION_FILES_DIRECTORY = "option";
-
-    /**
-     * File with a query for getting report statistics.
-     */
-    public static final String STATISTICS_QUERY_FILE = "query/statistics.sparql";
 
     /**
      * File with the full text fullTextSearch query.
@@ -121,6 +107,13 @@ public final class Constants {
      * Name of the URL parameter specifying query sent to remote repository.
      */
     public static final String QUERY_QUERY_PARAM = "query";
+
+    /**
+     * Maximum length of a description used by the {@code toString} method.
+     * <p>
+     * Anything longer that this threshold may be trimmed.
+     */
+    public static final int DESCRIPTION_TO_STRING_THRESHOLD = 50;
 
     private Constants() {
         throw new AssertionError();

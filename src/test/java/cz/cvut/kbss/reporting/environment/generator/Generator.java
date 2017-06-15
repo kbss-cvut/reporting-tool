@@ -1,19 +1,6 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.environment.generator;
 
+import cz.cvut.kbss.reporting.model.CorrectiveMeasureRequest;
 import cz.cvut.kbss.reporting.model.Organization;
 import cz.cvut.kbss.reporting.model.Person;
 import cz.cvut.kbss.reporting.model.Vocabulary;
@@ -21,10 +8,7 @@ import cz.cvut.kbss.reporting.model.qam.Answer;
 import cz.cvut.kbss.reporting.model.qam.Question;
 
 import java.net.URI;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class Generator {
 
@@ -78,6 +62,7 @@ public class Generator {
     public static Organization generateOrganization() {
         final Organization org = new Organization();
         org.setName(UUID.randomUUID().toString());
+        org.generateUri();
         return org;
     }
 
@@ -160,7 +145,7 @@ public class Generator {
     /**
      * Generates a tree of questions with answers.
      *
-     * @param maxDepth Maximum depth. Optional parameter. If not set, a random number will be generated
+     * @param maxDepth Maximum depth. Optional parameter. If not set, a random number (less than 10) will be generated
      * @return Root question
      */
     public static Question generateQuestions(Integer maxDepth) {
@@ -199,5 +184,18 @@ public class Generator {
             parent.getSubQuestions().add(child);
             generateQuestions(child, depth + 1, maxDepth);
         }
+    }
+
+    public static Set<CorrectiveMeasureRequest> generateCorrectiveMeasureRequests() {
+        final Set<CorrectiveMeasureRequest> set = new HashSet<>();
+        for (int i = 0; i < randomInt(5, 10); i++) {
+            final CorrectiveMeasureRequest cmr = new CorrectiveMeasureRequest();
+            cmr.setDescription(UUID.randomUUID().toString());
+            if (Generator.randomBoolean()) {
+                cmr.setResponsibleOrganizations(Collections.singleton(Generator.generateOrganization()));
+            }
+            set.add(cmr);
+        }
+        return set;
     }
 }

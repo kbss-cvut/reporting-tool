@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.rest.handler;
 
 import cz.cvut.kbss.jopa.exceptions.OWLPersistenceException;
@@ -51,7 +37,8 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorInfo> mappingException(HttpServletRequest request, HttpMessageNotReadableException e) {
-        return new ResponseEntity<>(errorInfo(request, e.getCause()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorInfo(request, e.getCause() != null ? e.getCause() : e),
+                HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UsernameExistsException.class)
@@ -82,7 +69,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(OWLPersistenceException.class)
-    public ResponseEntity<ErrorInfo> jopaException(HttpServletRequest request, PersistenceException e) {
+    public ResponseEntity<ErrorInfo> jopaException(HttpServletRequest request, OWLPersistenceException e) {
         LOG.error("Persistence exception caught.", e);
         return new ResponseEntity<>(errorInfo(request, e), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -90,5 +77,11 @@ public class RestExceptionHandler {
     @ExceptionHandler(ReportImportingException.class)
     public ResponseEntity<ErrorInfo> reportImportingException(HttpServletRequest request, ReportImportingException e) {
         return new ResponseEntity<>(errorInfo(request, e), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(UnsupportedReportTypeException.class)
+    public ResponseEntity<ErrorInfo> unsupportedReportTypeException(HttpServletRequest request,
+                                                                    UnsupportedReportTypeException e) {
+        return new ResponseEntity<>(errorInfo(request, e), HttpStatus.BAD_REQUEST);
     }
 }

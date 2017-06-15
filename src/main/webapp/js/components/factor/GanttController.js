@@ -1,24 +1,12 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
+const classNames = require('classnames');
 const Constants = require('../../constants/Constants');
 const FactorStyleInfo = require('../../utils/FactorStyleInfo');
 const Factory = require('../../model/ReportFactory');
 const ObjectTypeResolver = require('../../utils/ObjectTypeResolver');
 const OptionsStore = require('../../stores/OptionsStore');
+const Vocabulary = require('../../constants/Vocabulary');
 
 const I18nStore = require('../../stores/I18nStore');
 
@@ -143,11 +131,13 @@ const GanttController = {
             return FactorStyleInfo.getLinkClass(link);
         };
         gantt.templates.task_class = function (start, end, task) {
-            if (!task.parent) {
+            if (task.readonly) {
                 return 'factor-root-event';
             }
-            let eventType = ObjectTypeResolver.resolveType(task.statement.eventType, OptionsStore.getOptions('eventType'));
-            return eventType ? FactorStyleInfo.getStyleInfo(eventType['@type']).ganttCls : '';
+            let eventType = ObjectTypeResolver.resolveType(task.statement.eventType, OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE)),
+                eventTypeCls = eventType ? FactorStyleInfo.getStyleInfo(eventType['@type']).ganttCls : '',
+                typeSuggested = task.statement.types && task.statement.types.indexOf(Vocabulary.SUGGESTED) !== -1;
+            return classNames(eventTypeCls, {'factor-suggested': typeSuggested});
         };
         gantt.templates.tooltip_date_format = function (date) {
             const formatFunc = gantt.date.date_to_str(TOOLTIP_DATE_FORMAT);
@@ -157,6 +147,9 @@ const GanttController = {
             let tooltip = '<b>' + task.text + '</b><br/>';
             tooltip += '<b>Start date:</b> ' + gantt.templates.tooltip_date_format(start) +
                 '<br/><b>End date:</b> ' + gantt.templates.tooltip_date_format(end);
+            if (task.statement.types.indexOf(Vocabulary.SUGGESTED) !== -1) {
+                tooltip += '<br/><i>' + I18nStore.i18n('factors.event-suggested') + '</i>';
+            }
             return tooltip;
         };
     },
@@ -193,9 +186,6 @@ const GanttController = {
 
     onFactorAdded: function (id, factor) {
         const updates = [];
-        if (id !== this.rootEventId && !factor.parent) {
-            factor.parent = this.rootEventId;
-        }
         this.extendAncestorsIfNecessary(factor, updates);
         this.applyUpdates(updates);
     },
@@ -362,7 +352,7 @@ const GanttController = {
         }
         const rootEvent = gantt.getTask(this.rootEventId),
             updates = [];
-        if (rootEvent.text !== graphRoot.name) {
+        if (graphRoot.name && rootEvent.text !== graphRoot.name) {
             rootEvent.text = graphRoot.name;
             updates.push(this.rootEventId);
         }

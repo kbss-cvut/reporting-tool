@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 
 package cz.cvut.kbss.reporting.model;
 
@@ -29,6 +15,7 @@ public class Vocabulary {
     public final static String s_c_Avoiding_action = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Avoiding_action";
     public final static String s_c_Critical_Incident_Stress_Management = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Critical_Incident_Stress_Management";
     public final static String s_p_has_part = "http://onto.fel.cvut.cz/ontologies/ufo/has_part";
+    public final static String s_c_preliminary_report = "http://onto.fel.cvut.cz/ontologies/aviation/core/preliminary_report";
     public final static String s_p_is_provided_to = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_provided_to";
     public final static String s_c_glider = "http://onto.fel.cvut.cz/ontologies/aviation-safety/glider";
     public final static String s_c_Aircraft_performance = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_performance";
@@ -40,6 +27,7 @@ public class Vocabulary {
     public final static String s_c_Area_navigation = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Area_navigation";
     public final static String s_c_Air_traffic_control_team_management = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Air_traffic_control_team_management";
     public final static String s_c_Readback = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Readback";
+    public final static String s_c_report_from_eccairs_system = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/report-from-eccairs-system";
     public final static String s_p_is_participation_of = "http://onto.fel.cvut.cz/ontologies/ufo/is_participation_of";
     public final static String s_c_Weather = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Weather";
     public final static String s_c_System_data = "http://onto.fel.cvut.cz/ontologies/aviation-safety/System_data";
@@ -59,7 +47,6 @@ public class Vocabulary {
     public final static String s_c_Overlapping_period_during_the_hand_over_take_over = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Overlapping_period_during_the_hand-over-take-over";
     public final static String s_c_Data = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Data";
     public final static String s_c_temporal_entity = "http://onto.fel.cvut.cz/ontologies/aviation-safety/temporal_entity";
-    public final static String s_c_Organization_part = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Organization_part";
     public final static String s_c_human_environment_interface_related_event = "http://onto.fel.cvut.cz/ontologies/aviation-safety/human_environment_interface_related_event";
     public final static String s_c_safety_event_type = "http://onto.fel.cvut.cz/ontologies/aviation/core/safety-event-type";
     public final static String s_c_Wind_shear = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Wind_shear";
@@ -147,7 +134,6 @@ public class Vocabulary {
     public final static String s_c_air_traffic_management = "http://onto.fel.cvut.cz/ontologies/aviation-safety/air_traffic_management";
     public final static String s_c_civil_aviation_authority = "http://onto.fel.cvut.cz/ontologies/aviation-safety/civil_aviation_authority";
     public final static String s_p_has_barrier_uos_avoidance_fail_frequency = "http://onto.fel.cvut.cz/ontologies/arms/sira/model/has-barrier-uos-avoidance-fail-frequency";
-    public final static String s_c_initial_report = "http://onto.fel.cvut.cz/ontologies/aviation/core#initial-report";
     public final static String s_p_has_factor = "http://onto.fel.cvut.cz/ontologies/aviation-safety/has_factor";
     public final static String s_c_complex_event = "http://onto.fel.cvut.cz/ontologies/ufo/complex_event";
     public final static String s_c_Object_destruction_event = "http://onto.fel.cvut.cz/ontologies/ufo/Object_destruction_event";
@@ -162,6 +148,7 @@ public class Vocabulary {
     public final static String s_i_flight_stage_phase_type_landing = "http://onto.fel.cvut.cz/ontologies/aviation/core/flight-stage-phase-type-landing";
     public final static String s_c_air_traffic_control_agent = "http://onto.fel.cvut.cz/ontologies/aviation-safety/air_traffic_control_agent";
     public final static String s_c_aircraft_manufacturing_company = "http://onto.fel.cvut.cz/ontologies/aviation-safety/aircraft_manufacturing_company";
+    public final static String s_p_has_text_analysis_result = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/has-text-analysis-result";
     public final static String s_c_Conflict = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Conflict";
     public final static String s_c_Frequency_selection = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Frequency_selection";
     public final static String s_c_root_folder = "http://onto.fel.cvut.cz/ontologies/documentation/root-folder";
@@ -234,6 +221,7 @@ public class Vocabulary {
     public final static String s_c_air_traffic_service_person = "http://onto.fel.cvut.cz/ontologies/aviation-safety/air_traffic_service_person";
     public final static String s_c_Information = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Information";
     public final static String s_c_Aerodrome_part = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aerodrome_part";
+    public final static String s_c_organization_part = "http://onto.fel.cvut.cz/ontologies/organization/organization-part";
     public final static String s_p_has_participant = "http://onto.fel.cvut.cz/ontologies/ufo/has_participant";
     public final static String s_c_working_position = "http://onto.fel.cvut.cz/ontologies/aviation-safety/working_position";
     public final static String s_c_Aircraft_ground_collision = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_ground_collision";
@@ -244,12 +232,12 @@ public class Vocabulary {
     public final static String s_c_operator_organization = "http://onto.fel.cvut.cz/ontologies/aviation-safety/operator_organization";
     public final static String s_c_jamming = "http://onto.fel.cvut.cz/ontologies/aviation-safety/jamming";
     public final static String s_c_unusual_situation_handling = "http://onto.fel.cvut.cz/ontologies/aviation-safety/unusual_situation_handling";
+    public final static String s_c_document_repository = "http://onto.fel.cvut.cz/ontologies/documentation/document-repository";
     public final static String s_c_question = "http://onto.fel.cvut.cz/ontologies/documentation/question";
     public final static String s_c_Traffic_load = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Traffic_load";
     public final static String s_c_integration = "http://onto.fel.cvut.cz/ontologies/aviation-safety/integration";
     public final static String s_c_Blocked_communication = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Blocked_communication";
     public final static String s_p_is_functional_part_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_functional_part_of";
-    public final static String s_c_Preliminary_Report = "http://onto.fel.cvut.cz/ontologies/aviation/core#Preliminary-Report";
     public final static String s_c_Perdurant = "http://onto.fel.cvut.cz/ontologies/ufo/Perdurant";
     public final static String s_c_OWL = "http://onto.fel.cvut.cz/ontologies/documentation/OWL";
     public final static String s_p_description = "http://purl.org/dc/terms/description";
@@ -261,6 +249,7 @@ public class Vocabulary {
     public final static String s_c_Operational_communication = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Operational_communication";
     public final static String s_p_is_management_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_management_of";
     public final static String s_c_Low_level_aircraft_operation = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Low_level_aircraft_operation";
+    public final static String s_c_regular_user = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/regular-user";
     public final static String s_p_is_provision_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_provision_of";
     public final static String s_c_corrective_measure_definition_collaboration = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/corrective_measure_definition_collaboration";
     public final static String s_c_composite_attribute = "http://onto.fel.cvut.cz/ontologies/documentation/composite_attribute";
@@ -273,6 +262,7 @@ public class Vocabulary {
     public final static String s_c_answer = "http://onto.fel.cvut.cz/ontologies/documentation/answer";
     public final static String s_c_relay_relayed_message = "http://onto.fel.cvut.cz/ontologies/aviation-safety/relay-relayed_message";
     public final static String s_c_air_traffic_management_agent = "http://onto.fel.cvut.cz/ontologies/aviation-safety/air_traffic_management_agent";
+    public final static String s_c_initial_report = "http://onto.fel.cvut.cz/ontologies/aviation/core/initial_report";
     public final static String s_c_Aircraft_part = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_part";
     public final static String s_p_is_started_by = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_started_by";
     public final static String s_c_ANS_geographical_information = "http://onto.fel.cvut.cz/ontologies/aviation-safety/ANS_geographical_information";
@@ -283,10 +273,12 @@ public class Vocabulary {
     public final static String s_p_is_used_by = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_used_by";
     public final static String s_c_object_monitoring = "http://onto.fel.cvut.cz/ontologies/aviation-safety/object_monitoring";
     public final static String s_c_Dirigible = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Dirigible";
+    public final static String s_c_import_event = "http://onto.fel.cvut.cz/ontologies/documentation/import-event";
     public final static String s_p_has_related_question = "http://onto.fel.cvut.cz/ontologies/documentation/has_related_question";
     public final static String s_c_Radar_source = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Radar_source";
     public final static String s_c_surface = "http://onto.fel.cvut.cz/ontologies/aviation-safety/surface";
     public final static String s_c_aircraft_stand = "http://onto.fel.cvut.cz/ontologies/aviation/core/aircraft-stand";
+    public final static String s_p_has_source = "http://onto.fel.cvut.cz/ontologies/dataset-descriptor/has-source";
     public final static String s_p_is_use_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_use_of";
     public final static String s_p_documents = "http://onto.fel.cvut.cz/ontologies/documentation/documents";
     public final static String s_c_zip = "http://onto.fel.cvut.cz/ontologies/documentation/zip";
@@ -297,6 +289,7 @@ public class Vocabulary {
     public final static String s_c_concept_term = "http://onto.fel.cvut.cz/ontologies/documentation/concept_term";
     public final static String s_c_Engineering_and_maintenance_procedure = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Engineering_and_maintenance_procedure";
     public final static String s_c_surface_state_type = "http://onto.fel.cvut.cz/ontologies/aviation/core/surface-state-type";
+    public final static String s_c_guest = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/guest";
     public final static String s_p_follows = "http://onto.fel.cvut.cz/ontologies/aviation-safety/follows";
     public final static String s_p_is_received_by = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_received_by";
     public final static String s_c_Transition_altitude = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Transition_altitude";
@@ -307,6 +300,7 @@ public class Vocabulary {
     public final static String s_p_is_planning_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_planning_of";
     public final static String s_c_Weather_briefing_during_the_hand_over_take_over = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Weather_briefing_during_the_hand-over-take-over";
     public final static String s_p_has_last_editor = "http://onto.fel.cvut.cz/ontologies/documentation/has_last_editor";
+    public final static String s_p_inv_dot_has_source = "http://onto.fel.cvut.cz/ontologies/dataset-descriptor/inv.has-source";
     public final static String s_p_has_location = "http://onto.fel.cvut.cz/ontologies/aviation-safety/has_location";
     public final static String s_c_Accuracy = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Accuracy";
     public final static String s_c_Hearback = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Hearback";
@@ -328,6 +322,7 @@ public class Vocabulary {
     public final static String s_p_not_known = "http://onto.fel.cvut.cz/ontologies/documentation/not_known";
     public final static String s_c_document_phase = "http://onto.fel.cvut.cz/ontologies/documentation/document_phase";
     public final static String s_c_Information_reception_problem = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Information_reception_problem";
+    public final static String s_c_rt_user = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/rt-user";
     public final static String s_c_concept_term_collection = "http://onto.fel.cvut.cz/ontologies/documentation/concept_term_collection";
     public final static String s_p_has_example = "http://onto.fel.cvut.cz/ontologies/voc/has_example";
     public final static String s_c_Emergency = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Emergency";
@@ -343,7 +338,6 @@ public class Vocabulary {
     public final static String s_c_Medical_and_competence_check = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Medical_and_competence_check";
     public final static String s_c_Approach = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Approach";
     public final static String s_c_Sign = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Sign";
-    public final static String s_c_Investigation_Report = "http://onto.fel.cvut.cz/ontologies/aviation/core#Investigation-Report";
     public final static String s_c_AudioData = "http://onto.fel.cvut.cz/ontologies/documentation/AudioData";
     public final static String s_c_Lighting = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Lighting";
     public final static String s_c_Ground_collision = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Ground_collision";
@@ -368,6 +362,7 @@ public class Vocabulary {
     public final static String s_c_Conditional_route = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Conditional_route";
     public final static String s_p_based_on = "http://onto.fel.cvut.cz/ontologies/documentation/based_on";
     public final static String s_p_has_key = "http://onto.fel.cvut.cz/ontologies/documentation/has_key";
+    public final static String s_p_has_target = "http://onto.fel.cvut.cz/ontologies/dataset-descriptor/has-target";
     public final static String s_c_ImperativeStatement = "http://onto.fel.cvut.cz/ontologies/documentation/ImperativeStatement";
     public final static String s_p_is_impact_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_impact_of";
     public final static String s_c_Process = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Process";
@@ -391,6 +386,7 @@ public class Vocabulary {
     public final static String s_p_contains_snapshot = "http://onto.fel.cvut.cz/ontologies/aviation-safety/contains_snapshot";
     public final static String s_c_object_attribute_value = "http://onto.fel.cvut.cz/ontologies/documentation/object_attribute_value";
     public final static String s_c_relief_from_position = "http://onto.fel.cvut.cz/ontologies/aviation-safety/relief_from_position";
+    public final static String s_c_investigation_report = "http://onto.fel.cvut.cz/ontologies/aviation/core/investigation_report";
     public final static String s_c_Operational_information = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Operational_information";
     public final static String s_c_choice_question = "http://onto.fel.cvut.cz/ontologies/documentation/choice_question";
     public final static String s_p_has_temporal_entity = "http://onto.fel.cvut.cz/ontologies/aviation-safety/has_temporal_entity";
@@ -415,6 +411,7 @@ public class Vocabulary {
     public final static String s_c_ILS_Navigation = "http://onto.fel.cvut.cz/ontologies/aviation-safety/ILS_Navigation";
     public final static String s_p_has_functional_part = "http://onto.fel.cvut.cz/ontologies/aviation-safety/has_functional_part";
     public final static String s_c_En_route_location = "http://onto.fel.cvut.cz/ontologies/aviation-safety/En-route_location";
+    public final static String s_p_created_from = "http://onto.fel.cvut.cz/ontologies/documentation/created_from";
     public final static String s_c_Passenger = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Passenger";
     public final static String s_p_TODO_A = "http://onto.fel.cvut.cz/ontologies/aviation-safety/TODO";
     public final static String s_c_Two_way_radio = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Two_way_radio";
@@ -460,6 +457,7 @@ public class Vocabulary {
     public final static String s_c_Statement = "http://onto.fel.cvut.cz/ontologies/documentation/Statement";
     public final static String s_c_data_attribute_value = "http://onto.fel.cvut.cz/ontologies/documentation/data_attribute_value";
     public final static String s_c_Global_positioning_system_transmitter_system = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Global_positioning_system_transmitter_system";
+    public final static String s_c_extracted_item = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/extracted-item";
     public final static String s_p_prescribes = "http://onto.fel.cvut.cz/ontologies/aviation-safety/prescribes";
     public final static String s_p_accountName = "http://xmlns.com/foaf/0.1/accountName";
     public final static String s_p_has_editor = "http://onto.fel.cvut.cz/ontologies/documentation/has-editor";
@@ -552,8 +550,11 @@ public class Vocabulary {
     public final static String s_c_Location = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Location";
     public final static String s_p_has_responsible_organization = "http://onto.fel.cvut.cz/ontologies/documentation/has_responsible_organization";
     public final static String s_p_lastName = "http://xmlns.com/foaf/0.1/lastName";
+    public final static String s_p_confidence_level = "http://onto.fel.cvut.cz/ontologies/reporting-tool/confidence-level";
     public final static String s_p_source = "http://onto.fel.cvut.cz/ontologies/aviation-safety/source";
     public final static String s_c_Individual = "http://onto.fel.cvut.cz/ontologies/ufo/Individual";
+    public final static String s_p_inv_dot_has_target = "http://onto.fel.cvut.cz/ontologies/dataset-descriptor/inv.has-target";
+    public final static String s_p_last_import = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/last-import";
     public final static String s_c_Heliport = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Heliport";
     public final static String s_c_Bird = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Bird";
     public final static String s_c_Operation = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Operation";
@@ -570,6 +571,7 @@ public class Vocabulary {
     public final static String s_c_Object_creation_event = "http://onto.fel.cvut.cz/ontologies/ufo/Object_creation_event";
     public final static String s_p_is_application_of = "http://onto.fel.cvut.cz/ontologies/aviation-safety/is_application_of";
     public final static String s_c_Planning_and_design = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Planning_and_design";
+    public final static String s_c_admin = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/admin";
     public final static String s_c_air_traffic_control = "http://onto.fel.cvut.cz/ontologies/aviation-safety/air_traffic_control";
     public final static String s_c_training = "http://onto.fel.cvut.cz/ontologies/aviation-safety/training";
     public final static String s_p_has_safety_issue_risk_assessment = "http://onto.fel.cvut.cz/ontologies/arms/sira/model/has_safety_issue_risk_assessment";
@@ -676,6 +678,7 @@ public class Vocabulary {
     public final static String s_c_not_processed = "http://onto.fel.cvut.cz/ontologies/documentation/not_processed";
     public final static String s_c_occurrence_report_A = "http://onto.fel.cvut.cz/ontologies/aviation-safety/occurrence_report";
     public final static String s_p_has_type = "http://onto.fel.cvut.cz/ontologies/ufo/has_type";
+    public final static String s_c_suggested_by_text_analysis = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/suggested-by-text-analysis";
     public final static String s_c_prevention = "http://onto.fel.cvut.cz/ontologies/safety-management/prevention";
     public final static String s_i_flight_stage_phase_type_controled_flight = "http://onto.fel.cvut.cz/ontologies/aviation/core/flight-stage-phase-type-controled-flight";
     public final static String s_c_Hand_over_take_over_procedure = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Hand-over_take-over_procedure";

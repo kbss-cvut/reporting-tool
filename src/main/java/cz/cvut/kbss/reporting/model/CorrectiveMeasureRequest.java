@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.model;
 
 import cz.cvut.kbss.jopa.model.annotations.FetchType;
@@ -24,6 +10,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static cz.cvut.kbss.reporting.util.Constants.DESCRIPTION_TO_STRING_THRESHOLD;
+
 /**
  * The responsiblePerson/Organization and basedOnEvent/Occurrence fields are here because of the lack of support for
  * inheritance in JOPA. This should be handled on DTO level, where these fields should be replaced with ones using
@@ -31,8 +19,6 @@ import java.util.Set;
  */
 @OWLClass(iri = Vocabulary.s_c_corrective_measure_request)
 public class CorrectiveMeasureRequest extends AbstractEntity implements Serializable {
-
-    static final int TO_STRING_MAX = 50;
 
     @OWLDataProperty(iri = Vocabulary.s_p_description)
     private String description;
@@ -118,7 +104,8 @@ public class CorrectiveMeasureRequest extends AbstractEntity implements Serializ
         // First 50 characters of the description
         if (description != null) {
             return "CorrectiveMeasureRequest{" +
-                    (description.length() > TO_STRING_MAX ? description.substring(0, TO_STRING_MAX) + "..." :
+                    (description.length() > DESCRIPTION_TO_STRING_THRESHOLD ?
+                     description.substring(0, DESCRIPTION_TO_STRING_THRESHOLD) + "..." :
                      description) + '}';
         }
         return "CorrectiveMeasureRequest{" + uri + "}";

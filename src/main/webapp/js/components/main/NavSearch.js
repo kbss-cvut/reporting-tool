@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -27,7 +13,7 @@ import Routing from "../../utils/Routing";
 import ReportSearchResultList from "../typeahead/ReportSearchResultList";
 import Utils from "../../utils/Utils";
 
-const OPTION_IDENTIFICATION_THRESHOLD = 45;
+const OPTION_IDENTIFICATION_THRESHOLD = 65;
 
 class NavSearch extends React.Component {
     constructor(props) {
@@ -65,7 +51,8 @@ class NavSearch extends React.Component {
         let option;
         for (let i = 0, len = reports.length; i < len; i++) {
             option = ReportType.getReport(reports[i]);
-            option.description = option.identification;
+            option.description = option.date ? '(' + Utils.formatDate(option.date) + ') - ' : '';
+            option.description += option.identification;
             options.push(option);
         }
         return options;
@@ -114,11 +101,8 @@ class NavSearch extends React.Component {
 
     _getOptionLabelFunction() {
         return function (option) {
-            const date = option.date ? Utils.formatDate(new Date(option.date)) : '',
-                label = option.identification.length > OPTION_IDENTIFICATION_THRESHOLD ?
+            return option.identification.length > OPTION_IDENTIFICATION_THRESHOLD ?
                 option.identification.substring(0, OPTION_IDENTIFICATION_THRESHOLD) + '...' : option.identification;
-
-            return label + ' (' + date + ')';
         }.bind(this);
     }
 }

@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 html {
     height: 100%;
     margin: 0;
@@ -51,6 +37,10 @@ body {
 
 .underline {
     text-decoration: underline;
+}
+
+.relative {
+    position: relative;
 }
 
 .container-fluid .text-muted {
@@ -94,6 +84,10 @@ body {
 
 .content-center {
     text-align: center;
+}
+
+.vtop {
+    vertical-align: top;
 }
 
 td.report-row {
@@ -389,6 +383,10 @@ td.actions button {
     border-right-color: #00A000;
 }
 
+.gantt_grid_head_add {
+    display: none !important;
+}
+
 /* Overriding bootstrap primary panel border color */
 .panel-primary {
     border-color: #bce8f1;
@@ -413,6 +411,10 @@ td.actions button {
 .factor-descriptive-factor {
     background-color: #449d44;
     border: 1px solid #398439;
+}
+
+.factor-suggested {
+    font-style: italic;
 }
 
 ul.event-type {
@@ -714,4 +716,101 @@ button.in-input-line {
 
 .add-glyph {
     margin: 0 5px 0 0;
+}
+
+.rich-editor-container {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+}
+
+.rich-editor {
+    border-top: 1px solid #ddd;
+    cursor: text;
+    min-height: 200px;
+    max-height: 200px;
+    padding: 5px 0;
+    overflow: auto;
+}
+
+.rich-editor-controls {
+    margin-bottom: 5px;
+    user-select: none;
+}
+
+.rich-editor-controls select {
+    margin-right: 16px;
+}
+
+.rich-editor-style-button {
+    color: #999;
+    cursor: pointer;
+    margin-right: 16px;
+    padding: 8px 0;
+    display: inline-block;
+    height: 30px;
+}
+
+.rich-editor-active-button {
+    color: #5890ff;
+}
+
+.rich-editor-hide-placeholder .public-DraftEditorPlaceholder-root {
+    display: none;
+}
+
+.rich-editor-controls .heading-1 {
+    font-size: 120%;
+}
+
+.rich-editor-controls .heading-2 {
+    font-size: 115%;
+}
+
+.rich-editor-controls .heading-3 {
+    font-size: 110%;
+}
+
+.rich-editor-controls .heading-4 {
+    font-size: 105%;
+}
+
+.rich-editor-controls .heading-5 {
+    font-size: 103%;
+}
+
+.rich-editor-controls .heading-6 {
+    font-size: 101%;
+}
+
+.rich-editor-controls .blockquote:before {
+    content: "``";
+}
+
+.rich-editor-controls .bullets:before {
+    content: "• ";
+}
+
+.rich-editor-controls .numbering:before {
+    content: "1. ";
+}
+
+.text-analysis-result {
+    display: inline-table;
+    margin: 0.2em 0.1em;
+    text-decoration: none;
+}
+
+.text-analysis-result:hover {
+    text-decoration: none;
+}
+
+.text-analysis-result:active {
+    text-decoration: none;
+}
+
+.text-analysis-result:first-child {
+    margin-left: 0;
 }

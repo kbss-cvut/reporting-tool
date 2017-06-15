@@ -1,21 +1,7 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.environment.generator;
 
+import cz.cvut.kbss.reporting.factorgraph.FactorGraphItem;
 import cz.cvut.kbss.reporting.model.*;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
 
 import java.net.URI;
 import java.util.*;
@@ -131,29 +117,45 @@ public class OccurrenceReportGenerator {
         return set;
     }
 
-    public static Occurrence generateOccurrenceWithDescendantEvents() {
+    public static Occurrence generateOccurrenceWithDescendantEvents(boolean withUris) {
         final Occurrence occurrence = generateOccurrence();
-        occurrence.setUri(URI.create("http://rootOccurrence"));
+        if (withUris) {
+            occurrence.setUri(URI.create("http://rootOccurrence"));
+        }
         final int maxDepth = Generator.randomInt(5);
         final int childCount = Generator.randomInt(5);
-        generateChildEvents(occurrence, 0, maxDepth, childCount);
+        generateChildEvents(occurrence, 0, maxDepth, childCount, withUris);
         return occurrence;
     }
 
-    private static void generateChildEvents(FactorGraphItem parent, int depth, int maxDepth, int childCount) {
+    private static void generateChildEvents(FactorGraphItem parent, int depth, int maxDepth, int childCount,
+                                            boolean withUris) {
         if (depth >= maxDepth) {
             return;
         }
         parent.setChildren(new LinkedHashSet<>());
         for (int i = 0; i < childCount; i++) {
-            final Event child = new Event();
-            child.setStartTime(new Date());
-            child.setEndTime(new Date());
-            child.setUri(URI.create(Vocabulary.s_c_Event + "-instance" + Generator.randomInt()));
-            child.setEventType(Generator.generateEventType());
+            final Event child = generateEvent();
+            if (withUris) {
+                child.setUri(URI.create(Vocabulary.s_c_Event + "-instance" + Generator.randomInt()));
+            }
             child.setIndex(i);
             parent.getChildren().add(child);
-            generateChildEvents(child, depth + 1, maxDepth, childCount);
+            generateChildEvents(child, depth + 1, maxDepth, childCount, withUris);
         }
+    }
+
+    public static Event generateEvent() {
+        final Event child = new Event();
+        child.setStartTime(new Date());
+        child.setEndTime(new Date());
+        child.setEventType(Generator.generateEventType());
+        return child;
+    }
+
+    public static InitialReport generateInitialReport() {
+        final InitialReport ir = new InitialReport();
+        ir.setDescription("Random description of an initial report. Randomness: " + Generator.randomInt());
+        return ir;
     }
 }

@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.persistence.dao;
 
 import cz.cvut.kbss.jopa.exceptions.NoResultException;
@@ -19,7 +5,7 @@ import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.reporting.model.Occurrence;
 import cz.cvut.kbss.reporting.model.OccurrenceReport;
 import cz.cvut.kbss.reporting.model.Vocabulary;
-import cz.cvut.kbss.reporting.persistence.dao.util.OrphanRemover;
+import cz.cvut.kbss.reporting.persistence.util.OrphanRemover;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,11 +14,12 @@ import java.net.URI;
 @Repository
 public class OccurrenceReportDao extends BaseReportDao<OccurrenceReport> implements GenericDao<OccurrenceReport> {
 
-    @Autowired
-    private OccurrenceDao occurrenceDao;
+    private final OccurrenceDao occurrenceDao;
 
-    public OccurrenceReportDao() {
+    @Autowired
+    public OccurrenceReportDao(OccurrenceDao occurrenceDao) {
         super(OccurrenceReport.class);
+        this.occurrenceDao = occurrenceDao;
     }
 
     @Override
@@ -46,18 +33,18 @@ public class OccurrenceReportDao extends BaseReportDao<OccurrenceReport> impleme
 
     @Override
     protected void update(OccurrenceReport entity, EntityManager em) {
-        if (entity.getUri() != null) {
-            updateWithOrphanRemoval(entity, em);
-        } else {
-            em.merge(entity);
-        }
+        final OccurrenceReport original = em.find(OccurrenceReport.class, entity.getUri());
+        assert original != null;
+        em.detach(original);
+        final OccurrenceReport merged = em.merge(entity);
+        new OrphanRemover(em).removeOrphans(original.getCorrectiveMeasures(), merged.getCorrectiveMeasures());
+        occurrenceDao.update(entity.getOccurrence(), em);
     }
 
-    private void updateWithOrphanRemoval(OccurrenceReport entity, EntityManager em) {
-        final OccurrenceReport original = em.find(OccurrenceReport.class, entity.getUri());
-        em.merge(entity);
-        new OrphanRemover(em).removeOrphans(original.getCorrectiveMeasures(), entity.getCorrectiveMeasures());
-        occurrenceDao.update(entity.getOccurrence(), em);
+    @Override
+    protected void remove(OccurrenceReport entity, EntityManager em) {
+        occurrenceDao.remove(entity.getOccurrence(), em);
+        super.remove(entity, em);
     }
 
     /**

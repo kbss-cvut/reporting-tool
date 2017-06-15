@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.rest.dto;
 
 import cz.cvut.kbss.reporting.dto.event.EventDto;
@@ -20,12 +6,12 @@ import cz.cvut.kbss.reporting.dto.event.FactorGraphEdge;
 import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
 import cz.cvut.kbss.reporting.environment.generator.Generator;
 import cz.cvut.kbss.reporting.environment.util.Environment;
+import cz.cvut.kbss.reporting.factorgraph.FactorGraphItem;
 import cz.cvut.kbss.reporting.model.Event;
 import cz.cvut.kbss.reporting.model.Factor;
 import cz.cvut.kbss.reporting.model.Occurrence;
 import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.reporting.model.util.HasUri;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
 import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapper;
 import cz.cvut.kbss.reporting.rest.dto.mapper.DtoMapperImpl;
 import org.junit.Before;
@@ -56,6 +42,7 @@ public class EventFactorsSerializationTest {
     @Test
     public void testSerializationOfOccurrenceWithSubEvents() throws Exception {
         final Occurrence occurrence = generateOccurrenceWithSubEvents();
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
         final FactorGraph container = dtoMapper.occurrenceToFactorGraph(occurrence);
         verifyStructure(occurrence, container);
     }
@@ -112,7 +99,7 @@ public class EventFactorsSerializationTest {
     }
 
     private void verifyEdge(EventDto start, EventDto end, URI type, FactorGraph graph) {
-        final FactorGraphEdge edge = new FactorGraphEdge(start.getReferenceId(), end.getReferenceId(), type);
+        final FactorGraphEdge edge = new FactorGraphEdge(null, start.getReferenceId(), end.getReferenceId(), type);
         assertTrue(graph.getEdges().contains(edge));
     }
 
@@ -146,8 +133,32 @@ public class EventFactorsSerializationTest {
     @Test
     public void testSerializationOfLinksBetweenOccurrenceAndEventsAtSameLevel() throws Exception {
         final Occurrence occurrence = generateOccurrenceWithLinkChainOnSameLevel();
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
         final FactorGraph container = dtoMapper.occurrenceToFactorGraph(occurrence);
         verifyStructure(occurrence, container);
+    }
+
+    @Test
+    public void serializationMapsFactorUriToEdgeUri() throws Exception {
+        final Occurrence occurrence = occurrence();
+        final Event e1 = event();
+        final Event e2 = event();
+        occurrence.addChild(e1);
+        occurrence.addChild(e2);
+        final Factor factor = new Factor();
+        factor.setEvent(e2);
+        e1.addFactor(factor);
+        factor.addType(Generator.randomFactorType());
+        factor.setUri(Generator.generateUri());
+
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
+        final FactorGraph graph = dtoMapper.occurrenceToFactorGraph(occurrence);
+        final Optional<FactorGraphEdge> result = graph.getEdges().stream()
+                                                      .filter(e -> e.getLinkType()
+                                                                    .equals(factor.getTypes().iterator().next()))
+                                                      .findAny();
+        assertTrue(result.isPresent());
+        assertEquals(factor.getUri(), result.get().getUri());
     }
 
     private Occurrence generateOccurrenceWithLinkChainOnSameLevel() {
@@ -178,6 +189,7 @@ public class EventFactorsSerializationTest {
     public void testSerializationOfOccurrenceWithSubEventsConnectedByFactors() throws Exception {
         final Occurrence occurrence = generateOccurrenceWithSubEvents();
         addFactorsToStructure(occurrence.getChildren());
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
         final FactorGraph graph = dtoMapper.occurrenceToFactorGraph(occurrence);
 
         verifyStructure(occurrence, graph);
@@ -208,6 +220,7 @@ public class EventFactorsSerializationTest {
     public void testSerializationOfOccurrenceWithFactorsConnectingEventsFromDifferentSubtrees() {
         final Occurrence occurrence = generateOccurrenceWithSubEvents();
         addCrossSubtreeFactors(occurrence.getChildren());
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
         final FactorGraph graph = dtoMapper.occurrenceToFactorGraph(occurrence);
         verifyStructure(occurrence, graph);
     }
@@ -236,6 +249,7 @@ public class EventFactorsSerializationTest {
     public void serializationOfEventSiblingsOrdersThemByIndex() {
         final Occurrence occurrence = prepareOccurrenceWithChildren(true);
 
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
         final FactorGraph result = dtoMapper.occurrenceToFactorGraph(occurrence);
         Integer previousIndex = -1;
         for (EventDto node : result.getNodes()) {
@@ -267,6 +281,7 @@ public class EventFactorsSerializationTest {
     public void serializationOfEventsWithNullIndexIsLossLess() {
         final Occurrence occurrence = prepareOccurrenceWithChildren(false);
         final int expectedSize = 1 + occurrence.getChildren().size();
+        dtoMapper.occurrenceToOccurrenceDto(occurrence);
         final FactorGraph result = dtoMapper.occurrenceToFactorGraph(occurrence);
         assertEquals(expectedSize, result.getNodes().size());
     }
@@ -415,5 +430,21 @@ public class EventFactorsSerializationTest {
 
     private FactorGraph loadGraph(String fileName) throws Exception {
         return Environment.loadData(fileName, FactorGraph.class);
+    }
+
+    @Test
+    public void deserializationCreatesFactorsWithExistingUri() throws Exception {
+        final FactorGraph graph = loadGraph("data/occurrenceWithFactorsAtSameLevel.json");
+        graph.getEdges().stream().filter(e -> !e.getLinkType().equals(HAS_PART_URI))
+             .forEach(e -> e.setUri(Generator.generateUri()));
+        final Occurrence res = dtoMapper.factorGraphToOccurrence(graph);
+        assertEquals(2, res.getFactors().size());
+        for (Factor f : res.getFactors()) {
+            final Optional<FactorGraphEdge> edge = graph.getEdges().stream().filter(e ->
+                    e.getFrom().equals(f.getEvent().getReferenceId()) && f.getTypes().contains(e.getLinkType()))
+                                                        .findAny();
+            assertTrue(edge.isPresent());
+            assertEquals(edge.get().getUri(), f.getUri());
+        }
     }
 }

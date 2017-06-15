@@ -1,26 +1,12 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var assign = require('object-assign');
-var Vocabulary = require('../constants/Vocabulary');
+const assign = require('object-assign');
+const Vocabulary = require('../constants/Vocabulary');
 
 /**
  * Main facade of factor graph serialization to JSON.
  */
-var FactorJsonSerializer = {
+const FactorJsonSerializer = {
     ganttController: null,
     ganttIdsToNodes: null,
 
@@ -44,7 +30,7 @@ var FactorJsonSerializer = {
 /**
  * This class does the actual serialization.
  */
-var FactorSerializer = {
+const FactorSerializer = {
     ganttController: null,
     ganttIdsToNodes: null,
 
@@ -55,7 +41,7 @@ var FactorSerializer = {
     getFactorGraph: function () {
         this.ganttIdsToNodes = {};
         // Make sure nodes are processed before edges
-        var nodes = this._getNodes();
+        const nodes = this._getNodes();
         return {
             nodes: nodes,
             edges: this._getEdges()
@@ -63,10 +49,10 @@ var FactorSerializer = {
     },
 
     _getNodes: function () {
-        var nodes = [],
+        const nodes = [],
             me = this;
         this.ganttController.forEach((item) => {
-            var node = assign({}, item.statement);
+            const node = assign({}, item.statement);
             node.startTime = item.start_date.getTime();
             node.endTime = item.end_date.getTime();
             me.ganttIdsToNodes[item.id] = node;
@@ -76,20 +62,20 @@ var FactorSerializer = {
     },
 
     _getEdges: function () {
-        var edges = [];
+        const edges = [];
         Array.prototype.push.apply(edges, this._resolvePartOfHierarchy());
         Array.prototype.push.apply(edges, this._resolveFactorLinks());
         return edges;
     },
 
     _resolvePartOfHierarchy: function () {
-        var partOfEdges = [];
+        const partOfEdges = [];
         this.ganttController.forEach((item) => {
-            var children = this.ganttController.getChildren(item.id);
+            const children = this.ganttController.getChildren(item.id);
             if (children.length === 0) {
                 return;
             }
-            for (var i = 0, len = children.length; i < len; i++) {
+            for (let i = 0, len = children.length; i < len; i++) {
                 partOfEdges.push({
                     from: this.ganttIdsToNodes[item.id],
                     to: this.ganttIdsToNodes[children[i].id],
@@ -101,13 +87,14 @@ var FactorSerializer = {
     },
 
     _resolveFactorLinks: function () {
-        var links = this.ganttController.getLinks(),
+        const links = this.ganttController.getLinks(),
             edges = [];
-        for (var i = 0, len = links.length; i < len; i++) {
+        for (let i = 0, len = links.length; i < len; i++) {
             edges.push({
                 from: this.ganttIdsToNodes[links[i].source],
                 to: this.ganttIdsToNodes[links[i].target],
-                linkType: links[i].factorType
+                linkType: links[i].factorType,
+                uri: links[i].uri
             });
         }
         return edges;

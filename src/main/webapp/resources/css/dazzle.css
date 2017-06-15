@@ -1,0 +1,55 @@
+.defaultWidgetFrame {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+}
+
+.defaultWidgetFrameHeader {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+.defaultWidgetFrameHeader .title {
+    font-size: 18px;
+    float: left;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.defaultWidgetFrameHeader .remove {
+    float: right;
+    font-size: 11px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.add-widget-button {
+    padding: 10px;
+    text-align: center;
+    border: 1px dotted #DCDCDC;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.add-widget-link {
+    text-decoration: none;
+}
+
+.editable-column {
+    border: 1px dotted #8C8080;
+    padding: 10px;
+}
+
+.droppable-column {
+    background-color: #E7E7E7;
+}

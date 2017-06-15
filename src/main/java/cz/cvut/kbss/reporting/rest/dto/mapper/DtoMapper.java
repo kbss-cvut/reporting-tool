@@ -1,17 +1,3 @@
-/**
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package cz.cvut.kbss.reporting.rest.dto.mapper;
 
 import cz.cvut.kbss.reporting.dto.CorrectiveMeasureRequestDto;
@@ -23,10 +9,10 @@ import cz.cvut.kbss.reporting.dto.event.EventDto;
 import cz.cvut.kbss.reporting.dto.event.FactorGraph;
 import cz.cvut.kbss.reporting.dto.event.FactorGraphEdge;
 import cz.cvut.kbss.reporting.dto.event.OccurrenceDto;
+import cz.cvut.kbss.reporting.factorgraph.FactorGraphItem;
+import cz.cvut.kbss.reporting.factorgraph.traversal.FactorGraphTraverser;
+import cz.cvut.kbss.reporting.factorgraph.traversal.IdentityBasedFactorGraphTraverser;
 import cz.cvut.kbss.reporting.model.*;
-import cz.cvut.kbss.reporting.model.util.factorgraph.FactorGraphItem;
-import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.DefaultFactorGraphTraverser;
-import cz.cvut.kbss.reporting.model.util.factorgraph.traversal.FactorGraphTraverser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -201,19 +187,25 @@ public abstract class DtoMapper {
         if (occurrence == null) {
             return null;
         }
-        if (eventDtoRegistry == null) {
-            reset();
-        }
+        assert eventDtoRegistry != null;
+        assert eventDtoRegistry.containsKey(occurrence.getUri());
         final DtoNodeVisitor nodeVisitor = new DtoNodeVisitor(this, random, eventDtoRegistry);
-        final FactorGraphTraverser traverser = new DefaultFactorGraphTraverser(nodeVisitor, null);
+        final FactorGraphTraverser traverser = new IdentityBasedFactorGraphTraverser(nodeVisitor, null);
         traverser.traverse(occurrence);
         final DtoEdgeVisitor edgeVisitor = new DtoEdgeVisitor(nodeVisitor.getInstanceMap());
         traverser.setFactorGraphEdgeVisitor(edgeVisitor);
         traverser.traverse(occurrence);
         final FactorGraph graph = new FactorGraph();
         graph.setNodes(new ArrayList<>(nodeVisitor.getInstanceMap().values()));
+        clearTemporaryUris(nodeVisitor.getTemporaryUris(), graph);
         graph.setEdges(edgeVisitor.getEdges());
+        reset();
         return graph;
+    }
+
+    private void clearTemporaryUris(Set<URI> tempUris, FactorGraph factorGraph) {
+        factorGraph.getNodes().stream().filter(node -> tempUris.contains(node.getUri()))
+                   .forEach(node -> node.setUri(null));
     }
 
     public Occurrence factorGraphToOccurrence(FactorGraph graph) {
@@ -223,18 +215,18 @@ public abstract class DtoMapper {
         final Map<Integer, EventDto> dtoMap = new HashMap<>();
         graph.getNodes().forEach(n -> dtoMap.put(n.getReferenceId(), n));
         final Map<Integer, FactorGraphItem> instanceMap = new HashMap<>(dtoMap.size());
-        graph.getNodes().forEach(n -> {
-            if (n instanceof OccurrenceDto) {
-                instanceMap.put(n.getReferenceId(), occurrenceDtoToOccurrence((OccurrenceDto) n));
+        Occurrence occurrence = null;
+        for (EventDto node : graph.getNodes()) {
+            if (node instanceof OccurrenceDto) {
+                occurrence = occurrenceDtoToOccurrence((OccurrenceDto) node);
+                instanceMap.put(node.getReferenceId(), occurrence);
             } else {
-                instanceMap.put(n.getReferenceId(), eventDtoToEvent(n));
+                instanceMap.put(node.getReferenceId(), eventDtoToEvent(node));
             }
-        });
+        }
         transformEdgesToRelations(graph, dtoMap, instanceMap);
-        final Optional<FactorGraphItem> occurrence = instanceMap.values().stream()
-                                                                .filter(item -> item instanceof Occurrence).findFirst();
-        assert occurrence.isPresent();
-        return (Occurrence) occurrence.get();
+        assert occurrence != null;
+        return occurrence;
     }
 
     private void transformEdgesToRelations(FactorGraph graph, Map<Integer, EventDto> dtoMap,
@@ -247,8 +239,10 @@ public abstract class DtoMapper {
                 instanceMap.get(source.getReferenceId()).addChild((Event) instanceMap.get(target.getReferenceId()));
             } else {
                 final Factor factor = new Factor();
+                factor.setUri(e.getUri());
                 factor.addType(e.getLinkType());
                 factor.setEvent((Event) instanceMap.get(source.getReferenceId()));
+                assert factor.getEvent() != null;
                 instanceMap.get(target.getReferenceId()).addFactor(factor);
             }
         }

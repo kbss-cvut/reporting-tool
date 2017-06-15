@@ -1,89 +1,71 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
-var React = require('react');
-var Reflux = require('reflux');
+import React from "react";
+import Actions from "../../actions/Actions";
+import Constants from "../../constants/Constants";
+import Logger from "../../utils/Logger";
+import Report from "./Report";
+import ReportFactory from "../../model/ReportFactory";
+import ReportStore from "../../stores/ReportStore";
+import RouterStore from "../../stores/RouterStore";
+import Routes from "../../utils/Routes";
 
-var Actions = require('../../actions/Actions');
-var Constants = require('../../constants/Constants');
-var Logger = require('../../utils/Logger');
-var ReportFactory = require('../../model/ReportFactory');
-var Report = require('./Report').default;
-var OptionsStore = require('../../stores/OptionsStore'); // Force store initialization, so that it can listen to actions
-var ReportStore = require('../../stores/ReportStore');
-var RouterStore = require('../../stores/RouterStore');
-var Routes = require('../../utils/Routes');
 
-var ReportController = React.createClass({
-    mixins: [Reflux.listenTo(ReportStore, 'onReportStoreTrigger')],
+export default class ReportController extends React.Component {
 
-    getInitialState: function () {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             key: null,
-            report: this._isNew() ? this.initNewReport() : null,
+            report: this._isNew() ? ReportController.initNewReport() : null,
             revisions: null,
             loading: false
         };
-    },
+    }
 
-    _isNew: function () {
+    _isNew() {
         return !this.props.params.reportKey;
-    },
+    }
 
-    initNewReport: function () {
-        var payload = RouterStore.getTransitionPayload(Routes.createReport.name),
-            report = ReportFactory.createOccurrenceReport();
-        if (payload) {
-            report.initialReports = payload.initialReports;
-        }
-        return report;
-    },
+    static initNewReport() {
+        const payload = RouterStore.getTransitionPayload(Routes.createReport.name);
+        return payload ? payload : ReportFactory.createOccurrenceReport();
+    }
 
-    componentWillMount: function () {
+    componentDidMount() {
+        this.unsubscribe = ReportStore.listen(this.onReportStoreTrigger);
+        Actions.loadOptions(Constants.OPTIONS.OCCURRENCE_CLASS);
+        Actions.loadOptions(Constants.OPTIONS.OCCURRENCE_CATEGORY);
+        Actions.loadOptions(Constants.OPTIONS.FACTOR_TYPE);
         if (!this._isNew()) {
             this._loadReport(this.props.params.reportKey);
         }
-    },
+    }
 
-    componentDidMount: function () {
-        Actions.loadOptions();
-        Actions.loadOptions(Constants.OPTIONS.OCCURRENCE_CATEGORY);
-        Actions.loadOptions('factorType');
-    },
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
-    _loadReport: function (reportKey) {
+    _loadReport(reportKey) {
         Actions.loadReport(reportKey);
         this.setState({loading: true, key: reportKey});
-    },
+    }
 
-    componentWillReceiveProps: function (nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.params.reportKey && this.state.key !== nextProps.params.reportKey) {
             this._loadReport(nextProps.params.reportKey);
         }
-    },
+    }
 
-    onReportStoreTrigger: function (data) {
+    onReportStoreTrigger = (data) => {
         if (data.action === Actions.loadReport) {
             this._onReportLoaded(data.report);
-        } else if (data.action == Actions.loadRevisions) {
+        } else if (data.action === Actions.loadRevisions) {
             this.setState({revisions: data.revisions});
         }
-    },
+    };
 
-    _onReportLoaded: function (report) {
+    _onReportLoaded = (report) => {
         if (!report) {
             this.setState({loading: false});
         } else {
@@ -91,12 +73,10 @@ var ReportController = React.createClass({
             this.setState({report: report, loading: false});
             Actions.loadRevisions(report.fileNumber);
         }
-    },
+    };
 
 
-    render: function () {
+    render() {
         return <Report report={this.state.report} revisions={this.state.revisions} loading={this.state.loading}/>;
     }
-});
-
-module.exports = ReportController;
+}
