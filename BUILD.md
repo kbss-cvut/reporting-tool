@@ -1,9 +1,66 @@
 # Building Reporting Tool
 
-Tento dokument popisuje proces sestavení aplikace Reporting Tool.
+This document describes the process of building the Reporting tool.
 
 ## Reporting Tool
 
+#### Environment Requirements
+
+Building a production archive of the reporting tool (RT) requires the presence and correct configuration of the following tools and platforms:
+
+* JDK 8 (available at [http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)),
+* Apache Maven 3.x (available at [https://maven.apache.org/](https://maven.apache.org/)),
+* NodeJS v6.x (available at [https://nodejs.org/en/](https://nodejs.org/en/)),
+* npm 3.x (part of NodeJS distribution).
+
+The build process requires internet access.
+
+#### Configuration
+
+Before the actual build, it is possible to modify the configuration used by the RT at runtime. This configuration is divided
+into several groups, which have their own configuration files.
+
+##### Main RT Configuration
+
+The main configuration of the RT resides in `src/main/resources/config.properties`. The following parameters can be set:
+
+* `repositoryUrl` - URL of the main repository in which application stores its data,
+* `eventTypesRepository` - URL of the repository containing vocabularies and taxonomies used by the RT,
+* `formGenRepositoryUrl` - URL of the repository used by the RT and the form generator to share data used by the form generation process,
+* `formGenServiceUrl` - URL of the form generator web service,
+* `textAnalysisServiceUrl` - URL of the text analysis web service.
+
+The application is preconfigured to values compatible with the installation guide.
+
+
+##### Text Analysis Service Configuration
+
+Configuration for the text analysis service, which is used in initial report import, is in `src/main/resources/text-analysis.properties`.
+
+The following parameters can be configured:
+
+* `text-analysis.vocabularies` - comma-separated list of vocabularies used in term recognition.
+
+#### Build
+
+When the configuration is finished, it is possible to build the application.
+
+1. Open terminal or command line.
+1. Change the current directory to the RT project root.
+2. Start the build process using `mvn clean package -p production`.
+    1. This can take a few minutes.
+4. The output archive is called `reporting-tool.war` and it can be found in the `target` directory.
+
+The `reporting-tool.war` archive can be deployed to an application server. It is then available at 
+`http://server.url/reporting-tool`, where `http://server.url/` is the URL of the application server.
+
+
+
+## Czech Version
+
+Tento dokument popisuje proces sestavení aplikace Reporting Tool.
+
+## Reporting Tool
 
 #### Požadované prostředí
 
@@ -52,7 +109,7 @@ Po případných úpravách konfigurace lze přistoupit k sestavení produkční
 1. Nastavte cestu do hlavní složky RT.
 2. Spusťte sestavení příkazem `mvn clean package -p production`.
     1. Tento krok může trvat několik minut.
-4. Výsledný archiv nese název `inbas-reporting-tool.war` a nachází se ve složce `target`.
+4. Výsledný archiv nese název `reporting-tool.war` a nachází se ve složce `target`.
 
-Archiv `inbas-reporting-tool.war` lze nakopírovat do aplikačního serveru, kde bude pak aplikace dostupná na adrese 
-`http://adresa.serveru/inbas-reporting-tool`, kde `http://adresa.serveru/` je adresa, na které je aplikační server dostupný.
+Archiv `reporting-tool.war` lze nakopírovat do aplikačního serveru, kde bude pak aplikace dostupná na adrese 
+`http://adresa.serveru/reporting-tool`, kde `http://adresa.serveru/` je adresa, na které je aplikační server dostupný.
