@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 /**
  * Czech localization.
  */
@@ -148,7 +134,9 @@ module.exports = {
 
         'occurrence.headline-tooltip': 'Krátké pojmenování události - pole je povinné',
         'occurrence.start-time': 'Počátek události',
-        'occurrence.start-time-tooltip': 'Datum a čas kdy k události došlo. Pozn.: Změna počátku události posouvá celou událost v čase. Změna konce události ovlivňuje její trvání.',
+        'occurrence.start-time-tooltip': 'Datum a čas kdy k události došlo.\nPozn.: Změna počátku události posouvá celou událost v čase. Změna konce události ovlivňuje její trvání.',
+        'occurrence.start.date-tooltip': 'Datum kdy k události došlo.\nPozn.: Změna počátku události posouvá celou událost v čase. Změna konce události ovlivňuje její trvání.',
+        'occurrence.start.time-tooltip': 'Čas kdy k události došlo.\nPozn.: Změna počátku události posouvá celou událost v čase. Změna konce události ovlivňuje její trvání.',
         'occurrence.end-time': 'Konec události',
         'occurrence.end-time-tooltip': 'Datum a čas kdy událost skončila',
         'occurrence.class': 'Třída závažnosti',

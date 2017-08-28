@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 describe('OccurrenceReport', function () {
@@ -137,5 +123,12 @@ describe('OccurrenceReport', function () {
         const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
             summaryButton = TestUtils.findRenderedDOMComponentWithClass(component, 'detail-top-button');
         expect(summaryButton.disabled).toBeTruthy();
+    });
+
+    it('does not display the Export to E5X button for new, unsaved report', () => {
+        report = ReportFactory.createOccurrenceReport();
+        const component = Environment.render(<OccurrenceReport report={report} handlers={handlers}/>),
+            exportButton = Environment.getComponentByTagAndContainedText(component, 'button', messages['exportToE5X']);
+        expect(exportButton).toBeNull();
     });
 });

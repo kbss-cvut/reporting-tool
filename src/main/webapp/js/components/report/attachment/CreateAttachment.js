@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -52,10 +38,11 @@ class CreateAttachment extends React.Component {
     };
 
     render() {
+        const valid = this.state.reference.length > 0;
         return <div className='row form-group'>
             <div className='col-xs-4'>
                 <Input name='attachment_reference'
-                       label={this.i18n('report.attachments.create.reference-label') + '*'}
+                       label={this.i18n('report.attachments.create.reference-label')}
                        title={this.i18n('report.attachments.create.reference-tooltip')}
                        value={this.state.reference} onChange={this._onChange}/>
             </div>
@@ -67,7 +54,7 @@ class CreateAttachment extends React.Component {
             </div>
             <div className='col-xs-1'>
                 <Button className='in-input-line' bsSize='small' bsStyle='primary' onClick={this._onSave}
-                        disabled={this.state.reference.length === 0}>
+                        disabled={!valid} title={!valid ? this.i18n('report.attachments.save.disabled-tooltip') : null}>
                     {this.i18n('report.attachments.create.button')}
                 </Button>
             </div>

@@ -19,6 +19,17 @@ import ReportFactory from "../../js/model/ReportFactory";
 
 describe('ReportFactory', () => {
 
+    describe('createOccurrenceReport', () => {
+        it('creates report with occurrence start and end time rounded to whole minutes', () => {
+            const result = ReportFactory.createOccurrenceReport(),
+                millisToMinutes = 1000 * 60;
+            expect(result.occurrence.startTime % millisToMinutes).toEqual(0);
+            expect(result.occurrence.endTime % millisToMinutes).toEqual(0);
+            expect(result.occurrence.startTime).toBeLessThan(Date.now());
+            expect(result.occurrence.endTime).toBeLessThan(Date.now());
+        });
+    });
+
     describe('createFactor', () => {
 
         it('creates empty factor with java class set when no parent is specified', () => {

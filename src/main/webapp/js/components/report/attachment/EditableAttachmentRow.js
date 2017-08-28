@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -49,6 +35,7 @@ class EditableAttachmentRow extends React.Component {
     };
 
     render() {
+        const valid = this.state.reference.length > 0;
         return <tr>
             <td className='report-row inline'>
                 <Input name='attachment_edit_reference' value={this.state.reference} onChange={this._onChange}/>
@@ -57,7 +44,8 @@ class EditableAttachmentRow extends React.Component {
                 <Input name='attachment_edit_description' value={this.state.description} onChange={this._onChange}/>
             </td>
             <td className='report-row actions'>
-                <Button bsStyle='success' bsSize='small'
+                <Button bsStyle='success' bsSize='small' disabled={!valid}
+                        title={!valid ? this.i18n('report.attachments.save.disabled-tooltip') : null}
                         onClick={this._onSave}>{this.i18n('save')}</Button>
                 <Button bsSize='small'
                         onClick={this.props.onCancel}>{this.i18n('cancel')}</Button>

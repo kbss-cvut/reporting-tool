@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 import React from "react";
@@ -19,7 +5,7 @@ import I18nWrapper from "../../../i18n/I18nWrapper";
 import injectIntl from "../../../utils/injectIntl";
 import StatisticsStore from "../../../stores/StatisticsStore";
 import Actions from "../../../actions/Actions";
-import {Bar, BarChart, Brush, CartesianGrid, Legend, Tooltip, XAxis, YAxis} from "recharts";
+import {BarChart, Bar, Brush, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from "recharts";
 import Utils from "../Utils";
 import LoadingWrapper from "../../misc/hoc/LoadingWrapper";
 
@@ -78,7 +64,7 @@ class OccurrenceSeverityTrends extends React.Component {
         });
 
         const barLabels = ["Not Determined", "Occurrence Without Safety Effect", "Incident", "Serious Incident", "Accident"];
-        const color=['#fff800', '#ffcb00', '#ffa900','#ff7100','#ff0000'];
+        const color=['#D8D8D8','#fff800', '#FFCC78','#ED8800','#E70000'];
 
         const bars = barLabels.map((label, index) => {
             return <Bar key={index} dataKey={label} stackId="a" fill={color[index]}/>

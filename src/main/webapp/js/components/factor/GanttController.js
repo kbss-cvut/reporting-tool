@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 const classNames = require('classnames');
@@ -161,7 +147,7 @@ const GanttController = {
             let tooltip = '<b>' + task.text + '</b><br/>';
             tooltip += '<b>Start date:</b> ' + gantt.templates.tooltip_date_format(start) +
                 '<br/><b>End date:</b> ' + gantt.templates.tooltip_date_format(end);
-            if (task.statement.types.indexOf(Vocabulary.SUGGESTED) !== -1) {
+            if (task.statement.types && task.statement.types.indexOf(Vocabulary.SUGGESTED) !== -1) {
                 tooltip += '<br/><i>' + I18nStore.i18n('factors.event-suggested') + '</i>';
             }
             return tooltip;

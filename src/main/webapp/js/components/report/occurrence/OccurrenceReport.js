@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2016 Czech Technical University in Prague
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 'use strict';
 
 const React = require('react');
@@ -85,7 +71,7 @@ const OccurrenceReport = React.createClass({
         Actions.submitReport(this.props.report, this.onSubmitSuccess, this.onSubmitError);
     },
 
-    onExportToE5X: function(){
+    onExportToE5X: function () {
         let localFileAddress = BASE_URL_WITH_SLASH + this.props.report.key + "/export/e5x";
         window.open(localFileAddress);
     },
@@ -241,8 +227,7 @@ const OccurrenceReport = React.createClass({
     },
 
     _getSaveButtonLabel: function () {
-        return this.i18n(this.state.submitting === Actions.newRevisionFromLatestEccairs ? 'please-wait' :
-            this.state.submitting ? 'detail.saving' : 'save');
+        return this.i18n(this.state.submitting ? 'detail.saving' : 'save');
     },
 
     getSaveButtonTitle: function () {
@@ -263,10 +248,12 @@ const OccurrenceReport = React.createClass({
             </Button>;
     },
 
-    renderExportToE5XButton: function(){
-        return <Button bsStyle='primary' bsSize='small' title={this.i18n('exportToE5X')} onClick={this.onExportToE5X} disabled={this.state.submitting !== false}>
-            {this.i18n('exportToE5X')}
-        </Button>;
+    renderExportToE5XButton: function () {
+        return this.props.report.isNew ? null :
+            <Button bsStyle='primary' bsSize='small' title={this.i18n('exportToE5X')} onClick={this.onExportToE5X}
+                    disabled={this.state.submitting !== false}>
+                {this.i18n('exportToE5X')}
+            </Button>;
     }
 });
 
