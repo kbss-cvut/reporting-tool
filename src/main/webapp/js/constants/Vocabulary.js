@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -25,5 +25,7 @@ module.exports = {
 
     HAS_PART: 'http://onto.fel.cvut.cz/ontologies/ufo/has_part',
     TRANSITION_LABEL: 'http://onto.fel.cvut.cz/ontologies/documentation/transition_label',
-    SUGGESTED: "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/suggested-by-text-analysis"
+    SUGGESTED: "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/suggested-by-text-analysis",
+
+    ROLE_ADMIN: 'http://onto.fel.cvut.cz/ontologies/reporting-tool/model/admin'
 };

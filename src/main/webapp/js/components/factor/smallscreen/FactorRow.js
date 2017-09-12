@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -28,10 +28,10 @@ const FactorRow = (props) => {
         eventType = ObjectTypeResolver.resolveType(node.eventType, props.eventTypes),
         text = eventType ? JsonLdUtils.getJsonAttValue(eventType, Vocabulary.RDFS_LABEL) : node.eventType;
     return <tr>
-        <td className='report-row'>{text}</td>
-        <td className='report-row content-center'>{Utils.formatDate(node.startTime)}</td>
-        <td className='report-row content-center'>{Utils.formatDate(node.endTime)}</td>
-        <td className='report-row actions'>
+        <td className='vertical-middle'>{text}</td>
+        <td className='vertical-middle content-center'>{Utils.formatDate(node.startTime)}</td>
+        <td className='vertical-middle content-center'>{Utils.formatDate(node.endTime)}</td>
+        <td className='vertical-middle actions'>
             <Button bsStyle='primary' bsSize='small'
                     onClick={(e) => props.handlers.onDetails(node, text)}>{props.i18n('factors.detail.details')}</Button>
             <Button bsStyle='primary' bsSize='small'

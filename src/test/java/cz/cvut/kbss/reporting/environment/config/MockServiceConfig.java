@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -22,8 +22,10 @@ import cz.cvut.kbss.reporting.service.factory.OccurrenceReportFactory;
 import cz.cvut.kbss.reporting.service.formgen.FormGenService;
 import cz.cvut.kbss.reporting.service.options.OptionsService;
 import cz.cvut.kbss.reporting.service.search.SearchService;
+import cz.cvut.kbss.reporting.service.security.SecurityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,8 +72,8 @@ public class MockServiceConfig {
     }
 
     @Bean
-    public ConfigReader configReader() {
-        return new ConfigReader();
+    public ConfigReader configReader(Environment environment) {
+        return new ConfigReader(environment);
     }
 
     @Bean(name = "localDataLoader")
@@ -112,5 +114,10 @@ public class MockServiceConfig {
     @Bean
     public ReportExporter reportExporter() {
         return mock(ReportExporter.class);
+    }
+
+    @Bean
+    public SecurityUtils securityUtils() {
+        return mock(SecurityUtils.class);
     }
 }

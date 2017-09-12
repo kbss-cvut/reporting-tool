@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -104,7 +104,7 @@ body {
     vertical-align: top;
 }
 
-td.report-row {
+td.vertical-middle {
     vertical-align: middle !important; /* Use important to override bootstrap */
 }
 
@@ -136,10 +136,6 @@ ul.autocomplete-results.extended {
     margin-left: 0.2em;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
-}
-
-.vertical-middle {
-    vertical-align: middle;
 }
 
 td.actions {
@@ -175,6 +171,10 @@ td.actions button {
     left: 0;
     right: 0;
     margin: auto;
+}
+
+.modal-content .register-panel {
+    bottom: auto;
 }
 
 .register-panel.expanded {
@@ -827,4 +827,25 @@ button.in-input-line {
 
 .text-analysis-result:first-child {
     margin-left: 0;
+}
+
+.profile-container {
+    width: 45%;
+    margin: auto;
+}
+
+.profile-panel {
+    margin-bottom: 0 !important;
+}
+
+.profile-panel.expanded {
+    padding-bottom: 5em;
+}
+
+.profile-form {
+    margin: 1em 0;
+}
+
+.profile-button {
+    margin: 0 0.5em;
 }

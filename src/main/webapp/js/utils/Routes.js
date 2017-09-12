@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,7 +14,7 @@
  */
 'use strict';
 
-var Routes = {
+module.exports = {
 
     login: {name: 'login', path: 'login'},
     register: {name: 'register', path: 'register'},
@@ -23,7 +23,6 @@ var Routes = {
     statistics: {name: 'statistics', path: 'statistics'},
     createReport: {name: 'createReport', path: 'reports/create'},
     editReport: {name: 'editReport', path: 'reports/:reportKey'},
-    searchResults: {name: 'searchResults', path: 'search'}
+    searchResults: {name: 'searchResults', path: 'search'},
+    administration: {name: 'admin', path: 'admin'}
 };
-
-module.exports = Routes;

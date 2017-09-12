@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,11 +14,12 @@
  */
 package cz.cvut.kbss.reporting.rest;
 
+import cz.cvut.kbss.reporting.security.SecurityConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('" + SecurityConstants.ROLE_USER + "')")
 public class BaseController {
 
     protected static final Logger LOG = LoggerFactory.getLogger(BaseController.class);

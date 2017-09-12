@@ -1,3 +1,17 @@
+/*
+ * Copyright (C) 2017 Czech Technical University in Prague
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details. You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * English localization.
  */
@@ -74,10 +88,14 @@ module.exports = {
         'register.passwords-not-matching-tooltip': 'Passwords don\'t match',
         'register.submit': 'Register',
         'register.mask': 'Registering...',
+        'register.error': 'Unable to register user account.',
+        'register.login.error': 'Unable to login into the newly created account.',
 
         'main.dashboard-nav': 'Dashboards',
         'main.reports-nav': 'Reports',
         'main.statistics-nav': 'Statistics',
+        'main.admin-nav': 'Administration',
+        'main.user-profile': 'User profile',
         'main.logout': 'Logout',
         'main.search-placeholder': 'Search',
         'main.search.fulltext': 'Search in all narratives',
@@ -176,6 +194,7 @@ module.exports = {
         'report.attachments.create.description-label': 'Description',
         'report.attachments.create.description-tooltip': 'Optional description of the attachment',
         'report.attachments.table.reference': 'Reference',
+        'report.attachments.save.disabled-tooltip': 'Attachment value is required',
 
         'report.occurrence.category.label': 'Occurrence category',
         'occurrencereport.title': 'Occurrence report',
@@ -258,6 +277,26 @@ module.exports = {
         'editor.rich.blockquote': 'Blockquote',
         'editor.rich.bold': 'Bold',
         'editor.rich.italic': 'Italic',
-        'editor.rich.underline': 'Underline'
+        'editor.rich.underline': 'Underline',
+
+        'profile.header': 'User profile',
+        'profile.invalid': 'User profile data are not valid. There are attributes missing.',
+        'profile.originalPassword': 'Original password',
+        'profile.update.success': 'User profile successfully updated.',
+        'profile.update.error': 'Profile update failed. Server responded with message: ',
+        'profile.password.toggle': 'Change password',
+        'profile.password.original': 'Original password',
+        'profile.password.new': 'New password',
+        'profile.password.confirm': 'Confirm password',
+        'profile.username.exists': 'Username already exists',
+
+        'users.title': 'Users',
+        'users.table.name': 'Name',
+        'users.table.username': 'Username',
+        'users.table.status': 'Account status',
+        'users.table.blocked.tooltip': 'Account is blocked!',
+        'users.table.not.blocked.tooltip': 'Account is accessible',
+        'users.register': 'Add new user',
+        'users.register.success': 'User successfully created.'
     }
 };

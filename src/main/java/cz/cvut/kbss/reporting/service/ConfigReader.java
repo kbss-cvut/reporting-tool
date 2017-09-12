@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -26,10 +26,14 @@ import java.util.Properties;
 @Component
 public class ConfigReader {
 
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
 
     private final Properties defaultConfig = new Properties();
+
+    @Autowired
+    public ConfigReader(Environment environment) {
+        this.environment = environment;
+    }
 
     /**
      * Gets value of the specified configuration parameter.
@@ -51,5 +55,6 @@ public class ConfigReader {
     @PostConstruct
     public void initDefaultConfiguration() {
         defaultConfig.setProperty(ConfigParam.INDEX_FILE.toString(), Constants.INDEX_FILE_LOCATION);
+        defaultConfig.setProperty(ConfigParam.ADMIN_CREDENTIALS_LOCATION.toString(), System.getProperty("user.home"));
     }
 }

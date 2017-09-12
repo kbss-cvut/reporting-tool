@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,6 +14,9 @@
  */
 package cz.cvut.kbss.reporting.exception;
 
+/**
+ * Indicates that a resource was not found.
+ */
 public class NotFoundException extends RuntimeException {
 
     public NotFoundException() {

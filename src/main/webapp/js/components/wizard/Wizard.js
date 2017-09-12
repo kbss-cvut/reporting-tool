@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -12,91 +12,75 @@
  * details. You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-'use strict';
+import React from "react";
+import PropTypes from "prop-types";
+import {ListGroup, ListGroupItem} from "react-bootstrap";
 
-var React = require('react');
-var ListGroup = require('react-bootstrap').ListGroup;
-var ListGroupItem = require('react-bootstrap').ListGroupItem;
+import WizardStep from "./WizardStep";
+import WizardStore from "../../stores/WizardStore";
 
-var WizardStep = require('./WizardStep');
-var WizardStore = require('../../stores/WizardStore');
+class Wizard extends React.Component {
 
-var Wizard = React.createClass({
-
-    propTypes: {
-        start: React.PropTypes.number,
-        steps: React.PropTypes.array,
-        onFinish: React.PropTypes.func,
-        onClose: React.PropTypes.func,
-        enableForwardSkip: React.PropTypes.bool     // Whether to allow forward step skipping
-    },
-
-    getInitialState: function () {
-        // First step is visited as soon as the wizard opens
+    constructor(props) {
+        super(props);
         if (this.props.steps.length > 0) {
             this.props.steps[0].visited = true;
         }
-        return {
+        this.state = {
             currentStep: this.props.start || 0,
             nextDisabled: false,
             previousDisabled: false
         };
-    },
+    }
 
-    getDefaultProps: function () {
-        return {
-            steps: []
-        };
-    },
-
-    onAdvance: function () {
-        var change = {};
+    onAdvance = () => {
+        const change = {};
         if (this.state.currentStep !== this.props.steps.length - 1) {
             this.props.steps[this.state.currentStep + 1].visited = true;
             change.currentStep = this.state.currentStep + 1;
         }
         this.setState(change);
-    },
+    };
 
-    onRetreat: function () {
+    onRetreat = () => {
         if (this.state.currentStep === 0) {
             return;
         }
         this.setState({
             currentStep: this.state.currentStep - 1
         });
-    },
+    };
 
-    onFinish: function (errCallback) {
-        var data = {
+    onFinish = (errCallback) => {
+        const data = {
             data: WizardStore.getData(),
             stepData: WizardStore.getStepData()
         };
         WizardStore.reset();
         this.props.onFinish(data, this.props.onClose, errCallback);
-    },
+    };
 
     /**
      * Insert the specified step after the current one.
      * @param step The step to insert
      */
-    onInsertStepAfterCurrent: function (step) {
+    onInsertStepAfterCurrent = (step) => {
         this.props.steps.splice(this.state.currentStep + 1, 0, step);
         WizardStore.insertStep(this.state.currentStep + 1, step.data);
-    },
+    };
 
     /**
      * Adds the specified step to the end of this wizard.
      * @param step The step to add
      */
-    onAddStep: function (step) {
+    onAddStep = (step) => {
         this.props.steps.push(step);
         WizardStore.insertStep(this.props.steps.length - 1, step.data);
-    },
+    };
 
-    onRemoveStep: function (stepId) {
-        var stateUpdate = {};
-        for (var i = 0, len = this.props.steps.length; i < len; i++) {
+    onRemoveStep = (stepId) => {
+        const stateUpdate = {};
+        for (let i = 0, len = this.props.steps.length; i < len; i++) {
             if (this.props.steps[i].id === stepId) {
                 this.props.steps.splice(i, 1);
                 WizardStore.removeStep(i);
@@ -107,36 +91,34 @@ var Wizard = React.createClass({
             }
         }
         this.setState(stateUpdate);
-    },
+    };
 
 
-    render: function () {
-        var navMenu = this.initNavMenu();
-        var component = this.initComponent();
-        return (
-            <div className="wizard">
-                <div className="wizard-nav col-xs-2">
-                    <ListGroup>
-                        {navMenu}
-                    </ListGroup>
-                </div>
-                <div className="wizard-content col-xs-10">
-                    {component}
-                </div>
+    render() {
+        const navMenu = this.initNavMenu(),
+            component = this.initComponent();
+        return <div className="wizard">
+            <div className="wizard-nav col-xs-2">
+                <ListGroup>
+                    {navMenu}
+                </ListGroup>
             </div>
-        );
-    },
+            <div className="wizard-content col-xs-10">
+                {component}
+            </div>
+        </div>;
+    }
 
-    initNavMenu: function () {
+    initNavMenu() {
         return this.props.steps.map(function (step, index) {
             return <ListGroupItem key={'nav' + index} onClick={this.navigate} id={'wizard-nav-' + index}
                                   active={index === this.state.currentStep ? 'active' : ''}>{step.name}</ListGroupItem>;
         }.bind(this));
-    },
+    }
 
-    navigate: function (e) {
-        var item = e.target;
-        var index = Number(item.id.substring('wizard-nav-'.length));
+    navigate = (e) => {
+        const item = e.target,
+            index = Number(item.id.substring('wizard-nav-'.length));
 
         if (index === this.state.currentStep || index >= this.props.steps.length) {
             return;
@@ -148,13 +130,13 @@ var Wizard = React.createClass({
         this.setState({
             currentStep: index
         });
-    },
+    };
 
-    initComponent: function () {
+    initComponent() {
         if (this.props.steps.length === 0) {
             return <div className='italics'>There are no steps in this wizard.</div>;
         }
-        var step = this.props.steps[this.state.currentStep];
+        const step = this.props.steps[this.state.currentStep];
 
         return React.createElement(WizardStep, {
             key: 'step' + this.state.currentStep,
@@ -172,9 +154,23 @@ var Wizard = React.createClass({
             stepIndex: this.state.currentStep,
             isFirstStep: this.state.currentStep === 0,
             isLastStep: this.state.currentStep === this.props.steps.length - 1,
-            defaultNextDisabled: step.defaultNextDisabled
+            defaultNextDisabled: step.defaultNextDisabled,
+            readOnly: this.props.readOnly
         });
     }
-});
+}
 
-module.exports = Wizard;
+Wizard.propTypes = {
+    start: PropTypes.number,
+    steps: PropTypes.array,
+    onFinish: PropTypes.func,
+    onClose: PropTypes.func,
+    enableForwardSkip: PropTypes.bool,     // Whether to allow forward step skipping
+    readOnly: PropTypes.bool               // Whether the wizard is read only
+};
+
+Wizard.defaultProps = {
+    steps: []
+};
+
+export default Wizard;

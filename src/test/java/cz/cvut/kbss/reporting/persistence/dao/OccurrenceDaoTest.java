@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -134,38 +134,6 @@ public class OccurrenceDaoTest extends BaseDaoTestRunner {
         } finally {
             em.close();
         }
-    }
-
-    @Test
-    public void persistReusesQuestionsWithTheSameUri() {
-        final Occurrence occurrence = OccurrenceReportGenerator.generateOccurrence();
-        final Set<Event> children = new HashSet<>(2);
-        occurrence.setChildren(children);
-        event(children);
-        final Event evt = children.iterator().next();
-        evt.setQuestion(generateReusedQuestions());
-        dao.persist(occurrence);
-        final EntityManager em = emf.createEntityManager();
-        try {
-            TestUtils.verifyQuestions(evt.getQuestion(), q -> assertNotNull(em.find(Question.class, q.getUri())));
-        } finally {
-            em.close();
-        }
-    }
-
-    private Question generateReusedQuestions() {
-        final Question root = Generator.question();
-        Question copy = null;
-        for (int i = 0; i < 5; i++) {
-            copy = Generator.question();
-            root.getSubQuestions().add(copy);
-        }
-        // Copy the first one into the last one to simulate behaviour when multiple question instances (received from the UI)
-        // may represent the same one
-        final Question first = root.getSubQuestions().iterator().next();
-        copy.setUri(first.getUri());
-        copy.setTypes(first.getTypes());
-        return root;
     }
 
     @Test

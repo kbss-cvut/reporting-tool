@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,6 +16,7 @@ package cz.cvut.kbss.reporting.rest.dto.mapper;
 
 import cz.cvut.kbss.reporting.dto.CorrectiveMeasureRequestDto;
 import cz.cvut.kbss.reporting.dto.OccurrenceReportDto;
+import cz.cvut.kbss.reporting.dto.PersonUpdateDto;
 import cz.cvut.kbss.reporting.dto.agent.AgentDto;
 import cz.cvut.kbss.reporting.dto.agent.OrganizationDto;
 import cz.cvut.kbss.reporting.dto.agent.PersonDto;
@@ -162,6 +163,8 @@ public abstract class DtoMapper {
     public abstract PersonDto personToPersonDto(Person person);
 
     public abstract Person personDtoToPerson(PersonDto dto);
+
+    public abstract Person personUpdateDtoToPerson(PersonUpdateDto dto);
 
     public abstract OrganizationDto organizationToOrganizationDto(Organization organization);
 

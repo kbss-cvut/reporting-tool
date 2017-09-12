@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -12,43 +12,27 @@
  * details. You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-'use strict';
+import React from "react";
+import PropTypes from "prop-types";
+import {Alert, Button, ButtonToolbar, Panel} from "react-bootstrap";
 
-var React = require('react');
-var Alert = require('react-bootstrap').Alert;
-var Button = require('react-bootstrap').Button;
-var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
-var Panel = require('react-bootstrap').Panel;
+import I18nWrapper from "../../i18n/I18nWrapper";
+import injectIntl from "../../utils/injectIntl";
+import WizardStore from "../../stores/WizardStore";
 
-var injectIntl = require('../../utils/injectIntl');
-var I18nMixin = require('../../i18n/I18nMixin');
-var WizardStore = require('../../stores/WizardStore');
 
-var WizardStep = React.createClass({
-    mixins: [I18nMixin],
+class WizardStep extends React.Component {
 
-    propTypes: {
-        onClose: React.PropTypes.func,
-        onFinish: React.PropTypes.func.isRequired,
-        onAdvance: React.PropTypes.func,
-        onRetreat: React.PropTypes.func,
-        onNext: React.PropTypes.func,
-        onPrevious: React.PropTypes.func,
-        title: React.PropTypes.string,
-        stepIndex: React.PropTypes.number.isRequired,
-        isFirstStep: React.PropTypes.bool,
-        isLastStep: React.PropTypes.bool,
-        defaultNextDisabled: React.PropTypes.bool
-    },
-
-    getInitialState: function () {
-        return {
-            advanceDisabled: this.props.defaultNextDisabled != null ? this.props.defaultNextDisabled : false,
+    constructor(props) {
+        super(props);
+        this.i18n = props.i18n;
+        this.state = {
+            advanceDisabled: this.props.defaultNextDisabled,
             retreatDisabled: false
         };
-    },
+    }
 
-    onAdvance: function (err) {
+    onAdvance = (err) => {
         if (err) {
             this.setState({
                 advanceDisabled: false,
@@ -59,13 +43,13 @@ var WizardStep = React.createClass({
             WizardStore.updateStepData(this.props.stepIndex, this.getStepData());
             this.props.onAdvance();
         }
-    },
+    };
 
-    getStepData: function () {
+    getStepData = () => {
         return this.refs.component.getData ? this.refs.component.getData() : null;
-    },
+    };
 
-    onNext: function () {
+    onNext = () => {
         this.setState({
             advanceDisabled: true,
             retreatDisabled: true
@@ -76,75 +60,72 @@ var WizardStep = React.createClass({
             WizardStore.updateStepData(this.props.stepIndex, this.getStepData());
             this.props.onAdvance();
         }
-    },
+    };
 
-    onPrevious: function () {
+    onPrevious = () => {
         if (this.props.onPrevious) {
             this.props.onPrevious.apply(this, [this.props.onRetreat]);
         } else {
             this.props.onRetreat();
         }
-    },
+    };
 
-    onFinish: function () {
+    onFinish = () => {
         WizardStore.updateStepData(this.props.stepIndex, this.getStepData());
         this.props.onFinish();
-    },
+    };
 
-    enableNext: function () {
+    enableNext = () => {
         this.setState({advanceDisabled: false});
-    },
+    };
 
-    disableNext: function () {
+    disableNext = () => {
         this.setState({advanceDisabled: true});
-    },
+    };
 
 
-    render: function () {
-        var previousButton;
+    render() {
+        let previousButton;
         if (!this.props.isFirstStep) {
-            previousButton = (<Button onClick={this.onPrevious} disabled={this.state.retreatDisabled} bsStyle='primary'
-                                      bsSize='small'>{this.i18n('wizard.previous')}</Button>);
+            previousButton = <Button onClick={this.onPrevious} disabled={this.state.retreatDisabled} bsStyle='primary'
+                                     bsSize='small'>{this.i18n('wizard.previous')}</Button>;
         }
-        var advanceButton = this.renderAdvanceButton();
-        var cancelButton = (
-            <Button onClick={this.props.onClose} bsStyle='primary' bsSize='small'>{this.i18n('cancel')}</Button>);
-        var error = null;
+        const advanceButton = this.renderAdvanceButton(),
+            cancelButton = <Button onClick={this.props.onClose} bsStyle='primary'
+                                   bsSize='small'>{this.i18n(this.props.readOnly ? 'close' : 'cancel')}</Button>;
+        let error = null;
         if (this.state.currentError) {
             error = (<Alert bsStyle='danger'><p>{this.state.currentError.message}</p></Alert>);
         }
-        var title = (<h4>{this.props.title}</h4>);
-        return (
-            <div className='wizard-step'>
-                <Panel header={title} bsStyle='primary' className='wizard-step-content'>
-                    {this.renderComponent()}
-                </Panel>
-                <ButtonToolbar style={{float: 'right'}}>
-                    {previousButton}
-                    {advanceButton}
-                    {cancelButton}
-                </ButtonToolbar>
-                {error}
-            </div>
-        );
-    },
+        const title = <h4>{this.props.title}</h4>;
+        return <div className='wizard-step'>
+            <Panel header={title} bsStyle='primary' className='wizard-step-content'>
+                {this.renderComponent()}
+            </Panel>
+            <ButtonToolbar style={{float: 'right'}}>
+                {previousButton}
+                {advanceButton}
+                {cancelButton}
+            </ButtonToolbar>
+            {error}
+        </div>;
+    }
 
-    renderAdvanceButton: function () {
-        var disabledTitle = this.state.advanceDisabled ? this.i18n('wizard.advance-disabled-tooltip') : null;
-        var button;
+    renderAdvanceButton() {
+        const disabledTitle = this.state.advanceDisabled ? this.i18n('wizard.advance-disabled-tooltip') : null;
         if (!this.props.isLastStep) {
-            button = (
-                <Button onClick={this.onNext} disabled={this.state.advanceDisabled} bsStyle='primary' bsSize='small'
-                        title={disabledTitle}>{this.i18n('wizard.next')}</Button>);
+            return <Button onClick={this.onNext} disabled={this.state.advanceDisabled} bsStyle='primary' bsSize='small'
+                           title={disabledTitle}>{this.i18n('wizard.next')}</Button>;
         } else {
-            button = (
-                <Button onClick={this.onFinish} disabled={this.state.advanceDisabled} bsStyle='primary' bsSize='small'
-                        title={disabledTitle}>{this.i18n('wizard.finish')}</Button>);
+            if (this.props.readOnly) {
+                return null;
+            }
+            return <Button onClick={this.onFinish} disabled={this.state.advanceDisabled} bsStyle='primary'
+                           bsSize='small' title={disabledTitle}>{this.i18n('wizard.finish')}</Button>;
         }
-        return button;
-    },
+    }
 
-    renderComponent: function () {
+    renderComponent() {
         return React.createElement(this.props.component, {
             ref: 'component',
             stepIndex: this.props.stepIndex,
@@ -158,6 +139,26 @@ var WizardStep = React.createClass({
             removeStep: this.props.onRemoveStep
         });
     }
-});
+}
 
-module.exports = injectIntl(WizardStep);
+WizardStep.propTypes = {
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+    onClose: PropTypes.func,
+    onFinish: PropTypes.func.isRequired,
+    onAdvance: PropTypes.func,
+    onRetreat: PropTypes.func,
+    onNext: PropTypes.func,
+    onPrevious: PropTypes.func,
+    title: PropTypes.string,
+    stepIndex: PropTypes.number.isRequired,
+    isFirstStep: PropTypes.bool,
+    isLastStep: PropTypes.bool,
+    defaultNextDisabled: PropTypes.bool,
+    readOnly: PropTypes.bool
+};
+
+WizardStep.defaultProps = {
+    defaultNextDisabled: false
+};
+
+export default injectIntl(I18nWrapper(WizardStep));

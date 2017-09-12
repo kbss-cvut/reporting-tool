@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -68,10 +68,10 @@ class FactorEditRow extends React.Component {
             eventType = ObjectTypeResolver.resolveType(factor.eventType, OptionsStore.getOptions(Constants.OPTIONS.EVENT_TYPE)),
             eventTypeLabel = eventType ? JsonLdUtils.getJsonAttValue(eventType, Vocabulary.RDFS_LABEL) : factor.eventType;
         return <tr>
-            <td className='report-row content-center inline'>
+            <td className='vertical-middle content-center inline'>
                 <EventTypeTypeahead value={eventTypeLabel} focus={true} onSelect={this._onEventTypeSelected}/>
             </td>
-            <td className='picker-container report-row content-center inline'>
+            <td className='picker-container vertical-middle content-center inline'>
                 <DateTimePicker inputFormat='DD-MM-YY HH:mm:ss' dateTime={factor.startTime.toString()}
                                 onChange={this._onStartChange} size='small'
                                 inputProps={{
@@ -80,7 +80,7 @@ class FactorEditRow extends React.Component {
                                     size: 12
                                 }}/>
             </td>
-            <td className='picker-container report-row content-center inline'>
+            <td className='picker-container vertical-middle content-center inline'>
                 <DateTimePicker inputFormat='DD-MM-YY HH:mm:ss' dateTime={factor.endTime.toString()}
                                 onChange={this._onEndChange} size='small'
                                 inputProps={{
@@ -89,7 +89,7 @@ class FactorEditRow extends React.Component {
                                     size: 12
                                 }}/>
             </td>
-            <td className="report-row actions">
+            <td className="vertical-middle actions">
                 <Button bsStyle='success' bsSize='small' onClick={this._onSave}>{this.i18n('save')}</Button>
                 <Button bsSize='small' onClick={this.props.handlers.onEditCancel}>{this.i18n('cancel')}</Button>
             </td>

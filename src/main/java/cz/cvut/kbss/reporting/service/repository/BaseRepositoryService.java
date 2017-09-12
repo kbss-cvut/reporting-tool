@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -65,6 +65,7 @@ public abstract class BaseRepositoryService<T> implements BaseService<T> {
         Objects.requireNonNull(instance);
         preUpdate(instance);
         getPrimaryDao().update(instance);
+        postUpdate(instance);
     }
 
     @Override
@@ -103,6 +104,16 @@ public abstract class BaseRepositoryService<T> implements BaseService<T> {
      */
     protected void preUpdate(T instance) {
         // Do nothing, intended for overriding
+    }
+
+    /**
+     * Hook for additional business logic to be performed after successful update of an instance.
+     * <p>
+     * Does nothing by default and is intended to be overridden.
+     *
+     * @param instance The updated instance
+     */
+    protected void postUpdate(T instance) {
     }
 
     /**

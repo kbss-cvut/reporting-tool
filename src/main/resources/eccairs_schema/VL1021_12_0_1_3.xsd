@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataBridge.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation source="Project generated with Taxonomy">ECCAIRS Aviation</xs:documentation>
+    <xs:documentation source="Taxonomy Version">3.4.0.2</xs:documentation>
+    <xs:documentation source="Domain">RIT</xs:documentation>
+    <xs:documentation source="Version">1.0.0.0</xs:documentation>
+    <xs:documentation source="Generation date">09/11/2015 11:45:20</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="VL1021_12_0_1_3">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="9816" />
+      <xs:enumeration value="100" />
+      <xs:enumeration value="101" />
+      <xs:enumeration value="102" />
+      <xs:enumeration value="200" />
+      <xs:enumeration value="201" />
+      <xs:enumeration value="202" />
+      <xs:enumeration value="300" />
+      <xs:enumeration value="301" />
+      <xs:enumeration value="302" />
+      <xs:enumeration value="400" />
+      <xs:enumeration value="401" />
+      <xs:enumeration value="402" />
+      <xs:enumeration value="9800" />
+      <xs:enumeration value="9801" />
+      <xs:enumeration value="9802" />
+      <xs:enumeration value="9803" />
+      <xs:enumeration value="9804" />
+      <xs:enumeration value="9806" />
+      <xs:enumeration value="500" />
+      <xs:enumeration value="501" />
+      <xs:enumeration value="502" />
+      <xs:enumeration value="503" />
+      <xs:enumeration value="504" />
+      <xs:enumeration value="9805" />
+      <xs:enumeration value="9807" />
+      <xs:enumeration value="9815" />
+      <xs:enumeration value="9817" />
+      <xs:enumeration value="9818" />
+      <xs:enumeration value="9820" />
+      <xs:enumeration value="9819" />
+      <xs:enumeration value="9808" />
+      <xs:enumeration value="9809" />
+      <xs:enumeration value="9810" />
+      <xs:enumeration value="9814" />
+      <xs:enumeration value="9813" />
+      <xs:enumeration value="9821" />
+      <xs:enumeration value="9811" />
+      <xs:enumeration value="9812" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

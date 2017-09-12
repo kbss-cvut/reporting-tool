@@ -1,3 +1,17 @@
+/*
+ * Copyright (C) 2017 Czech Technical University in Prague
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details. You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * Czech localization.
  */
@@ -76,10 +90,14 @@ module.exports = {
         'register.passwords-not-matching-tooltip': 'Heslo a jeho potvrzení se neshodují',
         'register.submit': 'Registrovat',
         'register.mask': 'Registruji...',
+        'register.error': 'Uživatele se nepodařilo zaregistrovat.',
+        'register.login.error': 'Nepodařilo se přihlásit k nově vytvořenému uživateli.',
 
         'main.dashboard-nav': 'Hlavní strana',
         'main.reports-nav': 'Hlášení',
         'main.statistics-nav': 'Statistiky',
+        'main.admin-nav': 'Administrace',
+        'main.user-profile': 'Profil uživatele',
         'main.logout': 'Odhlásit se',
         'main.search-placeholder': 'Hledat',
         'main.search.fulltext': 'Hledat ve všech popisech',
@@ -175,6 +193,7 @@ module.exports = {
         'report.attachments.create.description-label': 'Popis',
         'report.attachments.create.description-tooltip': 'Volitelný popis přílohy',
         'report.attachments.table.reference': 'Příloha',
+        'report.attachments.save.disabled-tooltip': 'Identifikace přílohy je vyžadována',
 
         'report.occurrence.category.label': 'Klasifikace události',
         'occurrencereport.title': 'Hlášení o události',
@@ -256,6 +275,26 @@ module.exports = {
         'editor.rich.blockquote': 'Citace',
         'editor.rich.bold': 'Tučné',
         'editor.rich.italic': 'Kurzíva',
-        'editor.rich.underline': 'Podtržené'
+        'editor.rich.underline': 'Podtržené',
+
+        'profile.header': 'Profil uživatele',
+        'profile.invalid': 'Vyplněná data nejsou validní. Chybí hodnoty některých atributů.',
+        'profile.originalPassword': 'Původní heslo',
+        'profile.update.success': 'Profil úspěšně aktualizován.',
+        'profile.update.error': 'Profil se nepodařilo aktualizovat. Odpověď serveru: ',
+        'profile.password.toggle': 'Změnit heslo',
+        'profile.password.original': 'Původní heslo',
+        'profile.password.new': 'Nové heslo',
+        'profile.password.confirm': 'Potvrzení hesla',
+        'profile.username.exists': 'Uživatel s daným uživatelským jménem již existuje',
+
+        'users.title': 'Uživatelé',
+        'users.table.name': 'Jméno',
+        'users.table.username': 'Uživatelské jméno',
+        'users.table.status': 'Stav účtu?',
+        'users.table.blocked.tooltip': 'Účet je zablokován!',
+        'users.table.not.blocked.tooltip': 'Účet je dostupný',
+        'users.register': 'Přidat uživatele',
+        'users.register.success': 'Uživatel úspěšně vytvořen.'
     }
 };

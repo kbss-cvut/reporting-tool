@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,7 +17,7 @@
 import React from "react";
 import I18nWrapper from "../../../i18n/I18nWrapper";
 import injectIntl from "../../../utils/injectIntl";
-import {Line, LineChart, Tooltip, XAxis} from "recharts";
+import {LineChart, Line, XAxis, Tooltip} from "recharts";
 import Utils from "../Utils";
 
 class FrequencyListRow extends React.Component {

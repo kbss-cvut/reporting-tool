@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataBridge.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation source="Project generated with Taxonomy">ECCAIRS Aviation</xs:documentation>
+    <xs:documentation source="Taxonomy Version">3.4.0.2</xs:documentation>
+    <xs:documentation source="Domain">RIT</xs:documentation>
+    <xs:documentation source="Version">1.0.0.0</xs:documentation>
+    <xs:documentation source="Generation date">09/11/2015 11:45:20</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="VL1178_5_0_1_3">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="7" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="22" />
+      <xs:enumeration value="23" />
+      <xs:enumeration value="24" />
+      <xs:enumeration value="25" />
+      <xs:enumeration value="26" />
+      <xs:enumeration value="27" />
+      <xs:enumeration value="28" />
+      <xs:enumeration value="29" />
+      <xs:enumeration value="30" />
+      <xs:enumeration value="31" />
+      <xs:enumeration value="32" />
+      <xs:enumeration value="33" />
+      <xs:enumeration value="34" />
+      <xs:enumeration value="35" />
+      <xs:enumeration value="41" />
+      <xs:enumeration value="42" />
+      <xs:enumeration value="43" />
+      <xs:enumeration value="44" />
+      <xs:enumeration value="36" />
+      <xs:enumeration value="45" />
+      <xs:enumeration value="46" />
+      <xs:enumeration value="47" />
+      <xs:enumeration value="48" />
+      <xs:enumeration value="49" />
+      <xs:enumeration value="50" />
+      <xs:enumeration value="51" />
+      <xs:enumeration value="37" />
+      <xs:enumeration value="52" />
+      <xs:enumeration value="53" />
+      <xs:enumeration value="54" />
+      <xs:enumeration value="55" />
+      <xs:enumeration value="38" />
+      <xs:enumeration value="56" />
+      <xs:enumeration value="57" />
+      <xs:enumeration value="58" />
+      <xs:enumeration value="39" />
+      <xs:enumeration value="40" />
+      <xs:enumeration value="59" />
+      <xs:enumeration value="62" />
+      <xs:enumeration value="63" />
+      <xs:enumeration value="64" />
+      <xs:enumeration value="65" />
+      <xs:enumeration value="66" />
+      <xs:enumeration value="67" />
+      <xs:enumeration value="68" />
+      <xs:enumeration value="69" />
+      <xs:enumeration value="70" />
+      <xs:enumeration value="60" />
+      <xs:enumeration value="61" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

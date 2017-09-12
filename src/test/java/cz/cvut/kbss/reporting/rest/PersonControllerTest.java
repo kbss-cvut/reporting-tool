@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,14 +14,18 @@
  */
 package cz.cvut.kbss.reporting.rest;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import cz.cvut.kbss.reporting.dto.PersonUpdateDto;
 import cz.cvut.kbss.reporting.environment.config.MockServiceConfig;
 import cz.cvut.kbss.reporting.environment.config.MockSesamePersistence;
 import cz.cvut.kbss.reporting.environment.generator.Generator;
 import cz.cvut.kbss.reporting.environment.util.Environment;
 import cz.cvut.kbss.reporting.exception.ValidationException;
 import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.reporting.rest.handler.ErrorInfo;
 import cz.cvut.kbss.reporting.service.PersonService;
+import cz.cvut.kbss.reporting.service.security.SecurityUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -37,18 +41,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ContextConfiguration(classes = {MockServiceConfig.class, MockSesamePersistence.class})
 public class PersonControllerTest extends BaseControllerTestRunner {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private SecurityUtils securityUtilsMock;
 
     @Before
     public void setUp() throws Exception {
@@ -112,5 +122,106 @@ public class PersonControllerTest extends BaseControllerTestRunner {
         final ErrorInfo errorInfo = readValue(result, ErrorInfo.class);
         assertNotNull(errorInfo);
         assertEquals(err, errorInfo.getMessage());
+    }
+
+    @Test
+    public void updateUserUpdatedUserData() throws Exception {
+        final Person person = Generator.getPerson();
+        person.generateUri();
+        Environment.setCurrentUser(person);
+        final Person update = new Person();
+        update.setUri(person.getUri());
+        update.setFirstName("UpdatedFirstName");
+        update.setLastName("UpdatedLastName");
+        update.setUsername(person.getUsername());
+        mockMvc.perform(put("/persons/current").content(toJson(update)).contentType(MediaType.APPLICATION_JSON)
+                                               .principal(Environment.getCurrentUserPrincipal()))
+               .andExpect(status().isNoContent());
+        final ArgumentCaptor<Person> captor = ArgumentCaptor.forClass(Person.class);
+        verify(personService).update(captor.capture());
+        final Person argument = captor.getValue();
+        assertTrue(update.nameEquals(argument));
+        verify(securityUtilsMock, never()).verifyCurrentUserPassword(any());
+    }
+
+    @Test
+    public void updateUserVerifiesOldPasswordWhenNewOneIsSpecified() throws Exception {
+        final Person person = Generator.getPerson();
+        person.generateUri();
+        Environment.setCurrentUser(person);
+        final TestPersonDto update = new TestPersonDto();
+        update.setUri(person.getUri());
+        update.setFirstName(person.getFirstName());
+        update.setLastName(person.getLastName());
+        update.setUsername(person.getUsername());
+        update.setPassword("newPassword");
+        update.setPasswordOriginal(person.getPassword());
+        when(securityUtilsMock.getCurrentUser()).thenReturn(person);
+        mockMvc.perform(put("/persons/current").content(toJson(update)).contentType(MediaType.APPLICATION_JSON)
+                                               .principal(Environment.getCurrentUserPrincipal()))
+               .andExpect(status().isNoContent());
+        verify(securityUtilsMock).verifyCurrentUserPassword(update.getPasswordOriginal());
+    }
+
+    private static class TestPersonDto extends PersonUpdateDto {
+        // We are using this to bypass the WRITE_ONLY access to the password property in Person
+        private String password;
+
+        @Override
+        public String getPassword() {
+            return password;
+        }
+
+        @Override
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
+    @Test
+    public void doesUsernameExistReturnsValueForQuery() throws Exception {
+        Environment.setCurrentUser(Generator.getPerson());
+        when(personService.exists(anyString())).thenReturn(true);
+        final String username = "masterchief";
+        final MvcResult mvcResult = mockMvc
+                .perform(get("/persons/exists").param("username", username).accept(MediaType.TEXT_PLAIN_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        final String result = mvcResult.getResponse().getContentAsString();
+        assertTrue(Boolean.parseBoolean(result));
+        verify(personService).exists(username);
+    }
+
+    @Test
+    public void findAllReturnsAllUsers() throws Exception {
+        final Person user = Generator.getPerson();
+        user.getTypes().add(Vocabulary.s_c_admin);
+        Environment.setCurrentUser(user);
+        final List<Person> persons = IntStream.range(0, 5).mapToObj(i -> {
+            final Person p = new Person();
+            p.setUri(Generator.generateUri());
+            p.setFirstName("firstName" + i);
+            p.setLastName("lastName" + i);
+            p.setUsername("username" + i);
+            p.setPassword("password" + i);
+            return p;
+        }).collect(Collectors.toList());
+        when(personService.findAll()).thenReturn(persons);
+
+        final MvcResult mvcResult = mockMvc.perform(get("/persons")).andExpect(status().isOk()).andReturn();
+        final List<Person> result = readValue(mvcResult, new TypeReference<List<Person>>() {
+        });
+        assertEquals(persons.size(), result.size());
+        for (int i = 0; i < persons.size(); i++) {
+            assertEquals(persons.get(i).getUri(), result.get(i).getUri());
+            assertNull(result.get(i).getPassword());
+        }
+    }
+
+    @Test
+    public void findAllThrowsForbiddenForUnauthorizedUser() throws Exception {
+        Environment.setCurrentUser(Generator.getPerson());
+        when(personService.findAll()).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(get("/persons")).andExpect(status().isForbidden());
     }
 }

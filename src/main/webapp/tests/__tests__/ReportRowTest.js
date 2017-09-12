@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -33,7 +33,7 @@ describe('Report row', () => {
         report.date = 0;
         var component = Environment.renderIntoTable(<ReportRow actions={actions} report={report}/>);
 
-        var cells = TestUtils.scryRenderedDOMComponentsWithClass(component, 'report-row'),
+        var cells = TestUtils.scryRenderedDOMComponentsWithClass(component, 'vertical-middle'),
             dateCell = cells[1];
         expect(dateCell.textContent).toMatch(/01-01-70 0(0|1):00/);
     });

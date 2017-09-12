@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,7 +16,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {Checkbox, Col, ControlLabel, FormControl, FormGroup, HelpBlock, Radio} from "react-bootstrap";
+import {Checkbox, Col, ControlLabel, FormGroup, FormControl, HelpBlock, Radio} from "react-bootstrap";
 import assign from "object-assign";
 
 export default class HorizontalInput extends React.Component {

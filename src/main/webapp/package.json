@@ -18,6 +18,7 @@
     "prop-types": "^15.5.8",
     "react": "~15.3.2",
     "recharts": "0.22.0",
+    "react-authorization": "0.0.2",
     "react-bootstrap": "0.30.5",
     "react-bootstrap-datetimepicker": "https://kbss.felk.cvut.cz/dist/react-bootstrap-datetimepicker-0.0.5.tgz",
     "react-bootstrap-typeahead": "https://kbss.felk.cvut.cz/dist/react-bootstrap-typeahead-0.0.11.tgz",
@@ -32,7 +33,7 @@
     "react-router-bootstrap": "~0.23.1",
     "reflux": "~0.4.1",
     "remarkable": "~1.6.2",
-    "semforms": "https://kbss.felk.cvut.cz/dist/semforms-0.1.2.tgz",
+    "semforms": "https://kbss.felk.cvut.cz/dist/semforms-0.1.4.tgz",
     "superagent": "~1.8.3"
   },
   "devDependencies": {
@@ -63,7 +64,7 @@
   },
   "scripts": {
     "start": "watchify -o js/bundle.js -v -d js/app.js",
-    "startdev": "watchify -o ../../../target/reporting-tool-0.10.1/js/bundle.js -v -d js/app.js",
+    "startdev": "watchify -o ../../../target/reporting-tool-0.11.2/js/bundle.js -v -d js/app.js",
     "browserify": "browserify . -g [envify --NODE_ENV 'production'] -t -o js/bundle.js",
     "build-js": "browserify . -g [envify --NODE_ENV 'production'] -t | uglifyjs -cm > ../../../profiles/production/src/main/webapp/js/bundle.min.js",
     "build-css": "cleancss --skip-rebase -d -o ../../../profiles/production/src/main/webapp/resources/css/inbas-audit.min.css resources/css/inbas-audit.css",

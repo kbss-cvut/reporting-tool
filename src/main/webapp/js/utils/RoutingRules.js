@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,10 +14,10 @@
  */
 'use strict';
 
-var Actions = require('../actions/Actions');
-var Routes = require('./Routes');
+const Actions = require('../actions/Actions');
+const Routes = require('./Routes');
 
-var rules = {};
+const rules = {};
 
 /**
  * Rules for each route is just an array of functions, that should be executed.

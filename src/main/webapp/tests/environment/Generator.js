@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -121,6 +121,15 @@ const JSON_LD = [
 export default class Generator {
 
     static _uriBase = 'http://onto.fel.cvut.cz/ontologies/inbas';
+
+    static generatePerson() {
+        return {
+            uri: Generator.getRandomUri(),
+            firstName: 'User',
+            lastName: '4584',
+            username: 'simmons@nid.gov'
+        };
+    }
 
     static generateFactorGraphNodes() {
         const nodes = [];

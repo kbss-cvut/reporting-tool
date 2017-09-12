@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -12,75 +12,69 @@
  * details. You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-'use strict';
+import React from "react";
+import {Alert, Button, Form, Panel} from "react-bootstrap";
+import assign from "object-assign";
 
-var React = require('react');
-var Panel = require('react-bootstrap').Panel;
-var Button = require('react-bootstrap').Button;
-var Alert = require('react-bootstrap').Alert;
-var Form = require('react-bootstrap').Form;
+import Authentication from "../../utils/Authentication";
+import I18nWrapper from "../../i18n/I18nWrapper";
+import injectIntl from "../../utils/injectIntl";
+import Input from "../HorizontalInput";
+import Mask from "../Mask";
+import Routes from "../../utils/Routes";
+import Routing from "../../utils/Routing";
 
-var injectIntl = require('../../utils/injectIntl');
-
-var Mask = require('../Mask').default;
-var Input = require('../HorizontalInput').default;
-var Routing = require('../../utils/Routing');
-var Routes = require('../../utils/Routes');
-var Authentication = require('../../utils/Authentication');
-var I18nMixin = require('../../i18n/I18nMixin');
-
-
-var Login = React.createClass({
-    mixins: [I18nMixin],
-
-    getInitialState: function () {
-        return {
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.i18n = props.i18n;
+        this.state = {
             username: '',
             password: '',
             alertVisible: false,
             mask: false
-        }
-    },
+        };
+    }
 
-    componentDidMount: function () {
-        this.refs.usernameField.focus();
-    },
+    componentDidMount() {
+        this.usernameField.focus();
+    }
 
-    onChange: function (e) {
-        var state = this.state;
+    onChange = (e) => {
+        const state = assign({}, this.state);
         state[e.target.name] = e.target.value;
         state.alertVisible = false;
         this.setState(state);
-    },
+    };
 
-    onKeyPress: function (e) {
+    onKeyPress = (e) => {
         if (e.key === 'Enter') {
             this.login();
         }
-    },
+    };
 
-    onLoginError: function () {
+    onLoginError = () => {
         this.setState({alertVisible: true, mask: false});
-    },
+    };
 
-    login: function () {
+    login = () => {
         Authentication.login(this.state.username, this.state.password, this.onLoginError);
         this.setState({mask: true});
-    },
+    };
 
-    register: function () {
+    register() {
         Routing.transitionTo(Routes.register);
-    },
+    }
 
 
-    render: function () {
-        var panelCls = this.state.alertVisible ? 'login-panel expanded' : 'login-panel',
-            mask = this.state.mask ? (<Mask text={this.i18n('login.progress-mask')}/>) : null;
+    render() {
+        const panelCls = this.state.alertVisible ? 'login-panel expanded' : 'login-panel',
+            mask = this.state.mask ? <Mask text={this.i18n('login.progress-mask')}/> : null;
         return <Panel header={<h3>{this.i18n('login.title')}</h3>} bsStyle='info' className={panelCls}>
             {mask}
             <Form horizontal>
-                {this.renderAlert()}
-                <Input type='text' name='username' ref='usernameField' label={this.i18n('login.username')}
+                {this._renderAlert()}
+                <Input type='text' name='username' ref={c => this.usernameField = c} label={this.i18n('login.username')}
                        value={this.state.username}
                        onChange={this.onChange} labelWidth={3} onKeyPress={this.onKeyPress}
                        inputWidth={9}/>
@@ -98,13 +92,13 @@ var Login = React.createClass({
                 </div>
             </Form>
         </Panel>;
-    },
+    }
 
-    renderAlert: function () {
+    _renderAlert() {
         return this.state.alertVisible ? <Alert bsStyle='danger' bsSize='small'>
             <div>{this.i18n('login.error')}</div>
         </Alert> : null;
     }
-});
+}
 
-module.exports = injectIntl(Login);
+export default injectIntl(I18nWrapper(Login));

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -12,8 +12,6 @@
  * details. You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-'use strict';
-
 import React from "react";
 import {Alert} from "react-bootstrap";
 import Constants from "../../../constants/Constants";
@@ -95,17 +93,20 @@ const MessageWrapper = (Component, options) => {
                     showErrorMessage: this.showErrorMessage,
                     showWarnMessage: this.showWarnMessage,
                     showMessage: this.showMessage
-                };
+                },
+                message = this.state.message;
             return React.createElement(tag, null,
-                <Component ref={(c) => this._wrappedComponent = c} {...methods} {...this.props}/>,
-                this.state.message && <div className='message-container'>
-                    <Alert bsStyle={this.state.message.type} onDismiss={this._dismissMessage}>
-                        <p>{this.state.message.text}</p>
+                <Component ref={(c) => this._wrappedComponent = c}
+                           messageDisplayed={message !== null} {...methods} {...this.props}/>,
+                message !== null && <div className='message-container'>
+                    <Alert bsStyle={message.type} onDismiss={this._dismissMessage}>
+                        <p>{message.text}</p>
                     </Alert>
                 </div>
             );
         }
     }
+
     Wrapped.displayName = "MessageWrapper(" + getDisplayName(Component) + ")";
     Wrapped.WrappedComponent = Component.WrappedComponent ? Component.WrappedComponent : Component;
     return Wrapped;

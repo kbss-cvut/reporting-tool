@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -20,8 +20,9 @@ import {IntlProvider} from "react-intl";
 import {history} from "./utils/Routing";
 import Routes from "./utils/Routes";
 import Actions from "./actions/Actions";
+import Administration from "./components/admin/Administration";
 import Login from "./components/login/Login";
-import Register from "./components/register/Register";
+import RegisterController from "./components/register/RegisterController";
 import MainView from "./components/MainView";
 import DashboardController from "./components/dashboard/DashboardController";
 import ReportsController from "./components/report/ReportsController";
@@ -54,13 +55,14 @@ export default class Main extends React.Component {
                 <Route path='/' component={MainView}>
                     <IndexRoute component={DashboardController}/>
                     <Route path={Routes.login.path} onEnter={onRouteEnter} component={Login}/>
-                    <Route path={Routes.register.path} onEnter={onRouteEnter} component={Register}/>
+                    <Route path={Routes.register.path} onEnter={onRouteEnter} component={RegisterController}/>
                     <Route path={Routes.dashboard.path} onEnter={onRouteEnter} component={DashboardController}/>
                     <Route path={Routes.reports.path} onEnter={onRouteEnter} component={ReportsController}/>
                     <Route path={Routes.statistics.path} onEnter={onRouteEnter} component={StatisticsController}/>
                     <Route path={Routes.createReport.path} onEnter={onRouteEnter} component={ReportDetailController}/>
                     <Route path={Routes.editReport.path} onEnter={onRouteEnter} component={ReportDetailController}/>
                     <Route path={Routes.searchResults.path} onEnter={onRouteEnter} component={SearchResultController}/>
+                    <Route path={Routes.administration.path} onEnter={onRouteEnter} component={Administration}/>
                 </Route>
             </Router>
         </IntlProvider>;

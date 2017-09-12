@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,79 +14,94 @@
  */
 'use strict';
 
-var React = require('react');
-var Reflux = require('reflux');
+import React from "react";
+import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
+import {IfGranted} from "react-authorization";
 
-var Nav = require('react-bootstrap').Nav;
-var Navbar = require('react-bootstrap').Navbar;
-var NavBrand = require('react-bootstrap').NavbarBrand;
-var NavItem = require('react-bootstrap').NavItem;
-var NavDropdown = require('react-bootstrap').NavDropdown;
-var MenuItem = require('react-bootstrap').MenuItem;
-var LinkContainer = require('react-router-bootstrap').LinkContainer;
-var injectIntl = require('../utils/injectIntl');
+import Actions from "../actions/Actions";
+import Authentication from "../utils/Authentication";
+import Constants from "../constants/Constants";
+import I18nStore from "../stores/I18nStore";
+import I18nWrapper from "../i18n/I18nWrapper";
+import injectIntl from "../utils/injectIntl";
+import NavSearch from "./main/NavSearch"
+import ProfileController from "./profile/ProfileController";
+import UserStore from "../stores/UserStore";
+import Vocabulary from "../constants/Vocabulary";
 
-var Constants = require('../constants/Constants');
-var I18nMixin = require('../i18n/I18nMixin');
-var I18nStore = require('../stores/I18nStore');
-var NavSearch = require('./main/NavSearch').default;
+class MainView extends React.Component {
 
-var Authentication = require('../utils/Authentication');
-var UserStore = require('../stores/UserStore');
+    constructor(props) {
+        super(props);
+        this.i18n = props.i18n;
+        this.state = {
+            showProfile: false
+        };
+    }
 
-var MainView = React.createClass({
-    mixins: [
-        Reflux.listenTo(UserStore, 'onUserLoaded'),
-        I18nMixin
-    ],
-
-    getInitialState: function () {
-        return {
-            loggedIn: UserStore.isLoaded()
-        }
-    },
-
-    componentWillMount: function () {
+    componentWillMount() {
         I18nStore.setIntl(this.props.intl);
-    },
+        this.unsubscribe = UserStore.listen(this._onUserLoaded);
+    }
 
-    onUserLoaded: function () {
-        this.setState({loggedIn: true});
-    },
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
-    render: function () {
-        if (!this.state.loggedIn) {
-            return (<div>{this.props.children}</div>);
+    _onUserLoaded = (data) => {
+        if (data.action === Actions.loadUser)
+            this.forceUpdate();
+    };
+
+    _openUserProfile = () => {
+        this.setState({showProfile: true});
+    };
+
+    _closeUserProfile = () => {
+        this.setState({showProfile: false});
+    };
+
+    render() {
+        if (!UserStore.isLoaded()) {
+            return <div>{this.props.children}</div>;
         }
-        var user = UserStore.getCurrentUser();
-        var name = user.firstName.substr(0, 1) + '. ' + user.lastName;
+        const user = UserStore.getCurrentUser();
+        const name = user.firstName.substr(0, 1) + '. ' + user.lastName;
         return <div>
             <header>
                 <Navbar fluid={true}>
-                    <NavBrand className='navbrand-text'>{Constants.APP_NAME}</NavBrand>
+                    <Navbar.Header>
+                        <Navbar.Brand>{Constants.APP_NAME}</Navbar.Brand>
+                    </Navbar.Header>
                     <Nav>
                         <LinkContainer
                             to='dashboard'><NavItem>{this.i18n('main.dashboard-nav')}</NavItem></LinkContainer>
-                        <LinkContainer
-                            to='reports'><NavItem>{this.i18n('main.reports-nav')}</NavItem></LinkContainer>
+                        <LinkContainer to='reports'><NavItem>{this.i18n('main.reports-nav')}</NavItem></LinkContainer>
                         <LinkContainer
                             to='statistics'><NavItem>{this.i18n('main.statistics-nav')}</NavItem></LinkContainer>
+                        <IfGranted expected={Vocabulary.ROLE_ADMIN} actual={user.types} element='span'>
+                            <LinkContainer to='admin'><NavItem>{this.i18n('main.admin-nav')}</NavItem></LinkContainer>
+                        </IfGranted>
                     </Nav>
                     <Nav pullRight style={{margin: '0 -15px 0 0'}}>
                         <li>
                             <NavSearch/>
                         </li>
                         <NavDropdown id='logout' title={name}>
+                            <MenuItem onClick={this._openUserProfile}>{this.i18n('main.user-profile')}</MenuItem>
+                            <MenuItem divider/>
                             <MenuItem href='#' onClick={Authentication.logout}>{this.i18n('main.logout')}</MenuItem>
                         </NavDropdown>
                     </Nav>
                 </Navbar>
             </header>
             <section style={{height: '100%'}}>
+                <ProfileController show={this.state.showProfile} onClose={this._closeUserProfile}/>
                 {this.props.children}
             </section>
         </div>;
     }
-});
+}
 
-module.exports = injectIntl(MainView);
+export default injectIntl(I18nWrapper(MainView));

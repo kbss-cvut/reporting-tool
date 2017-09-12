@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,14 +15,14 @@
 package cz.cvut.kbss.reporting.security.model;
 
 import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.security.SecurityConstants;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
-
-    private static final String DEFAULT_ROLE = "ROLE_USER";
 
     private Person person;
 
@@ -32,7 +32,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         Objects.requireNonNull(person);
         this.person = person;
         this.authorities = new HashSet<>();
-        addDefaultRole();
+        initRoles();
     }
 
     public UserDetails(Person person, Collection<GrantedAuthority> authorities) {
@@ -40,16 +40,20 @@ public class UserDetails implements org.springframework.security.core.userdetail
         Objects.requireNonNull(authorities);
         this.person = person;
         this.authorities = new HashSet<>();
-        addDefaultRole();
+        initRoles();
         this.authorities.addAll(authorities);
     }
 
-    private void addDefaultRole() {
-        authorities.add(new SimpleGrantedAuthority(DEFAULT_ROLE));
+    private void initRoles() {
+        addDefaultRole();
+        this.authorities.addAll(person.getTypes().stream().filter(SecurityConstants.Role::exists)
+                                      .map(t -> new SimpleGrantedAuthority(
+                                              SecurityConstants.Role.fromType(t).getName()))
+                                      .collect(Collectors.toSet()));
     }
 
-    public void eraseCredentials() {
-        person.erasePassword();
+    private void addDefaultRole() {
+        authorities.add(new SimpleGrantedAuthority(SecurityConstants.Role.USER.getName()));
     }
 
     @Override

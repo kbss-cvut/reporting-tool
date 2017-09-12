@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,6 +24,7 @@ public enum ConfigParam {
     FORM_GEN_SERVICE_URL("formGenServiceUrl"),
     TEXT_ANALYSIS_SERVICE_URL("textAnalysisServiceUrl"),
     TEXT_ANALYSIS_VOCABULARIES("text-analysis.vocabularies"),
+    ADMIN_CREDENTIALS_LOCATION("adminCredentialsFileLocation"),
 
     INDEX_FILE("indexFile");    // index.html location, used by Portal authentication
 

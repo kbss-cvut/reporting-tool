@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,14 +15,17 @@
 package cz.cvut.kbss.reporting.environment.config;
 
 import cz.cvut.kbss.reporting.service.OccurrenceReportService;
+import cz.cvut.kbss.reporting.service.data.export.ReportExporter;
 import cz.cvut.kbss.reporting.service.repository.RepositoryOccurrenceReportService;
-import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 @Configuration
 @ComponentScan(basePackages = "cz.cvut.kbss.reporting.service")
@@ -40,6 +43,11 @@ public class TestServiceConfig {
 
     @Bean
     public OccurrenceReportService occurrenceReportService() {
-        return Mockito.spy(new RepositoryOccurrenceReportService());
+        return spy(new RepositoryOccurrenceReportService());
+    }
+
+    @Bean
+    public ReportExporter reportExporter() {
+        return mock(ReportExporter.class);
     }
 }

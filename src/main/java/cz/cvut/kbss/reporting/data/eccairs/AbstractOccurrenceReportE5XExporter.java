@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -41,7 +41,7 @@ import java.util.zip.ZipOutputStream;
  *
  * Created by Bogdan Kostov on 6/1/2017.
  */
-public abstract class AbstractOccurrenceReportE5XExporter implements OccurrenceRportE5XExporter{
+public abstract class AbstractOccurrenceReportE5XExporter implements OccurrenceReportE5XExporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractOccurrenceReportE5XExporter.class);
     // thread-safe in in this usecase scenario, the state

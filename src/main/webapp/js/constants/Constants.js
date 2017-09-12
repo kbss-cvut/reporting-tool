@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,7 +17,7 @@
 const Routes = require('../utils/Routes');
 
 module.exports = {
-    APP_NAME: 'Reporting Tool',
+    APP_NAME: 'INBAS Reporting Tool',
     ECCAIRS_URL: 'http://www.icao.int/safety/airnavigation/AIG/Documents/ADREP%20Taxonomy/ECCAIRS%20Aviation%201.3.0.12%20(Entities%20and%20Attributes).en.id.pdf',
     HOME_ROUTE: Routes.dashboard,
     OPTIONS: {

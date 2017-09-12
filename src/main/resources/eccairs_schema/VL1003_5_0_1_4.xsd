@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataBridge.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation source="Project generated with Taxonomy">ECCAIRS Aviation</xs:documentation>
+    <xs:documentation source="Taxonomy Version">3.4.0.2</xs:documentation>
+    <xs:documentation source="Domain">RIT</xs:documentation>
+    <xs:documentation source="Version">1.0.0.0</xs:documentation>
+    <xs:documentation source="Generation date">09/11/2015 11:45:20</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="VL1003_5_0_1_4">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="2000000" />
+      <xs:enumeration value="1000000" />
+      <xs:enumeration value="1020000" />
+      <xs:enumeration value="1020200" />
+      <xs:enumeration value="1020100" />
+      <xs:enumeration value="1010000" />
+      <xs:enumeration value="1010100" />
+      <xs:enumeration value="1010104" />
+      <xs:enumeration value="1010103" />
+      <xs:enumeration value="1010102" />
+      <xs:enumeration value="1010101" />
+      <xs:enumeration value="1010200" />
+      <xs:enumeration value="1010204" />
+      <xs:enumeration value="1010203" />
+      <xs:enumeration value="1010202" />
+      <xs:enumeration value="1010201" />
+      <xs:enumeration value="1010300" />
+      <xs:enumeration value="1010305" />
+      <xs:enumeration value="1010303" />
+      <xs:enumeration value="1010302" />
+      <xs:enumeration value="1010301" />
+      <xs:enumeration value="1010304" />
+      <xs:enumeration value="1010400" />
+      <xs:enumeration value="1010404" />
+      <xs:enumeration value="1010403" />
+      <xs:enumeration value="1010402" />
+      <xs:enumeration value="1010401" />
+      <xs:enumeration value="1050000" />
+      <xs:enumeration value="1060000" />
+      <xs:enumeration value="1040000" />
+      <xs:enumeration value="1030000" />
+      <xs:enumeration value="1030300" />
+      <xs:enumeration value="1030100" />
+      <xs:enumeration value="1030400" />
+      <xs:enumeration value="1030200" />
+      <xs:enumeration value="1070000" />
+      <xs:enumeration value="5000000" />
+      <xs:enumeration value="4000000" />
+      <xs:enumeration value="3000000" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

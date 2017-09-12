@@ -1,0 +1,3800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:db="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataBridge.xsd" xmlns:dt="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataTypes.xsd" targetNamespace="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataBridge.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:import namespace="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataTypes.xsd" schemaLocation="ECCAIRS5_dataTypes.xsd" />
+	<xs:annotation>
+		<xs:documentation source="Project generated with Taxonomy">ECCAIRS Aviation</xs:documentation>
+		<xs:documentation source="Taxonomy Version">3.4.0.2</xs:documentation>
+		<xs:documentation source="Domain">RIT</xs:documentation>
+		<xs:documentation source="Version">1.0.0.0</xs:documentation>
+		<xs:documentation source="Generation date">09/11/2015 11:45:20</xs:documentation>
+	</xs:annotation>
+	<!--value list identifiers-->
+	<xs:include schemaLocation="VL10_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1003_5_0_1_4.xsd" />
+	<xs:include schemaLocation="VL1006_12_11000000_1_4.xsd" />
+	<xs:include schemaLocation="VL1007_12_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1009_5_0_1_5.xsd" />
+	<xs:include schemaLocation="VL1012_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1015_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1016_12_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1019_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1021_12_0_1_3.xsd" />
+	<xs:include schemaLocation="VL1024_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1028_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1038_12_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1040_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1041_12_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1042_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1043_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1044_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1046_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1066_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1072_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1077_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1084_13_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1085_12_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1086_12_0_1_3.xsd" />
+	<xs:include schemaLocation="VL1088_5_0_1_4.xsd" />
+	<xs:include schemaLocation="VL1090_12_0_1_3.xsd" />
+	<xs:include schemaLocation="VL1092_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1093_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1094_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1097_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1103_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1117_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1135_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL1136_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1143_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1144_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1157_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1158_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1159_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1160_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1167_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1168_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1169_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL117_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1170_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1171_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1172_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1173_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1174_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1175_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1176_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1178_5_0_1_3.xsd" />
+	<xs:include schemaLocation="VL1179_5_0_1_4.xsd" />
+	<xs:include schemaLocation="VL118_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL1181_12_0_1_3.xsd" />
+	<xs:include schemaLocation="VL1181_5_0_1_3.xsd" />
+	<xs:include schemaLocation="VL1182_12_0_1_4.xsd" />
+	<xs:include schemaLocation="VL121_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL127_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL129_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL13_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL15_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL165_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL166_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL168_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL17_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL213_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL230_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL232_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL245_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL266_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL275_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL276_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL278_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL29_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL293_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL297_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL299_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL3_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL311_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL313_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL319_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL321_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL340_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL357_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL363_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL366_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL369_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL379_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL397_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL398_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL399_12_0_1_1.xsd" />
+	<xs:include schemaLocation="VL402_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL418_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL419_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL428_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL430_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL432_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL436_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL448_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL451_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL455_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL456_5_0_1_2.xsd" />
+	<xs:include schemaLocation="VL509_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL559_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL565_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL566_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL57_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL570_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL574_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL587_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL591_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL595_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL598_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL606_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL610_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL611_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL613_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL64_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL7_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL79_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL8_5_0_1_1.xsd" />
+	<xs:include schemaLocation="VL9_5_0_1_1.xsd" />
+	<!--Entity definitions-->
+	<xs:complexType name="Occurrence">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Dew_Point" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Dew_Point">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="C" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="85" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Wx_Conditions" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL127_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="127" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Dang_Goods_Involved" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL129_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="129" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Height_Of_Cloud_Base" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Height_Of_Cloud_Base">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="140" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Light_Conditions" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL168_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="168" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Maximum_Gust" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Maximum_Gust">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="kt" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="176" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cloud_Amount" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL266_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="266" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Speed_Measured_At" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL275_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="275" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Air_Temperature" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Air_Temperature">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="C" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="287" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Visibility" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Visibility">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="m" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="310" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Wind_Direction" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Wind_Direction">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Degree(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="320" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Wind_Gusts" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL321_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="321" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Wind_Speed" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Wind_Speed">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="kt" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="322" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ATM_Contribution" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL428_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="428" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Occurrence_Category" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL430_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="430" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Occurrence_Class" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1015_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="431" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Highest_Damage" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL432_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="432" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Local_Date" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="433" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Effect_On_ATM_Service" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL436_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="436" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Latitude_Of_Occ" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:LatitudeDecimal">
+										<xs:attribute name="attributeId" type="xs:string" fixed="439" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Location_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="440" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Longitude_Of_Occ" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:LongitudeDecimal">
+										<xs:attribute name="attributeId" type="xs:string" fixed="444" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Damage_Not_To_A_C" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL448_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="448" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Injury_Level" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL451_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="451" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="File_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="452" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Responsible_Entity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1181_5_0_1_3">
+										<xs:attribute name="attributeId" type="xs:string" fixed="453" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="State_Area_Of_Occ" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1090_12_0_1_3">
+										<xs:attribute name="attributeId" type="xs:string" fixed="454" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Occurrence_Status" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL455_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="455" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Third_Party_Damage" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL456_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="456" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Local_Time" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:Time">
+										<xs:attribute name="attributeId" type="xs:string" fixed="457" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Fatalities_Ground" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Fatalities_Ground">
+										<xs:attribute name="attributeId" type="xs:string" fixed="460" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_On_Board_A_C" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_On_Board_A_C">
+										<xs:attribute name="attributeId" type="xs:string" fixed="462" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Injuries-Ground" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Injuries-Ground">
+										<xs:attribute name="attributeId" type="xs:string" fixed="463" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Minor_Injuries-Ground" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Minor_Injuries-Ground">
+										<xs:attribute name="attributeId" type="xs:string" fixed="469" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Serious_Injuries-Ground" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Serious_Injuries-Ground">
+										<xs:attribute name="attributeId" type="xs:string" fixed="472" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="UTC_Date" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="477" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="UTC_Time" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:Time">
+										<xs:attribute name="attributeId" type="xs:string" fixed="478" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Headline" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="601" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Weather_Relevant" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL606_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="606" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Object_Damaged" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1028_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="640" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Detection_Phase" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1168_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1072" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Ground_Severity_Applied" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1169_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1073" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Ground_Severity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1172_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1074" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Ground_Repeatability" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1170_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1075" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Overall_Severity_Applied" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1169_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1076" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Overall_Severity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1172_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1077" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Overall_Repeatability" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1170_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1078" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Spec_Tech_Severity_Applied" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1169_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1079" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Spec_Tech_Severity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1173_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1080" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Spec_Tech_Repeatability" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1171_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1081" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Authority_Occ_Closure" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1087" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aviation_Sector" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1176_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1088" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aerodrome_General" type="db:Aerodrome_General" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Aerodrome_Weather_Reports" type="db:Aerodrome_Weather_Reports" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Air_Space" type="db:Air_Space" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Aircraft" type="db:Aircraft" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Air_Navigation_Service" type="db:Air_Navigation_Service" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Events" type="db:Events" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Narrative" type="db:Narrative" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Precipitation_And_Other_Weather_Phenomena" type="db:Precipitation_And_Other_Weather_Phenomena" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Separation" type="db:Separation" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Dangerous_Goods" type="db:Dangerous_Goods" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Runway_Incursion" type="db:Runway_Incursion" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Reporting_History" type="db:Reporting_History" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Risk_Assessment" type="db:Risk_Assessment" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="24" />
+	</xs:complexType>
+	<xs:complexType name="Aerodrome_General">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aerodrome_Latitude" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:LatitudeDecimal">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aerodrome_Longitude" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:LongitudeDecimal">
+										<xs:attribute name="attributeId" type="xs:string" fixed="2" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Area_Configuration" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL3_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="3" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Elevation_Above_MSL" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Elevation_Above_MSL">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="4" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Location_Indicator" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1085_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="5" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aerodrome_Status" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL7_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="7" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Surface_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL8_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="8" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Landing_Area_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL9_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="9" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aerodrome_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL10_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="10" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Location_On_Near_Aerodrome" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1038_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="641" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Narrative" type="db:Narrative" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Runway" type="db:Runway" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Vehicle" type="db:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Events" type="db:L-Events" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="1" />
+	</xs:complexType>
+	<xs:complexType name="Narrative">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Narrative_Language" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1097_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="424" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Narrative_Text" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="425" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="22" />
+	</xs:complexType>
+	<xs:complexType name="Runway">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Runway_Identifier" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Runway_Identifier">
+										<xs:attribute name="attributeId" type="xs:string" fixed="499" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Surface_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL509_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="509" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aircraft" type="db:L-Aircraft" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="31" />
+	</xs:complexType>
+	<xs:complexType name="L-Aircraft">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="Vehicle">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Type_Of_Vehicle" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1072_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="733" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Vehicle_Controlled" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1094_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="743" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="48" />
+	</xs:complexType>
+	<xs:complexType name="L-Events">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="Aerodrome_Weather_Reports">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Wx_Report" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="177" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="2" />
+	</xs:complexType>
+	<xs:complexType name="Air_Space">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Airspace_Class" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL13_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="13" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Airspace_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Airspace_Name">
+										<xs:attribute name="attributeId" type="xs:string" fixed="14" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Airspace_Type" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL15_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="15" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="FIR_UIR_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1084_13_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="16" />
+										<xs:attribute name="AlternativeText" />
+										<xs:attribute name="AlternativeTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Special_Activities" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL17_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="17" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Narrative" type="db:Narrative" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aircraft" type="db:L-Aircraft" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Events" type="db:L-Events" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="3" />
+	</xs:complexType>
+	<xs:complexType name="Aircraft">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Manufacturer_Model" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1182_12_0_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="21" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aircraft_Altitude" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Aircraft_Altitude">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="22" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="A_C_Flight_Level" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_A_C_Flight_Level">
+										<xs:attribute name="attributeId" type="xs:string" fixed="25" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Current_Traffic_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL29_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="29" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aircraft_Category" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1179_5_0_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="32" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Cycles_A_C" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Cycles_A_C">
+										<xs:attribute name="attributeId" type="xs:string" fixed="33" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ATS_Route_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="46" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Call_Sign" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Call_Sign">
+										<xs:attribute name="attributeId" type="xs:string" fixed="54" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Clearance_Validity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL57_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="57" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cleared_Altitude" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cleared_Altitude">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="58" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cleared_Flight_Level" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cleared_Flight_Level">
+										<xs:attribute name="attributeId" type="xs:string" fixed="60" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Controlling_Agency" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL64_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="64" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Current_Flight_Rules" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL79_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="79" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Number_Fatalities" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Number_Fatalities">
+										<xs:attribute name="attributeId" type="xs:string" fixed="114" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Filed_Flight_Rules" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL117_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="117" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Filed_Traffic_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL118_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="118" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Flight_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Flight_Number">
+										<xs:attribute name="attributeId" type="xs:string" fixed="120" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Flight_Phase" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL121_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="121" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Number_Of_Persons" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Number_Of_Persons">
+										<xs:attribute name="attributeId" type="xs:string" fixed="152" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Instrument_Appr_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL165_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="165" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Landing_Gear_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL166_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="166" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Last_Departure_Point" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1085_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="167" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Maximum_T_O_Mass" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Maximum_T_O_Mass">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="kg" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="175" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Number_Minor_Injuries" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Number_Minor_Injuries">
+										<xs:attribute name="attributeId" type="xs:string" fixed="187" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Number_Of_Engines" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Number_Of_Engines">
+										<xs:attribute name="attributeId" type="xs:string" fixed="209" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Occ_On_Ground" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL213_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="213" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Operation_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1178_5_0_1_3">
+										<xs:attribute name="attributeId" type="xs:string" fixed="214" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Operator" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1016_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="215" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Planned_Destination" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1085_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="228" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Propulsion_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL232_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="232" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aircraft_Registration" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Aircraft_Registration">
+										<xs:attribute name="attributeId" type="xs:string" fixed="244" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Rel_Wind_Direction" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL245_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="245" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Serial_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Serial_Number">
+										<xs:attribute name="attributeId" type="xs:string" fixed="254" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Number_Serious_Injuries" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Number_Serious_Injuries">
+										<xs:attribute name="attributeId" type="xs:string" fixed="262" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="SID_Route" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_SID_Route">
+										<xs:attribute name="attributeId" type="xs:string" fixed="264" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Speed_First_Event" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Speed_First_Event">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="kt" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="273" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Type_Of_Airspeed" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL276_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="276" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="SSR_Mode" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL278_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="278" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="State_Of_Registry" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1024_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="281" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Aircraft_Total_Time" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Aircraft_Total_Time">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="291" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Turbulence_Intensity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL293_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="293" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Flight_Plan_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL297_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="297" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Visib_Restrictions" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL311_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="311" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Wake_Turb_Category" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL313_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="313" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Mass_Group" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL319_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="319" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Year_Built" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Year_Built">
+										<xs:attribute name="attributeId" type="xs:string" fixed="327" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Parts_Damaged" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1040_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="643" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Parts_Struck" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1092_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="644" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Species_Description" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1041_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="645" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Birds_Wildlife_Seen" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1042_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="646" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Birds_Wildlife_Struck" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1093_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="647" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Bird_Size" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1043_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="648" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Pilot_Advised_Of_Birds" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1066_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="649" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Deviating_FL" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Deviating_FL">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Second(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="816" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cleared_FL_After" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cleared_FL_After">
+										<xs:attribute name="attributeId" type="xs:string" fixed="817" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Rotorcraft_Mass_Group" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1174_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1083" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Engine" type="db:Engine" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Flight_Crew_Member" type="db:Flight_Crew_Member" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Incapacitation" type="db:Incapacitation" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Narrative" type="db:Narrative" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Part_Information" type="db:Part_Information" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Propeller" type="db:Propeller" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Air_Space" type="db:L-Air_Space" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Events" type="db:L-Events" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Runway" type="db:L-Runway" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Sector" type="db:L-Sector" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Dangerous_Goods" type="db:L-Dangerous_Goods" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="4" />
+	</xs:complexType>
+	<xs:complexType name="Engine">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Manufacturer_Model" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1007_12_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="387" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_Overhaul">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="389" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Engine_Position" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Engine_Position">
+										<xs:attribute name="attributeId" type="xs:string" fixed="653" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Nature_Of_Engine_Involvement" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1044_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="654" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Engine_Serial_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="881" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ATA_Chapter_Involved" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1006_12_11000000_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="882" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_New" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_New">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="883" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_Inspection" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_Inspection">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="884" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_New" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_New">
+										<xs:attribute name="attributeId" type="xs:string" fixed="885" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_Overhaul">
+										<xs:attribute name="attributeId" type="xs:string" fixed="886" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_Insp" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_Insp">
+										<xs:attribute name="attributeId" type="xs:string" fixed="887" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_Manufacturing" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="888" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="889" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_Inspection" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="890" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Hazard_Eng_Effect" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1143_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="945" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="13" />
+	</xs:complexType>
+	<xs:complexType name="Flight_Crew_Member">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Category" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL402_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="402" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Duty_Last_24_Hours" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Duty_Last_24_Hours">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="403" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Rest_Before_Duty" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Rest_Before_Duty">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="408" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Experience_All_A_C" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Experience_All_A_C">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="410" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Experience_This_A_C" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Experience_This_A_C">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="411" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Flight_Crew_Licenses" type="db:Flight_Crew_Licenses" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="17" />
+	</xs:complexType>
+	<xs:complexType name="Flight_Crew_Licenses">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Validity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL397_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="397" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Ratings" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL398_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="398" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="License_Issued_By" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL399_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="399" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="License_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1012_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="400" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_License" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="639" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="16" />
+	</xs:complexType>
+	<xs:complexType name="Incapacitation">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Person_Incapacitated" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL418_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="418" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Reason_For_Incapacity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL419_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="419" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="20" />
+	</xs:complexType>
+	<xs:complexType name="Part_Information">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Part_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="485" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Part_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Part_Number">
+										<xs:attribute name="attributeId" type="xs:string" fixed="486" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Serial_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="657" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Manufacturer" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1046_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="658" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ATA_Chapter_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1006_12_11000000_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="659" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_New" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_New_1">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="660" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_Overhaul_1">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="661" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_Inspection" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_Inspection_1">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="662" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_New" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_New_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="663" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_Overhaul_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="664" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_Insp" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_Insp_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="665" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_Manufacturing" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="666" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="667" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Repair_Insp" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="668" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="26" />
+	</xs:complexType>
+	<xs:complexType name="Propeller">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Make_Of_Propeller" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1019_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="492" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Propeller_Model" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Propeller_Model">
+										<xs:attribute name="attributeId" type="xs:string" fixed="493" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Prop_Serial" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="893" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ATA_Chapter_Involved" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1006_12_11000000_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="894" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Prop_Position" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Prop_Position">
+										<xs:attribute name="attributeId" type="xs:string" fixed="895" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Prop_Involvement" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1135_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="896" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_New" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_New_2">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="899" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_Overhaul_2">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="900" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Time_Since_Inspection" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Time_Since_Inspection_2">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="901" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_New" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_New_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="902" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_Overh" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_Overh">
+										<xs:attribute name="attributeId" type="xs:string" fixed="903" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Cycles_Since_Insp" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Cycles_Since_Insp_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="904" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_Manufacturing" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="905" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Of_Overhaul" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="906" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Date_Repair_Insp" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="907" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Hazardous_Prop_Effects" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1144_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="946" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="29" />
+	</xs:complexType>
+	<xs:complexType name="L-Air_Space">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="L-Runway">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="L-Sector">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="L-Dangerous_Goods">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="Air_Navigation_Service">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="APW_Alerting" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL363_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="363" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="RIMCAS_Alerting" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL366_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="366" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="MSAW_Current_Alerting" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL369_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="369" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ANSP_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_ANSP_Name">
+										<xs:attribute name="attributeId" type="xs:string" fixed="372" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="STCA_Current_Alerting" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL379_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="379" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Narrative" type="db:Narrative" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Sector" type="db:Sector" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Events" type="db:L-Events" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="10" />
+	</xs:complexType>
+	<xs:complexType name="Sector">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Sector_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="526" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Services_Provided" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1003_5_0_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="527" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Workload_Controller" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL559_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="559" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="RTF_Frequency" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_RTF_Frequency">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="kHz" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="619" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="ATM_Staff" type="db:ATM_Staff" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aircraft" type="db:L-Aircraft" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="33" />
+	</xs:complexType>
+	<xs:complexType name="ATM_Staff">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="CISM_Offered" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL340_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="340" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Duty_Time_In_Position" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Duty_Time_In_Position">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="Hour(s)" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="347" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Category" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL357_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="357" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="9" />
+	</xs:complexType>
+	<xs:complexType name="Events">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Event_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1009_5_0_1_5">
+										<xs:attribute name="attributeId" type="xs:string" fixed="390" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Phase" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1088_5_0_1_4">
+										<xs:attribute name="attributeId" type="xs:string" fixed="391" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="14" />
+	</xs:complexType>
+	<xs:complexType name="Precipitation_And_Other_Weather_Phenomena">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Phenomenon_Intensity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL230_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="230" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Phenomenon_Type" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL299_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="299" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="28" />
+	</xs:complexType>
+	<xs:complexType name="Separation">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Horizontal_Rel_Mvmt" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL570_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="570" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Military_A_C_Involved" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL574_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="574" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Est_Minimum_Horiz_Sep" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Est_Minimum_Horiz_Sep">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="NM" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="575" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Req_Minimum_Horiz_Sep" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Req_Minimum_Horiz_Sep">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="NM" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="577" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Min_Horiz_Sep_Rec" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Min_Horiz_Sep_Rec">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="NM" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="579" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Est_Vert_Separation" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Est_Vert_Separation">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="581" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Req_Vert_Separation" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Req_Vert_Separation">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="583" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Vertical_Sep_Recorded" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Vertical_Sep_Recorded">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="585" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Rate_Of_Closure" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Rate_Of_Closure">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="kt" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="588" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Separation_Aircraft" type="db:Separation_Aircraft" minOccurs="0" maxOccurs="2" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="34" />
+	</xs:complexType>
+	<xs:complexType name="Separation_Aircraft">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="ATM_Action" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL565_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="565" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="A_C_Avoiding_Action" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL566_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="566" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Other_Aircraft_Seen" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL587_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="587" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Risk_Reduction_A_C" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL591_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="591" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Height_Altitude" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Height_Altitude">
+										<xs:attribute name="Unit" type="xs:string" use="required" fixed="ft" />
+										<xs:attribute name="attributeId" type="xs:string" fixed="597" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Vertical_Profile_Of_Separation" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL598_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="598" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="RA_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL610_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="610" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Pilot_Response_To_RA" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL611_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="611" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="RA_Classification" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL613_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="613" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ENTITIES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Separation_Traffic_Info_Type_Quality" type="db:Separation_Traffic_Info_Type_Quality" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aircraft" type="db:L-Aircraft" minOccurs="0" maxOccurs="1" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="35" />
+	</xs:complexType>
+	<xs:complexType name="Separation_Traffic_Info_Type_Quality">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Traffic_Info_Quality" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL595_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="595" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="36" />
+	</xs:complexType>
+	<xs:complexType name="Dangerous_Goods">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Dangerous_Good" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1086_12_0_1_3">
+										<xs:attribute name="attributeId" type="xs:string" fixed="688" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Origin_Of_Goods" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1051" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Air_Waybill_Consignment_Tracking_Number" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1052" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Shipper_Name" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1053" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Total_Number_Of_Packages_In_Consignment" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Total_Number_Of_Packages_In_Consignment">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1054" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Subsidiary_Risk" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1157_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1055" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Type_Of_Outer_Packaging" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1158_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1056" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Packing_Group_Class_7_Category" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1159_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1057" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Number_Of_Inner_Packages" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Number_Of_Inner_Packages">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1058" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Type_Of_Inner_Packaging" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1160_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1059" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Quantity_Per_Inner_Packaging" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Quantity_Per_Inner_Packaging">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1060" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aircraft" type="db:L-Aircraft" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="ID" type="xs:ID" />
+		<xs:attribute name="entityId" type="xs:string" fixed="43" />
+	</xs:complexType>
+	<xs:complexType name="Runway_Incursion">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Entity_Involved" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1077_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="741" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LINKS" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Aircraft" type="db:L-Aircraft" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Runway" type="db:L-Runway" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="Vehicle" type="db:L-Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="47" />
+	</xs:complexType>
+	<xs:complexType name="L-Vehicle">
+		<xs:attribute name="REF" type="xs:IDREF" use="required" />
+	</xs:complexType>
+	<xs:complexType name="Reporting_History">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Report_Identification" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Report_Identification">
+										<xs:attribute name="attributeId" type="xs:string" fixed="438" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Reporting_Entity" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1181_12_0_1_3">
+										<xs:attribute name="attributeId" type="xs:string" fixed="447" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Reporting_Form_Type" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1021_12_0_1_3">
+										<xs:attribute name="attributeId" type="xs:string" fixed="495" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Report_Status" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1117_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="800" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Reporting_Date" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="xs:date">
+										<xs:attribute name="attributeId" type="xs:string" fixed="801" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Report" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:ResourceLocator">
+										<xs:attribute name="attributeId" type="xs:string" fixed="802" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Parties_Informed" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1167_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1064" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Risk_Classification" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Risk_Classification">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1065" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Risk_Methodology" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Risk_Methodology">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1066" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Description_Investigation" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1067" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Risk_Assessment" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1068" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Corrective_Actions" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1069" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Conclusions" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1070" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Tracking_Sheet_Number" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="dt:string255max">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1071" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Report_Version" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Report_Version">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1084" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Other_Report_Inform" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1085" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Export_Control" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1175_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1086" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Reporter_S_Language" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1097_5_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1091" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Reporter_S_Description" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:complexContent>
+									<xs:extension base="dt:Text">
+										<xs:attribute name="attributeId" type="xs:string" fixed="1092" />
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="53" />
+	</xs:complexType>
+	<xs:complexType name="Risk_Assessment">
+		<xs:all>
+			<xs:element name="ATTRIBUTES" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="Risk_Grade" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1103_5_0_1_2">
+										<xs:attribute name="attributeId" type="xs:string" fixed="718" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Risk_Method" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:VL1136_12_0_1_1">
+										<xs:attribute name="attributeId" type="xs:string" fixed="939" />
+										<xs:attribute name="AdditionalText" />
+										<xs:attribute name="AdditionalTextEncoding">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="xs:string" />
+													<xs:enumeration value="xs:base64Binary" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Risk_Level" minOccurs="0" maxOccurs="1">
+							<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+								<xs:simpleContent>
+									<xs:extension base="db:Base_Risk_Level">
+										<xs:attribute name="attributeId" type="xs:string" fixed="940" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="entityId" type="xs:string" fixed="59" />
+	</xs:complexType>
+	<!--Types generated from attributes with particular features-->
+	<xs:simpleType name="Base_Dew_Point" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="-100" />
+			<xs:maxInclusive value="100" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Height_Of_Cloud_Base" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="-3000" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Maximum_Gust" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="199" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Air_Temperature" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="-150" />
+			<xs:maxInclusive value="250" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Visibility" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Wind_Direction" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="360" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Wind_Speed" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Fatalities_Ground" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_On_Board_A_C" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Injuries-Ground" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Minor_Injuries-Ground" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Serious_Injuries-Ground" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Elevation_Above_MSL" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="-3000" />
+			<xs:maxInclusive value="20000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Runway_Identifier" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3" />
+			<xs:pattern value="([^a-z])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Airspace_Name" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Aircraft_Altitude" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="-3000" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_A_C_Flight_Level" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="600" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Cycles_A_C" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Call_Sign" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50" />
+			<xs:pattern value="([^a-z])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cleared_Altitude" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cleared_Flight_Level" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="600" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Number_Fatalities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Flight_Number" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="8" />
+			<xs:pattern value="([^a-z])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Number_Of_Persons" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Maximum_T_O_Mass" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Number_Minor_Injuries" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Number_Of_Engines" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Aircraft_Registration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="11" />
+			<xs:pattern value="([^a-z])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Serial_Number" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20" />
+			<xs:pattern value="([^a-z])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Number_Serious_Injuries" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_SID_Route" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Speed_First_Event" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="1999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Aircraft_Total_Time" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="300000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Year_Built" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1910" />
+			<xs:maxInclusive value="2147483647" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Deviating_FL" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cleared_FL_After" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_Overhaul" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Engine_Position" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="8" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_New" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_Inspection" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_New" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_Overhaul" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_Insp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Duty_Last_24_Hours" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="24" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Rest_Before_Duty" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="2000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Experience_All_A_C" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="120000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Experience_This_A_C" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="120000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Part_Number" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_New_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_Overhaul_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_Inspection_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_New_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_Overhaul_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_Insp_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Propeller_Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="60" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Prop_Position" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="8" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_New_2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_Overhaul_2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Time_Since_Inspection_2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_New_2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_Overh" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Cycles_Since_Insp_2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_ANSP_Name" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_RTF_Frequency" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="2000000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Duty_Time_In_Position" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="18" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Est_Minimum_Horiz_Sep" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="99999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Req_Minimum_Horiz_Sep" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Min_Horiz_Sep_Rec" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="999" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Est_Vert_Separation" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="60000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Req_Vert_Separation" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="60000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Vertical_Sep_Recorded" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="60000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Rate_Of_Closure" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="2500" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Height_Altitude" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="60000" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Total_Number_Of_Packages_In_Consignment" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="-2147483647" />
+			<xs:maxInclusive value="2147483647" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Number_Of_Inner_Packages" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Quantity_Per_Inner_Packaging" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="-2147483647" />
+			<xs:maxInclusive value="2147483647" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Report_Identification" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Risk_Classification" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="200" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Risk_Methodology" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="200" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Report_Version" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="200" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Base_Risk_Level" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="100" />
+			<xs:fractionDigits value="50" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!--SET-->
+	<xs:element name="SET">
+		<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:sequence>
+				<xs:element name="Occurrence" type="db:Occurrence" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="TaxonomyName" type="xs:string" use="required" fixed="ECCAIRS Aviation" />
+			<xs:attribute name="TaxonomyVersion" type="xs:string" use="required" fixed="3.4.0.2" />
+			<xs:attribute name="Domain" type="xs:string" use="required" fixed="RIT" />
+			<xs:attribute name="Version" type="xs:string" use="required" fixed="1.0.0.0" />
+		</xs:complexType>
+		<xs:key name="K-Runway" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aerodrome_General/db:ENTITIES/db:Runway" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:key name="K-Vehicle" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aerodrome_General/db:ENTITIES/db:Vehicle" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:key name="K-Air_Space" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Air_Space" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:key name="K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aircraft" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:key name="K-Sector" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Air_Navigation_Service/db:ENTITIES/db:Sector" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:key name="K-Events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Events" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:key name="K-Dangerous_Goods" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Dangerous_Goods" />
+			<xs:field xpath="@ID" />
+		</xs:key>
+		<xs:keyref name="KREF-Runway-Aircraft" refer="db:K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aerodrome_General/db:ENTITIES/db:Runway/db:LINKS/db:Aircraft" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Aerodrome_General-Events" refer="db:K-Events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aerodrome_General/db:LINKS/db:Events" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Air_Space-Aircraft" refer="db:K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Air_Space/db:LINKS/db:Aircraft" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Air_Space-Events" refer="db:K-Events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Air_Space/db:LINKS/db:Events" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Aircraft-Air_Space" refer="db:K-Air_Space" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aircraft/db:LINKS/db:Air_Space" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Aircraft-Events" refer="db:K-Events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aircraft/db:LINKS/db:Events" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Aircraft-Runway" refer="db:K-Runway" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aircraft/db:LINKS/db:Runway" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Aircraft-Sector" refer="db:K-Sector" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aircraft/db:LINKS/db:Sector" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Aircraft-Dangerous_Goods" refer="db:K-Dangerous_Goods" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Aircraft/db:LINKS/db:Dangerous_Goods" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Sector-Aircraft" refer="db:K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Air_Navigation_Service/db:ENTITIES/db:Sector/db:LINKS/db:Aircraft" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Air_Navigation_Service-Events" refer="db:K-Events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Air_Navigation_Service/db:LINKS/db:Events" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Separation_Aircraft-Aircraft" refer="db:K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Separation/db:ENTITIES/db:Separation_Aircraft/db:LINKS/db:Aircraft" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Dangerous_Goods-Aircraft" refer="db:K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Dangerous_Goods/db:LINKS/db:Aircraft" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Runway_Incursion-Aircraft" refer="db:K-Aircraft" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Runway_Incursion/db:LINKS/db:Aircraft" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Runway_Incursion-Runway" refer="db:K-Runway" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Runway_Incursion/db:LINKS/db:Runway" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+		<xs:keyref name="KREF-Runway_Incursion-Vehicle" refer="db:K-Vehicle" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:selector xpath="db:Occurrence/db:ENTITIES/db:Runway_Incursion/db:LINKS/db:Vehicle" />
+			<xs:field xpath="@REF" />
+		</xs:keyref>
+	</xs:element>
+</xs:schema>

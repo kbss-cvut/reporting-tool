@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -102,9 +102,9 @@ let AttachmentRow = (props) => {
         reference = URL_REGEXP.test(attachment.reference) ?
             <a href={attachment.reference} target='_blank'>{attachment.reference}</a> : attachment.reference;
     return <tr>
-        <td className='report-row'>{reference}</td>
-        <td className='report-row'>{attachment.description}</td>
-        <td className='report-row actions'>
+        <td className='vertical-middle'>{reference}</td>
+        <td className='vertical-middle'>{attachment.description}</td>
+        <td className='vertical-middle actions'>
             <Button bsStyle='primary' bsSize='small'
                     onClick={(e) => props.onEdit(attachment)}>{props.i18n('table-edit')}</Button>
             <Button bsStyle='warning' bsSize='small'

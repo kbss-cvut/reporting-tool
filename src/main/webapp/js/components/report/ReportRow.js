@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -77,24 +77,24 @@ class ReportRow extends React.Component {
 
     render() {
         const report = ReportType.getReport(this.props.report),
-            stateClasses = ['report-row', 'content-center'], stateTooltip = null;
+            stateClasses = ['vertical-middle', 'content-center'], stateTooltip = null;
         return <tr onDoubleClick={this.onDoubleClick}>
 
-            <td className='report-row'>
+            <td className='vertical-middle'>
                 <a href={'#/' + Routes.reports.path + '/' + report.key} title={this.i18n('reports.open-tooltip')}
                    className='breakable'>
                     {report.identification}
                 </a>
             </td>
-            <td className='report-row content-center'>{Utils.formatDate(report.date)}</td>
-            <td className='report-row'>{report.renderMoreInfo()}</td>
-            <td className='report-row content-center'>
+            <td className='vertical-middle content-center'>{Utils.formatDate(report.date)}</td>
+            <td className='vertical-middle'>{report.renderMoreInfo()}</td>
+            <td className='vertical-middle content-center'>
                 {this._renderReportTypes(report)}
             </td>
             <td className={classNames(stateClasses)} title={stateTooltip}>
                 {report.getPhase(OptionsStore.getOptions('reportingPhase'), this.props.intl)}
             </td>
-            <td className='report-row actions'>
+            <td className='vertical-middle actions'>
                 <Button bsStyle='primary' bsSize='small' title={this.i18n('reports.open-tooltip')}
                         onClick={this.onEditClick}>{this.i18n('open')}</Button>
                 <Button bsStyle='warning' bsSize='small' title={this.i18n('reports.delete-tooltip')}

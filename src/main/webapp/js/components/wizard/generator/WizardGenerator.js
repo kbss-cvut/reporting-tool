@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Czech Technical University in Prague
+ * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -43,6 +43,7 @@ module.exports = {
             Configuration.intl = I18nStore.getIntl();
             Configuration.typeaheadResultList = TypeaheadResultList;
             Configuration.inputComponent = Input;
+            Configuration.readOnly = true;
             WizardGenerator.createWizard(data, {}, wizardTitle, renderCallback);
         }, () => {
             Logger.log('Received no valid wizard. Using the default one.');
@@ -60,6 +61,7 @@ module.exports = {
             Configuration.intl = I18nStore.getIntl();
             Configuration.typeaheadResultList = TypeaheadResultList;
             Configuration.inputComponent = Input;
+            Configuration.readOnly = false;
             WizardGenerator.createWizard(data, event.question, wizardTitle, renderCallback);
         }, () => {
             Logger.log('Received no valid wizard. Using the default one.');

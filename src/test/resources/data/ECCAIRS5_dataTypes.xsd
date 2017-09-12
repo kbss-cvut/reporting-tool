@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+           targetNamespace="http://eccairsportal.jrc.ec.europa.eu/ECCAIRS5_dataTypes.xsd" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<!--Latitude-->
+	<xs:simpleType name="LatitudeDecimal">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="-90.0"/>
+			<xs:maxInclusive value="90.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Longitude-->
+	<xs:simpleType name="LongitudeDecimal">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="-180.0"/>
+			<xs:maxInclusive value="180.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Alphanumeric-->
+	<xs:simpleType name="string255max">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string20max">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string30max">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string50max">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="keyString">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="32"/>
+			<xs:maxLength value="32"/>	
+			<xs:pattern value="([A-Z0-9])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Decimals-->
+	<xs:simpleType name="Decimal">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="-9999999999999"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--DateTime-->
+	<xs:simpleType name="DateTime">
+		<xs:restriction base="xs:dateTime">
+		  <xs:pattern value=".+T[^Z+-]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Time-->
+	<xs:simpleType name="Time">
+		<xs:restriction base="xs:time">
+		  <xs:pattern value=".[^Z+-]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Eccairs Resource Locator-->
+	<xs:complexType name="ResourceLocator">
+		<xs:sequence>
+			<xs:element name="FileName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Eccairs Embedded Data-->
+	<xs:complexType name="EmbeddedData">
+		<xs:sequence>
+			<xs:element name="FileName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EccairsNumber" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ResponsibleEntity" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OccurrenceKey" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CreationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LastModificationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Repository" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TaxonomyKey" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TaxonomyName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TaxonomyVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Eccairs Data Link-->
+	<xs:complexType name="DataLink">
+		<xs:sequence>
+			<xs:element name="EccairsNumber" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ResponsibleEntity" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OccurrenceKey" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CreationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LastModificationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Repository" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TaxonomyKey" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TaxonomyName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TaxonomyVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Text-->
+	<xs:complexType name="Text">
+		<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:element name="PlainText" type="xs:string"/>
+			<xs:element name="EncodedText" type="xs:base64Binary"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>
