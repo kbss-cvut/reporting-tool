@@ -1,4 +1,4 @@
-BASE <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
+BASE <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/>
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -6,13 +6,28 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX eccairs-model: <http://onto.fel.cvut.cz/ontologies/eccairs/model/>
 PREFIX eccairs: <http://onto.fel.cvut.cz/ontologies/eccairs/>
 
-PREFIX eccairs-current: <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/>
+PREFIX eccairs-3.4.0.2: <http://onto.fel.cvut.cz/ontologies/eccairs/aviation-3.4.0.2/>
+
+PREFIX aviation-safety: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
 
 ASK WHERE {
     {
-      SERVICE <http://localhost:18080/rdf4j-server/repositories/uniset-factors> {
+      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
          # all events
-         ?term rdfs:label ?label .
+         <a-390> eccairs-model:has-child+ ?term .
       }
+    } UNION {
+      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+         # all descriptive factors
+         <a-385> eccairs-model:has-child+ ?term .
+      }
+    } UNION {
+      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+         # all explanatory factors
+         <a-392> eccairs-model:has-child+ ?term .
+      }
+      BIND(eccairs:explanatory-factor as ?type)
+    } UNION {
+      ?term rdfs:subClassOf+ aviation-safety:safety_event .
   }
 }
