@@ -16,6 +16,7 @@ import React from "react";
 
 import Actions from "../../actions/Actions";
 import Ajax from "../../utils/Ajax";
+import Constants from "../../constants/Constants";
 import I18nStore from "../../stores/I18nStore";
 import Logger from "../../utils/Logger";
 import Register from "./Register";
@@ -28,7 +29,7 @@ export default class RegisterController extends React.Component {
     }
 
     register = (user, onSuccess, onError) => {
-        Ajax.post('rest/persons', user).end((body, resp) => {
+        Ajax.post(Constants.REST_PREFIX + 'persons', user).end((body, resp) => {
             if (resp.status === 201) {
                 onSuccess();
                 this.doSyntheticLogin(user.username, user.password, onError);

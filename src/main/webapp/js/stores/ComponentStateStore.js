@@ -14,10 +14,10 @@
  */
 'use strict';
 
-var Reflux = require('reflux');
-var assign = require('object-assign');
+const Reflux = require('reflux');
+const assign = require('object-assign');
 
-var Actions = require('../actions/Actions');
+const Actions = require('../actions/Actions');
 
 /**
  * Stores state of components.
@@ -25,7 +25,7 @@ var Actions = require('../actions/Actions');
  * Useful for example when a component is going to be dismounted, but we want to remember (a part of) its state for the
  * next time it is rendered.
  */
-var ComponentStateStore = Reflux.createStore({
+const ComponentStateStore = Reflux.createStore({
 
     init: function () {
         this.listenTo(Actions.rememberComponentState, this.onRememberComponentState);

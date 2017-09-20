@@ -25,8 +25,9 @@ const injectIntl = require('../../../utils/injectIntl');
 const Actions = require('../../../actions/Actions');
 const Attachments = require('../attachment/Attachments').default;
 const BasicOccurrenceInfo = require('./BasicOccurrenceInfo').default;
-const Factors = require('../../factor/Factors');
+const Constants = require('../../../constants/Constants');
 const CorrectiveMeasures = require('../../correctivemeasure/CorrectiveMeasures').default;
+const Factors = require('../../factor/Factors');
 const InitialReport = require('../initial/InitialReport').default;
 const PhaseTransition = require('../../misc/PhaseTransition').default;
 const ReportProvenance = require('../ReportProvenance').default;
@@ -39,7 +40,7 @@ const SmallScreenFactors = require('../../factor/smallscreen/SmallScreenFactors'
 const WizardGenerator = require('../../wizard/generator/WizardGenerator');
 const WizardWindow = require('../../wizard/WizardWindow').default;
 
-const BASE_URL_WITH_SLASH = 'rest/reports/';
+const BASE_URL_WITH_SLASH = Constants.REST_PREFIX + 'reports/';
 
 const OccurrenceReport = React.createClass({
     mixins: [MessageMixin, I18nMixin, ReportDetailMixin],

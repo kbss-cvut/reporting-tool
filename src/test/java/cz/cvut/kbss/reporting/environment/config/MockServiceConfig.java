@@ -22,6 +22,7 @@ import cz.cvut.kbss.reporting.service.factory.OccurrenceReportFactory;
 import cz.cvut.kbss.reporting.service.formgen.FormGenService;
 import cz.cvut.kbss.reporting.service.options.OptionsService;
 import cz.cvut.kbss.reporting.service.search.SearchService;
+import cz.cvut.kbss.reporting.service.security.LoginTracker;
 import cz.cvut.kbss.reporting.service.security.SecurityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -119,5 +120,10 @@ public class MockServiceConfig {
     @Bean
     public SecurityUtils securityUtils() {
         return mock(SecurityUtils.class);
+    }
+
+    @Bean
+    public LoginTracker loginTracker() {
+        return mock(LoginTracker.class);
     }
 }

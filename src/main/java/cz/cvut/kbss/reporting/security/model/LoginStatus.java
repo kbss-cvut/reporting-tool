@@ -14,14 +14,15 @@
  */
 package cz.cvut.kbss.reporting.security.model;
 
-/**
- * @author ledvima1
- */
 public class LoginStatus {
 
     private boolean loggedIn;
     private String username;
     private String errorMessage;
+    /**
+     * Represents identifier of the error, which can be resolved to a localized message in the JS UI
+     */
+    private String errorId;
     private boolean success;
 
     public LoginStatus() {
@@ -56,6 +57,14 @@ public class LoginStatus {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public String getErrorId() {
+        return errorId;
+    }
+
+    public void setErrorId(String errorId) {
+        this.errorId = errorId;
     }
 
     public boolean isSuccess() {

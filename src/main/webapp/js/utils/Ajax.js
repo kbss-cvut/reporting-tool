@@ -61,6 +61,11 @@ var Ajax = {
         return this;
     },
 
+    type: function (type) {
+        this.req = this.req.type(type);
+        return this;
+    },
+
     del: function (url) {
         this.req = request.del(url);
         return this;

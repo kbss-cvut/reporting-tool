@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @OWLClass(iri = Vocabulary.s_c_Person)
@@ -140,6 +141,17 @@ public class Person implements HasDerivableUri, Serializable {
         this.types = types;
     }
 
+    /**
+     * Adds the specified type to this instance's ontological types.
+     *
+     * @param type The type to add
+     */
+    public void addType(String type) {
+        Objects.requireNonNull(type);
+        assert types != null;
+        types.add(type);
+    }
+
     @Override
     public String toString() {
         return firstName + " " + lastName + " <" + uri + ">";
@@ -147,7 +159,7 @@ public class Person implements HasDerivableUri, Serializable {
 
     /**
      * Generates URI using {@link Constants#PERSON_BASE_URI} and the person's first and last name.
-     *
+     * <p>
      * If the URI is already set, nothing happens.
      */
     @Override
@@ -175,5 +187,58 @@ public class Person implements HasDerivableUri, Serializable {
      */
     public boolean nameEquals(Person other) {
         return other != null && firstName.equals(other.firstName) && lastName.equals(other.lastName);
+    }
+
+    /**
+     * Checks whether the account represented by this instance is locked.
+     *
+     * @return Locked status
+     */
+    public boolean isLocked() {
+        return types.contains(Vocabulary.s_c_locked);
+    }
+
+    /**
+     * Locks the account represented by this instance.
+     */
+    public void lock() {
+        assert types != null;
+        types.add(Vocabulary.s_c_locked);
+    }
+
+    /**
+     * Unlocks the account represented by this instance.
+     */
+    public void unlock() {
+        assert types != null;
+        types.remove(Vocabulary.s_c_locked);
+    }
+
+    /**
+     * Enables the account represented by this instance.
+     * <p>
+     * Does nothing if the account is already enabled.
+     */
+    public void enable() {
+        assert types != null;
+        types.remove(Vocabulary.s_c_disabled);
+    }
+
+    /**
+     * Checks whether the account represented by this instance is enabled.
+     */
+    public boolean isEnabled() {
+        assert types != null;
+        return !types.contains(Vocabulary.s_c_disabled);
+    }
+
+    /**
+     * Disables the account represented by this instance.
+     * <p>
+     * Disabled account cannot be logged into and cannot be used to view/modify data.
+     */
+    public void disable() {
+        assert types != null;
+        types.add(Vocabulary.s_c_disabled);
     }
 }

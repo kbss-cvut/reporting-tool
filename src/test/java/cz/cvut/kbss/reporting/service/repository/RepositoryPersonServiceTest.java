@@ -20,10 +20,12 @@ import cz.cvut.kbss.reporting.exception.AuthorizationException;
 import cz.cvut.kbss.reporting.exception.UsernameExistsException;
 import cz.cvut.kbss.reporting.exception.ValidationException;
 import cz.cvut.kbss.reporting.model.Person;
+import cz.cvut.kbss.reporting.model.Vocabulary;
 import cz.cvut.kbss.reporting.security.model.AuthenticationToken;
 import cz.cvut.kbss.reporting.security.model.UserDetails;
 import cz.cvut.kbss.reporting.service.BaseServiceTestRunner;
 import cz.cvut.kbss.reporting.service.PersonService;
+import cz.cvut.kbss.reporting.service.event.LoginAttemptsThresholdExceeded;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -164,5 +166,53 @@ public class RepositoryPersonServiceTest extends BaseServiceTestRunner {
     public void existsReturnsTrueForExistingUsername() {
         final Person person = persistPerson();
         assertTrue(personService.exists(person.getUsername()));
+    }
+
+    @Test
+    public void addsLockedClassToUserWhenLoginLimitExceededEventIsReceivedForHim() {
+        final Person person = persistPerson();
+        assertFalse(person.getTypes().contains(Vocabulary.s_c_locked));
+        final LoginAttemptsThresholdExceeded event = new LoginAttemptsThresholdExceeded(this, person);
+        ((RepositoryPersonService) personService).onApplicationEvent(event);
+
+        final Person result = personService.find(person.getUri());
+        assertTrue(result.getTypes().contains(Vocabulary.s_c_locked));
+    }
+
+    @Test
+    public void unlockRemovesLockedClassFromUserAndSetsHimNewPassword() {
+        final Person person = Generator.getPerson();
+        person.lock();
+        person.encodePassword(passwordEncoder);
+        personDao.persist(person);
+        final String newPassword = "newPassword";
+
+        personService.unlock(person, newPassword);
+        final Person result = personService.find(person.getUri());
+        assertFalse(result.isLocked());
+        assertTrue(passwordEncoder.matches(newPassword, result.getPassword()));
+    }
+
+    @Test
+    public void disableDisablesPersonAccount() {
+        final Person person = persistPerson();
+        assertTrue(person.isEnabled());
+
+        personService.disable(person);
+        final Person result = personService.find(person.getUri());
+        assertFalse(result.isEnabled());
+    }
+
+    @Test
+    public void enableEnablesDisabledPersonAccount() {
+        final Person person = Generator.getPerson();
+        person.disable();
+        person.encodePassword(passwordEncoder);
+        personDao.persist(person);
+        assertFalse(person.isEnabled());
+
+        personService.enable(person);
+        final Person result = personService.find(person.getUri());
+        assertTrue(result.isEnabled());
     }
 }

@@ -18,16 +18,17 @@ const Reflux = require('reflux');
 
 const Actions = require('../actions/Actions');
 const Ajax = require('../utils/Ajax');
+const Constants = require('../constants/Constants');
 const Logger = require('../utils/Logger');
 const Utils = require('../utils/Utils');
 
-const BASE_URL = 'rest/statistics';
+const BASE_URL = Constants.REST_PREFIX + 'statistics';
 
 const StatisticsStore = Reflux.createStore({
     listenables: [Actions],
 
     onLoadStatistics: function (queryName, params) {
-        const url = Utils.addParametersToUrl(BASE_URL+"/"+queryName, params)
+        const url = Utils.addParametersToUrl(BASE_URL + "/" + queryName, params);
         Ajax.get(url).end(function (data) {
             this.trigger({
                 action: Actions.loadStatistics,

@@ -14,10 +14,10 @@
  */
 'use strict';
 
-var Reflux = require('reflux');
-var assign = require('object-assign');
+const Reflux = require('reflux');
+const assign = require('object-assign');
 
-var WizardStore = Reflux.createStore({
+const WizardStore = Reflux.createStore({
 
     _stepData: [],
     _data: {},
@@ -26,7 +26,7 @@ var WizardStore = Reflux.createStore({
         this._data = data ? assign({}, data) : {};
         this._stepData = [];
         if (stepData) {
-            for (var i = 0, len = stepData.length; i < len; i++) {
+            for (let i = 0, len = stepData.length; i < len; i++) {
                 this._stepData.push(assign({}, stepData[i]));
             }
         }
@@ -45,7 +45,7 @@ var WizardStore = Reflux.createStore({
         if (!update || index < 0 || index >= this._stepData.length) {
             return;
         }
-        var step = this._stepData[index];
+        const step = this._stepData[index];
         // Defensive copy
         this._stepData[index] = assign({}, step, update);
         this.trigger();

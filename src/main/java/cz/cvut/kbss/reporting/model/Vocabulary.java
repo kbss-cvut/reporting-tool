@@ -12,6 +12,7 @@
  * details. You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package cz.cvut.kbss.reporting.model;
 
 
@@ -504,6 +505,7 @@ public class Vocabulary {
     public final static String s_p_causes = "http://onto.fel.cvut.cz/ontologies/aviation-safety/causes";
     public final static String s_p_has_significant_trope = "http://onto.fel.cvut.cz/ontologies/aviation-safety/has_significant_trope";
     public final static String s_p_has_definition = "http://onto.fel.cvut.cz/ontologies/voc/has_definition";
+    public final static String s_c_disabled = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/disabled";
     public final static String s_c_helicopter = "http://onto.fel.cvut.cz/ontologies/aviation-safety/helicopter";
     public final static String s_c_Aircraft_stoping = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Aircraft_stoping";
     public final static String s_c_Participation = "http://onto.fel.cvut.cz/ontologies/ufo/Participation";
@@ -732,6 +734,7 @@ public class Vocabulary {
     public final static String s_c_Reception = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Reception";
     public final static String s_p_mitigates = "http://onto.fel.cvut.cz/ontologies/aviation-safety/mitigates";
     public final static String s_p_has_barrier_effectiveness_evaluation = "http://onto.fel.cvut.cz/ontologies/arms/sira/model/has_barrier_effectiveness_evaluation";
+    public final static String s_c_locked = "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/locked";
     public final static String s_c_corrective_measure_implementation_A = "http://onto.fel.cvut.cz/ontologies/safety-management/corrective-measure-implementation";
     public final static String s_c_Ground_facility = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Ground_facility";
     public final static String s_c_Vertical_conflict = "http://onto.fel.cvut.cz/ontologies/aviation-safety/Vertical_conflict";

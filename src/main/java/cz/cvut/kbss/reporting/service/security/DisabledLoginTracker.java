@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2017 Czech Technical University in Prague
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -12,30 +12,22 @@
  * details. You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-'use strict';
+package cz.cvut.kbss.reporting.service.security;
+
+import cz.cvut.kbss.reporting.model.Person;
 
 /**
- * Internationalization store for access from non-react components and objects.
+ * Dummy login tracker which does nothing.
  */
+public class DisabledLoginTracker implements LoginTracker {
 
-let _messages = [];
-let _intl = {};
-
-module.exports = {
-
-    setMessages: function (messages) {
-        _messages = messages;
-    },
-
-    setIntl: function (intl) {
-        _intl = intl;
-    },
-
-    i18n: function (messageId) {
-        return _messages[messageId];
-    },
-
-    getIntl: function () {
-        return _intl;
+    @Override
+    public void unsuccessfulLoginAttempt(Person user) {
+        // Do nothing
     }
-};
+
+    @Override
+    public void successfulLoginAttempt(Person user) {
+        // Do nothing
+    }
+}

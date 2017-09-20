@@ -39,6 +39,11 @@ public class SecurityConstants {
      */
     public static final int SESSION_TIMEOUT = 30 * 60;
 
+    /**
+     * Maximum number of unsuccessful login attempts.
+     */
+    public static final int MAX_LOGIN_ATTEMPTS = 5;
+
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     public static final String ROLE_USER = "ROLE_USER";

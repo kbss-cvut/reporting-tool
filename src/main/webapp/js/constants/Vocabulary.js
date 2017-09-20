@@ -27,5 +27,8 @@ module.exports = {
     TRANSITION_LABEL: 'http://onto.fel.cvut.cz/ontologies/documentation/transition_label',
     SUGGESTED: "http://onto.fel.cvut.cz/ontologies/reporting-tool/model/suggested-by-text-analysis",
 
-    ROLE_ADMIN: 'http://onto.fel.cvut.cz/ontologies/reporting-tool/model/admin'
+    ROLE_ADMIN: 'http://onto.fel.cvut.cz/ontologies/reporting-tool/model/admin',
+
+    LOCKED: 'http://onto.fel.cvut.cz/ontologies/reporting-tool/model/locked',
+    DISABLED: 'http://onto.fel.cvut.cz/ontologies/reporting-tool/model/disabled'
 };

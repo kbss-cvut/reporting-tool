@@ -14,10 +14,11 @@
  */
 import React from "react";
 import PropTypes from "prop-types";
-import {Glyphicon, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 
 import I18nWrapper from "../../i18n/I18nWrapper";
 import injectIntl from "../../utils/injectIntl";
+import UserRow from "./UserRow";
 
 class UserTable extends React.Component {
     constructor(props) {
@@ -43,38 +44,21 @@ class UserTable extends React.Component {
 
     _renderRows() {
         const users = this.props.users,
+            statusPending = this.props.statusPending,
+            actions = this.props.actions,
             rows = [];
         for (let i = 0, len = users.length; i < len; i++) {
-            rows.push(<UserRow key={users[i].uri} user={users[i]}/>);
+            rows.push(<UserRow key={users[i].uri} user={users[i]} unlock={actions.unlock} disable={actions.disable}
+                               enable={actions.enable} pending={statusPending === users[i]}/>);
         }
         return rows;
     }
 }
 
 UserTable.propTypes = {
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired,
+    statusPending: PropTypes.object
 };
-
-let UserRow = (props) => {
-    const user = props.user,
-        i18n = props.i18n;
-    return <tr>
-        <td className='vertical-middle'>{user.firstName + ' ' + user.lastName}</td>
-        <td className='vertical-middle'>{user.username}</td>
-        <td className='vertical-middle content-center'>
-            <Glyphicon glyph={user.blocked ? 'alert' : 'ok'}
-                       title={i18n(user.blocked ? 'users.table.blocked.tooltip' : 'users.table.not.blocked.tooltip')}/>
-        </td>
-        <td className='vertical-middle actions'>
-            &nbsp;
-        </td>
-    </tr>;
-};
-
-UserRow.propTypes = {
-    user: PropTypes.object.isRequired
-};
-
-UserRow = injectIntl(I18nWrapper(UserRow));
 
 export default injectIntl(I18nWrapper(UserTable));

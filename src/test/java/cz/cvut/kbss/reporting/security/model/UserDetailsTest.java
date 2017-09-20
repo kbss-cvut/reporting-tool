@@ -36,7 +36,7 @@ public class UserDetailsTest {
     @Test
     public void constructorAddsRolesMatchingPersonTypes() {
         final Person p = Generator.getPerson();
-        p.getTypes().add(Vocabulary.s_c_admin);
+        p.addType(Vocabulary.s_c_admin);
         final UserDetails details = new UserDetails(p);
         assertTrue(
                 details.getAuthorities().contains(new SimpleGrantedAuthority(SecurityConstants.Role.USER.getName())));

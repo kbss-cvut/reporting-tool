@@ -32,6 +32,7 @@ class Login extends React.Component {
             username: '',
             password: '',
             alertVisible: false,
+            errorMessage: null,
             mask: false
         };
     }
@@ -53,13 +54,17 @@ class Login extends React.Component {
         }
     };
 
-    onLoginError = () => {
-        this.setState({alertVisible: true, mask: false});
+    onLoginError = (status) => {
+        const update = {alertVisible: true, mask: false};
+        if (status.errorId) {
+            update.errorMessage = status.errorId;
+        }
+        this.setState(update);
     };
 
     login = () => {
         Authentication.login(this.state.username, this.state.password, this.onLoginError);
-        this.setState({mask: true});
+        this.setState({mask: true, errorMessage: null});
     };
 
     register() {
@@ -96,7 +101,7 @@ class Login extends React.Component {
 
     _renderAlert() {
         return this.state.alertVisible ? <Alert bsStyle='danger' bsSize='small'>
-            <div>{this.i18n('login.error')}</div>
+            <div>{this.i18n(this.state.errorMessage ? this.state.errorMessage : 'login.error')}</div>
         </Alert> : null;
     }
 }

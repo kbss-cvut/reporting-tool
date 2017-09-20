@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * @author ledvima1
+ * Sets maximum inactive timeout on session when it is created.
  */
 @WebListener
 public class SessionTimeoutManager implements HttpSessionListener {

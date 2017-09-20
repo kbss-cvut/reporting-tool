@@ -18,7 +18,9 @@ import Environment from "../environment/Environment";
 import Generator from "../environment/Generator";
 import Actions from "../../js/actions/Actions";
 import Administration from "../../js/components/admin/Administration";
+import UserRow from "../../js/components/admin/UserRow";
 import UserStore from "../../js/stores/UserStore";
+import UsersController from "../../js/components/admin/UsersController";
 import Vocabulary from "../../js/constants/Vocabulary";
 
 class Wrapper extends React.Component {
@@ -40,7 +42,7 @@ describe('Administration', () => {
         spyOn(UserStore, 'getCurrentUser').and.returnValue(user);
 
         const component = Environment.render(<Wrapper><Administration/></Wrapper>),
-            usersComp = TestUtils.scryRenderedComponentsWithType(component, require('../../js/components/admin/UsersController').default);
+            usersComp = TestUtils.scryRenderedComponentsWithType(component, UsersController);
         expect(usersComp.length).toEqual(0);
     });
 
@@ -50,7 +52,51 @@ describe('Administration', () => {
         spyOn(UserStore, 'getCurrentUser').and.returnValue(user);
 
         const component = Environment.render(<Wrapper><Administration/></Wrapper>),
-            usersComp = TestUtils.findRenderedComponentWithType(component, require('../../js/components/admin/UsersController').default);
+            usersComp = TestUtils.findRenderedComponentWithType(component, UsersController);
         expect(usersComp).not.toBeNull();
+    });
+
+    it('indicates account status by appropriate icon', () => {
+        const user = Generator.generatePerson();
+        user.types = [Vocabulary.ROLE_ADMIN];
+        const users = [user, {
+            uri: Generator.getRandomUri(),
+            firstName: 'locked',
+            lastName: 'user',
+            username: 'locked@inbas.cz',
+            types: [Vocabulary.LOCKED]
+        }, {
+            uri: Generator.getRandomUri(),
+            firstName: 'disabled',
+            lastName: 'user',
+            username: 'disabled@inbas.cz',
+            types: [Vocabulary.DISABLED]
+        }];
+        spyOn(UserStore, 'getCurrentUser').and.returnValue(user);
+
+
+        const component = Environment.render(<Wrapper><Administration/></Wrapper>),
+            controller = TestUtils.findRenderedComponentWithType(component, UsersController);
+        controller._onUsersLoaded({action: Actions.loadUsers, users: users});
+
+        const statusIcons = TestUtils.scryRenderedComponentsWithType(controller, require("react-bootstrap").Glyphicon);
+        expect(statusIcons.length).toEqual(3);
+        expect(statusIcons[0].props.glyph).toEqual('ok');
+        expect(statusIcons[1].props.glyph).toEqual('ban-circle');
+        expect(statusIcons[2].props.glyph).toEqual('minus');
+    });
+
+    it('does not allow to disable the current user', () => {
+        const user = Generator.generatePerson();
+        user.types = [Vocabulary.ROLE_ADMIN];
+        spyOn(UserStore, 'getCurrentUser').and.returnValue(user);
+
+        const component = Environment.render(<Wrapper><Administration/></Wrapper>),
+            controller = TestUtils.findRenderedComponentWithType(component, UsersController);
+        controller._onUsersLoaded({action: Actions.loadUsers, users: [user]});
+
+        const row = TestUtils.findRenderedComponentWithType(component, UserRow),
+            buttons = TestUtils.scryRenderedComponentsWithType(row, require("react-bootstrap").Button);
+        expect(buttons.length).toBe(0);
     });
 });

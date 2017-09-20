@@ -18,6 +18,7 @@ import {Button, Panel} from "react-bootstrap";
 import classNames from "classnames";
 
 import Ajax from "../../utils/Ajax";
+import Constants from "../../constants/Constants";
 import I18nWrapper from "../../i18n/I18nWrapper";
 import injectIntl from "../../utils/injectIntl";
 import Input from "../HorizontalInput";
@@ -62,7 +63,7 @@ class Profile extends React.Component {
         this._onChange(e);
         const value = e.target.value;
         if (this.state.originalUsername !== e.target.value) {
-            Ajax.get('rest/persons/exists?username=' + value).end((data) => {
+            Ajax.get(Constants.REST_PREFIX + 'persons/exists?username=' + value).end((data) => {
                 if (data === 'true') {
                     this.setState({usernameExists: true});
                 } else {

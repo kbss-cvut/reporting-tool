@@ -14,16 +14,17 @@
  */
 'use strict';
 
-var Reflux = require('reflux');
-var jsonld = require('jsonld');
+const Reflux = require('reflux');
+const jsonld = require('jsonld');
 
-var Actions = require('../actions/Actions');
-var Ajax = require('../utils/Ajax');
-var Logger = require('../utils/Logger');
+const Actions = require('../actions/Actions');
+const Ajax = require('../utils/Ajax');
+const Constants = require('../constants/Constants');
+const Logger = require('../utils/Logger');
 
-var options = {};
+const options = {};
 
-var FormGenStore = Reflux.createStore({
+const FormGenStore = Reflux.createStore({
     init: function () {
         this.listenTo(Actions.loadFormOptions, this.onLoadFormOptions);
     },
@@ -33,7 +34,7 @@ var FormGenStore = Reflux.createStore({
             this.trigger(id, options[id]);
             return;
         }
-        Ajax.get('rest/formGen/possibleValues?query=' + encodeURIComponent(query)).end(function (data) {
+        Ajax.get(Constants.REST_PREFIX + 'formGen/possibleValues?query=' + encodeURIComponent(query)).end(function (data) {
             if (data.length > 0) {
                 jsonld.frame(data, {}, null, function (err, framed) {
                     options[id] = framed['@graph'];

@@ -22,8 +22,8 @@ const Constants = require('../constants/Constants');
 const JsonReferenceResolver = require('../utils/JsonReferenceResolver').default;
 const Utils = require('../utils/Utils');
 
-const BASE_URL = 'rest/reports';
-const BASE_URL_WITH_SLASH = 'rest/reports/';
+const BASE_URL = Constants.REST_PREFIX + 'reports';
+const BASE_URL_WITH_SLASH = Constants.REST_PREFIX + 'reports/';
 
 // When reports are being loaded, do not send the request again
 let reportsLoading = false;

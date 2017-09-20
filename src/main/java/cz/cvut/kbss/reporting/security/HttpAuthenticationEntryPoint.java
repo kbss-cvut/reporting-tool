@@ -25,8 +25,6 @@ import java.io.IOException;
 
 /**
  * Returns 401 Unauthorized response when the user tries to access a resource and is not logged in.
- *
- * @author ledvima1
  */
 @Component
 public class HttpAuthenticationEntryPoint implements AuthenticationEntryPoint {

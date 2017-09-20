@@ -21,13 +21,18 @@ import cz.cvut.kbss.reporting.model.Person;
 import cz.cvut.kbss.reporting.persistence.dao.GenericDao;
 import cz.cvut.kbss.reporting.persistence.dao.PersonDao;
 import cz.cvut.kbss.reporting.service.PersonService;
+import cz.cvut.kbss.reporting.service.event.LoginAttemptsThresholdExceeded;
 import cz.cvut.kbss.reporting.service.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
-public class RepositoryPersonService extends BaseRepositoryService<Person> implements PersonService {
+public class RepositoryPersonService extends BaseRepositoryService<Person>
+        implements PersonService, ApplicationListener<LoginAttemptsThresholdExceeded> {
 
     private final PasswordEncoder passwordEncoder;
 
@@ -93,5 +98,40 @@ public class RepositoryPersonService extends BaseRepositoryService<Person> imple
     @Override
     public boolean exists(String username) {
         return findByUsername(username) != null;
+    }
+
+    @Override
+    public void unlock(Person user, String newPassword) {
+        Objects.requireNonNull(user);
+        Objects.requireNonNull(newPassword);
+        user.unlock();
+        user.setPassword(newPassword);
+        user.encodePassword(passwordEncoder);
+        personDao.update(user);
+        LOG.info("Unlocked user account {}.", user);
+    }
+
+    @Override
+    public void enable(Person user) {
+        Objects.requireNonNull(user);
+        user.enable();
+        personDao.update(user);
+        LOG.info("Enabled user account {}.", user);
+    }
+
+    @Override
+    public void disable(Person user) {
+        Objects.requireNonNull(user);
+        user.disable();
+        personDao.update(user);
+        LOG.info("Disabled user account {}.", user);
+    }
+
+    @Override
+    public void onApplicationEvent(LoginAttemptsThresholdExceeded event) {
+        final Person toDisable = personDao.find(event.getUser().getUri());
+        toDisable.lock();
+        personDao.update(toDisable);
+        LOG.info("Locked user account {}.", toDisable);
     }
 }
