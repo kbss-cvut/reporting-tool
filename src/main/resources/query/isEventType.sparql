@@ -12,17 +12,17 @@ PREFIX aviation-safety: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>
 
 ASK WHERE {
     {
-      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://localhost:18080/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
          # all events
          <a-390> eccairs-model:has-child+ ?term .
       }
     } UNION {
-      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://localhost:18080/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
          # all descriptive factors
          <a-385> eccairs-model:has-child+ ?term .
       }
     } UNION {
-      SERVICE <http://dev.inbas.cz/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
+      SERVICE <http://localhost:18080/rdf4j-server/repositories/eccairs-aviation-3.4.0.2> {
          # all explanatory factors
          <a-392> eccairs-model:has-child+ ?term .
       }
