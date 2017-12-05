@@ -30,7 +30,8 @@ public class XMLUtilsTest {
 
     @Test
     public void loadsSchemaFromRemoteUrl() throws Exception {
-        final String location = E5XTerms.dataTypesNS;
+        // Had to replace the original ECCAIRS XSD, because it is often offline
+        final String location = "https://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd";
         final Schema s = XMLUtils.loadSchema(location);
         assertNotNull(s);
     }
