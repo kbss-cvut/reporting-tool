@@ -35,7 +35,7 @@
     "reflux": "~0.4.1",
     "remarkable": "~1.6.2",
     "semforms": "https://kbss.felk.cvut.cz/dist/semforms-0.1.4.tgz",
-    "superagent": "~1.8.3"
+    "superagent": "~3.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.5",
